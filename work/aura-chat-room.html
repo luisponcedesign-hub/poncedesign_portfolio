@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className += ' js';</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ask Aura — AI Chat Room — Seismic · Luis Ponce de León</title>
+<meta name="description" content="Generative analytics as a conversation. Designing the chat surface that lets users ask Seismic&#x27;s AI a question in plain language — and trust the answer that comes back.">
+<meta name="theme-color" content="#FAF8F4">
+<link rel="canonical" href="https://poncedesign.com/work/aura-chat-room.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ask Aura — AI Chat Room — Seismic">
+<meta property="og:description" content="Generative analytics as a conversation. Designing the chat surface that lets users ask Seismic&#x27;s AI a question in plain language — and trust the answer that comes back.">
+<meta property="og:image" content="../assets/img/thumbs/aura-chat-room.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='%23E8630B'/><circle cx='16' cy='16' r='5' fill='%23F5B301'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<a class="skip" href="#case">Skip to case study</a>
+<div id="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="curtain" aria-hidden="true"></div>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
+      <span class="sub">Product Design</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#craft">Craft</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <a class="btn" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
+      Let's talk <span class="arw" aria-hidden="true">→</span>
+    </a>
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="../index.html#work">Work <i>01</i></a>
+  <a href="../index.html#craft">Craft <i>02</i></a>
+  <a href="../index.html#about">About <i>03</i></a>
+  <a href="../index.html#contact">Contact <i>04</i></a>
+  <a href="mailto:luisponcedesign@gmail.com">Email <i>05</i></a>
+</div>
+
+<main>
+<section class="case-hero">
+  <div class="blob a" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
+    <p class="eyebrow">Seismic &nbsp;·&nbsp; 2024</p>
+    <h1 data-rv>Ask Aura — AI Chat Room</h1>
+    <p class="lead" data-rv data-rv-delay="0.08">Generative analytics as a conversation. Designing the chat surface that lets users ask Seismic&#x27;s AI a question in plain language — and trust the answer that comes back.</p>
+
+    <div class="facts" data-rv data-rv-delay="0.14">
+      <div><h4>Client</h4><p>Seismic</p></div>
+      <div><h4>Year</h4><p>2024</p></div>
+      <div><h4>Role</h4><p>Lead Product Designer</p></div>
+      <div><h4>Focus</h4><p>AI · Product UX · Conversational</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <figure class="cover" data-rv="scale" style="max-width:1040px">
+    <img src="../assets/img/thumbs/aura-chat-room.png" alt="Ask Aura — AI Chat Room — Seismic" width="743" height="581" decoding="async">
+  </figure>
+</div>
+
+<section class="case-body" id="case">
+  <div class="wrap">
+    <div class="col">
+      <div class="blk" data-rv>
+        <h2>The premise</h2>
+        <p>Generative Analytics lets you chat with Aura, Seismic's AI. The hard part was never the model — it was designing an interface that sets the right expectation about what the assistant can and cannot answer, and then reliably meets it.</p>
+        <p>Aura works against a curated, deliberately smaller dataset so it can answer confidently on the topics users ask about most. Designing around that boundary — rather than hiding it — was the core UX decision.</p>
+        <blockquote class="pull">Like Siri, clear and concise communication is the best way to ensure Aura correctly processes your needs and provides accurate answers.</blockquote>
+        <h2>How the design evolved</h2>
+        <ul class="bul">
+          <li><b>Initial concept.</b> Ideation on what a chat room inside an enablement platform should even be — assistant, search replacement, or analyst.</li>
+          <li><b>V1 — pilot.</b> First shipping implementation, deliberately narrow, put in front of real users to learn where the conversation broke down.</li>
+          <li><b>V2 — revised layout.</b> Reworked interactions and refined branding, based directly on where pilot users hesitated, re-asked, or gave up.</li>
+          <li><b>In product.</b> The pattern now lives in the shipping product and became the reference point for later Aura surfaces, including mobile.</li>
+        </ul>
+        <h2>The design problem underneath</h2>
+        <p>Conversational UI removes affordances. There are no menus telling the user what is possible, so the interface has to teach capability through prompt suggestions, response framing, and graceful failure. Getting that scaffolding right is what separated V1 from V2.</p>
+        <aside class="note"><b>Editor's note</b><p>This case study is built from the source material on the original portfolio. If you have the pilot findings or in-product engagement numbers, drop them in and I'll add a Results block — the layout is already built for it.</p></aside>
+      </div>
+
+      <p data-rv><a class="linkout" href="https://poncedesign.myportfolio.com/aura-chat-room" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+    </div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="More projects">
+  <div class="pager-in">
+    <a class="pv" href="integrations-app-exchange.html"><span>← Previous project</span><strong>App Exchange &amp; Integrations Platform</strong></a>
+    <a class="nx" href="seismic-video.html"><span>Next project →</span><strong>Video Foundation Service</strong></a>
+  </div>
+</nav>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <span>© <span data-year>2026</span> Luis Ponce de León</span>
+    <a href="mailto:luisponcedesign@gmail.com">luisponcedesign@gmail.com</a>
+    <a class="to-top" href="#">Back to top <span class="arw" aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

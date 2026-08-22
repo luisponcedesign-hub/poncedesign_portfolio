@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className += ' js';</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dexcom G6 — User Journey + Device Integration — Dexcom · Luis Ponce de León</title>
+<meta name="description" content="Mapping the whole arc of life with intensive insulin therapy — diagnosis to purchase — then designing the device integrations that turn continuous glucose data into a decision the ">
+<meta name="theme-color" content="#FAF8F4">
+<link rel="canonical" href="https://poncedesign.com/work/dexcom-g6-cgm.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dexcom G6 — User Journey + Device Integration — Dexcom">
+<meta property="og:description" content="Mapping the whole arc of life with intensive insulin therapy — diagnosis to purchase — then designing the device integrations that turn continuous glucose data into a decision the ">
+<meta property="og:image" content="../assets/img/thumbs/dexcom-g6-cgm.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='%23E8630B'/><circle cx='16' cy='16' r='5' fill='%23F5B301'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<a class="skip" href="#case">Skip to case study</a>
+<div id="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="curtain" aria-hidden="true"></div>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
+      <span class="sub">Product Design</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#craft">Craft</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <a class="btn" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
+      Let's talk <span class="arw" aria-hidden="true">→</span>
+    </a>
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="../index.html#work">Work <i>01</i></a>
+  <a href="../index.html#craft">Craft <i>02</i></a>
+  <a href="../index.html#about">About <i>03</i></a>
+  <a href="../index.html#contact">Contact <i>04</i></a>
+  <a href="mailto:luisponcedesign@gmail.com">Email <i>05</i></a>
+</div>
+
+<main>
+<section class="case-hero">
+  <div class="blob a" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
+    <p class="eyebrow">Dexcom &nbsp;·&nbsp; 2019</p>
+    <h1 data-rv>Dexcom G6 — User Journey + Device Integration</h1>
+    <p class="lead" data-rv data-rv-delay="0.08">Mapping the whole arc of life with intensive insulin therapy — diagnosis to purchase — then designing the device integrations that turn continuous glucose data into a decision the patient can actually act on.</p>
+
+    <div class="facts" data-rv data-rv-delay="0.14">
+      <div><h4>Client</h4><p>Dexcom</p></div>
+      <div><h4>Year</h4><p>2019</p></div>
+      <div><h4>Role</h4><p>Senior UX Designer</p></div>
+      <div><h4>Focus</h4><p>Healthcare · Research · Mobile</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <figure class="cover" data-rv="scale" style="max-width:1040px">
+    <img src="../assets/img/thumbs/dexcom-g6-cgm.png" alt="Dexcom G6 — User Journey + Device Integration — Dexcom" width="1100" height="859" decoding="async">
+  </figure>
+</div>
+
+<section class="case-body" id="case">
+  <div class="wrap">
+    <div class="col">
+      <div class="blk" data-rv>
+        <h2>The problem</h2>
+        <p>A continuous glucose monitor produces a number every five minutes. That is the easy part. The hard part is everything that happens around the number — how much insulin to take, whether it is safe to run, what that meal did, why the reading is climbing at 2am. In 2019 that reasoning lived in the patient's head, in a paper logbook, or in three apps that did not talk to each other.</p>
+        <p>So the design question was not <i>how do we display glucose</i>. It was <b>where does the device's data become a decision</b> — and what has to connect to what for that to happen.</p>
+        <h2>Starting with the day, not the screen</h2>
+        <p>Before any interface work, I mapped a day in the life of a patient on intensive insulin therapy — eight ordinary moments, each with what the person is actually doing and saying to themselves.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/dexcom-g6-cgm/day-in-the-life.png" alt="Storyboard of eight daily moments for a patient on intensive insulin therapy" width="1200" height="750" loading="lazy" decoding="async">
+          <figcaption>Day in the life: wake up, exercise, breakfast, work, lunch, doctor visit, dinner, sleep — each annotated with the patient&#x27;s own actions and concerns.</figcaption>
+        </figure>
+        <p>The storyboard is where the design constraints came from. The very first action of the day is <i>I pick up the phone and check insulin level</i> — before coffee, before anything, and, as the frame notes, <i>I am alone since I just woke up</i>. Exercise carries its own checklist: <i>I check the G6 App · I am safe to exercise · I carry glucose tablets — just in case</i>. And the day ends on a genuinely bleak note: <i>I am headed for a low · I am annoyed that I have to eat when I am not hungry</i>.</p>
+        <blockquote class="pull">Nobody in this storyboard is admiring a chart. Every single frame is someone making a decision under time pressure, usually alone.</blockquote>
+        <h2>The lifecycle journey</h2>
+        <p>The daily view explains the product. The lifecycle view explains the business. I mapped the full arc for the <b>Engaged Experimenters</b> segment — consumer IIT CGM — from diagnosis through to purchase, tracking emotion on a relief-to-anxiety axis across seven stages.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/dexcom-g6-cgm/journey-map.png" alt="Lifecycle user journey map from diagnosis to purchase across seven stages" width="1280" height="720" loading="lazy" decoding="async">
+          <figcaption>Diagnosis → Reconciling → Increased Engagement → Experimentation → Follow-Up Appointments → Incident → Purchase, tracked across process, say, feel, do, treatment, and opportunity.</figcaption>
+        </figure>
+        <p>The segment describes itself as <i>a work in progress — but I like to try new things and stay on top of trends</i>, which is why the middle of the journey trends upward: <i>I am starting to feel a balance</i>, then <i>I feel physically stronger</i>.</p>
+        <p>Then the line falls off a cliff. The <b>Incident</b> stage is the emotional floor of the entire map — <i>I thought I was in control · This is scary · I need more help! · What would happen to my family?</i> — and the activity row is blunt about what it means: <i>I wake up at the hospital</i>.</p>
+        <blockquote class="pull">The doctor recommends a CGM at the emotional low point of the journey. The purchase decision is made by someone who has just been frightened — not by someone calmly comparing features.</blockquote>
+        <p>That reframed the acquisition experience. The stage immediately after the incident is pure friction — <i>patient information form, insurance form, pre-authorization, processing time 2/4 weeks</i> — landing on a person whose own words are <i>I feel cautiously optimistic · I am waiting and getting back on track</i>. Every week of that wait is a week of doubt, and the map made that visible to the business.</p>
+        <h2>Where the opportunities were</h2>
+        <p>Reading the opportunity row across all seven stages produced a ranked backlog rather than a wish list — each idea anchored to the moment it would actually be needed:</p>
+        <ul class="bul">
+          <li><b>Diagnosis.</b> Search optimization, an intro to diabetes, and a genuine first-steps path — this is where people are Googling, confused, and frightened.</li>
+          <li><b>Reconciling.</b> Bolus calculation, and help connecting meals to exercise.</li>
+          <li><b>Increased engagement.</b> Pens, pumps and CGM working together; voice assistance through Alexa and Siri.</li>
+          <li><b>Experimentation.</b> Community — <i>tell us your story, help us serve the community</i>.</li>
+          <li><b>Follow-up appointments.</b> An electronic logbook, replacing the paper one the patient brings to the doctor.</li>
+          <li><b>Purchase.</b> Introduce Clarity, then follow and share.</li>
+        </ul>
+        <h2>Four concepts</h2>
+        <p>I designed the integration concepts as single-frame stories: the human action on the left, what the app does with it on the right. Each one closes a specific loop the storyboard had exposed.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/dexcom-g6-cgm/concept-insulin-pens.png" alt="Smart insulin pen syncing dose history to the G6 app over Bluetooth" width="1800" height="1391" loading="lazy" decoding="async">
+          <figcaption>Smart insulin pens — Bluetooth automatically syncs dosing history to the G6 app, so the dose and the glucose curve finally sit on one timeline.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/case/dexcom-g6-cgm/concept-bolus-calculator.png" alt="Bolus calculator recommending an insulin dose from carbs and current glucose" width="1800" height="1391" loading="lazy" decoding="async">
+          <figcaption>Bolus calculator — takes carbs and the current reading, returns a recommended dose. This is the moment the number becomes an action.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/case/dexcom-g6-cgm/concept-meal-tracker.png" alt="Meal tracker showing glucose before and after a meal" width="1800" height="1391" loading="lazy" decoding="async">
+          <figcaption>Meal tracker — shows what each meal did, mealtime versus after. Answers the storyboard&#x27;s &lt;i&gt;what am I having for breakfast&lt;/i&gt; with evidence instead of guesswork.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/case/dexcom-g6-cgm/concept-activity-tracker.png" alt="Activity tracker auto-syncing exercise readings alongside the glucose curve" width="1800" height="1391" loading="lazy" decoding="async">
+          <figcaption>Activity tracker — auto-syncs exercise, stacking activity directly beneath the glucose trace so cause and effect are visible at a glance.</figcaption>
+        </figure>
+        <h2>Taking one all the way: Smart Pens</h2>
+        <p>Concepts are cheap. I took the pen integration through to a complete, buildable interaction — every screen, every branch, every failure state.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/dexcom-g6-cgm/smart-pens-flow.png" alt="Smart Pens integration UX showing the connecting flow, priming flow, and turning priming off" width="1800" height="1251" loading="lazy" decoding="async">
+          <figcaption>Smart Pens Integration UX — connecting flow, priming flow, and turning priming off, specified screen by screen.</figcaption>
+        </figure>
+        <ul class="bul">
+          <li><b>Connecting.</b> A new Connected Pens section in Settings, then add pen → pick device (Gocap, Novo Nordisk) → plug-in instructions → the list of advertised Bluetooth devices in range.</li>
+          <li><b>Verifying.</b> A device test confirms the hardware actually matches the type selected — with a designed <i>unable to verify</i> path for when it does not, rather than a dead end.</li>
+          <li><b>Priming.</b> Asks whether the user primes before every dose, captures the amount, and confirms it — because priming behaviour changes what the dosing data means.</li>
+          <li><b>Turning it off.</b> A local toggle on the pen detail page, with the consequence stated plainly: when priming is switched on again, the previous reading is not maintained.</li>
+          <li><b>Managing.</b> Connected pens can be revisited, re-primed, or forgotten from the device detail page.</li>
+        </ul>
+        <blockquote class="pull">A connection flow for a medical device is not an onboarding screen. It is a chain where every link needs a designed failure state, because the failure is someone's insulin dose.</blockquote>
+        <h2>What the work established</h2>
+        <p>The journey map gave the organization a shared picture of where a CGM actually enters someone's life — after a crisis, through a doctor, into a waiting period nobody had designed for. The day-in-the-life storyboard kept the feature work honest about the conditions it would be used in. And the Smart Pens flow proved the integration thesis end to end: that the value of the device is not the reading, but everything the reading can be connected to.</p>
+        <aside class="note"><b>Editor's note</b><p>The artefacts on this page are the original 2018–2019 research and design deliverables. If you want the research participant counts, the testing findings, or the shipped outcomes added, send them over and I'll extend the page.</p></aside>
+      </div>
+
+      <p data-rv><a class="linkout" href="https://poncedesign.myportfolio.com/dexcom-g6-cgm" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+    </div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="More projects">
+  <div class="pager-in">
+    <a class="pv" href="vacasa-reservation-management.html"><span>← Previous project</span><strong>Reservation Management — Revamped</strong></a>
+    <a class="nx" href="viewpoint-submittals.html"><span>Next project →</span><strong>Viewpoint Online — Submittals UX</strong></a>
+  </div>
+</nav>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <span>© <span data-year>2026</span> Luis Ponce de León</span>
+    <a href="mailto:luisponcedesign@gmail.com">luisponcedesign@gmail.com</a>
+    <a class="to-top" href="#">Back to top <span class="arw" aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

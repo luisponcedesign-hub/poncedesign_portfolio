@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className += ' js';</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Video Foundation Service — Seismic · Luis Ponce de León</title>
+<meta name="description" content="Consolidating a fragmented video experience into one architecture — playback, recording, upload and editing — for customers whose expectations are set by YouTube and Netflix.">
+<meta name="theme-color" content="#FAF8F4">
+<link rel="canonical" href="https://poncedesign.com/work/seismic-video.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Video Foundation Service — Seismic">
+<meta property="og:description" content="Consolidating a fragmented video experience into one architecture — playback, recording, upload and editing — for customers whose expectations are set by YouTube and Netflix.">
+<meta property="og:image" content="../assets/img/thumbs/seismic-video.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='%23E8630B'/><circle cx='16' cy='16' r='5' fill='%23F5B301'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<a class="skip" href="#case">Skip to case study</a>
+<div id="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="curtain" aria-hidden="true"></div>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
+      <span class="sub">Product Design</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#craft">Craft</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <a class="btn" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
+      Let's talk <span class="arw" aria-hidden="true">→</span>
+    </a>
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="../index.html#work">Work <i>01</i></a>
+  <a href="../index.html#craft">Craft <i>02</i></a>
+  <a href="../index.html#about">About <i>03</i></a>
+  <a href="../index.html#contact">Contact <i>04</i></a>
+  <a href="mailto:luisponcedesign@gmail.com">Email <i>05</i></a>
+</div>
+
+<main>
+<section class="case-hero">
+  <div class="blob a" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
+    <p class="eyebrow">Seismic &nbsp;·&nbsp; 2024</p>
+    <h1 data-rv>Video Foundation Service</h1>
+    <p class="lead" data-rv data-rv-delay="0.08">Consolidating a fragmented video experience into one architecture — playback, recording, upload and editing — for customers whose expectations are set by YouTube and Netflix.</p>
+
+    <div class="facts" data-rv data-rv-delay="0.14">
+      <div><h4>Client</h4><p>Seismic</p></div>
+      <div><h4>Year</h4><p>2024</p></div>
+      <div><h4>Role</h4><p>Lead Product Designer</p></div>
+      <div><h4>Focus</h4><p>Rich Media · Platform · Motion</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <figure class="cover" data-rv="scale" style="max-width:1040px">
+    <img src="../assets/img/thumbs/seismic-video.png" alt="Video Foundation Service — Seismic" width="712" height="556" decoding="async">
+  </figure>
+</div>
+
+<section class="case-body" id="case">
+  <div class="wrap">
+    <div class="col">
+      <div class="blk" data-rv>
+        <h2>The problem</h2>
+        <p>The user experience for video and related assets in Seismic was sub-standard and fragmented. Playback, recording, upload, and management had each been built separately, at different times, against different assumptions.</p>
+        <p>Two shifts made that unsustainable. First, customer expectations are now set by <b>YouTube and Netflix</b> — consumer-grade video is the baseline, not a differentiator. Second, remote work made everyone a video producer: <b>Zoom, Chorus, and Gong</b> normalized recording yourself, so users arrived already fluent and already impatient.</p>
+        <h2>Four initiatives</h2>
+        <ul class="bul">
+          <li><b>Video Foundation Service (VFS).</b> A unified architecture acting as the single integration point for third-party video platforms — managing media, transcripts, captions, thumbnails, and GIFs in one place.</li>
+          <li><b>Enhanced playback and recording.</b> Updates to the Universal Player and the User Generated Video Recorder, with third-party provider integrations behind a consistent interface.</li>
+          <li><b>Upload and download components.</b> Configurable, reusable components that work across media and traditional content types instead of forking per content type.</li>
+          <li><b>Video editing.</b> New capabilities to edit videos or add text, images, graphics, and calls-to-action — bringing personalization and collaboration into the video workflow itself.</li>
+        </ul>
+        <h2>Why a foundation, not a feature</h2>
+        <p>Every one of these could have shipped as an isolated improvement. Designing them against a shared service meant transcripts, captions, and thumbnails behave identically wherever video appears — and that each new video capability gets cheaper to add, not more expensive.</p>
+        <blockquote class="pull">Fragmentation is a design problem before it is an engineering one. Users don't experience your architecture; they experience its seams.</blockquote>
+      </div>
+
+      <p data-rv><a class="linkout" href="https://poncedesign.myportfolio.com/seismic-video" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+    </div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="More projects">
+  <div class="pager-in">
+    <a class="pv" href="aura-chat-room.html"><span>← Previous project</span><strong>Ask Aura — AI Chat Room</strong></a>
+    <a class="nx" href="vacasa-cx-innovation.html"><span>Next project →</span><strong>CX Innovation Roadmap + Design Sprint</strong></a>
+  </div>
+</nav>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <span>© <span data-year>2026</span> Luis Ponce de León</span>
+    <a href="mailto:luisponcedesign@gmail.com">luisponcedesign@gmail.com</a>
+    <a class="to-top" href="#">Back to top <span class="arw" aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

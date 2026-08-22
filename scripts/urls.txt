@@ -1,0 +1,16 @@
+headshot|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/251c4c98-9afa-48eb-83f9-9ad12bff1a04_rwc_134x236x898x702x898.jpg?h=0cfc90a96e02cf262505ee4192fc3ec4
+mobile-aura-voice|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/679cba58-2efc-4e37-a591-91aa31f10940_rwc_974x254x430x336x430.jpg?h=2a9541ef645feebfdb56ecf28fac05e1
+integrations-app-exchange|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/7ef798bb-802f-40aa-8b13-13289e02f416_rwc_0x314x1280x1000x1280.png?h=16e12c9697af73c1988fb2182fee2649
+aura-chat-room|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/3033cc90-6def-4f98-9a80-cd4e62c98599_rwc_983x364x743x581x743.png?h=7f7948c4ec1010e81b1d5d694057b739
+seismic-video|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/46940e04-59c9-4793-98f9-b39164b714d1_rwc_611x492x712x556x712.png?h=e4cdea706fe81eaba3017e3382aab5d7
+seismic-learning-sessions|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/9c3e962f-cca9-4fc1-ba51-6c2ce220ea93_rwc_227x0x736x576x736.png?h=5ccf7f9c8a329c4e95df44b27f8a3e90
+seismic-online-meetings|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/863d39f0-d4be-4b52-868b-9f3d08ef2c57_rwc_0x0x690x540x690.png?h=d0417a2e48fbaf81fb31570ad4154ad1
+seismic-workflow-approval|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/c24f6e7c-ef37-44d4-82c3-b9a13c8404f2_rwc_799x327x636x497x636.jpg?h=0e22a0be3ca32737d1260c9ae2026c74
+vacasa-cx-innovation|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/dc50b883-6d79-4e90-b2f4-1f8f2b627a1b_rwc_94x19x862x674x862.png?h=9958cbe5d5fa219ab24fe472c42155ce
+vacasa-reservation-management|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/081fe004-eb6b-46f0-a0e9-39310c8483e9_rwc_848x319x549x429x549.png?h=2645b9006698f2c6717da289c3fb1304
+dexcom-g6-cgm|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/1eadb39d-6287-4afb-8a38-32a088f2b39e_rwc_5x276x1125x879x1125.png?h=b230973227b06cb64fd56a4515f303a3
+viewpoint-submittals|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/9a714c40574973.5784da6a54067_rwc_0x307x1353x1057x1353.png?h=984b9e1e6e06e0409ce863eb02c2efac
+vista-search|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/6c7aac466d3a98ecc5d0c8c3947643fc5804dca3a0eb2593c2675f731c101297fa17081269791248_rwc_133x1113x1338x1046x1338.png?h=edd845fff71bd4941ffa2bd84a9e1b7a
+mobile-field-manager|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/9ba1e1a54e364890db57efe3feee8b03fb192f817c69dfac106ed3f6e3fe23cb8e00390b65afceb0_car_202x158.png?h=68de04b1b96ab3c734a6b97fbb8dd4ab
+webmd-device-integration|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/f7f956d9-0e27-4eea-8d1d-c2800e4c3636_rwc_290x707x477x373x477.jpg?h=04a92d9c475ee8e9f5888a3ce09873dd
+bcbsa-fep-member-statement|https://cdn.myportfolio.com/075ad88fff994a9e106253b7ba1cfeb6/e2dd020b-1f5c-4f1d-8f30-6cde3101ec21_rwc_130x77x738x577x738.png?h=2c9fce8e504e990e75fe0701e76db4ab

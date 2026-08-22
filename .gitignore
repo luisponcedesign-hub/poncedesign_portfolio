@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+._*
+
+# Editor / local tooling
+.claude/settings.local.json
+*.log
+
+# Python bytecode from the build script
+__pycache__/
+*.pyc

@@ -1,0 +1,727 @@
+{
+  "profile": {
+    "name": "Luis Ponce de León",
+    "role": "Product Designer",
+    "email": "luisponcedesign@gmail.com",
+    "city": "Portland, OR",
+    "roles": [
+      "Product Design",
+      "UX Strategy",
+      "Motion Graphics",
+      "Rich Media",
+      "Design Systems"
+    ],
+    "social": [
+      {
+        "t": "LinkedIn",
+        "u": "https://www.linkedin.com/in/ponce/"
+      },
+      {
+        "t": "Instagram",
+        "u": "https://www.instagram.com/madridportland/"
+      },
+      {
+        "t": "Medium",
+        "u": "https://medium.com/@luisponcedesign"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "slug": "mobile-aura-voice",
+      "title": "AI-Powered Mobile",
+      "client": "Seismic",
+      "year": "2026",
+      "tags": [
+        "AI",
+        "Mobile",
+        "Product UX"
+      ],
+      "role": "Lead Product Designer",
+      "thumb": "mobile-aura-voice.jpg",
+      "size": "hero-card",
+      "summary": "A ground-up transformation of Seismic Mobile that embedded Aura AI directly into seller workflows — reversing years of flat engagement and turning the app into an AI-enabled productivity surface.",
+      "sections": [
+        {
+          "h": "The problem"
+        },
+        {
+          "p": "Seismic Mobile had stalled. Monthly active usage had flattened, the information architecture predated the company's move into AI, and sellers who lived in the desktop product had little reason to open the phone app. Meanwhile the market had shifted: buyers expected assistive, conversational tooling everywhere they worked."
+        },
+        {
+          "p": "The brief was not <i>add AI to mobile</i>. It was to rebuild the mobile surface so that AI had somewhere coherent to live — and so that everything after it could ship faster."
+        },
+        {
+          "h": "Approach"
+        },
+        {
+          "ul": [
+            "<b>Rearchitected the app shell</b> so navigation, content, and assistive features shared one modern foundation instead of three legacy ones.",
+            "<b>Embedded Aura Chat</b> into the primary workflow rather than parking it behind a separate tab — the assistant appears where the seller already is.",
+            "<b>Designed Podcast Generation</b>, turning long-form enablement content into audio a seller can consume between meetings.",
+            "<b>Ran a Fall release pilot</b> with real customers and folded their feedback into the shipping design.",
+            "<b>Laid groundwork for what comes next</b> — Aura Voice-to-Voice, Omnipresent Aura Chat, DSR, and Bulk Email on Mobile all build on this architecture."
+          ]
+        },
+        {
+          "h": "Results"
+        },
+        {
+          "kpis": [
+            {
+              "v": "+25%",
+              "l": "Mobile MAU year over year, reversing prior stagnation"
+            },
+            {
+              "v": "13,025",
+              "l": "Monthly active users in Jan 2026, up from 10,395"
+            },
+            {
+              "v": "57",
+              "l": "Customers enrolled in the Fall release pilot"
+            },
+            {
+              "v": "47/101",
+              "l": "Shift 2025 survey respondents interested in Mobile with Aura"
+            }
+          ]
+        },
+        {
+          "p": "Customers specifically called out improved usability, navigation, and overall experience. Strategically, the work repositioned Mobile from a checkbox feature into a competitive surface — and the modernized architecture became the scalable foundation the FY26 roadmap depends on."
+        },
+        {
+          "pull": "The redesign didn't just add an assistant. It gave the assistant a product to live in."
+        }
+      ],
+      "orig": "https://poncedesign.myportfolio.com/mobile-aura-voice"
+    },
+    {
+      "slug": "integrations-app-exchange",
+      "title": "App Exchange & Integrations Platform",
+      "client": "Seismic",
+      "year": "2025",
+      "tags": [
+        "Platform",
+        "Enterprise",
+        "Design Systems"
+      ],
+      "role": "Lead Product Designer",
+      "thumb": "integrations-app-exchange.png",
+      "size": "wide",
+      "summary": "Five connected surfaces — Exchange, Dev Portal, App Registry, CRM flows and Slack — redesigned so sellers never leave their flow of work, and so partners can extend the platform themselves.",
+      "sections": [
+        {
+          "h": "The problem"
+        },
+        {
+          "p": "Revenue teams don't work in one tool. They work in Salesforce, Microsoft 365, Slack, Zoom, and over 150 others. Every context switch to go find the right content is a tax on the seller and a leak in the funnel."
+        },
+        {
+          "p": "Three forces were compounding: <b>tool fatigue</b> across the seller's day, a <b>fragmented technology ecosystem</b> that made integrations feel bolted on, and a near-term need to make the platform ready for <b>scalable AI agent integration</b>."
+        },
+        {
+          "pull": "Seismic connects seamlessly with the tools revenue teams already rely on — so sellers never have to leave their flow of work to find the right content."
+        },
+        {
+          "h": "What I designed"
+        },
+        {
+          "ul": [
+            "<b>Seismic Exchange — modernization.</b> Rebuilt the public marketplace so customers can discover, evaluate, and install integrations without needing a sales conversation.",
+            "<b>Developer Portal — redesign.</b> Restructured the partner-facing documentation and onboarding path so third parties can self-serve their way to a working integration.",
+            "<b>App Registry — enhancements.</b> Clarified the lifecycle of registering, permissioning, and publishing an app.",
+            "<b>CRM — UX flows and design updates.</b> Reworked the in-CRM experience, where the majority of seller time is actually spent.",
+            "<b>Slack — best practices and design.</b> Defined the interaction patterns for Seismic inside a conversational surface, where screen real estate and attention are both scarce."
+          ]
+        },
+        {
+          "h": "Why it mattered"
+        },
+        {
+          "p": "Treating integrations as a designed platform rather than a list of connectors did two things at once: it removed friction from the seller's day, and it turned every partner into a distribution channel. The consistency across the five surfaces is what makes the ecosystem legible — and what makes AI agents able to reason about it."
+        },
+        {
+          "links": [
+            {
+              "t": "Seismic Exchange",
+              "u": "https://exchange.seismic.com/"
+            },
+            {
+              "t": "Developer Portal",
+              "u": "https://developer.seismic.com/seismicsoftware/"
+            }
+          ]
+        }
+      ],
+      "orig": "https://poncedesign.myportfolio.com/integrations-app-exchange-apis-slack-crm-2006"
+    },
+    {
+      "slug": "aura-chat-room",
+      "title": "Ask Aura — AI Chat Room",
+      "client": "Seismic",
+      "year": "2024",
+      "tags": [
+        "AI",
+        "Product UX",
+        "Conversational"
+      ],
+      "role": "Lead Product Designer",
+      "thumb": "aura-chat-room.png",
+      "size": "wide",
+      "summary": "Generative analytics as a conversation. Designing the chat surface that lets users ask Seismic's AI a question in plain language — and trust the answer that comes back.",
+      "sections": [
+        {
+          "h": "The premise"
+        },
+        {
+          "p": "Generative Analytics lets you chat with Aura, Seismic's AI. The hard part was never the model — it was designing an interface that sets the right expectation about what the assistant can and cannot answer, and then reliably meets it."
+        },
+        {
+          "p": "Aura works against a curated, deliberately smaller dataset so it can answer confidently on the topics users ask about most. Designing around that boundary — rather than hiding it — was the core UX decision."
+        },
+        {
+          "pull": "Like Siri, clear and concise communication is the best way to ensure Aura correctly processes your needs and provides accurate answers."
+        },
+        {
+          "h": "How the design evolved"
+        },
+        {
+          "ul": [
+            "<b>Initial concept.</b> Ideation on what a chat room inside an enablement platform should even be — assistant, search replacement, or analyst.",
+            "<b>V1 — pilot.</b> First shipping implementation, deliberately narrow, put in front of real users to learn where the conversation broke down.",
+            "<b>V2 — revised layout.</b> Reworked interactions and refined branding, based directly on where pilot users hesitated, re-asked, or gave up.",
+            "<b>In product.</b> The pattern now lives in the shipping product and became the reference point for later Aura surfaces, including mobile."
+          ]
+        },
+        {
+          "h": "The design problem underneath"
+        },
+        {
+          "p": "Conversational UI removes affordances. There are no menus telling the user what is possible, so the interface has to teach capability through prompt suggestions, response framing, and graceful failure. Getting that scaffolding right is what separated V1 from V2."
+        },
+        {
+          "note": "This case study is built from the source material on the original portfolio. If you have the pilot findings or in-product engagement numbers, drop them in and I'll add a Results block — the layout is already built for it."
+        }
+      ],
+      "orig": "https://poncedesign.myportfolio.com/aura-chat-room"
+    },
+    {
+      "slug": "seismic-video",
+      "title": "Video Foundation Service",
+      "client": "Seismic",
+      "year": "2024",
+      "tags": [
+        "Rich Media",
+        "Platform",
+        "Motion"
+      ],
+      "role": "Lead Product Designer",
+      "thumb": "seismic-video.png",
+      "size": "wide",
+      "summary": "Consolidating a fragmented video experience into one architecture — playback, recording, upload and editing — for customers whose expectations are set by YouTube and Netflix.",
+      "sections": [
+        {
+          "h": "The problem"
+        },
+        {
+          "p": "The user experience for video and related assets in Seismic was sub-standard and fragmented. Playback, recording, upload, and management had each been built separately, at different times, against different assumptions."
+        },
+        {
+          "p": "Two shifts made that unsustainable. First, customer expectations are now set by <b>YouTube and Netflix</b> — consumer-grade video is the baseline, not a differentiator. Second, remote work made everyone a video producer: <b>Zoom, Chorus, and Gong</b> normalized recording yourself, so users arrived already fluent and already impatient."
+        },
+        {
+          "h": "Four initiatives"
+        },
+        {
+          "ul": [
+            "<b>Video Foundation Service (VFS).</b> A unified architecture acting as the single integration point for third-party video platforms — managing media, transcripts, captions, thumbnails, and GIFs in one place.",
+            "<b>Enhanced playback and recording.</b> Updates to the Universal Player and the User Generated Video Recorder, with third-party provider integrations behind a consistent interface.",
+            "<b>Upload and download components.</b> Configurable, reusable components that work across media and traditional content types instead of forking per content type.",
+            "<b>Video editing.</b> New capabilities to edit videos or add text, images, graphics, and calls-to-action — bringing personalization and collaboration into the video workflow itself."
+          ]
+        },
+        {
+          "h": "Why a foundation, not a feature"
+        },
+        {
+          "p": "Every one of these could have shipped as an isolated improvement. Designing them against a shared service meant transcripts, captions, and thumbnails behave identically wherever video appears — and that each new video capability gets cheaper to add, not more expensive."
+        },
+        {
+          "pull": "Fragmentation is a design problem before it is an engineering one. Users don't experience your architecture; they experience its seams."
+        }
+      ],
+      "orig": "https://poncedesign.myportfolio.com/seismic-video"
+    },
+    {
+      "slug": "vacasa-cx-innovation",
+      "title": "CX Innovation Roadmap + Design Sprint",
+      "client": "Vacasa",
+      "year": "2020",
+      "tags": [
+        "Strategy",
+        "Research",
+        "Facilitation"
+      ],
+      "role": "Senior Product Designer / Sprint Facilitator",
+      "thumb": "vacasa-cx-innovation.png",
+      "size": "wide",
+      "summary": "Design-thinking strategies for a next-generation customer experience — running the sprint that turned an ambiguous CX mandate into a sequenced, defensible roadmap.",
+      "sections": [
+        {
+          "h": "The brief"
+        },
+        {
+          "p": "<i>Improve the customer experience</i> is the kind of mandate that produces a year of unfocused work. The job was to convert it into something a team could actually build against: a shared understanding of the current-state journey, a ranked set of opportunities, and a roadmap leadership would fund."
+        },
+        {
+          "h": "Design thinking, applied"
+        },
+        {
+          "ul": [
+            "<b>Discover.</b> Mapped the existing reservation-management journey end to end and gathered the friction already visible in support and operations.",
+            "<b>Define.</b> Reframed scattered complaints into a small number of well-formed problem statements the group could vote on.",
+            "<b>Ideate.</b> Facilitated cross-functional sprint sessions — product, engineering, operations, and support in the same room — so solutions carried buy-in from the start.",
+            "<b>Prototype.</b> Built concepts fast and cheap, sized for a decision rather than for polish.",
+            "<b>Test.</b> Put them in front of users and let the roadmap ordering fall out of what actually tested well."
+          ]
+        },
+        {
+          "pull": "A sprint's real output isn't the prototype. It's a room full of people who now agree on which problem is worth solving first."
+        },
+        {
+          "h": "Outcome"
+        },
+        {
+          "p": "The sprint produced the CX innovation roadmap that fed directly into the <a href='vacasa-reservation-management.html'>Reservation Management revamp</a> — the concepts validated here became the design work that shipped."
+        },
+        {
+          "note": "The original page for this project is image-led, so the narrative above is reconstructed from the sprint framing. Send me your sprint artifacts, participant count, or the roadmap deck and I'll swap in the specifics."
+        }
+      ],
+      "orig": "https://poncedesign.myportfolio.com/vacasa-cx-reservation-management-tool"
+    },
+    {
+      "slug": "seismic-learning-sessions",
+      "title": "Learning Sessions — Information Architecture",
+      "client": "Seismic",
+      "year": "2023",
+      "tags": [
+        "IA",
+        "Research",
+        "Enterprise"
+      ],
+      "role": "Lead Product Designer",
+      "thumb": "seismic-learning-sessions.png",
+      "summary": "Restructuring the Learning Sessions program around how users actually build mental models of content — users, context, and information architecture treated as one system.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/seismic-learning-sessions-program-ia-2023"
+    },
+    {
+      "slug": "seismic-online-meetings",
+      "title": "Seismic for Meetings",
+      "client": "Seismic",
+      "year": "2022",
+      "tags": [
+        "Product UX",
+        "Rich Media"
+      ],
+      "role": "Lead Product Designer",
+      "thumb": "seismic-online-meetings.png",
+      "summary": "Bringing digital sales insights into the live meeting — surfacing the right content and the right signals while the conversation is still happening.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/seismic-online-meetings"
+    },
+    {
+      "slug": "seismic-workflow-approval",
+      "title": "Approval Workflow",
+      "client": "Seismic",
+      "year": "2021",
+      "tags": [
+        "Enterprise",
+        "Product UX",
+        "Design Systems"
+      ],
+      "role": "Lead Product Designer",
+      "thumb": "seismic-workflow-approval.jpg",
+      "summary": "Making a compliance-critical multi-stage review process legible — who has it, what changed, and what happens next, at a glance.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/seismic-workflow-approval-ux"
+    },
+    {
+      "slug": "vacasa-reservation-management",
+      "title": "Reservation Management — Revamped",
+      "client": "Vacasa",
+      "year": "2020",
+      "tags": [
+        "Product UX",
+        "Enterprise"
+      ],
+      "role": "Senior Product Designer",
+      "thumb": "vacasa-reservation-management.png",
+      "summary": "The build phase of the CX roadmap: a full redesign of the reservation management tool used daily by Vacasa's operations teams.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/vacasa-reservation-management-revamped-design-2020"
+    },
+    {
+      "slug": "dexcom-g6-cgm",
+      "title": "Dexcom G6 — User Journey + Device Integration",
+      "client": "Dexcom",
+      "year": "2019",
+      "tags": [
+        "Healthcare",
+        "Research",
+        "Mobile"
+      ],
+      "role": "Senior UX Designer",
+      "thumb": "dexcom-g6-cgm.png",
+      "summary": "Mapping the whole arc of life with intensive insulin therapy — diagnosis to purchase — then designing the device integrations that turn continuous glucose data into a decision the patient can actually act on.",
+      "orig": "https://poncedesign.myportfolio.com/dexcom-g6-cgm",
+      "sections": [
+        {
+          "h": "The problem"
+        },
+        {
+          "p": "A continuous glucose monitor produces a number every five minutes. That is the easy part. The hard part is everything that happens around the number — how much insulin to take, whether it is safe to run, what that meal did, why the reading is climbing at 2am. In 2019 that reasoning lived in the patient's head, in a paper logbook, or in three apps that did not talk to each other."
+        },
+        {
+          "p": "So the design question was not <i>how do we display glucose</i>. It was <b>where does the device's data become a decision</b> — and what has to connect to what for that to happen."
+        },
+        {
+          "h": "Starting with the day, not the screen"
+        },
+        {
+          "p": "Before any interface work, I mapped a day in the life of a patient on intensive insulin therapy — eight ordinary moments, each with what the person is actually doing and saying to themselves."
+        },
+        {
+          "img": "dexcom-g6-cgm/day-in-the-life.png",
+          "wide": true,
+          "alt": "Storyboard of eight daily moments for a patient on intensive insulin therapy",
+          "cap": "Day in the life: wake up, exercise, breakfast, work, lunch, doctor visit, dinner, sleep — each annotated with the patient's own actions and concerns."
+        },
+        {
+          "p": "The storyboard is where the design constraints came from. The very first action of the day is <i>I pick up the phone and check insulin level</i> — before coffee, before anything, and, as the frame notes, <i>I am alone since I just woke up</i>. Exercise carries its own checklist: <i>I check the G6 App · I am safe to exercise · I carry glucose tablets — just in case</i>. And the day ends on a genuinely bleak note: <i>I am headed for a low · I am annoyed that I have to eat when I am not hungry</i>."
+        },
+        {
+          "pull": "Nobody in this storyboard is admiring a chart. Every single frame is someone making a decision under time pressure, usually alone."
+        },
+        {
+          "h": "The lifecycle journey"
+        },
+        {
+          "p": "The daily view explains the product. The lifecycle view explains the business. I mapped the full arc for the <b>Engaged Experimenters</b> segment — consumer IIT CGM — from diagnosis through to purchase, tracking emotion on a relief-to-anxiety axis across seven stages."
+        },
+        {
+          "img": "dexcom-g6-cgm/journey-map.png",
+          "wide": true,
+          "alt": "Lifecycle user journey map from diagnosis to purchase across seven stages",
+          "cap": "Diagnosis → Reconciling → Increased Engagement → Experimentation → Follow-Up Appointments → Incident → Purchase, tracked across process, say, feel, do, treatment, and opportunity."
+        },
+        {
+          "p": "The segment describes itself as <i>a work in progress — but I like to try new things and stay on top of trends</i>, which is why the middle of the journey trends upward: <i>I am starting to feel a balance</i>, then <i>I feel physically stronger</i>."
+        },
+        {
+          "p": "Then the line falls off a cliff. The <b>Incident</b> stage is the emotional floor of the entire map — <i>I thought I was in control · This is scary · I need more help! · What would happen to my family?</i> — and the activity row is blunt about what it means: <i>I wake up at the hospital</i>."
+        },
+        {
+          "pull": "The doctor recommends a CGM at the emotional low point of the journey. The purchase decision is made by someone who has just been frightened — not by someone calmly comparing features."
+        },
+        {
+          "p": "That reframed the acquisition experience. The stage immediately after the incident is pure friction — <i>patient information form, insurance form, pre-authorization, processing time 2/4 weeks</i> — landing on a person whose own words are <i>I feel cautiously optimistic · I am waiting and getting back on track</i>. Every week of that wait is a week of doubt, and the map made that visible to the business."
+        },
+        {
+          "h": "Where the opportunities were"
+        },
+        {
+          "p": "Reading the opportunity row across all seven stages produced a ranked backlog rather than a wish list — each idea anchored to the moment it would actually be needed:"
+        },
+        {
+          "ul": [
+            "<b>Diagnosis.</b> Search optimization, an intro to diabetes, and a genuine first-steps path — this is where people are Googling, confused, and frightened.",
+            "<b>Reconciling.</b> Bolus calculation, and help connecting meals to exercise.",
+            "<b>Increased engagement.</b> Pens, pumps and CGM working together; voice assistance through Alexa and Siri.",
+            "<b>Experimentation.</b> Community — <i>tell us your story, help us serve the community</i>.",
+            "<b>Follow-up appointments.</b> An electronic logbook, replacing the paper one the patient brings to the doctor.",
+            "<b>Purchase.</b> Introduce Clarity, then follow and share."
+          ]
+        },
+        {
+          "h": "Four concepts"
+        },
+        {
+          "p": "I designed the integration concepts as single-frame stories: the human action on the left, what the app does with it on the right. Each one closes a specific loop the storyboard had exposed."
+        },
+        {
+          "img": "dexcom-g6-cgm/concept-insulin-pens.png",
+          "alt": "Smart insulin pen syncing dose history to the G6 app over Bluetooth",
+          "cap": "Smart insulin pens — Bluetooth automatically syncs dosing history to the G6 app, so the dose and the glucose curve finally sit on one timeline."
+        },
+        {
+          "img": "dexcom-g6-cgm/concept-bolus-calculator.png",
+          "alt": "Bolus calculator recommending an insulin dose from carbs and current glucose",
+          "cap": "Bolus calculator — takes carbs and the current reading, returns a recommended dose. This is the moment the number becomes an action."
+        },
+        {
+          "img": "dexcom-g6-cgm/concept-meal-tracker.png",
+          "alt": "Meal tracker showing glucose before and after a meal",
+          "cap": "Meal tracker — shows what each meal did, mealtime versus after. Answers the storyboard's <i>what am I having for breakfast</i> with evidence instead of guesswork."
+        },
+        {
+          "img": "dexcom-g6-cgm/concept-activity-tracker.png",
+          "alt": "Activity tracker auto-syncing exercise readings alongside the glucose curve",
+          "cap": "Activity tracker — auto-syncs exercise, stacking activity directly beneath the glucose trace so cause and effect are visible at a glance."
+        },
+        {
+          "h": "Taking one all the way: Smart Pens"
+        },
+        {
+          "p": "Concepts are cheap. I took the pen integration through to a complete, buildable interaction — every screen, every branch, every failure state."
+        },
+        {
+          "img": "dexcom-g6-cgm/smart-pens-flow.png",
+          "wide": true,
+          "alt": "Smart Pens integration UX showing the connecting flow, priming flow, and turning priming off",
+          "cap": "Smart Pens Integration UX — connecting flow, priming flow, and turning priming off, specified screen by screen."
+        },
+        {
+          "ul": [
+            "<b>Connecting.</b> A new Connected Pens section in Settings, then add pen → pick device (Gocap, Novo Nordisk) → plug-in instructions → the list of advertised Bluetooth devices in range.",
+            "<b>Verifying.</b> A device test confirms the hardware actually matches the type selected — with a designed <i>unable to verify</i> path for when it does not, rather than a dead end.",
+            "<b>Priming.</b> Asks whether the user primes before every dose, captures the amount, and confirms it — because priming behaviour changes what the dosing data means.",
+            "<b>Turning it off.</b> A local toggle on the pen detail page, with the consequence stated plainly: when priming is switched on again, the previous reading is not maintained.",
+            "<b>Managing.</b> Connected pens can be revisited, re-primed, or forgotten from the device detail page."
+          ]
+        },
+        {
+          "pull": "A connection flow for a medical device is not an onboarding screen. It is a chain where every link needs a designed failure state, because the failure is someone's insulin dose."
+        },
+        {
+          "h": "What the work established"
+        },
+        {
+          "p": "The journey map gave the organization a shared picture of where a CGM actually enters someone's life — after a crisis, through a doctor, into a waiting period nobody had designed for. The day-in-the-life storyboard kept the feature work honest about the conditions it would be used in. And the Smart Pens flow proved the integration thesis end to end: that the value of the device is not the reading, but everything the reading can be connected to."
+        },
+        {
+          "note": "The artefacts on this page are the original 2018–2019 research and design deliverables. If you want the research participant counts, the testing findings, or the shipped outcomes added, send them over and I'll extend the page."
+        }
+      ]
+    },
+    {
+      "slug": "viewpoint-submittals",
+      "title": "Viewpoint Online — Submittals UX",
+      "client": "Viewpoint",
+      "year": "2018",
+      "tags": [
+        "Enterprise",
+        "Product UX"
+      ],
+      "role": "Senior UX Designer",
+      "thumb": "viewpoint-submittals.png",
+      "summary": "Digitizing the construction submittal process — a document-heavy, multi-party approval chain where a lost revision costs real money.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/viewpoint-online-submittals-ux-1"
+    },
+    {
+      "slug": "vista-search",
+      "title": "Vista Search UX/UI",
+      "client": "Viewpoint",
+      "year": "2016",
+      "tags": [
+        "Enterprise",
+        "Search",
+        "Design Systems"
+      ],
+      "role": "Senior UX Designer",
+      "thumb": "vista-search.png",
+      "summary": "Rethinking search inside a dense construction ERP, where users know exactly what they want but the system makes them prove it.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/vista-search-uxui"
+    },
+    {
+      "slug": "mobile-field-manager",
+      "title": "Mobile Field Manager — Time Entry",
+      "client": "Viewpoint",
+      "year": "2016",
+      "tags": [
+        "Mobile",
+        "Enterprise",
+        "Product UX"
+      ],
+      "role": "Senior UX Designer",
+      "thumb": "mobile-field-manager.png",
+      "summary": "Time entry designed for a job site — gloves on, sun glare, spotty signal, and about thirty seconds of patience.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/mobile-field-manager-time-entry-uiux-enhancements"
+    },
+    {
+      "slug": "webmd-device-integration",
+      "title": "WebMD — Device Integration UX",
+      "client": "WebMD",
+      "year": "2015",
+      "tags": [
+        "Healthcare",
+        "Mobile",
+        "Research"
+      ],
+      "role": "UX Designer",
+      "thumb": "webmd-device-integration.jpg",
+      "summary": "Connecting consumer health devices to WebMD's platform, and designing the moment where personal data becomes personal insight.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/device-integration-ux"
+    },
+    {
+      "slug": "bcbsa-fep-member-statement",
+      "title": "FEP Member Statement UX",
+      "client": "BlueCross BlueShield",
+      "year": "2014",
+      "tags": [
+        "Healthcare",
+        "Enterprise",
+        "Research"
+      ],
+      "role": "UX Designer",
+      "thumb": "bcbsa-fep-member-statement.png",
+      "summary": "Redesigning the Federal Employee Program member statement — taking one of the most reliably confusing documents in American healthcare and making it readable.",
+      "stub": true,
+      "orig": "https://poncedesign.myportfolio.com/bcbsa-federal-employee-program-member-statement-ux"
+    }
+  ],
+  "craft": {
+    "eyebrow": "Development, AI & craft",
+    "headline": "I design it.\nThen I build it.",
+    "lead": "Most designers hand off a file. I hand off something that already runs — and increasingly, something a user can click on the same day the idea shows up.",
+    "blocks": [
+      {
+        "h": "Front-end",
+        "tags": [
+          "HTML5",
+          "CSS3",
+          "JavaScript"
+        ],
+        "p": "I've written front-end code for as long as I've designed interfaces, and it changes what I hand engineering. I know what a layout costs before I propose it, I can prototype in the real medium instead of faking it in a design tool, and when I spec an interaction I've usually already built it once. <b>This site is the example</b> — hand-written HTML, CSS and JavaScript, no framework, no build step beyond a small generator."
+      },
+      {
+        "h": "AI-assisted design & development",
+        "tags": [
+          "Claude Code",
+          "Claude Design",
+          "Figma Make"
+        ],
+        "p": "AI coding tools moved the finish line. With <b>Claude Code</b> I go from a decision to a working, testable artifact in the time a static prototype used to take. <b>Claude Design</b> and <b>Figma Make</b> close the same gap from the design side — generating real, editable interfaces instead of pictures of them.",
+        "p2": "What this actually changes is the quality of the conversation. When the thing in front of a stakeholder is running rather than rendered, the feedback stops being about the mockup and starts being about the product."
+      }
+    ],
+    "certs_title": "Certifications",
+    "certs_note": "Recent coursework, mostly in AI-assisted design and development.",
+    "certs": [
+      {
+        "t": "Claude Code for Designers",
+        "org": "Maven",
+        "date": "Jul 2026",
+        "u": "https://maven.com/wrap-up/245b5e8e"
+      },
+      {
+        "t": "Introduction to Claude Cowork",
+        "org": "Anthropic",
+        "date": "Jul 2026",
+        "u": "https://verify.skilljar.com/c/bfwahyhkw5ch"
+      },
+      {
+        "t": "Claude Code 101",
+        "org": "Anthropic",
+        "date": "Jun 2026",
+        "u": "https://verify.skilljar.com/c/fcnyiyxrj822"
+      },
+      {
+        "t": "Claude 101",
+        "org": "Anthropic",
+        "date": "Jun 2026",
+        "u": "https://verify.skilljar.com/c/5wwc6v9rx8mu"
+      },
+      {
+        "t": "AI-Assisted Coding for Designers",
+        "org": "Maven",
+        "date": "Apr 2025",
+        "u": "https://maven.com/certificate/LvjMiwkg"
+      },
+      {
+        "t": "Learning Microsoft 365 Copilot and Business Chat",
+        "org": "LinkedIn",
+        "date": "Jan 2025",
+        "u": "https://www.linkedin.com/learning/certificates/f49b24d2774f0e1fcaf94f61da16fc82db990d9c311b7b4961060adec69098a9"
+      },
+      {
+        "t": "What Is Generative AI?",
+        "org": "LinkedIn",
+        "date": "Jan 2025",
+        "u": "https://www.linkedin.com/learning/certificates/f8f3fc8f732e5d0f3fb6efee4b24f12cb917b6ae0d4d7fccc782aa51059256d0"
+      },
+      {
+        "t": "Certified Seismic Administrator",
+        "org": "Seismic",
+        "date": "Jul 2020",
+        "u": "https://drive.google.com/file/d/14EY3D1t3qaODpUFr6v-FDjj2DgHU4FiE/view"
+      }
+    ],
+    "motion": {
+      "h": "Motion & storytelling",
+      "tags": [
+        "After Effects",
+        "Premiere",
+        "Video editing",
+        "Motion graphics"
+      ],
+      "p": "My MFA is in video, and I still edit and animate. It shows up less as showreels than as a way of thinking: an interface has pacing, emphasis and a sequence of reveals whether or not anyone designed them deliberately.",
+      "p2": "<b>Craft and storytelling are the two ingredients I lean on hardest.</b> Craft is what makes a product feel considered rather than assembled — the timing of a transition, the restraint in a palette, the detail nobody consciously notices. Storytelling is what makes it land — leading with the problem, sequencing the argument, knowing what to cut. Together they turn a functional experience into an engaging and genuinely delightful one, and they are the whole basis of how I communicate work to a team."
+    },
+    "principles": {
+      "eyebrow": "Design philosophy",
+      "headline": "Two lists I actually check work against.",
+      "lead": "Rams asks whether a thing deserves to exist and whether it is honest about what it is. Nielsen asks whether the person using it can tell what is going on. Good product design has to answer both, so I hold work up to each of them.",
+      "sets": [
+        {
+          "title": "Rams' ten principles for good design",
+          "by": "Dieter Rams",
+          "u": "https://ixdf.org/literature/article/dieter-rams-10-timeless-commandments-for-good-design",
+          "note": "The standard I hold the object to.",
+          "items": [
+            "Good design is innovative",
+            "Good design makes a product useful",
+            "Good design is aesthetic",
+            "Good design makes a product understandable",
+            "Good design is unobtrusive",
+            "Good design is honest",
+            "Good design is long-lasting",
+            "Good design is thorough down to the last detail",
+            "Good design is environmentally friendly",
+            "Good design is as little design as possible"
+          ]
+        },
+        {
+          "title": "Ten usability heuristics for interface design",
+          "by": "Jakob Nielsen, Nielsen Norman Group",
+          "u": "https://www.nngroup.com/articles/ten-usability-heuristics/",
+          "note": "The standard I hold the interaction to.",
+          "items": [
+            "Visibility of system status",
+            "Match between the system and the real world",
+            "User control and freedom",
+            "Consistency and standards",
+            "Error prevention",
+            "Recognition rather than recall",
+            "Flexibility and efficiency of use",
+            "Aesthetic and minimalist design",
+            "Help users recognise, diagnose and recover from errors",
+            "Help and documentation"
+          ]
+        }
+      ],
+      "close": "The tenth on each list is the one that costs the most discipline. <i>As little design as possible</i> and <i>aesthetic and minimalist design</i> are both instructions to remove things — and removing is always the harder argument to win in a roadmap meeting."
+    },
+    "reel": {
+      "src": "assets/video/reel.mp4",
+      "poster": "",
+      "embed": "",
+      "caption": "Showreel — selected motion and rich media work"
+    }
+  }
+}
