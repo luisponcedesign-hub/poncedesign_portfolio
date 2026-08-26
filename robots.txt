@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://poncedesign.com/sitemap.xml
+Sitemap: https://www.poncedesign.com/sitemap.xml

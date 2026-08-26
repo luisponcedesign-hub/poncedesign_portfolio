@@ -19,7 +19,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'data', 'projects.json')
-SITE = 'https://poncedesign.com'
+SITE = 'https://www.poncedesign.com'
 
 # Security policy, delivered as meta tags.
 #
