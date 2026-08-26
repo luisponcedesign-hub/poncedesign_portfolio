@@ -21,6 +21,39 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'data', 'projects.json')
 SITE = 'https://poncedesign.com'
 
+# Security policy, delivered as meta tags.
+#
+# GitHub Pages serves no custom response headers, so CSP and Referrer-Policy
+# have to ride in the markup instead. Two limits worth knowing:
+#   - frame-ancestors is ignored in a meta-delivered CSP, and X-Frame-Options
+#     cannot be set via meta at all, so clickjacking protection is simply not
+#     available on Pages.
+#   - 'unsafe-inline' is what the current markup requires: the inline
+#     className one-liner in every head, the application/ld+json blocks
+#     (JSON-LD is covered by script-src even though it never executes), and
+#     the inline style="..." attributes throughout the pages.
+#     Even so, 'self' still blocks script loaded from someone else's origin,
+#     which is the part that matters.
+#
+# These tags must sit before the first inline script: a meta CSP only governs
+# content that appears after it.
+CSP = (
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline'; "
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+    "font-src 'self' https://fonts.gstatic.com; "
+    "img-src 'self' data:; "
+    "object-src 'none'; "
+    "base-uri 'self'; "
+    "form-action 'none'; "
+    "upgrade-insecure-requests"
+)
+
+SECURITY_META = (
+    '<meta http-equiv="Content-Security-Policy" content="' + CSP + '">\n'
+    '<meta name="referrer" content="strict-origin-when-cross-origin">'
+)
+
 # Card widths by position. Featured work leads; the back catalogue settles
 # into rows of three, then pairs, so the grid never ends on a lonely card.
 STUB_SIZES = ['', '', '', '', '', '', 'wide', 'wide', 'wide', 'wide']
@@ -313,6 +346,7 @@ def case_page(p, prev_p, next_p):
 <html lang="en">
 <head>
 <meta charset="utf-8">
+{SECURITY_META}
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{esc(p['title'])} — {esc(p['client'])} · Luis Ponce de León</title>
