@@ -284,7 +284,7 @@
         if (r.bottom < -120 || r.top > vh + 120) return;
         // -1 (below fold) .. 1 (above)
         var p = (r.top + r.height / 2 - vh / 2) / (vh / 2);
-        l.style.transform = 'translate3d(0,' + (clamp(p, -1.4, 1.4) * -16).toFixed(2) + 'px,0)';
+        l.style.transform = 'translate3d(0,' + (clamp(p, -1.4, 1.4) * -6).toFixed(2) + 'px,0)';
       });
       ticking = false;
     }
