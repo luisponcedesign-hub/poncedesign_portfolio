@@ -411,7 +411,10 @@ def case_page(p, prev_p, next_p):
     <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
     <p class="eyebrow">{esc(p['client'])} &nbsp;·&nbsp; {esc(p['year'])}</p>
     <h1 data-rv>{esc(p['title'])}</h1>
-    <p class="lead" data-rv data-rv-delay="0.08">{esc(p['summary'])}</p>
+    <div class="lead-row">
+      <p class="lead" data-rv data-rv-delay="0.08">{esc(p['summary'])}</p>
+      <p class="lead-link" data-rv data-rv-delay="0.12"><a class="linkout" href="{esc(p['orig'])}" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+    </div>
 
     <div class="facts" data-rv data-rv-delay="0.14">
       <div><h4>Client</h4><p>{esc(p['client'])}</p></div>
@@ -433,8 +436,6 @@ def case_page(p, prev_p, next_p):
     <div class="col">
       <div class="blk" data-rv>
 {body}      </div>
-
-      <p data-rv><a class="linkout" href="{esc(p['orig'])}" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
     </div>
   </div>
 </section>
