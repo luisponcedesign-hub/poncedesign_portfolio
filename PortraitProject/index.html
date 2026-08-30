@@ -7,7 +7,7 @@
 <style>
   :root {
     --cols: 3;
-    --page-pad: 8px;
+    --page-pad: 16px;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -40,11 +40,11 @@
     color: #8a8a8a;
   }
 
-  /* Grid: rows of 3, 8px between the circles */
+  /* Grid: rows of 3, 24px between the circles */
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
-    gap: 8px;
+    gap: 24px;
     padding: 0 var(--page-pad);
     line-height: 0;
   }
@@ -85,11 +85,25 @@
     transition: opacity 180ms ease;
   }
 
-  /* Pointer devices only, so the caption never sticks on touch. */
+  /* Pointer devices reveal on hover. */
   @media (hover: hover) {
     .grid figure:hover figcaption,
     .grid figure:focus-within figcaption {
       opacity: 1;
+    }
+  }
+
+  /* Touch devices reveal on long press; the class is set in script. */
+  .grid figure.is-revealed figcaption {
+    opacity: 1;
+  }
+
+  /* Stop iOS offering the save-image callout during the press. */
+  @media (hover: none) {
+    .grid figure {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
     }
   }
 
@@ -135,6 +149,66 @@
 </main>
 
 <footer>PonceDesign Labs 2026</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* Pointer devices already have hover; this is the touch equivalent. */
+  if (window.matchMedia("(hover: hover)").matches) return;
+
+  var HOLD_MS = 400;
+  var MOVE_TOLERANCE = 10;
+
+  var timer = null;
+  var revealed = null;
+  var startX = 0;
+  var startY = 0;
+
+  function reset() {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    if (revealed) {
+      revealed.classList.remove("is-revealed");
+      revealed = null;
+    }
+  }
+
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".grid figure"),
+    function (figure) {
+      figure.addEventListener("touchstart", function (e) {
+        reset();
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        timer = setTimeout(function () {
+          timer = null;
+          revealed = figure;
+          figure.classList.add("is-revealed");
+        }, HOLD_MS);
+      }, { passive: true });
+
+      /* A finger that travels is a scroll, not a press. */
+      figure.addEventListener("touchmove", function (e) {
+        var t = e.touches[0];
+        if (Math.abs(t.clientX - startX) > MOVE_TOLERANCE ||
+            Math.abs(t.clientY - startY) > MOVE_TOLERANCE) {
+          reset();
+        }
+      }, { passive: true });
+
+      figure.addEventListener("touchend", reset);
+      figure.addEventListener("touchcancel", reset);
+
+      figure.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    }
+  );
+})();
+</script>
 
 </body>
 </html>
