@@ -1,312 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Pioneers of Computing</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masters of Computing</title>
 <style>
   :root {
-    --bg: #f7f5f2;
-    --card-bg: #ffffff;
-    --ink: #1c1c1e;
-    --sub: #6b6b70;
-    --accent: #b8860b;
-    --border: #e5e1da;
+    --cols: 3;
+    --page-pad: 8px;
   }
-  * { box-sizing: border-box; }
-  body {
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
     margin: 0;
-    padding: 48px 24px 80px;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Georgia', 'Iowan Old Style', serif;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  .header {
-    max-width: 900px;
-    margin: 0 auto 48px;
-    text-align: center;
+
+  header {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 1.5rem;
   }
-  .header h1 {
-    font-size: 2.4rem;
-    margin: 0 0 8px;
-    letter-spacing: 0.5px;
-  }
-  .header p {
-    color: var(--sub);
-    font-size: 1.05rem;
+
+  h1 {
     margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
+
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  /* Grid: rows of 3, 8px between the circles */
   .grid {
-    max-width: 1100px;
-    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: 8px;
+    padding: 0 var(--page-pad);
+    line-height: 0;
   }
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+
+  /* Square cell, circular mask: each image becomes one giant
+     halftone dot, and with gap 0 the circles sit tangent. */
+  .grid figure {
+    margin: 0;
+    position: relative;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border-radius: 50%;
+    background: #000;
   }
-  .portrait-wrap {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    background: #eee;
-    overflow: hidden;
-  }
-  .portrait-wrap img {
+
+  .grid img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
-    display: block;
   }
-  .card-body {
-    padding: 20px 22px 24px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .card-body h2 {
-    margin: 0 0 4px;
-    font-size: 1.3rem;
-  }
-  .achievement {
-    color: var(--sub);
-    font-size: 0.92rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    margin: 0 0 14px;
-    line-height: 1.4;
-  }
-  blockquote {
-    margin: 0;
-    padding-left: 14px;
-    border-left: 3px solid var(--accent);
-    font-style: italic;
-    font-size: 1.02rem;
-    line-height: 1.5;
-    flex: 1;
-  }
-  .cite {
-    display: block;
-    margin-top: 10px;
-    font-style: normal;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.82rem;
-    color: var(--accent);
-  }
-  .credit {
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.68rem;
-    color: #999;
-    padding: 8px 22px;
-    border-top: 1px solid var(--border);
-  }
-  .footer-note {
-    max-width: 900px;
-    margin: 56px auto 0;
+
+  /* Hover swaps the portrait for its filename. */
+  .grid figcaption {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 14%;
+    background: #000;
+    color: #f2efe9;
+    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    letter-spacing: 0.12em;
+    line-height: 1.35;
     text-align: center;
-    color: var(--sub);
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.85rem;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  /* Pointer devices only, so the caption never sticks on touch. */
+  @media (hover: hover) {
+    .grid figure:hover figcaption,
+    .grid figure:focus-within figcaption {
+      opacity: 1;
+    }
+  }
+
+  /* Tablet: 2 across */
+  @media (max-width: 900px) {
+    :root { --cols: 2; }
+  }
+
+  /* Phone: single column */
+  @media (max-width: 560px) {
+    :root { --cols: 1; }
+  }
+
+  footer {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
   }
 </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>Pioneers of Computing</h1>
-    <p>Twelve people whose work laid the foundations of computers, software, and the internet as we know them.</p>
-  </div>
+<header>
+  <h1>Masters of Computing</h1>
+  <p>Portrait Project</p>
+</header>
 
-  <div class="grid">
+<main class="grid">
+  <figure><img src="images/babbage.jpg" alt="Babbage" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Babbage</figcaption></figure>
+  <figure><img src="images/berners-lee.jpg" alt="Berners-Lee" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Berners-Lee</figcaption></figure>
+  <figure><img src="images/hamilton.jpg" alt="Hamilton" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Hamilton</figcaption></figure>
+  <figure><img src="images/hopper.jpg" alt="Hopper" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Hopper</figcaption></figure>
+  <figure><img src="images/lovelace.jpg" alt="Lovelace" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Lovelace</figcaption></figure>
+  <figure><img src="images/neumann.jpg" alt="Neumann" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Neumann</figcaption></figure>
+  <figure><img src="images/perlman.jpg" alt="Perlman" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Perlman</figcaption></figure>
+  <figure><img src="images/ritchie.jpg" alt="Ritchie" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Ritchie</figcaption></figure>
+  <figure><img src="images/shannon.jpg" alt="Shannon" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Shannon</figcaption></figure>
+  <figure><img src="images/torvalds.jpg" alt="Torvalds" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Torvalds</figcaption></figure>
+  <figure><img src="images/turing.jpg" alt="Turing" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Turing</figcaption></figure>
+  <figure><img src="images/wozniak.jpg" alt="Wozniak" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Wozniak</figcaption></figure>
+</main>
 
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Alan%20Turing%20(1951).jpg?width=500" alt="Alan Turing">
-      </div>
-      <div class="card-body">
-        <h2>Alan Turing</h2>
-        <p class="achievement">Laid the theoretical foundation for computing and AI with the Turing machine concept.</p>
-        <blockquote>
-          "A computer could be said to 'think' if a human interrogator could not tell it apart, through conversation, from a human being."
-          <span class="cite">— Alan Turing, on the concept behind the Turing Test</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons, 1951</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ada%20Lovelace%20portrait.jpg?width=500" alt="Ada Lovelace">
-      </div>
-      <div class="card-body">
-        <h2>Ada Lovelace</h2>
-        <p class="achievement">Wrote the first algorithm intended for a machine — often called the first programmer.</p>
-        <blockquote>
-          "The Analytical Engine has no pretensions whatever to originate anything. It can do whatever we know how to order it to perform."
-          <span class="cite">— Ada Lovelace, Notes on the Analytical Engine, 1843</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons, c. 1840</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Charles%20Babbage%20by%20Samuel%20Laurence.jpg?width=500" alt="Charles Babbage">
-      </div>
-      <div class="card-body">
-        <h2>Charles Babbage</h2>
-        <p class="achievement">Designed the Analytical Engine, an early mechanical general-purpose computer concept.</p>
-        <blockquote>
-          "We may say most aptly that the Analytical Engine weaves algebraical patterns just as the Jacquard loom weaves flowers and leaves."
-          <span class="cite">— Ada Lovelace, describing Babbage's Analytical Engine</span>
-        </blockquote>
-      </div>
-      <div class="credit">Portrait by Samuel Laurence — Wikimedia Commons</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/John%20von%20Neumann.jpg?width=500" alt="John von Neumann">
-      </div>
-      <div class="card-body">
-        <h2>John von Neumann</h2>
-        <p class="achievement">Developed the stored-program architecture most modern computers still use.</p>
-        <blockquote>
-          "The importance of the computer in modern society lies not in what we can do with it, but in what we cannot do without it."
-          <span class="cite">— widely attributed to John von Neumann</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Commodore%20Grace%20M.%20Hopper,%20USN%20(covered).jpg?width=500" alt="Grace Hopper">
-      </div>
-      <div class="card-body">
-        <h2>Grace Hopper</h2>
-        <p class="achievement">Pioneered compilers and helped create COBOL, shaping how humans write code.</p>
-        <blockquote>
-          "It's much easier for most people to write an English statement than it is to use symbols. So I decided data processors ought to be able to write their programs in English, and the computers would translate them into machine code."
-          <span class="cite">— Grace Hopper, on the idea behind the compiler</span>
-        </blockquote>
-      </div>
-      <div class="credit">U.S. Navy photo — Wikimedia Commons</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/ClaudeShannon_MFO3807.jpg?width=500" alt="Claude Shannon">
-      </div>
-      <div class="card-body">
-        <h2>Claude Shannon</h2>
-        <p class="achievement">Founded information theory, the math underlying digital communication.</p>
-        <blockquote>
-          "He's one of the great men of the century. Without him, none of the things we know today would exist. The whole digital revolution started with him."
-          <span class="cite">— Neil Sloane, mathematician, on Claude Shannon</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tim%20Berners-Lee.jpg?width=500" alt="Tim Berners-Lee">
-      </div>
-      <div class="card-body">
-        <h2>Tim Berners-Lee</h2>
-        <p class="achievement">Invented the World Wide Web.</p>
-        <blockquote>
-          "I just had to take the hypertext idea and connect it to the TCP and DNS ideas and — ta-da! — the World Wide Web."
-          <span class="cite">— Tim Berners-Lee</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Steve%20Wozniak,%201983.jpg?width=500" alt="Steve Wozniak">
-      </div>
-      <div class="card-body">
-        <h2>Steve Wozniak</h2>
-        <p class="achievement">Engineered the Apple I and II, key to personal computing's rise.</p>
-        <blockquote>
-          "I never wanted to run a company. I just wanted to design good computers."
-          <span class="cite">— Steve Wozniak</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons, 1983</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dennis%20Ritchie%202011.jpg?width=500" alt="Dennis Ritchie">
-      </div>
-      <div class="card-body">
-        <h2>Dennis Ritchie</h2>
-        <p class="achievement">Created the C programming language and co-created Unix.</p>
-        <blockquote>
-          "The tools that Dennis built — and their direct descendants — run pretty much everything today."
-          <span class="cite">— Brian Kernighan, on Dennis Ritchie</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons, 2011</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Linus%20Torvalds%20(cropped).jpg?width=500" alt="Linus Torvalds">
-      </div>
-      <div class="card-body">
-        <h2>Linus Torvalds</h2>
-        <p class="achievement">Created Linux and Git, cornerstones of modern software infrastructure.</p>
-        <blockquote>
-          "I'm an egotistical bastard, and I name all my projects after myself. First 'Linux', now 'Git'."
-          <span class="cite">— Linus Torvalds</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Margaret%20Hamilton%201995.jpg?width=500" alt="Margaret Hamilton">
-      </div>
-      <div class="card-body">
-        <h2>Margaret Hamilton</h2>
-        <p class="achievement">Led the Apollo onboard flight software team and coined the term "software engineering."</p>
-        <blockquote>
-          "When I first came up with the term, no one had heard of it before, at least in our world. It was an ongoing joke for a long time."
-          <span class="cite">— Margaret Hamilton, on coining "software engineering"</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Daphne Weld Nichols, 1995 — Wikimedia Commons, CC BY-SA 3.0</div>
-    </div>
-
-    <div class="card">
-      <div class="portrait-wrap">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Radia%20Perlman%202009.jpg?width=500" alt="Radia Perlman">
-      </div>
-      <div class="card-body">
-        <h2>Radia Perlman</h2>
-        <p class="achievement">Invented the spanning-tree protocol, which lets large networks route around loops and stay connected.</p>
-        <blockquote>
-          "I think that I shall never see a graph more lovely than a tree."
-          <span class="cite">— Radia Perlman, from "Algorhyme", her 1985 spanning-tree paper</span>
-        </blockquote>
-      </div>
-      <div class="credit">Photo: Wikimedia Commons, 2009 — public domain</div>
-    </div>
-
-  </div>
-
-  <p class="footer-note">Portraits sourced from Wikimedia Commons (public domain / freely licensed). Quotes are attributed as noted above.</p>
+<footer>PonceDesign Labs 2026</footer>
 
 </body>
 </html>
