@@ -369,7 +369,7 @@ body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
    ============================================================ */
 .marquee{
   border-block:1px solid var(--line); background:var(--surface);
-  overflow:hidden; padding:17px 0; position:relative;
+  overflow:hidden; padding:13px 0; position:relative;
 }
 .marquee::before,.marquee::after{
   content:''; position:absolute; top:0; bottom:0; width:110px; z-index:2; pointer-events:none;
@@ -381,9 +381,11 @@ body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
 @keyframes mq{ to{ transform:translateX(-50%); } }
 .mq-track span{
   display:inline-flex; align-items:center; gap:22px;
-  font-family:var(--cond); font-size:1.08rem; font-weight:500;
-  letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);
   padding-right:22px; white-space:nowrap;
+}
+.mq-track img{
+  width:106px; height:auto; object-fit:contain; flex:none;
+  filter:grayscale(1); opacity:.8; mix-blend-mode:multiply;
 }
 .mq-track span::after{
   content:''; width:6px; height:6px; border-radius:50%; background:var(--yellow); flex:none;
@@ -899,6 +901,7 @@ section{ position:relative; }
   .burger{ display:block; }
   .about-grid{ grid-template-columns:1fr; }
   .portrait{ position:static; max-width:340px; }
+  .mq-track img{ width:88px; }
   .stats{ grid-template-columns:repeat(2,1fr); column-gap:18px; }
   .stats li{ padding:22px 0; }
   .stats li:nth-child(1),.stats li:nth-child(2){ border-bottom:1px solid var(--line); }
