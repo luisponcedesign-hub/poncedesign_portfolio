@@ -67,7 +67,7 @@
     object-fit: cover;
   }
 
-  /* Hover swaps the portrait for its filename. */
+  /* Click or tap swaps the portrait for its subject's name. */
   .grid figcaption {
     position: absolute;
     inset: 0;
@@ -85,26 +85,21 @@
     transition: opacity 180ms ease;
   }
 
-  /* Pointer devices reveal on hover. */
-  @media (hover: hover) {
-    .grid figure:hover figcaption,
-    .grid figure:focus-within figcaption {
-      opacity: 1;
-    }
-  }
-
-  /* Touch devices reveal on long press; the class is set in script. */
+  /* Single reveal state for both pointer and touch; set in script. */
   .grid figure.is-revealed figcaption {
     opacity: 1;
   }
 
-  /* Stop iOS offering the save-image callout during the press. */
-  @media (hover: none) {
-    .grid figure {
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      user-select: none;
-    }
+  .grid figure {
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .grid figure:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: -6px;
   }
 
   /* Tablet: 2 across */
@@ -154,59 +149,51 @@
 (function () {
   "use strict";
 
-  /* Pointer devices already have hover; this is the touch equivalent. */
-  if (window.matchMedia("(hover: hover)").matches) return;
-
-  var HOLD_MS = 400;
-  var MOVE_TOLERANCE = 10;
-
-  var timer = null;
+  /* A tap fires a click too, so one handler covers pointer and touch. */
   var revealed = null;
-  var startX = 0;
-  var startY = 0;
 
-  function reset() {
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-    if (revealed) {
-      revealed.classList.remove("is-revealed");
-      revealed = null;
-    }
+  function hide() {
+    if (!revealed) return;
+    revealed.classList.remove("is-revealed");
+    revealed.setAttribute("aria-expanded", "false");
+    revealed = null;
+  }
+
+  function toggle(figure) {
+    var wasOpen = revealed === figure;
+    hide();
+    if (wasOpen) return;
+    revealed = figure;
+    figure.classList.add("is-revealed");
+    figure.setAttribute("aria-expanded", "true");
   }
 
   Array.prototype.forEach.call(
     document.querySelectorAll(".grid figure"),
     function (figure) {
-      figure.addEventListener("touchstart", function (e) {
-        reset();
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        timer = setTimeout(function () {
-          timer = null;
-          revealed = figure;
-          figure.classList.add("is-revealed");
-        }, HOLD_MS);
-      }, { passive: true });
+      figure.setAttribute("role", "button");
+      figure.setAttribute("tabindex", "0");
+      figure.setAttribute("aria-expanded", "false");
 
-      /* A finger that travels is a scroll, not a press. */
-      figure.addEventListener("touchmove", function (e) {
-        var t = e.touches[0];
-        if (Math.abs(t.clientX - startX) > MOVE_TOLERANCE ||
-            Math.abs(t.clientY - startY) > MOVE_TOLERANCE) {
-          reset();
+      figure.addEventListener("click", function (e) {
+        e.stopPropagation();
+        toggle(figure);
+      });
+
+      figure.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          toggle(figure);
         }
-      }, { passive: true });
-
-      figure.addEventListener("touchend", reset);
-      figure.addEventListener("touchcancel", reset);
-
-      figure.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
       });
     }
   );
+
+  /* Anywhere else, or Escape, closes the open one. */
+  document.addEventListener("click", hide);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") hide();
+  });
 })();
 </script>
 
