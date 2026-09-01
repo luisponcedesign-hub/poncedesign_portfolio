@@ -559,13 +559,20 @@ section{ position:relative; }
 }
 .portrait{
   position:sticky; top:104px;   /* tracks the long right-hand column */
-  border-radius:var(--r-md); overflow:hidden;
-  border:1px solid var(--line); background:var(--bg-tint);
-  /* Source is square; a 1.28 frame cropped ~22% of its height. 1.164 shows
-     about 10% more of the illustration and still fills edge to edge. */
-  aspect-ratio:1.164/1;
+  border-radius:50%; overflow:hidden;
+  border:1px solid var(--line); background:var(--surface);
+  /* Circular frame echoes the dots the portrait is built from. Background
+     matches the section so the 3:4 source's white margins stay invisible. */
+  aspect-ratio:1;
+  max-width:400px; margin-inline:auto;
 }
-.portrait img{ width:100%; height:100%; object-fit:cover; }
+/* `contain` keeps the whole head-and-shoulders composition — `cover` would
+   crop the shoulders off and press the head against the ring. The scale
+   closes the gap `contain` leaves at the sides. */
+.portrait img{
+  width:100%; height:100%; object-fit:contain; display:block;
+  transform:scale(1.12) translateY(2%);
+}
 .portrait::after{
   content:''; position:absolute; inset:0;
   background:var(--grad); mix-blend-mode:multiply; opacity:0;
@@ -900,7 +907,7 @@ section{ position:relative; }
   .nav,.hdr .btn{ display:none; }
   .burger{ display:block; }
   .about-grid{ grid-template-columns:1fr; }
-  .portrait{ position:static; max-width:340px; }
+  .portrait{ position:static; max-width:300px; }
   .mq-track img{ width:88px; }
   .stats{ grid-template-columns:repeat(2,1fr); column-gap:18px; }
   .stats li{ padding:22px 0; }
