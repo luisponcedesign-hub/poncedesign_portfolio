@@ -217,6 +217,12 @@ ul{ margin:0; padding:0; list-style:none; }
 .btn.ghost:hover{ color:var(--ink); border-color:transparent; }
 .btn.lg{ padding:17px 30px; font-size:1rem; }
 
+/* Quiet ghost — same pill as .ghost, label dropped to the mid-grey so it reads
+   as a tertiary action. Returns to full ink on hover for contrast over the
+   gradient sweep. */
+.btn.ghost.quiet{ color:var(--muted); }
+.btn.ghost.quiet:hover{ color:var(--ink); }
+
 /* Mobile nav */
 .burger{
   display:none; width:44px; height:44px; border-radius:var(--r-sm);
@@ -332,6 +338,15 @@ body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
 }
 .hero-sub .lead{ max-width:46ch; margin:0; }
 .hero-cta{ display:flex; flex-wrap:wrap; gap:12px; }
+/* The scroll hint shares the CTA's line only where there is genuinely room for
+   lead + three buttons + hint (~1080px of content). Below this the row wraps
+   and the hint drops beneath the buttons, still right-aligned; under 861px it
+   is hidden altogether. */
+@media (min-width:1200px){
+  .hero-sub{ flex-wrap:nowrap; }
+  .hero-sub .lead{ min-width:0; }        /* the lead absorbs the difference */
+  .hero-sub .hero-cta{ flex-shrink:0; }  /* buttons stay on one row */
+}
 
 .avail{
   display:inline-flex; align-items:center; gap:9px;
@@ -348,7 +363,9 @@ body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
 @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.35} }
 
 .scroll-hint{
-  position:absolute; right:var(--gut); bottom:30px; z-index:2;
+  /* Sits in the hero-sub flex row so it tracks the CTA buttons' baseline
+     instead of the hero's bottom edge. */
+  margin:0 0 0 auto; z-index:2;
   display:flex; align-items:center; gap:11px;
   font-family:var(--mono); font-size:.66rem; letter-spacing:.2em;
   text-transform:uppercase; color:var(--muted);
