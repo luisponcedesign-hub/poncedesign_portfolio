@@ -264,10 +264,6 @@ body.menu-open .drawer a:nth-child(3){ transition-delay:.30s; }
 body.menu-open .drawer a:nth-child(4){ transition-delay:.36s; }
 body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
 .drawer a:hover{ color:var(--orange); }
-.drawer a i{
-  font-family:var(--mono); font-style:normal; font-size:.8rem; font-weight:400;
-  letter-spacing:.14em; color:var(--muted);
-}
 
 /* ============================================================
    Hero
@@ -339,7 +335,7 @@ body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
   margin-top:clamp(34px,5vw,58px);
   /* Nudged up as a block so the lead and the actions keep their spacing.
      Relative, not margin, so the vertically centred hero doesn't recentre. */
-  position:relative; top:-32px;
+  position:relative; top:-20px;
 }
 /* Buttons and the scroll hint share one row so the hint stays level with them. */
 .hero-actions{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px 56px; }
