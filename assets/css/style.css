@@ -880,6 +880,28 @@ section{ position:relative; }
 .js [data-rv="scale"]{ transform:translateY(28px) scale(.97); }
 .js [data-rv].seen{ opacity:1; transform:none; }
 
+/* Halftone portrait — fills the viewport once as the home page loads,
+   then fades away for good. Fixed and pointer-transparent; sits above the
+   hero blobs (z 0) and below the hero copy (z 2) and the header (z 900). */
+.portrait-intro{
+  position:fixed; inset:0; z-index:1;
+  pointer-events:none; opacity:0;
+  /* slow arrival, slower exit — durations are mirrored in portrait-intro.js */
+  transition:opacity 4.2s var(--ease-out);
+  /* host masks vertically, canvas horizontally — two elements so the
+     fades stack into a vignette without mask-composite */
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 90%,transparent 100%);
+          mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 90%,transparent 100%);
+}
+.portrait-intro canvas{
+  display:block; width:100%; height:100%;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
+}
+.portrait-intro.is-in{ opacity:.2; }
+.portrait-intro.is-out{ opacity:0; transition:opacity 6.5s linear; }
+@media (max-width:900px){ .portrait-intro.is-in{ opacity:.15; } }
+
 /* ---- page transition curtain -------------------------------
    The uncover is a pure CSS animation with fill-mode `both`, so it
    always resolves to scaleY(0) on its own. Nothing about the page
@@ -955,6 +977,7 @@ section{ position:relative; }
   .js .ch{ opacity:1 !important; transform:none !important; }
   #cursor{ display:none; }
   .blob{ animation:none; }
+  .portrait-intro{ display:none; }
 }
 @media print{
   .hdr,.drawer,#cursor,#progress,#curtain,.scroll-hint,.marquee{ display:none !important; }
