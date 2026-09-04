@@ -905,7 +905,8 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .portrait-intro canvas{ display:block; width:100%; height:100%; }
 .portrait-intro.is-in{ opacity:.2; }
 .portrait-intro.is-out{ opacity:0; transition:opacity 5.8s linear; }
-@media (max-width:900px){ .portrait-intro.is-in{ opacity:.15; } }
+/* Phones do not get the intro at all — see portrait-intro.js */
+@media (max-width:900px){ .portrait-intro{ display:none; } }
 
 /* ---- page transition curtain -------------------------------
    The uncover is a pure CSS animation with fill-mode `both`, so it

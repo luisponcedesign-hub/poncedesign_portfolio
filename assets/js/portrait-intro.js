@@ -12,9 +12,10 @@
    never competes with fonts, images and the hero reveal; dot
    statics live in typed arrays; per-frame trig is skipped whenever
    its envelope is silent; dots that are off-canvas or under a
-   device pixel are culled before they cost an arc; phones open on
-   a thinned tier; and if frames still come in long the renderer
-   steps further down the quality tiers below.
+   device pixel are culled before they cost an arc; touch devices
+   open on a thinned tier; and if frames still come in long the
+   renderer steps further down the quality tiers below. Below the
+   mobile breakpoint it does not run at all.
    ============================================================ */
 (function () {
   'use strict';
@@ -34,6 +35,13 @@
 
   if (!D || !D.dots || !D.dots.length) { bailOut(); return; }
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { bailOut(); return; }
+  /* Not on phones. Thinning the field and pausing everything around it
+     still left the run stuttering on real hardware, and a background
+     flourish is not worth a janky first impression — so below the site's
+     mobile breakpoint it does not run at all. Bailing out here still
+     announces the end, so the hero's role rotation starts straight away
+     rather than waiting on an intro that is never coming. */
+  if (window.matchMedia('(max-width: 900px)').matches) { bailOut(); return; }
 
   var cvs = host.querySelector('canvas');
   var ctx = cvs && cvs.getContext ? cvs.getContext('2d') : null;
@@ -79,11 +87,9 @@
     { dpr: 1,    stride: 2, rBoost: 1.35 },
     { dpr: 1,    stride: 3, rBoost: 1.7 }
   ];
-  /* Phones open on the thinned tier rather than discovering it a few
-     janky frames in: the portrait is width-fit there, so every dot lands
-     under ~3px and the authored density is finer than the screen shows. */
-  var tier = (window.matchMedia('(pointer:coarse)').matches ||
-              window.innerWidth < 900) ? 1 : 0;
+  /* Touch devices above the breakpoint — tablets, touch laptops — open on
+     the thinned tier rather than discovering it a few janky frames in. */
+  var tier = window.matchMedia('(pointer:coarse)').matches ? 1 : 0;
 
   function clamp(n, a, b) { return n < a ? a : (n > b ? b : n); }
   function hash(i, s) { var v = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453; return v - Math.floor(v); }
