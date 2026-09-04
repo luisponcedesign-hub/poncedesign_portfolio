@@ -7,12 +7,14 @@
    is ported from the Halftone Portrait composition; rendering
    is canvas. No-ops under prefers-reduced-motion.
 
-   Performance notes, since this is ~3.6k moving dots a frame:
-   the run is held back until the page has finished loading so it
+   Performance notes, since this is ~3.6k moving dots a frame: the
+   run is held until the page is quiet, not merely loaded, so it
    never competes with fonts, images and the hero reveal; dot
-   statics live in typed arrays; the per-frame trig is skipped
-   whenever its envelope is silent; and if frames still come in
-   long the renderer steps down through the quality tiers below.
+   statics live in typed arrays; per-frame trig is skipped whenever
+   its envelope is silent; dots that are off-canvas or under a
+   device pixel are culled before they cost an arc; phones open on
+   a thinned tier; and if frames still come in long the renderer
+   steps further down the quality tiers below.
    ============================================================ */
 (function () {
   'use strict';
@@ -56,14 +58,22 @@
   var OUT_AT  = 9.2;    /* front has swept the field; fade from here  */
   var FADE_OUT = TOTAL - OUT_AT; /* 5.8s — matches the CSS .is-out    */
 
-  /* Quality tiers, best first. `stride` skips dots; `rBoost` fattens
-     the survivors so the field keeps its ink weight when it does. */
+  /* Quality tiers, best first. `stride` skips dots; `rBoost` fattens the
+     survivors so the field keeps its ink weight when it does. Primitive
+     count, not resolution, is what this costs — 3.6k arcs price the same
+     whether the canvas is large or small — so the lower tiers thin the
+     field rather than just dropping pixels. */
   var TIERS = [
-    { dpr: 1.5, stride: 1, rBoost: 1 },
-    { dpr: 1,   stride: 1, rBoost: 1 },
-    { dpr: 1,   stride: 2, rBoost: 1.35 }
+    { dpr: 1.5,  stride: 1, rBoost: 1 },
+    { dpr: 1.25, stride: 2, rBoost: 1.35 },
+    { dpr: 1,    stride: 2, rBoost: 1.35 },
+    { dpr: 1,    stride: 3, rBoost: 1.7 }
   ];
-  var tier = 0;
+  /* Phones open on the thinned tier rather than discovering it a few
+     janky frames in: the portrait is width-fit there, so every dot lands
+     under ~3px and the authored density is finer than the screen shows. */
+  var tier = (window.matchMedia('(pointer:coarse)').matches ||
+              window.innerWidth < 900) ? 1 : 0;
 
   function clamp(n, a, b) { return n < a ? a : (n > b ? b : n); }
   function hash(i, s) { var v = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453; return v - Math.floor(v); }
@@ -162,6 +172,16 @@
     ctx.scale(zoom, zoom);
     ctx.translate(-CX, -CY);
 
+    /* Two cheap culls, both in portrait units. Dots that have flown off
+       the canvas and dots that have shrunk below a device pixel still
+       cost a full arc to submit, and by the tail of the expansion that
+       is most of the field. Bounds are computed at zoom 1, which errs
+       towards drawing, and the margin covers the camera drift. */
+    var invS = 1 / scale;
+    var bx0 = -ox * invS - 40, bx1 = (vw - ox) * invS + 40;
+    var by0 = -oy * invS - camY - 40, by1 = (vh - oy) * invS - camY + 40;
+    var minR = 0.4 / (scale * dpr);
+
     /* Accents are a thin slice of the field, so they are collected as we go
        and stroked in a second pass rather than costing a branch per fill. */
     var accN = 0;
@@ -202,7 +222,8 @@
         rs += 0.5 * k * (1 - k) * (0.5 + dH2[i]);
       }
 
-      var r = Math.max(0.35, dr[i] * rBoost * rs);
+      var r = dr[i] * rBoost * rs;
+      if (r < minR || x < bx0 || x > bx1 || y < by0 || y > by1) continue;
       if (env > 0.5 || (k > 0.15 && dH3[i] > 0.93)) {
         accX[accN] = x; accY[accN] = y; accR[accN] = r; accN++;
       } else {
@@ -284,6 +305,13 @@
   var resizePending = false;
   function onResize() {
     if (resizePending || done) return;
+    /* iOS collapses its URL bar as you scroll, firing resize with a new
+       height. Re-measuring reallocates the canvas backing store, so
+       reacting to that mid-run is a stutter of our own making — take
+       width changes and real rotations only, and let the canvas stretch
+       the few percent that the bar is worth. */
+    var box = host.getBoundingClientRect();
+    if (Math.round(box.width) === vw && Math.abs(box.height - vh) < vh * 0.2) return;
     resizePending = true;
     window.requestAnimationFrame(function () { resizePending = false; measure(); });
   }
@@ -297,12 +325,27 @@
     rafId = window.requestAnimationFrame(frame);
   }
 
-  /* Hold off until the page has stopped loading — fonts swapping, the
-     hero card decoding and the reveal transitions all land first. */
-  function whenIdle() {
-    if (window.requestIdleCallback) window.requestIdleCallback(start, { timeout: 600 });
-    else window.setTimeout(start, 200);
+  /* Hold off until the page has genuinely finished, not merely fired
+     load: wait for the load event, then for webfonts to settle, then for
+     a few frames that actually arrive on time. On a phone `load` fires
+     while images are still decoding and the hero reveal is still
+     running, and starting into that is what makes the opening stutter. */
+  function whenQuiet() {
+    var giveUpAt = performance.now() + 4000, prev = 0, calm = 0;
+    function tick(ts) {
+      if (prev > 0 && ts - prev < 24) calm++; else calm = 0;
+      prev = ts;
+      if (calm >= 3 || performance.now() > giveUpAt) start();
+      else window.requestAnimationFrame(tick);
+    }
+    window.requestAnimationFrame(tick);
   }
-  if (document.readyState === 'complete') whenIdle();
-  else window.addEventListener('load', whenIdle, { once: true });
+
+  function afterFonts() {
+    var f = document.fonts && document.fonts.ready;
+    if (f && f.then) f.then(whenQuiet); else whenQuiet();
+  }
+
+  if (document.readyState === 'complete') afterFonts();
+  else window.addEventListener('load', afterFonts, { once: true });
 })();
