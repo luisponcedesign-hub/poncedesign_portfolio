@@ -888,18 +888,15 @@ section{ position:relative; }
   pointer-events:none; opacity:0;
   /* slow arrival, slower exit — durations are mirrored in portrait-intro.js */
   transition:opacity 4.2s var(--ease-out);
-  /* host masks vertically, canvas horizontally — two elements so the
-     fades stack into a vignette without mask-composite */
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 90%,transparent 100%);
-          mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 90%,transparent 100%);
+  /* One masked layer, not two stacked ones: the canvas repaints every
+     frame, and each masked layer costs its own compositing pass. */
+  -webkit-mask-image:radial-gradient(ellipse 78% 82% at 50% 48%,#000 55%,transparent 100%);
+          mask-image:radial-gradient(ellipse 78% 82% at 50% 48%,#000 55%,transparent 100%);
+  will-change:opacity; contain:paint;
 }
-.portrait-intro canvas{
-  display:block; width:100%; height:100%;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
-          mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
-}
+.portrait-intro canvas{ display:block; width:100%; height:100%; }
 .portrait-intro.is-in{ opacity:.2; }
-.portrait-intro.is-out{ opacity:0; transition:opacity 6.5s linear; }
+.portrait-intro.is-out{ opacity:0; transition:opacity 5.8s linear; }
 @media (max-width:900px){ .portrait-intro.is-in{ opacity:.15; } }
 
 /* ---- page transition curtain -------------------------------
