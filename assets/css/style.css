@@ -880,6 +880,14 @@ section{ position:relative; }
 .js [data-rv="scale"]{ transform:translateY(28px) scale(.97); }
 .js [data-rv].seen{ opacity:1; transform:none; }
 
+/* While the portrait intro plays, the page's other looping animations
+   hold still. On a phone the blurred hero blobs and the blend-mode
+   marquee cost more to composite than the dots themselves, and running
+   all three at once is what makes the dots stutter. Both resume from
+   where they paused, so nothing jumps. */
+body.intro-running .blob,
+body.intro-running .mq-track{ animation-play-state:paused; }
+
 /* Halftone portrait — fills the viewport once as the home page loads,
    then fades away for good. Fixed and pointer-transparent; sits above the
    hero blobs (z 0) and below the hero copy (z 2) and the header (z 900). */

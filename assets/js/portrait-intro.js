@@ -22,12 +22,22 @@
   var D    = window.PORTRAIT_DOTS;
   var host = document.getElementById('portrait-intro');
   if (!host) return;
-  if (!D || !D.dots || !D.dots.length) { host.remove(); return; }
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { host.remove(); return; }
+
+  /* While this plays it owns the page: the rest of the site holds its
+     own animations still, and picks back up on this event. Every exit
+     path has to fire it, or the page stays frozen waiting. */
+  function announceEnd() {
+    document.body.classList.remove('intro-running');
+    try { document.dispatchEvent(new CustomEvent('portrait-intro:end')); } catch (e) {}
+  }
+  function bailOut() { host.remove(); announceEnd(); }
+
+  if (!D || !D.dots || !D.dots.length) { bailOut(); return; }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { bailOut(); return; }
 
   var cvs = host.querySelector('canvas');
   var ctx = cvs && cvs.getContext ? cvs.getContext('2d') : null;
-  if (!ctx) { host.remove(); return; }
+  if (!ctx) { bailOut(); return; }
 
   var W = D.w, H = D.h;
   var CX = W * 0.5, CY = H * 0.40;
@@ -300,6 +310,7 @@
     window.cancelAnimationFrame(rafId);
     window.removeEventListener('resize', onResize);
     host.remove();
+    announceEnd();
   }
 
   var resizePending = false;
@@ -321,6 +332,7 @@
     measure();
     draw(0);                       /* first paint is the dispersed field */
     window.addEventListener('resize', onResize);
+    document.body.classList.add('intro-running');
     host.classList.add('is-in');
     rafId = window.requestAnimationFrame(frame);
   }

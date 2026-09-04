@@ -154,6 +154,19 @@
   /* ----------------------------------------------------------
      5. Rotating role words
      ---------------------------------------------------------- */
+
+  /* The dot portrait intro asks the page to stay still while it plays.
+     It removes its own element on the way out — early exits included —
+     so a missing element means there is nothing to wait for. The timeout
+     is only a backstop; it must outlast the intro's own run. */
+  function whenIntroDone(fn) {
+    if (!$('#portrait-intro')) return fn();
+    var fired = false;
+    function go() { if (fired) return; fired = true; fn(); }
+    document.addEventListener('portrait-intro:end', go, { once: true });
+    setTimeout(go, 30000);
+  }
+
   function roles() {
     var box = $('.roles');
     if (!box) return;
@@ -173,25 +186,30 @@
     items[0].classList.add('in');
     if (reduced) return;
 
-    setInterval(function () {
-      // Background tabs throttle rAF but keep firing intervals, so the class
-      // swap is done synchronously with a forced reflow instead of in a frame
-      // callback — otherwise the incoming word never becomes visible.
-      if (document.hidden) return;
+    // Each swap forces a synchronous reflow, which on a phone lands as a
+    // visible hitch in the portrait's dots. Hold the first rotation until
+    // the intro has finished and the dots are gone.
+    whenIntroDone(function () {
+      setInterval(function () {
+        // Background tabs throttle rAF but keep firing intervals, so the class
+        // swap is done synchronously with a forced reflow instead of in a frame
+        // callback — otherwise the incoming word never becomes visible.
+        if (document.hidden) return;
 
-      var cur = items[i];
-      i = (i + 1) % items.length;
-      var nxt = items[i];
+        var cur = items[i];
+        i = (i + 1) % items.length;
+        var nxt = items[i];
 
-      cur.classList.remove('in');
-      cur.classList.add('out');
+        cur.classList.remove('in');
+        cur.classList.add('out');
 
-      nxt.classList.remove('out');
-      void nxt.offsetWidth;            // flush the reset before animating in
-      nxt.classList.add('in');
+        nxt.classList.remove('out');
+        void nxt.offsetWidth;            // flush the reset before animating in
+        nxt.classList.add('in');
 
-      setTimeout(function () { cur.classList.remove('out'); }, 700);
-    }, 2600);
+        setTimeout(function () { cur.classList.remove('out'); }, 700);
+      }, 2600);
+    });
   }
 
   /* ----------------------------------------------------------
