@@ -128,7 +128,7 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 #cursor{
   position:fixed; top:0; left:0; z-index:999; pointer-events:none;
-  width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%;
+  width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%;
   border:1.5px solid var(--orange);
   transition:width .3s var(--ease-out), height .3s var(--ease-out),
              margin .3s var(--ease-out), background-color .3s var(--ease-out),
@@ -137,7 +137,7 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 #cursor.on{ opacity:1; }
 #cursor.grow{
-  width:76px; height:76px; margin:-38px 0 0 -38px;
+  width:54px; height:54px; margin:-27px 0 0 -27px;
   background:rgba(232,99,11,.1); border-color:transparent;
 }
 @media (hover:none),(pointer:coarse){ #cursor{ display:none; } }
