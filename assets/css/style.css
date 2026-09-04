@@ -903,7 +903,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   will-change:opacity; contain:paint;
 }
 .portrait-intro canvas{ display:block; width:100%; height:100%; }
-.portrait-intro.is-in{ opacity:.2; }
+.portrait-intro.is-in{ opacity:.1; }
 .portrait-intro.is-out{ opacity:0; transition:opacity 5.8s linear; }
 /* Phones do not get the intro at all — see portrait-intro.js */
 @media (max-width:900px){ .portrait-intro{ display:none; } }
