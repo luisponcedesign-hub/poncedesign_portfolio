@@ -343,18 +343,13 @@ body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
 .hero-cta{ display:flex; flex-wrap:wrap; gap:12px; }
 
 .avail{
-  display:inline-flex; align-items:center; gap:9px;
+  display:inline-block;
   font-family:var(--mono); font-size:.72rem; letter-spacing:.13em; text-transform:uppercase;
   color:var(--ink-2); background:var(--surface);
-  border:1px solid var(--line); border-radius:100px; padding:7px 15px 7px 12px;
+  border:1px solid var(--line); border-radius:100px; padding:7px 15px;
   box-shadow:var(--shadow-sm);
 }
-.avail .led{
-  width:7px; height:7px; border-radius:50%; background:#2FBF71; flex:none;
-  box-shadow:0 0 0 3px rgba(47,191,113,.18);
-  animation:blink 2.4s var(--ease-in-out) infinite;
-}
-@keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.35} }
+.avail .hl{ color:var(--orange); font-weight:600; }
 
 .scroll-hint{
   /* Sits in the hero-sub flex row so it tracks the CTA buttons' baseline
