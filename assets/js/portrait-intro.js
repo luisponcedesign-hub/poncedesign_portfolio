@@ -198,6 +198,18 @@
     var by0 = -oy * invS - camY - 40, by1 = (vh - oy) * invS - camY + 40;
     var minR = 0.4 / (scale * dpr);
 
+    /* Cursor into dot space, inverting the camera applied above. */
+    var mR2 = 0, mR = 0, mPush = 0, mpx = 0, mpy = 0;
+    if (mStrength > 0.002) {
+      mpx = (emx - ox) / scale;
+      mpy = (emy - oy) / scale - camY;
+      mpx = (mpx - CX) / zoom + CX;
+      mpy = (mpy - CY) / zoom + CY;
+      mR = MOUSE_R / (scale * zoom);
+      mR2 = mR * mR;
+      mPush = (MOUSE_PUSH / (scale * zoom)) * mStrength;
+    }
+
     /* Accents are a thin slice of the field, so they are collected as we go
        and stroked in a second pass rather than costing a branch per fill. */
     var accN = 0;
@@ -238,6 +250,21 @@
         rs += 0.5 * k * (1 - k) * (0.5 + dH2[i]);
       }
 
+      /* shoulder out of the cursor's way — square distance first, so
+         dots outside the bubble cost a compare and nothing else */
+      if (mR2 > 0) {
+        var mdx = x - mpx, mdy = y - mpy;
+        var md2 = mdx * mdx + mdy * mdy;
+        if (md2 < mR2) {
+          var md = Math.sqrt(md2);
+          var f = 1 - md / mR;
+          f *= f;                     /* soft at the rim, firm at the core */
+          var shove = mPush * f / (md || 1);
+          x += mdx * shove;
+          y += mdy * shove;
+        }
+      }
+
       var r = dr[i] * rBoost * rs;
       if (r < minR || x < bx0 || x > bx1 || y < by0 || y > by1) continue;
       if (env > 0.5 || (k > 0.15 && dH3[i] > 0.93)) {
@@ -263,6 +290,22 @@
 
   /* accent scratch buffers — sized once, never reallocated per frame */
   var accX = new Float32Array(N), accY = new Float32Array(N), accR = new Float32Array(N);
+
+  /* ---- pointer repulsion ------------------------------------
+     The cursor carries a soft field that shoulders dots out of its way.
+     Both figures are CSS pixels, converted into portrait units per frame
+     so the bubble is the same size on screen whatever the fit. The
+     pointer itself is eased, and the strength ramps in and out, so
+     arriving and leaving are not a snap. */
+  var MOUSE_R = 165, MOUSE_PUSH = 62;
+  var mx = 0, my = 0, emx = 0, emy = 0, mStrength = 0, mWanted = 0, mSeen = false;
+
+  function onMove(e) {
+    mx = e.clientX; my = e.clientY;
+    if (!mSeen) { mSeen = true; emx = mx; emy = my; }   /* no swoop in from 0,0 */
+    mWanted = 1;
+  }
+  function onLeave() { mWanted = 0; }
 
   /* ---- run once, then leave --------------------------------- */
   var T = 0, last = 0, rafId = 0, fading = false, done = false;
@@ -303,6 +346,10 @@
     T += Math.min(dtMs / 1000, 0.05);   /* survive a backgrounded tab */
     watch(dtMs);
 
+    emx += (mx - emx) * 0.25;
+    emy += (my - emy) * 0.25;
+    mStrength += (mWanted - mStrength) * 0.12;
+
     if (!fading && T >= OUT_AT) { fading = true; host.classList.add('is-out'); }
     if (offscreen()) clear(); else draw(Math.min(T, TOTAL));
 
@@ -315,6 +362,8 @@
     done = true;
     window.cancelAnimationFrame(rafId);
     window.removeEventListener('resize', onResize);
+    window.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseleave', onLeave);
     host.remove();
     announceEnd();
   }
@@ -338,6 +387,8 @@
     measure();
     draw(0);                       /* first paint is the dispersed field */
     window.addEventListener('resize', onResize);
+    window.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
     document.body.classList.add('intro-running');
     host.classList.add('is-in');
     rafId = window.requestAnimationFrame(frame);
