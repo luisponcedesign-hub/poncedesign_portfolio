@@ -389,10 +389,19 @@ body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
   display:inline-flex; align-items:center; gap:22px;
   padding-right:22px; white-space:nowrap;
 }
+.mq-track a{
+  display:inline-flex; align-items:center; flex:none;
+  border-radius:6px; outline-offset:4px;
+}
 .mq-track img{
   width:106px; height:auto; object-fit:contain; flex:none;
   filter:grayscale(1); opacity:.8; mix-blend-mode:multiply;
+  transition:filter var(--t-med) var(--ease), opacity var(--t-med) var(--ease);
 }
+/* The marquee pauses on hover, so a logo is a real target — drop the
+   greyscale on the one under the cursor to show it's clickable. */
+.mq-track a:hover img,
+.mq-track a:focus-visible img{ filter:none; opacity:1; }
 .mq-track span::after{
   content:''; width:6px; height:6px; border-radius:50%; background:var(--yellow); flex:none;
 }
