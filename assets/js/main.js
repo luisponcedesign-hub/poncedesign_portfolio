@@ -186,10 +186,15 @@
     items[0].classList.add('in');
     if (reduced) return;
 
-    // Each swap forces a synchronous reflow, which on a phone lands as a
-    // visible hitch in the portrait's dots. Hold the first rotation until
-    // the intro has finished and the dots are gone.
-    whenIntroDone(function () {
+    // The rotation used to wait on the dot intro: each swap forces a
+    // synchronous reflow, which was assumed to land as a visible hitch in the
+    // portrait's dots. Measured at ~0.1ms against a ~1.4ms intro frame, so the
+    // two run together — and phones never overlapped anyway, since the intro
+    // bails below 900px. Flip this to false to go back to holding the first
+    // rotation until the dots are gone.
+    var ROTATE_DURING_INTRO = true;
+
+    (ROTATE_DURING_INTRO ? function (fn) { fn(); } : whenIntroDone)(function () {
       setInterval(function () {
         // Background tabs throttle rAF but keep firing intervals, so the class
         // swap is done synchronously with a forced reflow instead of in a frame
