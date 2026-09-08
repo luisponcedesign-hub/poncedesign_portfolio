@@ -119,28 +119,13 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 
 /* ============================================================
-   Scroll progress + custom cursor
+   Scroll progress
    ============================================================ */
 #progress{
   position:fixed; inset:0 auto auto 0; height:3px; width:100%;
   transform:scaleX(0); transform-origin:0 50%;
   background:var(--grad); z-index:1000; will-change:transform;
 }
-#cursor{
-  position:fixed; top:0; left:0; z-index:999; pointer-events:none;
-  width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%;
-  border:1.5px solid var(--orange);
-  transition:width .3s var(--ease-out), height .3s var(--ease-out),
-             margin .3s var(--ease-out), background-color .3s var(--ease-out),
-             opacity .3s var(--ease-out);
-  opacity:0; mix-blend-mode:multiply;
-}
-#cursor.on{ opacity:1; }
-#cursor.grow{
-  width:54px; height:54px; margin:-27px 0 0 -27px;
-  background:rgba(232,99,11,.1); border-color:transparent;
-}
-@media (hover:none),(pointer:coarse){ #cursor{ display:none; } }
 
 /* ============================================================
    Header
@@ -985,12 +970,11 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   }
   .js [data-rv]{ opacity:1 !important; transform:none !important; }
   .js .ch{ opacity:1 !important; transform:none !important; }
-  #cursor{ display:none; }
   .blob{ animation:none; }
   .portrait-intro{ display:none; }
 }
 @media print{
-  .hdr,.drawer,#cursor,#progress,#curtain,.scroll-hint,.marquee{ display:none !important; }
+  .hdr,.drawer,#progress,#curtain,.scroll-hint,.marquee{ display:none !important; }
   body{ background:#fff; }
   .js [data-rv]{ opacity:1 !important; transform:none !important; }
 }

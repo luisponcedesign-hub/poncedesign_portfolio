@@ -58,40 +58,11 @@
   }
 
   /* ----------------------------------------------------------
-     3. Custom cursor + magnetic elements  (fine pointers only)
+     3. Magnetic elements  (fine pointers only)
      ---------------------------------------------------------- */
-  function cursor() {
+  function magnetic() {
     if (reduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    var dot = $('#cursor');
-    if (!dot) return;
 
-    var tx = 0, ty = 0, cx = 0, cy = 0, running = false;
-
-    function loop() {
-      cx += (tx - cx) * 0.19;
-      cy += (ty - cy) * 0.19;
-      dot.style.transform = 'translate3d(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px,0)';
-      if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) { raf(loop); } else { running = false; }
-    }
-    function kick() { if (!running) { running = true; raf(loop); } }
-
-    addEventListener('mousemove', function (e) {
-      tx = e.clientX; ty = e.clientY;
-      dot.classList.add('on');
-      kick();
-    }, { passive: true });
-    addEventListener('mouseleave', function () { dot.classList.remove('on'); });
-
-    // grow over anything interactive
-    var grow = 'a, button, [data-magnetic], .chip, .card';
-    document.addEventListener('mouseover', function (e) {
-      if (e.target.closest && e.target.closest(grow)) dot.classList.add('grow');
-    });
-    document.addEventListener('mouseout', function (e) {
-      if (e.target.closest && e.target.closest(grow)) dot.classList.remove('grow');
-    });
-
-    // magnetic pull
     $$('[data-magnetic]').forEach(function (el) {
       var strength = parseFloat(el.dataset.magnetic) || 0.32;
       el.addEventListener('mousemove', function (e) {
@@ -542,7 +513,7 @@
 
   /* ---------------------------------------------------------- */
   function init() {
-    splitHero(); roles(); progressBar(); header(); cursor();
+    splitHero(); roles(); progressBar(); header(); magnetic();
     reveals(); filters(); parallax(); counters(); drawer();
     spy(); transitions(); lightbox(); reel(); year();
   }
