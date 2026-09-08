@@ -1044,14 +1044,14 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 
 /* ---- certifications ---------------------------------------- */
 .certs{ padding:clamp(40px,5vw,64px) 0; border-bottom:1px solid var(--line); }
-.certs-head{ margin-bottom:22px; }
+.certs-head{ display:block; }
 .certs-head h3{
   font-size:clamp(1.15rem,1.9vw,1.45rem); font-weight:700; letter-spacing:-.025em;
 }
 .certs-head p{
   margin:8px 0 0; font-size:.94rem; color:var(--ink-3);
 }
-.certlist{ border-top:1px solid var(--line); }
+.certlist{ margin-top:22px; border-top:1px solid var(--line); }
 .certlist li{ border-bottom:1px solid var(--line); }
 .certlist a{
   display:grid; align-items:baseline; gap:6px 22px;
@@ -1131,12 +1131,45 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .pgrid{
   display:grid; gap:2px; background:var(--line);
   border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:1fr;
 }
 .pset{ background:var(--surface); padding:clamp(24px,3vw,38px); }
+
+/* Accordion chrome, shared by the principle lists and the certifications. */
+.pset > summary,
+.certs > summary{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+  cursor:pointer; list-style:none;
+}
+.pset > summary::-webkit-details-marker,
+.certs > summary::-webkit-details-marker{ display:none; }
+.pset > summary:focus-visible,
+.certs > summary:focus-visible{ outline:2px solid var(--orange); outline-offset:6px; }
+.pset h3,
+.certs h3{ transition:color var(--t-fast) var(--ease); }
 .pset h3{
+  margin:0;
   font-size:clamp(1.05rem,1.7vw,1.3rem); font-weight:700; letter-spacing:-.025em;
   line-height:1.25;
+}
+.pset > summary:hover h3,
+.certs > summary:hover h3{ color:var(--orange); }
+/* Chevron, drawn from two borders so it needs no asset. */
+.pchev{
+  flex:none; width:11px; height:11px; margin-top:6px;
+  border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
+  transform:rotate(45deg); transform-origin:60% 60%;
+  transition:transform var(--t-med) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.pset[open] .pchev,
+.certs[open] .pchev{ transform:rotate(-135deg); }
+.pset > summary:hover .pchev,
+.certs > summary:hover .pchev{ border-color:var(--orange); }
+.pset[open] .pbody,
+.certs[open] .certlist{ animation:pbody-in .3s var(--ease-out) both; }
+@keyframes pbody-in{
+  from{ opacity:0; transform:translateY(-6px); }
+  to{ opacity:1; transform:none; }
 }
 .pby{
   margin:9px 0 0; font-family:var(--mono); font-size:.7rem;
@@ -1173,7 +1206,6 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 
 @media (max-width:900px){
   .cgrid{ grid-template-columns:1fr; }
-  .pgrid{ grid-template-columns:1fr; }
   .motion:has(.reel-frame){ grid-template-columns:1fr; }
   .certlist a{
     grid-template-columns:1fr 20px;
