@@ -579,12 +579,20 @@ section{ position:relative; }
   width:100%; height:100%; object-fit:contain; display:block;
   transform:scale(1.12) translateY(2%);
 }
-.portrait::after{
-  content:''; position:absolute; inset:0;
-  background:var(--grad); mix-blend-mode:multiply; opacity:0;
-  transition:opacity var(--t-slow) var(--ease);
+/* The dots gather in on a canvas laid over the <img>, which stays put as
+   the alt text, the print fallback and the reduced-motion portrait. The
+   canvas only claims the frame once it has measured and drawn, so if the
+   script never gets that far the plain portrait is what shows. */
+.portrait-canvas{
+  position:absolute; top:0; left:0; display:block;
+  /* A canvas is a replaced element: `inset:0` alone would leave it at its
+     intrinsic 300×150, so the size has to be stated. */
+  width:100%; height:100%;
 }
-.portrait:hover::after{ opacity:.14; }
+.portrait.has-dots img{ opacity:0; }
+/* the dots shoulder out of the cursor's way, and a click replays the
+   gather, so the circle reads as something to put the pointer on */
+.portrait.has-dots{ cursor:pointer; }
 
 .about .lead{ margin-bottom:1.15em; }
 .about p{ color:var(--ink-2); }
@@ -941,7 +949,9 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .nav,.hdr .btn{ display:none; }
   .burger{ display:block; }
   .about-grid{ grid-template-columns:1fr; }
-  .portrait{ position:static; max-width:300px; }
+  /* relative, not static: the circle drops out of the sticky column here,
+     but it still has to be the canvas's containing block */
+  .portrait{ position:relative; top:auto; max-width:300px; }
   .mq-track img{ width:88px; }
   .stats{ grid-template-columns:repeat(2,1fr); column-gap:18px; }
   .stats li{ padding:22px 0; }
@@ -983,6 +993,8 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .hdr,.drawer,#progress,#curtain,.scroll-hint,.marquee{ display:none !important; }
   body{ background:#fff; }
   .js [data-rv]{ opacity:1 !important; transform:none !important; }
+  .portrait-canvas{ display:none; }
+  .portrait.has-dots img{ opacity:1; }
 }
 
 /* magnetic elements — JS writes the translate, CSS eases the release */
