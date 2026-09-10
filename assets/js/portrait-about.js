@@ -284,27 +284,41 @@
   if ('ResizeObserver' in window) new ResizeObserver(refit).observe(host);
   else window.addEventListener('resize', refit);
 
-  /* The dots come in when the circle does. Same trigger the rest of the page
-     reveals on — `rootMargin`/`threshold` are main.js's reveal figures — so
-     the container fading up and the field gathering are one moment rather
-     than two, and the gather has the whole scroll-in to play across.
+  /* The dots come in when the circle is actually worth looking at, not when
+     it first breaks the fold. Triggering on the fold sounds right and plays
+     wrong: the gather is 3.4s, the circle has most of a screen still to
+     travel, and by the time it settles under your eye it has already
+     finished — you scroll to a formed portrait and never see it form. So the
+     root is cropped a quarter off the bottom and 60% of the circle has to be
+     inside it, which puts the top of the circle around mid-screen before a
+     single dot moves.
 
      Nothing waits on the home page intro. It gates its own drawing on the
      hero, so by the time the About circle is on screen the intro has already
      stopped painting; holding the dots back for it would only leave a
-     scattered field sitting there while someone looks straight at it.
+     scattered field sitting there while someone looks straight at it. */
+  var loiter = 0;
 
-     Once is enough — the observer reports the element again on the way back
-     up, and the portrait has already formed by then. */
+  function trigger() {
+    if (loiter) { window.clearTimeout(loiter); loiter = 0; }
+    io.disconnect();
+    armed = true;
+    maybePlay();
+  }
+
   var io = new IntersectionObserver(function (entries) {
-    for (var e = 0; e < entries.length; e++) {
-      if (!entries[e].isIntersecting) continue;
-      io.disconnect();
-      armed = true;
-      maybePlay();
+    var en = entries[entries.length - 1];
+    if (!en.isIntersecting) {
+      if (loiter) { window.clearTimeout(loiter); loiter = 0; }
       return;
     }
-  }, { rootMargin: '0px 0px -9% 0px', threshold: 0.06 });
+    if (en.intersectionRatio >= 0.6) { trigger(); return; }
+    /* Backstop. The circle is sticky, so on a window short enough that it
+       pins before 60% of it clears the crop line, the ratio alone would
+       never come good and the dots would sit there dispersed for good.
+       Anything that has held still in view this long is in view enough. */
+    if (!loiter) loiter = window.setTimeout(trigger, 2000);
+  }, { rootMargin: '0px 0px -25% 0px', threshold: [0, 0.2, 0.4, 0.6, 0.8] });
   io.observe(host);
 
   /* …and again whenever the circle is clicked. A click mid-gather rewinds
