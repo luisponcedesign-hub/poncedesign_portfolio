@@ -297,17 +297,18 @@
      hero, so by the time the About circle is on screen the intro has already
      stopped painting; holding the dots back for it would only leave a
      scattered field sitting there while someone looks straight at it. */
-  var loiter = 0;
+  var loiter = 0, fired = false;
 
   function trigger() {
     if (loiter) { window.clearTimeout(loiter); loiter = 0; }
-    io.disconnect();
+    fired = true;
     armed = true;
     maybePlay();
   }
 
   var io = new IntersectionObserver(function (entries) {
     var en = entries[entries.length - 1];
+    if (fired) return;
     if (!en.isIntersecting) {
       if (loiter) { window.clearTimeout(loiter); loiter = 0; }
       return;
@@ -327,6 +328,28 @@
     }
   }, { rootMargin: '0px 0px -25% 0px', threshold: [0, 0.2, 0.4, 0.6, 0.8] });
   io.observe(host);
+
+  /* Leave the section and the circle rewinds, so coming back to it plays the
+     gather again rather than handing you a portrait that formed while you
+     were somewhere else.
+
+     The rewind waits for the circle to clear the viewport outright — a
+     second observer on the real edges, not the cropped ones the trigger
+     uses. Resetting the moment it merely drops below the trigger line would
+     mean a finished portrait bursting apart in front of you on the way past;
+     off screen, nobody sees the join. */
+  new IntersectionObserver(function (entries) {
+    if (entries[entries.length - 1].isIntersecting) return;
+    if (loiter) { window.clearTimeout(loiter); loiter = 0; }
+    if (running) { window.cancelAnimationFrame(rafId); running = false; }
+    T = 0;
+    fired = false;
+    armed = false;
+    settled = false;
+    mWanted = 0;
+    mStrength = 0;
+    draw(0);            /* back to the dispersed first frame, unwatched */
+  }, { threshold: 0 }).observe(host);
 
   /* …and again whenever the circle is clicked. A click mid-gather rewinds
      rather than starting a second loop — the one already turning picks the
