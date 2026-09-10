@@ -316,8 +316,15 @@
     /* Backstop. The circle is sticky, so on a window short enough that it
        pins before 60% of it clears the crop line, the ratio alone would
        never come good and the dots would sit there dispersed for good.
-       Anything that has held still in view this long is in view enough. */
-    if (!loiter) loiter = window.setTimeout(trigger, 2000);
+       Two seconds of holding still arms it instead — but only from a third
+       of the circle up, or lingering with it barely peeking over the fold
+       would spend the whole gather off screen, which is the failure this
+       trigger exists to avoid. */
+    if (en.intersectionRatio >= 0.35) {
+      if (!loiter) loiter = window.setTimeout(trigger, 2000);
+    } else if (loiter) {
+      window.clearTimeout(loiter); loiter = 0;
+    }
   }, { rootMargin: '0px 0px -25% 0px', threshold: [0, 0.2, 0.4, 0.6, 0.8] });
   io.observe(host);
 
