@@ -521,12 +521,17 @@
     var dlg = $('#contact-modal');
     if (!dlg || typeof dlg.showModal !== 'function') return;   // no <dialog>: mailto stands
 
-    /* Where submissions go. Leave empty and the form composes the message in
-       the visitor's mail client instead — no backend, nothing to maintain.
-       Point it at a form service (Formspree, Web3Forms, a Worker) to collect
-       them server-side; see the CSP note in index.html before you do. */
-    var ENDPOINT = '';
-    var MAILTO   = 'luisponcedesign@gmail.com';
+    /* Submissions POST to Web3Forms, which relays them to MAILTO — the page is
+       static, so it has no way to send mail itself.
+
+       ACCESS_KEY comes from web3forms.com (enter the address, they email the
+       key back; no account). Until it is filled in, the form falls back to
+       composing the message in the visitor's mail client, so it degrades
+       rather than silently dropping messages. api.web3forms.com also has to
+       be in connect-src — see the CSP in index.html. */
+    var ENDPOINT   = 'https://api.web3forms.com/submit';
+    var ACCESS_KEY = '';
+    var MAILTO     = 'luisponcedesign@gmail.com';
 
     var card     = $('.cdlg-card', dlg);
     var form     = $('.cform', dlg);
@@ -694,17 +699,30 @@
         message: fields[2].el.value.trim()
       };
 
-      if (!ENDPOINT) { viaMail(data); return; }
+      if (!ENDPOINT || !ACCESS_KEY) { viaMail(data); return; }
 
       busy(true);
       fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject:    'Project enquiry from ' + data.name,
+          from_name:  'poncedesign.com',
+          name:       data.name,
+          email:      data.email,
+          message:    data.message
+        })
       }).then(function (r) {
-        if (!r.ok) throw new Error(r.status);
+        return r.json().catch(function () { return {}; });
+      }).then(function (out) {
         busy(false);
-        succeed('Thanks — I’ll get back to you shortly.');
+        // a 200 with success:false is still a failure — check the body, not the status
+        if (out && out.success) {
+          succeed('Thanks — I’ll get back to you shortly.');
+        } else {
+          say('That didn’t send. Please try again, or email ' + MAILTO + ' directly.');
+        }
       }).catch(function () {
         busy(false);
         say('That didn’t send. Please try again, or email ' + MAILTO + ' directly.');
