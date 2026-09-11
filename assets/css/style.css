@@ -1231,3 +1231,213 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .certlist .ca{ grid-area:a; align-self:center; }
 }
 
+
+/* ============================================================
+   Contact modal
+   Native <dialog>, so focus trapping, Esc and the top layer come
+   from the platform. JS only drives the open/close data flag.
+   ============================================================ */
+:root{
+  --danger:      #B3261E;
+  --danger-soft: #FDECEA;
+  --ok:          #1D7A4C;
+}
+
+.cdlg{
+  width:min(560px, 100%);
+  max-height:min(92dvh, 860px);
+  margin:auto;                 /* centres in the top layer */
+  padding:0;
+  border:0;
+  border-radius:var(--r-lg);
+  background:transparent;      /* the card paints the surface */
+  color:var(--ink);
+  overflow:visible;
+}
+/* Closed dialogs are display:none, so the transition only ever runs while
+   [open] is present; data-open is flipped a frame later to drive it. */
+.cdlg[open]{
+  opacity:0;
+  transform:translateY(14px) scale(.985);
+  transition:opacity var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
+}
+.cdlg[open][data-open="true"]{ opacity:1; transform:none; }
+
+.cdlg::backdrop{
+  background:rgba(22,21,26,.58);
+  backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
+  opacity:0;
+  transition:opacity var(--t-med) var(--ease);
+}
+.cdlg[data-open="true"]::backdrop{ opacity:1; }
+
+/* Gradient frame — echoes the brand ramp without a second surface colour. */
+.cdlg-card{
+  position:relative;
+  background:var(--surface);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-lg);
+  padding:clamp(26px,4vw,44px);
+  max-height:inherit;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
+.cdlg-card::before{
+  content:''; position:absolute; inset:0;
+  border-radius:inherit; padding:3px;
+  background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  pointer-events:none;
+}
+
+.cdlg-close{
+  position:absolute; top:12px; right:12px;
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.35rem; line-height:1; color:var(--ink-3);
+  transition:background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.cdlg-close:hover{ background:var(--bg-tint); color:var(--ink); }
+
+.cdlg h2{
+  font-size:clamp(1.6rem, 1.1rem + 1.8vw, 2.1rem);
+  margin:0 0 10px;
+  padding-right:44px;          /* clear of the close button */
+}
+/* No measure cap — the copy runs the full content width so its ragged edge
+   sits against the same right edge as the inputs below it. */
+.cdlg-intro{
+  margin:0 0 clamp(22px,3vw,30px);
+  color:var(--ink-3);
+  font-size:.96rem; line-height:1.6;
+}
+
+/* ---- fields ------------------------------------------------ */
+.cfield{ margin-bottom:20px; }
+.cfield label{
+  display:block; margin-bottom:8px;
+  font-weight:700; font-size:.9rem; letter-spacing:-.01em;
+}
+.cfield .opt{ font-weight:400; color:var(--muted); }
+
+.cfield input,
+.cfield textarea{
+  width:100%;
+  font-family:inherit;
+  /* 16px floor: anything smaller makes iOS Safari zoom the viewport on focus */
+  font-size:16px;
+  line-height:1.5;
+  color:var(--ink);
+  background:var(--bg-tint);
+  border:1.5px solid transparent;
+  border-radius:var(--r-md);
+  padding:14px 16px;
+  transition:background-color var(--t-fast) var(--ease),
+             border-color var(--t-fast) var(--ease),
+             box-shadow var(--t-fast) var(--ease);
+}
+/* The rows attribute would set 151px here; an explicit height overrides it
+   and stays the single place this box is sized. rows is the no-CSS fallback. */
+.cfield textarea{ height:119px; min-height:119px; resize:vertical; }
+.cfield input::placeholder,
+.cfield textarea::placeholder{ color:var(--muted); }
+
+.cfield input:hover,
+.cfield textarea:hover{ background:#EFEBE2; }
+.cfield input:focus,
+.cfield textarea:focus{
+  outline:none;
+  background:var(--surface);
+  border-color:var(--orange);
+  box-shadow:0 0 0 4px var(--orange-soft);
+}
+.cfield input[aria-invalid="true"],
+.cfield textarea[aria-invalid="true"]{
+  border-color:var(--danger);
+  background:var(--danger-soft);
+}
+.cfield input[aria-invalid="true"]:focus,
+.cfield textarea[aria-invalid="true"]:focus{ box-shadow:0 0 0 4px rgba(179,38,30,.14); }
+
+.cerr{
+  display:none;
+  margin:7px 0 0;
+  font-size:.82rem; font-weight:500; color:var(--danger);
+}
+.cerr::before{ content:'! '; font-weight:700; }
+.cfield.invalid .cerr{ display:block; }
+
+/* Honeypot — off-screen rather than display:none, which some bots skip. */
+.chp{
+  position:absolute; left:-9999px; width:1px; height:1px;
+  overflow:hidden; opacity:0; pointer-events:none;
+}
+
+.cdlg-actions{
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  margin-top:26px;
+}
+.cdlg-actions .btn[disabled]{ opacity:.55; pointer-events:none; }
+/* --ink-3, not --muted: at .78rem the mid-grey falls under 4.5:1 on white. */
+.cdlg-note{
+  margin:0; font-size:.78rem; color:var(--ink-3);
+}
+.cdlg-note .nowrap{ white-space:nowrap; }
+
+/* Scroll lock lives on a class, not an inline style: the mobile drawer
+   clears body.style.overflow when it closes, which would otherwise
+   unlock the page behind an open dialog. */
+body.cmodal-open{ overflow:hidden; }
+
+/* Live region for submit failures — errors on individual fields have their
+   own message, this one covers the request as a whole. */
+.cstatus{
+  display:none;
+  margin:0 0 20px; padding:12px 14px;
+  border-radius:var(--r-sm);
+  font-size:.88rem; line-height:1.5;
+  background:var(--danger-soft); color:var(--danger);
+  border:1px solid rgba(179,38,30,.2);
+}
+.cstatus.show{ display:block; }
+
+/* ---- sent state -------------------------------------------- */
+.csent{ display:none; text-align:center; padding:14px 0 6px; }
+.cdlg[data-sent="true"] .csent{ display:block; }
+.cdlg[data-sent="true"] .cform,
+.cdlg[data-sent="true"] .cdlg-intro,
+.cdlg[data-sent="true"] .cdlg-head h2{ display:none; }
+.csent .tick{
+  width:60px; height:60px; margin:0 auto 20px;
+  border-radius:50%; background:var(--grad);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:1.7rem; font-weight:700;
+}
+.csent h3{ font-size:1.5rem; margin:0 0 10px; }
+.csent p{ color:var(--ink-3); font-size:.96rem; margin:0 0 22px; max-width:38ch; margin-inline:auto; }
+
+/* ---- phones: bottom sheet ---------------------------------- */
+@media (max-width:620px){
+  .cdlg{
+    width:100%;
+    max-width:100%;
+    max-height:94dvh;
+    margin:auto 0 0;           /* pinned to the bottom edge */
+    border-radius:var(--r-lg) var(--r-lg) 0 0;
+  }
+  .cdlg[open]{ transform:translateY(26px); }
+  .cdlg-card{
+    border-radius:var(--r-lg) var(--r-lg) 0 0;
+    padding:26px 20px calc(26px + env(safe-area-inset-bottom));
+  }
+  .cdlg-card::before{ padding:3px 3px 0; }
+  .cdlg-actions{ gap:12px; }
+  .cdlg-actions .btn{ width:100%; justify-content:center; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .cdlg[open]{ opacity:1; transform:none; }
+  .cdlg::backdrop{ opacity:1; }
+}

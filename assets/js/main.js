@@ -511,11 +511,206 @@
     $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
   }
 
+  /* ----------------------------------------------------------
+     16. Contact modal
+     Native <dialog>: focus trapping, Esc and the top layer come
+     from the platform. Triggers stay real mailto links, so the
+     page still works if this never runs.
+     ---------------------------------------------------------- */
+  function contactModal() {
+    var dlg = $('#contact-modal');
+    if (!dlg || typeof dlg.showModal !== 'function') return;   // no <dialog>: mailto stands
+
+    /* Where submissions go. Leave empty and the form composes the message in
+       the visitor's mail client instead — no backend, nothing to maintain.
+       Point it at a form service (Formspree, Web3Forms, a Worker) to collect
+       them server-side; see the CSP note in index.html before you do. */
+    var ENDPOINT = '';
+    var MAILTO   = 'luisponcedesign@gmail.com';
+
+    var card     = $('.cdlg-card', dlg);
+    var form     = $('.cform', dlg);
+    var status   = $('#cdlg-status', dlg);
+    var submit   = $('button[type="submit"]', form);
+    var subLabel = $('.lbl', submit);
+    var sentCopy = $('[data-sent-copy]', dlg);
+    var trap     = $('#cf-company', form);
+    var lastFocus = null;
+    var openedAt = 0;
+
+    var fields = [
+      { el: $('#cf-name', form),  msg: 'Please enter your name.' },
+      { el: $('#cf-email', form), msg: 'Please enter a valid email address.' },
+      { el: $('#cf-msg', form),   msg: 'Please add a short message.' }
+    ];
+
+    /* ---- open / close ---- */
+    function lockScroll(on) {
+      if (on) {
+        var gap = window.innerWidth - document.documentElement.clientWidth;
+        if (gap > 0) document.body.style.paddingRight = gap + 'px';
+        document.body.classList.add('cmodal-open');
+      } else {
+        document.body.classList.remove('cmodal-open');
+        document.body.style.paddingRight = '';
+      }
+    }
+
+    function open() {
+      if (dlg.open) return;
+      lastFocus = document.activeElement;
+      dlg.dataset.sent = 'false';   // a repeat visit starts on a fresh form
+      say('');
+      dlg.showModal();
+      lockScroll(true);
+      openedAt = Date.now();
+      // Closed dialogs are display:none, so the from-state has to be committed
+      // before the flag flips. A forced reflow does that synchronously —
+      // requestAnimationFrame would stall in a backgrounded tab.
+      void dlg.offsetWidth;
+      dlg.dataset.open = 'true';
+      // let the dialog's own focus land first, then put the caret in field one
+      setTimeout(function () { fields[0].el.focus(); }, 0);
+    }
+
+    function close() {
+      if (!dlg.open) return;
+      dlg.dataset.open = 'false';
+      var done = function () {
+        dlg.close();
+        lockScroll(false);
+        if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+      };
+      if (reduced) { done(); return; }
+      setTimeout(done, 300);
+    }
+
+    $$('[data-contact-open]').forEach(function (t) {
+      t.setAttribute('aria-haspopup', 'dialog');
+      t.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return;   // let modified clicks be
+        e.preventDefault();
+        // the mobile trigger lives in the drawer; shut it before we take over
+        if (document.body.classList.contains('menu-open')) {
+          var burger = $('.burger');
+          if (burger) burger.click();
+        }
+        open();
+      });
+    });
+
+    $$('[data-contact-close]', dlg).forEach(function (b) {
+      b.addEventListener('click', close);
+    });
+
+    // Esc: the platform would close instantly and skip the fade
+    dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+
+    // click outside the card — the backdrop is part of the dialog's own box
+    dlg.addEventListener('mousedown', function (e) {
+      if (!card.contains(e.target)) close();
+    });
+
+    /* ---- validation ---- */
+    function check(f) {
+      var v = f.el.value.trim();
+      var ok = f.el.type === 'email'
+        ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)
+        : v.length > 0;
+      f.el.closest('.cfield').classList.toggle('invalid', !ok);
+      f.el.setAttribute('aria-invalid', String(!ok));
+      return ok;
+    }
+
+    fields.forEach(function (f) {
+      // don't nag mid-typing: only re-check a field that has already failed
+      f.el.addEventListener('input', function () {
+        if (f.el.getAttribute('aria-invalid') === 'true') check(f);
+      });
+      f.el.addEventListener('blur', function () {
+        if (f.el.value.trim()) check(f);
+      });
+    });
+
+    function say(msg) {
+      status.textContent = msg || '';
+      status.classList.toggle('show', !!msg);
+    }
+
+    function busy(on) {
+      submit.disabled = on;
+      subLabel.textContent = on ? 'Sending' : 'Submit';
+    }
+
+    function succeed(copy) {
+      sentCopy.textContent = copy;
+      dlg.dataset.sent = 'true';
+      say('');
+      form.reset();
+      fields.forEach(function (f) {
+        f.el.removeAttribute('aria-invalid');
+        f.el.closest('.cfield').classList.remove('invalid');
+      });
+      var back = $('[data-contact-close]', $('.csent', dlg));
+      if (back) back.focus();
+    }
+
+    function viaMail(data) {
+      var body = 'From: ' + data.name + ' <' + data.email + '>\n\n' + data.message;
+      location.href = 'mailto:' + MAILTO +
+        '?subject=' + encodeURIComponent('Project enquiry from ' + data.name) +
+        '&body=' + encodeURIComponent(body);
+      succeed('Your email app is opening with the message ready to send.');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      say('');
+
+      var bad = null;
+      fields.forEach(function (f) { if (!check(f) && !bad) bad = f; });
+      if (bad) {
+        bad.el.focus();
+        say('Please fix the highlighted fields.');
+        return;
+      }
+
+      // bots fill hidden inputs, and they fill them fast
+      if (trap.value || Date.now() - openedAt < 1500) {
+        succeed('Thanks — I’ll get back to you shortly.');
+        return;
+      }
+
+      var data = {
+        name:    fields[0].el.value.trim(),
+        email:   fields[1].el.value.trim(),
+        message: fields[2].el.value.trim()
+      };
+
+      if (!ENDPOINT) { viaMail(data); return; }
+
+      busy(true);
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        busy(false);
+        succeed('Thanks — I’ll get back to you shortly.');
+      }).catch(function () {
+        busy(false);
+        say('That didn’t send. Please try again, or email ' + MAILTO + ' directly.');
+      });
+    });
+  }
+
   /* ---------------------------------------------------------- */
   function init() {
     splitHero(); roles(); progressBar(); header(); magnetic();
     reveals(); filters(); parallax(); counters(); drawer();
     spy(); transitions(); lightbox(); reel(); year();
+    contactModal();
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
