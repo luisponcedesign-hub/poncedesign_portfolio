@@ -1445,8 +1445,13 @@ body.cmodal-open{ overflow:hidden; }
    mail link — the two things needed to finish the form. Growing downward
    from the top instead keeps the fields above the keyboard, and taking the
    full height gives the form the most room before it has to scroll.
-   dvh (not vh) so the height tracks the browser's retracting toolbars. */
-@media (max-width:620px){
+   dvh (not vh) so the height tracks the browser's retracting toolbars.
+
+   The second query catches the same phones turned sideways: landscape puts
+   them past 620px wide, where they used to pick up the centred desktop box
+   and squeeze it into ~390px of height. Height-bounded so a short-but-wide
+   desktop window keeps the centred treatment, which suits it. */
+@media (max-width:620px), (max-height:560px) and (max-width:960px){
   .cdlg{
     width:100%;
     max-width:100%;
@@ -1464,8 +1469,10 @@ body.cmodal-open{ overflow:hidden; }
        margin under the mail link instead of leaving it flush to the edge,
        and the safe-area inset clears the home indicator now that the card
        reaches the bottom of the screen. */
-    padding:calc(26px + env(safe-area-inset-top)) 20px
-            calc(40px + env(safe-area-inset-bottom));
+    padding:calc(26px + env(safe-area-inset-top))
+            calc(20px + env(safe-area-inset-right))
+            calc(40px + env(safe-area-inset-bottom))
+            calc(20px + env(safe-area-inset-left));
   }
   .cdlg-actions{ gap:12px; }
   .cdlg-actions .btn{ width:100%; justify-content:center; }
