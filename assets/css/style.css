@@ -1439,25 +1439,33 @@ body.cmodal-open{ overflow:hidden; }
 .csent p{ color:var(--ink-3); font-size:.96rem; margin:0 0 22px; max-width:38ch; margin-inline:auto; }
 .csent p span{ display:block; }
 
-/* ---- phones: top sheet -------------------------------------
-   Anchored to the top rather than the bottom. Safari's floating URL bar
-   sits over the foot of the viewport, so a bottom-anchored sheet buried
-   its own submit button and mail link under it; opening downward leaves
-   that strip clear. It also keeps the fields above the keyboard instead
-   of behind it. */
+/* ---- phones: full-screen sheet ------------------------------
+   Anchored to the top and filling the viewport. As a bottom sheet it sat
+   under Safari's floating URL bar, which buried its own submit button and
+   mail link — the two things needed to finish the form. Growing downward
+   from the top instead keeps the fields above the keyboard, and taking the
+   full height gives the form the most room before it has to scroll.
+   dvh (not vh) so the height tracks the browser's retracting toolbars. */
 @media (max-width:620px){
   .cdlg{
     width:100%;
     max-width:100%;
-    max-height:92dvh;
-    margin:0 0 auto;           /* pinned to the top edge */
-    border-radius:0 0 var(--r-lg) var(--r-lg);
-    padding:0 3px 3px;         /* no frame along the screen edge */
+    height:100dvh;             /* full bleed — every pixel goes to the form */
+    max-height:100dvh;
+    margin:0;
+    border-radius:0;
+    padding:0;                 /* no frame: nothing sits outside the screen */
   }
   .cdlg[open]{ transform:translateY(-26px); }
   .cdlg-card{
-    border-radius:0 0 calc(var(--r-lg) - 3px) calc(var(--r-lg) - 3px);
-    padding:calc(26px + env(safe-area-inset-top)) 20px 26px;
+    border-radius:0;
+    /* Deeper foot than head. This padding sits inside the scroll area, so on
+       a short screen the tail of it is what gets cut — 40px keeps a visible
+       margin under the mail link instead of leaving it flush to the edge,
+       and the safe-area inset clears the home indicator now that the card
+       reaches the bottom of the screen. */
+    padding:calc(26px + env(safe-area-inset-top)) 20px
+            calc(40px + env(safe-area-inset-bottom));
   }
   .cdlg-actions{ gap:12px; }
   .cdlg-actions .btn{ width:100%; justify-content:center; }
