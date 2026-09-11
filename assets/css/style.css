@@ -1439,20 +1439,25 @@ body.cmodal-open{ overflow:hidden; }
 .csent p{ color:var(--ink-3); font-size:.96rem; margin:0 0 22px; max-width:38ch; margin-inline:auto; }
 .csent p span{ display:block; }
 
-/* ---- phones: bottom sheet ---------------------------------- */
+/* ---- phones: top sheet -------------------------------------
+   Anchored to the top rather than the bottom. Safari's floating URL bar
+   sits over the foot of the viewport, so a bottom-anchored sheet buried
+   its own submit button and mail link under it; opening downward leaves
+   that strip clear. It also keeps the fields above the keyboard instead
+   of behind it. */
 @media (max-width:620px){
   .cdlg{
     width:100%;
     max-width:100%;
-    max-height:94dvh;
-    margin:auto 0 0;           /* pinned to the bottom edge */
-    border-radius:var(--r-lg) var(--r-lg) 0 0;
-    padding:3px 3px 0;         /* no frame along the screen edge */
+    max-height:92dvh;
+    margin:0 0 auto;           /* pinned to the top edge */
+    border-radius:0 0 var(--r-lg) var(--r-lg);
+    padding:0 3px 3px;         /* no frame along the screen edge */
   }
-  .cdlg[open]{ transform:translateY(26px); }
+  .cdlg[open]{ transform:translateY(-26px); }
   .cdlg-card{
-    border-radius:calc(var(--r-lg) - 3px) calc(var(--r-lg) - 3px) 0 0;
-    padding:26px 20px calc(26px + env(safe-area-inset-bottom));
+    border-radius:0 0 calc(var(--r-lg) - 3px) calc(var(--r-lg) - 3px);
+    padding:calc(26px + env(safe-area-inset-top)) 20px 26px;
   }
   .cdlg-actions{ gap:12px; }
   .cdlg-actions .btn{ width:100%; justify-content:center; }
