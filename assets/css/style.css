@@ -1243,20 +1243,29 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   --ok:          #1D7A4C;
 }
 
+/* The gradient frame is painted here, on the dialog, and NOT on the card.
+   The card is the scroll container: an absolutely-positioned frame inside it
+   is laid out against the padding box but scrolls with the content, so once
+   the form overflowed, the frame stopped short and drew a stray line across
+   the middle of the card. The dialog never scrolls, so the frame can't drift. */
 .cdlg{
   width:min(560px, 100%);
   max-height:min(92dvh, 860px);
   margin:auto;                 /* centres in the top layer */
-  padding:0;
+  padding:3px;                 /* the visible thickness of the frame */
   border:0;
   border-radius:var(--r-lg);
-  background:transparent;      /* the card paints the surface */
+  background:var(--grad);
+  box-shadow:var(--shadow-lg);
   color:var(--ink);
-  overflow:visible;
+  overflow:hidden;             /* clips the card's corners to the frame */
 }
 /* Closed dialogs are display:none, so the transition only ever runs while
-   [open] is present; data-open is flipped a frame later to drive it. */
+   [open] is present; data-open is flipped a frame later to drive it.
+   display:flex lets the card shrink to the dialog's height and scroll
+   inside it, instead of a percentage max-height that never resolves. */
 .cdlg[open]{
+  display:flex;
   opacity:0;
   transform:translateY(14px) scale(.985);
   transition:opacity var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
@@ -1271,25 +1280,16 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 }
 .cdlg[data-open="true"]::backdrop{ opacity:1; }
 
-/* Gradient frame — echoes the brand ramp without a second surface colour. */
 .cdlg-card{
   position:relative;
+  flex:1 1 auto;
+  min-height:0;                /* without this a flex item refuses to shrink */
   background:var(--surface);
-  border-radius:var(--r-lg);
-  box-shadow:var(--shadow-lg);
+  border-radius:calc(var(--r-lg) - 3px);
   padding:clamp(26px,4vw,44px);
-  max-height:inherit;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior:contain;
-}
-.cdlg-card::before{
-  content:''; position:absolute; inset:0;
-  border-radius:inherit; padding:3px;
-  background:var(--grad);
-  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor; mask-composite:exclude;
-  pointer-events:none;
 }
 
 .cdlg-close{
@@ -1434,13 +1434,13 @@ body.cmodal-open{ overflow:hidden; }
     max-height:94dvh;
     margin:auto 0 0;           /* pinned to the bottom edge */
     border-radius:var(--r-lg) var(--r-lg) 0 0;
+    padding:3px 3px 0;         /* no frame along the screen edge */
   }
   .cdlg[open]{ transform:translateY(26px); }
   .cdlg-card{
-    border-radius:var(--r-lg) var(--r-lg) 0 0;
+    border-radius:calc(var(--r-lg) - 3px) calc(var(--r-lg) - 3px) 0 0;
     padding:26px 20px calc(26px + env(safe-area-inset-bottom));
   }
-  .cdlg-card::before{ padding:3px 3px 0; }
   .cdlg-actions{ gap:12px; }
   .cdlg-actions .btn{ width:100%; justify-content:center; }
 }

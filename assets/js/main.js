@@ -625,7 +625,14 @@
     fields.forEach(function (f) {
       // don't nag mid-typing: only re-check a field that has already failed
       f.el.addEventListener('input', function () {
-        if (f.el.getAttribute('aria-invalid') === 'true') check(f);
+        if (f.el.getAttribute('aria-invalid') !== 'true') return;
+        check(f);
+        // the summary outlives the field errors unless it is cleared here —
+        // it would otherwise still accuse a form that is now entirely valid
+        var stillBad = fields.some(function (x) {
+          return x.el.getAttribute('aria-invalid') === 'true';
+        });
+        if (!stillBad) say('');
       });
       f.el.addEventListener('blur', function () {
         if (f.el.value.trim()) check(f);
