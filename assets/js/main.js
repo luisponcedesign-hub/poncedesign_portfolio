@@ -530,7 +530,7 @@
        rather than silently dropping messages. api.web3forms.com also has to
        be in connect-src — see the CSP in index.html. */
     var ENDPOINT   = 'https://api.web3forms.com/submit';
-    var ACCESS_KEY = '';
+    var ACCESS_KEY = '6ff135ce-a343-4e0a-86f3-cb96bd54ab39';
     var MAILTO     = 'luisponcedesign@gmail.com';
 
     var card     = $('.cdlg-card', dlg);
