@@ -11,6 +11,7 @@ Run it after any edit to data/projects.json:
     python3 scripts/build.py
 """
 
+import hashlib
 import html
 import json
 import os
@@ -476,6 +477,50 @@ def case_page(p, prev_p, next_p):
 
 
 # ------------------------------------------------------------------ main
+ASSET_REF = re.compile(
+    r'(?P<attr>href|src)="(?P<path>(?:\.\./)?assets/(?:css|js)/[A-Za-z0-9_.\-]+\.(?:css|js))'
+    r'(?:\?v=[0-9a-f]+)?"')
+
+
+def stamp_assets():
+    """Append ?v=<content hash> to every local CSS/JS reference.
+
+    Pages serves assets with max-age=600 and no fingerprinting, so for ten
+    minutes after a deploy a returning visitor pairs the new HTML with the
+    stylesheet they already had. Anything the markup relies on but the old
+    CSS lacks renders unstyled — most visibly, a new element lands with no
+    spacing and collides with its neighbour. Hashing the content into the URL
+    makes a changed asset a different URL, so the two can never disagree.
+    """
+    digests = {}
+
+    def digest(rel):
+        real = os.path.join(ROOT, rel[3:] if rel.startswith('../') else rel)
+        if real not in digests:
+            with open(real, 'rb') as f:
+                digests[real] = hashlib.sha1(f.read()).hexdigest()[:8]
+        return digests[real]
+
+    pages = [os.path.join(ROOT, 'index.html')] + [
+        os.path.join(ROOT, 'work', n)
+        for n in sorted(os.listdir(os.path.join(ROOT, 'work')))
+        if n.endswith('.html')]
+
+    stamped = 0
+    for page in pages:
+        with open(page, encoding='utf-8') as f:
+            src = f.read()
+        out = ASSET_REF.sub(
+            lambda m: '%s="%s?v=%s"' % (m.group('attr'), m.group('path'),
+                                        digest(m.group('path'))),
+            src)
+        if out != src:
+            with open(page, 'w', encoding='utf-8') as f:
+                f.write(out)
+            stamped += 1
+    return stamped
+
+
 def main():
     with open(DATA, encoding='utf-8') as f:
         data = json.load(f)
@@ -524,6 +569,7 @@ def main():
     print('built %d case study pages' % len(projects))
     print('injected %d cards into index.html' % len(projects))
     print('wrote sitemap.xml')
+    print('stamped asset versions in %d pages' % stamp_assets())
 
 
 if __name__ == '__main__':
