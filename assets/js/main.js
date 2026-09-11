@@ -697,7 +697,7 @@
 
       // bots fill hidden inputs, and they fill them fast
       if (trap.value || Date.now() - openedAt < 1500) {
-        succeed('Thank you for your message!\nI will get to you shortly.');
+        succeed('Thank you for your note!\nI will get to you shortly.');
         return;
       }
 
@@ -727,7 +727,7 @@
         busy(false);
         // a 200 with success:false is still a failure — check the body, not the status
         if (out && out.success) {
-          succeed('Thank you for your message!\nI will get to you shortly.');
+          succeed('Thank you for your note!\nI will get to you shortly.');
         } else {
           say('That didn’t send. Please try again, or email ' + MAILTO + ' directly.');
         }
