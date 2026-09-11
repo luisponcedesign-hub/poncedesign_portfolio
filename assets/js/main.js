@@ -655,7 +655,15 @@
     }
 
     function succeed(copy) {
-      sentCopy.textContent = copy;
+      // A newline marks a deliberate break. It is rendered as one block per
+      // line rather than a <br>, because this element is rewritten with
+      // textContent on every send and markup would not survive that.
+      sentCopy.textContent = '';
+      copy.split('\n').forEach(function (line) {
+        var span = document.createElement('span');
+        span.textContent = line;
+        sentCopy.appendChild(span);
+      });
       dlg.dataset.sent = 'true';
       say('');
       form.reset();
@@ -689,7 +697,7 @@
 
       // bots fill hidden inputs, and they fill them fast
       if (trap.value || Date.now() - openedAt < 1500) {
-        succeed('Thank you for your message! I will get to you shortly.');
+        succeed('Thank you for your message!\nI will get to you shortly.');
         return;
       }
 
@@ -719,7 +727,7 @@
         busy(false);
         // a 200 with success:false is still a failure — check the body, not the status
         if (out && out.success) {
-          succeed('Thank you for your message! I will get to you shortly.');
+          succeed('Thank you for your message!\nI will get to you shortly.');
         } else {
           say('That didn’t send. Please try again, or email ' + MAILTO + ' directly.');
         }

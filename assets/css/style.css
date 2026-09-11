@@ -1425,6 +1425,7 @@ body.cmodal-open{ overflow:hidden; }
 }
 .csent h3{ font-size:1.5rem; margin:0 0 10px; }
 .csent p{ color:var(--ink-3); font-size:.96rem; margin:0 0 22px; max-width:38ch; margin-inline:auto; }
+.csent p span{ display:block; }
 
 /* ---- phones: bottom sheet ---------------------------------- */
 @media (max-width:620px){
