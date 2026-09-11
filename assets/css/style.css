@@ -1385,6 +1385,14 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   margin:0; font-size:.78rem; color:var(--ink-3);
 }
 .cdlg-note .nowrap{ white-space:nowrap; }
+.cdlg-note a{
+  color:var(--ink-2);
+  text-decoration:underline;
+  text-decoration-color:var(--line-strong);
+  text-underline-offset:3px;
+  transition:color var(--t-fast) var(--ease), text-decoration-color var(--t-fast) var(--ease);
+}
+.cdlg-note a:hover{ color:var(--orange-deep); text-decoration-color:currentColor; }
 
 /* Scroll lock lives on a class, not an inline style: the mobile drawer
    clears body.style.overflow when it closes, which would otherwise
