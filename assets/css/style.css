@@ -634,6 +634,17 @@ section{ position:relative; }
   padding-bottom:5px; word-break:break-word;
 }
 .mail-link:hover{ background-size:0% 2px; color:var(--orange); }
+/* Mirror of the header's "Let's talk", shown only while that one is off the
+   screen — see contactCta() in main.js. visibility (not display) keeps the
+   slot's height reserved so the socials row never jumps as it toggles. */
+.contact-cta{ margin:34px 0 6px; }
+.contact-cta .btn{
+  visibility:hidden; opacity:0;
+  transition:opacity var(--t-med) var(--ease), visibility 0s linear var(--t-med),
+             color var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+}
+.contact-cta.show .btn{ visibility:visible; opacity:1; transition-delay:0s; }
+
 .socials{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:36px; }
 .socials a{
   display:inline-flex; align-items:center; gap:9px;
@@ -987,6 +998,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .js [data-rv]{ opacity:1 !important; transform:none !important; }
   .js .ch{ opacity:1 !important; transform:none !important; }
   .blob{ animation:none; }
+  .contact-cta .btn{ transition-delay:0s !important; }
   .portrait-intro{ display:none; }
 }
 @media print{

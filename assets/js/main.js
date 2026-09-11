@@ -738,12 +738,38 @@
     });
   }
 
+  /* ----------------------------------------------------------
+     17. Contact CTA — mirror of the header's "Let's talk"
+     The header button disappears two different ways: the bar auto-hides
+     on scroll-down, and it collapses into the burger under 860px. Rather
+     than restate either rule, observe the real button — an empty or
+     off-screen rect covers both cases.
+     ---------------------------------------------------------- */
+  function contactCta() {
+    var slot = $('.contact-cta');
+    if (!slot) return;
+    var navBtn = $('.hdr .btn');
+    // Nothing to mirror, or no observer to mirror it with: leave the CTA up.
+    if (!navBtn || !('IntersectionObserver' in window)) { slot.classList.add('show'); return; }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var r = en.boundingClientRect;
+        // display:none collapses the rect; guard it rather than trust
+        // isIntersecting, which is unreliable for zero-area targets.
+        var visible = en.isIntersecting && r.width > 0 && r.height > 0;
+        slot.classList.toggle('show', !visible);
+      });
+    }, { threshold: 0 });
+    io.observe(navBtn);
+  }
+
   /* ---------------------------------------------------------- */
   function init() {
     splitHero(); roles(); progressBar(); header(); magnetic();
     reveals(); filters(); parallax(); counters(); drawer();
     spy(); transitions(); lightbox(); reel(); year();
-    contactModal();
+    contactModal(); contactCta();
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
