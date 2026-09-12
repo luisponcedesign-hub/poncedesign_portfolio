@@ -248,7 +248,14 @@ body.menu-open .drawer a:nth-child(2){ transition-delay:.24s; }
 body.menu-open .drawer a:nth-child(3){ transition-delay:.30s; }
 body.menu-open .drawer a:nth-child(4){ transition-delay:.36s; }
 body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
+body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .drawer a:hover{ color:var(--orange); }
+/* Labs is the one drawer item that leaves the site, and the longest
+   label of the six — a size down keeps it on one line, and the arrow
+   rides the baseline gap the row's space-between already leaves. */
+.drawer a[data-labs]{ font-size:clamp(1.5rem,6.4vw,2.4rem); }
+.drawer a[data-labs] .ext{ font-size:.62em; font-weight:700; color:var(--muted); }
+.drawer a[data-labs]:hover .ext{ color:var(--orange); }
 
 /* ============================================================
    Hero
@@ -959,6 +966,9 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   body{ font-size:16px; }
   .nav,.hdr .btn{ display:none; }
   .burger{ display:block; }
+  /* Labs moves into the drawer at the same width the burger appears,
+     so the link is never offered in both places at once. */
+  .hero-cta a[data-labs]{ display:none; }
   .about-grid{ grid-template-columns:1fr; }
   /* relative, not static: the circle drops out of the sticky column here,
      but it still has to be the canvas's containing block */
