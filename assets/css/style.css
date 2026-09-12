@@ -250,12 +250,17 @@ body.menu-open .drawer a:nth-child(4){ transition-delay:.36s; }
 body.menu-open .drawer a:nth-child(5){ transition-delay:.42s; }
 body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .drawer a:hover{ color:var(--orange); }
-/* Labs is the one drawer item that leaves the site, and the longest
-   label of the six — a size down keeps it on one line, and the arrow
-   rides the baseline gap the row's space-between already leaves. */
-.drawer a[data-labs]{ font-size:clamp(1.5rem,6.4vw,2.4rem); }
-.drawer a[data-labs] .ext{ font-size:.62em; font-weight:700; color:var(--muted); }
-.drawer a[data-labs]:hover .ext{ color:var(--orange); }
+/* Labs is the one drawer item that leaves the site, and the longest label
+   of the six — a size down keeps it on one line, and the arrow rides the
+   baseline gap the row's space-between already leaves. Grey and semibold
+   against the others' ink and black: the same quiet treatment it carries
+   as a hero button, so it still reads as the tertiary item in the list. */
+.drawer a[data-labs]{
+  font-size:clamp(1.5rem,6.4vw,2.4rem);
+  font-weight:600;
+  color:var(--muted);
+}
+.drawer a[data-labs] .ext{ font-size:.62em; }
 
 /* ============================================================
    Hero
