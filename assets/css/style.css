@@ -995,7 +995,9 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .scroll-hint{ display:none; }
   /* Phones only — the 860px rule sets 26px here, which runs the buttons
      close under the lead. Tablets keep that tighter pairing. */
-  .hero-sub{ gap:122px; }
+  /* margin-top drops the lead clear of the rotating role; the gap gives
+     back the same 16 so the buttons keep their position. */
+  .hero-sub{ margin-top:50px; gap:106px; }
   /* Lifted off the headline without disturbing anything: a relative
      offset leaves the pill's layout box where it was, so the headline
      and everything under it hold the positions set above. */
