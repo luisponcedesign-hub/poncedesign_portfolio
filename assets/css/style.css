@@ -995,11 +995,11 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .scroll-hint{ display:none; }
   /* Phones only — the 860px rule sets 26px here, which runs the buttons
      close under the lead. Tablets keep that tighter pairing. */
-  .hero-sub{ gap:58px; }
+  .hero-sub{ gap:90px; }
   /* Lifted off the headline without disturbing anything: a relative
      offset leaves the pill's layout box where it was, so the headline
      and everything under it hold the positions set above. */
-  .avail{ position:relative; top:-64px; }
+  .avail{ position:relative; top:-32px; }
   .mark .sub{ display:none; }
   .filters{ gap:7px; }
   .chip{ padding:8px 13px; font-size:.68rem; }
@@ -1009,7 +1009,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   /* The row wraps here, so this gap is the seam between the name line and
      everything below it — widening it drops the whole hero block, from the
      availability pill down, to sit better in the viewport. */
-  .hero-top{ gap:80px 16px; }
+  .hero-top{ gap:48px 16px; }
 }
 
 /* ============================================================
