@@ -999,7 +999,10 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   /* tighter tracking so the location line holds one row on a 375px screen */
   .eyebrow{ letter-spacing:.15em; font-size:.68rem; gap:9px; }
   .eyebrow::before{ width:20px; }
-  .hero-top{ gap:16px; }
+  /* The row wraps here, so this gap is the seam between the name line and
+     everything below it — widening it drops the whole hero block, from the
+     availability pill down, to sit better in the viewport. */
+  .hero-top{ gap:80px 16px; }
 }
 
 /* ============================================================
