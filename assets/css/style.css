@@ -999,7 +999,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   /* Lifted off the headline without disturbing anything: a relative
      offset leaves the pill's layout box where it was, so the headline
      and everything under it hold the positions set above. */
-  .avail{ position:relative; top:-32px; }
+  .avail{ position:relative; top:-64px; }
   .mark .sub{ display:none; }
   .filters{ gap:7px; }
   .chip{ padding:8px 13px; font-size:.68rem; }
