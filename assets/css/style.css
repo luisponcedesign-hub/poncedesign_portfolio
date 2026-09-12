@@ -993,6 +993,9 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .pager-in > a.nx{ text-align:left; }
   .cred{ grid-template-columns:1fr; gap:4px; }
   .scroll-hint{ display:none; }
+  /* Phones only — the 860px rule sets 26px here, which runs the buttons
+     close under the lead. Tablets keep that tighter pairing. */
+  .hero-sub{ gap:58px; }
   .mark .sub{ display:none; }
   .filters{ gap:7px; }
   .chip{ padding:8px 13px; font-size:.68rem; }
