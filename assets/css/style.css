@@ -995,7 +995,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .scroll-hint{ display:none; }
   /* Phones only — the 860px rule sets 26px here, which runs the buttons
      close under the lead. Tablets keep that tighter pairing. */
-  .hero-sub{ gap:90px; }
+  .hero-sub{ gap:122px; }
   /* Lifted off the headline without disturbing anything: a relative
      offset leaves the pill's layout box where it was, so the headline
      and everything under it hold the positions set above. */
@@ -1010,6 +1010,10 @@ body.intro-running .mq-track{ animation-play-state:paused; }
      everything below it — widening it drops the whole hero block, from the
      availability pill down, to sit better in the viewport. */
   .hero-top{ gap:48px 16px; }
+  /* 126px clears the 78px header with a 48px gap; 94px closes that to
+     16px, lifting the whole hero block. The buttons are held at their
+     own position by the widened .hero-sub gap above. */
+  .hero{ padding-top:94px; }
 }
 
 /* ============================================================
