@@ -174,6 +174,18 @@ def _reel_player(reel):
     return ''
 
 
+def _motion_bg(bg):
+    """Muted, looping footage behind the motion note. main.js tiles copies of
+    the video side by side so it always spans the full browser width."""
+    if not bg or not os.path.exists(os.path.join(ROOT, bg['src'])):
+        return ''
+    poster = ' poster="%s"' % esc(bg['poster']) if bg.get('poster') else ''
+    return ('<div class="motion-bg" aria-hidden="true">'
+            '<video muted loop playsinline preload="auto" disablepictureinpicture%s>'
+            '<source src="%s" type="video/mp4"></video></div>'
+            % (poster, esc(bg['src'])))
+
+
 def build_principles(pr):
     """Rams and Nielsen side by side — the standard for the object, and the
     standard for the interaction."""
@@ -261,15 +273,16 @@ def build_craft(c):
         '      </summary>\n'
         '      <ul class="certlist">\n%s      </ul>\n'
         '    </details>\n\n'
-        '    <div class="motion" data-rv>\n'
-        '      <div class="motion-txt">\n'
+        '    <div class="motion">\n'
+        '      %s\n'
+        '      <div class="motion-txt" data-rv>\n'
         '        <h3>%s</h3>\n        %s\n'
         '        <p>%s</p>\n        <p>%s</p>\n'
         '      </div>\n      %s\n    </div>\n\n'
         '%s  </div>\n</section>\n'
         % (esc(c['eyebrow']), head, esc(c['lead']), blocks,
            esc(c['certs_title']), esc(c['certs_note']), certs,
-           esc(m['h']), _tags(m['tags']), m['p'], m['p2'],
+           _motion_bg(m.get('bg')), esc(m['h']), _tags(m['tags']), m['p'], m['p2'],
            _reel_player(c.get('reel')), build_principles(c['principles'])))
 
 

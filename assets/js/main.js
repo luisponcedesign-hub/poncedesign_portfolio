@@ -505,6 +505,106 @@
   }
 
   /* ----------------------------------------------------------
+     14b. Motion background — tile copies across the full width,
+     play muted only while on screen
+     ---------------------------------------------------------- */
+  function motionBg() {
+    var box = $('.motion-bg');
+    if (!box) return;
+    var first = $('video', box);
+    var RATIO = 16 / 9;
+    var SPEED = 1.44;                  // footage runs 44% faster than shot (1.2 × 1.2)
+    box.classList.add('tiled');
+
+    function vids() { return $$('video', box); }
+
+    function fill() {
+      var h = box.clientHeight, w = box.clientWidth;
+      if (!h || !w) return;
+      var n = Math.ceil(w / (h * RATIO));
+      if (n % 2 === 0) n++;            // odd count keeps one copy centred
+      var list = vids();
+      while (list.length < n) {
+        var c = first.cloneNode(true);
+        c.muted = true;
+        c.defaultPlaybackRate = c.playbackRate = SPEED;
+        box.appendChild(c);
+        list.push(c);
+        if (!first.paused) {
+          try { c.currentTime = first.currentTime; } catch (e) {}
+          c.play().catch(function () {});
+        }
+      }
+      while (list.length > n) box.removeChild(list.pop());
+    }
+    fill();
+    if ('ResizeObserver' in window) new ResizeObserver(fill).observe(box);
+    else addEventListener('resize', fill, { passive: true });
+
+    // Reduced motion: the poster frame stays as a still.
+    if (reduced) return;
+
+    var visible = false;
+    // distance between two playheads on a looping clip (0:01 and 3:15 are close)
+    function drift(a, b) {
+      var d = Math.abs(a - b), len = first.duration || 0;
+      return len ? Math.min(d, len - d) : d;
+    }
+    function play() {
+      var t = first.currentTime;
+      vids().forEach(function (v) {
+        if (v !== first && drift(v.currentTime, t) > 0.15) {
+          try { v.currentTime = t; } catch (e) {}
+        }
+        v.muted = true;
+        v.defaultPlaybackRate = v.playbackRate = SPEED;
+        v.play().catch(function () {});
+      });
+    }
+    function pause() { vids().forEach(function (v) { v.pause(); }); }
+
+    if (!('IntersectionObserver' in window)) { visible = true; play(); }
+    else {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        visible && !document.hidden ? play() : pause();
+      }).observe(box);
+    }
+    document.addEventListener('visibilitychange', function () {
+      document.hidden ? pause() : (visible && play());
+    });
+
+    // copies are separate decoders; pull any that drift back onto the first
+    first.addEventListener('timeupdate', function () {
+      var t = first.currentTime;
+      vids().forEach(function (v) {
+        if (v !== first && !v.seeking && drift(v.currentTime, t) > 0.25) {
+          try { v.currentTime = t; } catch (e) {}
+        }
+      });
+    });
+
+    // Keep the loop running. Some browsers pause background video on their
+    // own (iOS Low Power Mode, a stalled network) or ignore loop; restart it
+    // whenever it stops while it should be on screen.
+    function shouldPlay() { return visible && !document.hidden; }
+    box.addEventListener('ended', function (e) {
+      try { e.target.currentTime = 0; } catch (err) {}
+      if (shouldPlay()) play();
+    }, true);
+    box.addEventListener('pause', function () {
+      if (shouldPlay()) setTimeout(function () { shouldPlay() && play(); }, 250);
+    }, true);
+    // autoplay refused outright: start on the first interaction instead
+    ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(function (ev) {
+      addEventListener(ev, function kick() {
+        if (shouldPlay() && first.paused) play();
+        if (!first.paused) removeEventListener(ev, kick);
+      }, { passive: true });
+    });
+  }
+
+  /* ----------------------------------------------------------
      15. Year stamp
      ---------------------------------------------------------- */
   function year() {
@@ -768,7 +868,7 @@
   function init() {
     splitHero(); roles(); progressBar(); header(); magnetic();
     reveals(); filters(); parallax(); counters(); drawer();
-    spy(); transitions(); lightbox(); reel(); year();
+    spy(); transitions(); lightbox(); reel(); motionBg(); year();
     contactModal(); contactCta();
   }
   if (document.readyState === 'loading') {

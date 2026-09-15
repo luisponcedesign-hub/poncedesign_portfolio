@@ -664,6 +664,10 @@
     ],
     "motion": {
       "h": "Motion & storytelling",
+      "bg": {
+        "src": "assets/video/mvi-1293.mp4",
+        "poster": "assets/video/mvi-1293.jpg"
+      },
       "tags": [
         "After Effects",
         "Premiere",
