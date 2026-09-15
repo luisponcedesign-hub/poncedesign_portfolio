@@ -513,7 +513,7 @@
     if (!box) return;
     var first = $('video', box);
     var RATIO = 16 / 9;
-    var SPEED = 1.44;                  // footage runs 44% faster than shot (1.2 × 1.2)
+    var SPEED = 1.728;                 // footage runs ~73% faster than shot (1.2 × 1.2 × 1.2)
     box.classList.add('tiled');
 
     function vids() { return $$('video', box); }

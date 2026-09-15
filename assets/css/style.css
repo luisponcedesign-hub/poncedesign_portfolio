@@ -1162,18 +1162,20 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 }
 .motion-bg video{
   flex:none; width:100%; height:100%; max-width:none; object-fit:cover;
-  filter:contrast(1.2);
+  filter:contrast(1.44);
 }
 .motion-bg.tiled video{ width:auto; aspect-ratio:16/9; }
 .motion-bg.tiled video + video{ margin-left:-1px; } /* no hairline between copies */
+/* mirror every other copy so neighbouring edges show the same pixels */
+.motion-bg.tiled video:nth-child(even){ transform:scaleX(-1); }
 /* wash so the body copy stays legible over the grey sky */
 .motion-bg::after{
   content:''; position:absolute; inset:0;
   background:linear-gradient(90deg,
-    rgba(255,255,255,.86) 0%, rgba(255,255,255,.78) 50%, rgba(255,255,255,.35) 100%);
+    rgba(255,255,255,.65) 0%, rgba(255,255,255,.59) 50%, rgba(255,255,255,.26) 100%);
 }
 @media (max-width:900px){
-  .motion-bg::after{ background:rgba(255,255,255,.8); }
+  .motion-bg::after{ background:rgba(255,255,255,.6); }
 }
 .motion-txt h3{
   font-size:clamp(1.15rem,1.9vw,1.45rem); font-weight:700; letter-spacing:-.025em;
