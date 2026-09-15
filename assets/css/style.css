@@ -635,8 +635,46 @@ section{ position:relative; }
 /* ============================================================
    Contact
    ============================================================ */
-.contact{ text-align:center; }
+.contact{ text-align:center; position:relative; overflow:hidden; }
+/* The copy rides above the two drifting glows below. */
+.contact .wrap{ position:relative; z-index:1; }
 .contact .h2{ margin:18px auto 0; max-width:16ch; }
+
+/* Two slow colour glows, the hero's blobs carried down to close the page.
+   Same .blob base — so they pick up the reduced-motion and intro-pause
+   rules for free — but wider, fainter and slower: this section is a wall
+   of dark type on cream, and anything stronger would haze it. Their
+   corners mirror the hero's (yellow high right, orange low left) and the
+   two loops run at coprime durations so the pair never settles into a
+   visible beat. */
+.blob.c{
+  width:54vw; height:54vw; max-width:720px; max-height:720px;
+  top:-22%; right:-14%; background:radial-gradient(circle,#FFD166 0%,rgba(255,209,102,0) 68%);
+  animation:float3 26s var(--ease-in-out) infinite;
+  opacity:.36;
+}
+.blob.d{
+  width:46vw; height:46vw; max-width:600px; max-height:600px;
+  bottom:-26%; left:-12%; background:radial-gradient(circle,#FFB07A 0%,rgba(255,176,122,0) 68%);
+  animation:float4 31s var(--ease-in-out) infinite;
+  opacity:.34;
+}
+@keyframes float3{
+  0%,100%{ transform:translate3d(0,0,0) scale(1); }
+  50%{ transform:translate3d(-8%,9%,0) scale(1.14); }
+}
+@keyframes float4{
+  0%,100%{ transform:translate3d(0,0,0) scale(1); }
+  50%{ transform:translate3d(9%,-8%,0) scale(1.12); }
+}
+/* Sized in vw, both glows collapse to a couple of hundred pixels on a
+   phone — smaller than their own 80px blur, so the colour all but
+   disappears. Scale them against the narrow viewport instead and tuck
+   the corners in, to keep the same wash the desktop layout gets. */
+@media (max-width:760px){
+  .blob.c{ width:104vw; height:104vw; top:-16%; right:-30%; opacity:.42; }
+  .blob.d{ width:92vw; height:92vw; bottom:-18%; left:-30%; opacity:.40; }
+}
 .mail-link{
   display:inline-block; margin:34px 0 8px;
   font-size:clamp(1.15rem,3.6vw,2.3rem); font-weight:300; letter-spacing:-.03em;
