@@ -6,10 +6,12 @@ beyond Python 3 (which ships with macOS).
 ## Run it locally
 
 ```bash
-python3 -m http.server 4321
+python3 scripts/serve.py
 ```
 
-Then open <http://localhost:4321>.
+Then open <http://localhost:4321>. Use this rather than `python3 -m http.server`:
+the stock server ignores byte-range requests, and Safari won't play the
+background video without them.
 
 ## How the site is put together
 
@@ -24,6 +26,7 @@ assets/css/style.css    design tokens + all styles
 assets/js/main.js       interaction layer
 assets/img/thumbs/      project imagery
 sitemap.xml             generated
+scripts/serve.py        local preview server (adds the Range support Safari needs)
 ```
 
 `data/projects.json` is the single source of truth. `scripts/build.py` reads it and
