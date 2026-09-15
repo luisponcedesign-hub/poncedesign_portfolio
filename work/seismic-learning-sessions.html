@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Learning Sessions — Information Architecture — Seismic · Luis Ponce de León</title>
@@ -22,12 +31,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=3ef99a6e">
+<link rel="stylesheet" href="../assets/css/style.css?v=4d1da16b">
 </head>
 
 <body>
 <a class="skip" href="#case">Skip to case study</a>
 <div id="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
 <div id="curtain" aria-hidden="true"></div>
 
 <header class="hdr">
@@ -110,7 +120,6 @@
           interaction design, and hand-off to engineering.</li>
         </ul>
       </div>
-
     </div>
   </div>
 </section>
@@ -131,6 +140,6 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=0fa1d8a1"></script>
+<script src="../assets/js/main.js?v=b70646e8"></script>
 </body>
 </html>

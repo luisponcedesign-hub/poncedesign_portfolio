@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <!-- connect-src carries api.web3forms.com so the contact modal can POST to it;
      default-src 'self' would otherwise block the request with no visible error.
      The access key lives in ACCESS_KEY in assets/js/main.js. -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PonceDesign</title>
@@ -178,7 +187,7 @@
       <article class="card hero-card" data-tags="AI|Mobile|Product UX" data-rv="scale">
         <a href="work/mobile-aura-voice.html" aria-label="AI-Powered Mobile — case study">
           <div class="shot">
-            <div class="pll"><img src="assets/img/thumbs/mobile-aura-voice.jpg" alt="AI-Powered Mobile — Seismic" width="430" height="336" decoding="async"></div>
+            <div class="pll"><img src="assets/img/thumbs/mobile-aura-voice.jpg" alt="AI-Powered Mobile — Seismic" width="1879" height="1342" decoding="async"></div>
             <span class="veil" aria-hidden="true"></span>
             <span class="yr">2026</span>
             <span class="view" aria-hidden="true">View case study <span>→</span></span>
@@ -386,7 +395,7 @@
       <article class="card wide" data-tags="Healthcare|Mobile|Research" data-rv="scale">
         <a href="work/webmd-device-integration.html" aria-label="WebMD — Device Integration UX — case study">
           <div class="shot">
-            <div class="pll"><img src="assets/img/thumbs/webmd-device-integration.jpg" alt="WebMD — Device Integration UX — WebMD" width="477" height="373" loading="lazy" decoding="async"></div>
+            <div class="pll"><img src="assets/img/thumbs/webmd-device-integration.jpg" alt="WebMD — Device Integration UX — WebMD" width="1596" height="928" loading="lazy" decoding="async"></div>
             <span class="veil" aria-hidden="true"></span>
             <span class="yr">2015</span>
             <span class="view" aria-hidden="true">View case study <span>→</span></span>

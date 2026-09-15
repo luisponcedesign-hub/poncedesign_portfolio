@@ -35,15 +35,24 @@ SITE = 'https://www.poncedesign.com'
 #     the inline style="..." attributes throughout the pages.
 #     Even so, 'self' still blocks script loaded from someone else's origin,
 #     which is the part that matters.
+#   - The googletagmanager.com / google-analytics.com origins below are what
+#     Google Analytics needs: the tag itself is fetched from the first, and
+#     GA4 reports to the second (region1.* and other regional hosts are why
+#     connect-src uses a wildcard). Without them the CSP blocks the tag and
+#     analytics silently records nothing.
 #
 # These tags must sit before the first inline script: a meta CSP only governs
 # content that appears after it.
 CSP = (
     "default-src 'self'; "
-    "script-src 'self' 'unsafe-inline'; "
+    "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; "
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
     "font-src 'self' https://fonts.gstatic.com; "
-    "img-src 'self' data:; "
+    "img-src 'self' data: https://www.google-analytics.com "
+    "https://www.googletagmanager.com; "
+    "connect-src 'self' https://www.google-analytics.com "
+    "https://*.google-analytics.com https://*.analytics.google.com "
+    "https://*.googletagmanager.com; "
     "object-src 'none'; "
     "base-uri 'self'; "
     "form-action 'none'; "
@@ -54,6 +63,21 @@ SECURITY_META = (
     '<meta http-equiv="Content-Security-Policy" content="' + CSP + '">\n'
     '<meta name="referrer" content="strict-origin-when-cross-origin">'
 )
+
+# Google Analytics 4. Sits as early in the head as it can while still being
+# governed by the CSP above - a meta CSP only covers what follows it, so this
+# cannot move ahead of SECURITY_META.
+GA_ID = 'G-1WZB2EXJCT'
+
+ANALYTICS = f'''<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+
+  gtag('config', '{GA_ID}');
+</script>'''
 
 # Card widths by position. Featured work leads; the back catalogue settles
 # into rows of three, then pairs, so the grid never ends on a lonely card.
@@ -374,6 +398,7 @@ def case_page(p, prev_p, next_p):
 <head>
 <meta charset="utf-8">
 {SECURITY_META}
+{ANALYTICS}
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{esc(p['title'])} — {esc(p['client'])} · Luis Ponce de León</title>
