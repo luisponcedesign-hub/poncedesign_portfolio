@@ -511,6 +511,7 @@
   function motionBg() {
     var box = $('.motion-bg');
     if (!box) return;
+    var tiles = $('.motion-tiles', box) || box;
     var first = $('video', box);
     var RATIO = 16 / 9;
     var SPEED = 1.728;                 // footage runs ~73% faster than shot (1.2 × 1.2 × 1.2)
@@ -521,21 +522,29 @@
     function fill() {
       var h = box.clientHeight, w = box.clientWidth;
       if (!h || !w) return;
-      var n = Math.ceil(w / (h * RATIO));
+      // Whole-pixel tiles. At a fractional width the join lands between two
+      // device pixels, and the mirrored copy resamples there a hair
+      // differently from its neighbour — which reads as a vertical hairline.
+      var tw = Math.ceil(h * RATIO);
+      var n = Math.ceil(w / tw);
       if (n % 2 === 0) n++;            // odd count keeps one copy centred
       var list = vids();
       while (list.length < n) {
         var c = first.cloneNode(true);
         c.muted = true;
         c.defaultPlaybackRate = c.playbackRate = SPEED;
-        box.appendChild(c);
+        tiles.appendChild(c);
         list.push(c);
         if (!first.paused) {
           try { c.currentTime = first.currentTime; } catch (e) {}
           c.play().catch(function () {});
         }
       }
-      while (list.length > n) box.removeChild(list.pop());
+      while (list.length > n) tiles.removeChild(list.pop());
+      vids().forEach(function (v) { v.style.width = tw + 'px'; });
+      // centre the row on a whole pixel (the copies overlap by 1px each)
+      tiles.style.transform =
+        'translateX(' + Math.round((w - (n * tw - (n - 1))) / 2) + 'px)';
     }
     fill();
     if ('ResizeObserver' in window) new ResizeObserver(fill).observe(box);

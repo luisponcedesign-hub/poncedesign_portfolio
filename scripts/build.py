@@ -200,13 +200,21 @@ def _reel_player(reel):
 
 def _motion_bg(bg):
     """Muted, looping footage behind the motion note. main.js tiles copies of
-    the video side by side so it always spans the full browser width."""
+    the video side by side so it always spans the full browser width.
+
+    The two .blob glows are the pair the hero and the contact close use,
+    warming footage that is otherwise desaturated sky; they sit above the
+    legibility wash (CSS gives them z-index 1). The copies go in .motion-tiles
+    so the contrast grade runs once over the whole strip rather than once per
+    copy, which is what keeps the joins from showing as hairlines."""
     if not bg or not os.path.exists(os.path.join(ROOT, bg['src'])):
         return ''
     poster = ' poster="%s"' % esc(bg['poster']) if bg.get('poster') else ''
     return ('<div class="motion-bg" aria-hidden="true">'
+            '<div class="blob e"></div><div class="blob f"></div>'
+            '<div class="motion-tiles">'
             '<video muted loop playsinline preload="auto" disablepictureinpicture%s>'
-            '<source src="%s" type="video/mp4"></video></div>'
+            '<source src="%s" type="video/mp4"></video></div></div>'
             % (poster, esc(bg['src'])))
 
 
