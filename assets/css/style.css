@@ -1204,8 +1204,9 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 }
 .motion-bg.tiled video{ width:auto; aspect-ratio:16/9; }
 .motion-bg.tiled video + video{ margin-left:-1px; } /* no hairline between copies */
-/* mirror every other copy so neighbouring edges show the same pixels */
-.motion-bg.tiled video:nth-child(even){ transform:scaleX(-1); }
+/* mirror every other copy so neighbouring edges show the same pixels.
+   of-type, not nth-child: the two glow divs also live in this box. */
+.motion-bg.tiled video:nth-of-type(even){ transform:scaleX(-1); }
 /* wash so the body copy stays legible over the grey sky */
 .motion-bg::after{
   content:''; position:absolute; inset:0;
@@ -1214,6 +1215,35 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 }
 @media (max-width:900px){
   .motion-bg::after{ background:rgba(255,255,255,.6); }
+}
+
+/* The same two glows as the hero and the contact close, here over the
+   footage. They sit above the white wash (z-index 1, where ::after is
+   auto) — under it the wash would grey them out, which is the very
+   problem they're here to fix: the clip is desaturated sky, and the
+   section read as the one colourless stretch of the page. The video's
+   own contrast still comes through since they're translucent.
+   .motion-bg's overflow:hidden clips them to the full-bleed band, and
+   .motion-txt (z-index 1 on the isolated .motion) stays above both. */
+.motion-bg .blob{ z-index:1; }
+.blob.e{
+  width:50vw; height:50vw; max-width:700px; max-height:700px;
+  top:-40%; right:-8%; background:radial-gradient(circle,#FFD166 0%,rgba(255,209,102,0) 68%);
+  animation:float3 22s var(--ease-in-out) infinite;
+  opacity:.58;
+}
+.blob.f{
+  width:40vw; height:40vw; max-width:540px; max-height:540px;
+  bottom:-42%; left:0; background:radial-gradient(circle,#FFB07A 0%,rgba(255,176,122,0) 68%);
+  animation:float4 28s var(--ease-in-out) infinite;
+  opacity:.5;
+}
+/* Stacked to one column, the copy runs the full width and the flat .6
+   wash replaces the graded one — so pull both glows out to the edges
+   and lift them, or they sit under the paragraphs. */
+@media (max-width:900px){
+  .blob.e{ width:96vw; height:96vw; top:-18%; right:-30%; opacity:.5; }
+  .blob.f{ width:84vw; height:84vw; bottom:-20%; left:-28%; opacity:.46; }
 }
 .motion-txt h3{
   font-size:clamp(1.15rem,1.9vw,1.45rem); font-weight:700; letter-spacing:-.025em;
