@@ -106,6 +106,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 0.5rem;
     padding: 1rem var(--page-pad) 0;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
@@ -159,6 +160,7 @@
   <canvas role="img" aria-label="Grey clouds drifting across the sky, drawn as a field of white dots that swell with the light"></canvas>
 </div>
 <div class="stage-bar">
+  <button type="button" class="stage-sound" aria-pressed="false">Sound off</button>
   <button type="button" class="stage-toggle" aria-pressed="false">Pause</button>
 </div>
 </section>
@@ -179,6 +181,7 @@
   var cvs = stage.querySelector("canvas");
   var ctx = cvs.getContext("2d");
   var toggle = document.querySelector(".stage-toggle");
+  var soundBtn = document.querySelector(".stage-sound");
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var SPEED = 1.728;          // same pace as the footage on the home page
@@ -197,7 +200,7 @@
      eases back to zero every frame, which is the repair. */
   var offX = new Float32Array(0), offY = new Float32Array(0);
   var healing = false, last = 0;
-  var pointer = { x: 0, y: 0, inside: false };
+  var pointer = { x: 0, y: 0, t: 0, inside: false };
   var cuts = [];
 
   function start() {
@@ -251,7 +254,101 @@
 
   function active() { return onScreen && !document.hidden; }
 
+  /* Wind: looped brown noise through a band-pass whose level and pitch
+     follow pointer speed. It is all synthesised, so there is no file to
+     load. Browsers only allow audio after a click, tap or key press on the
+     page, so the first one anywhere starts it (or the Sound button does).
+     Moving swells the wind quickly; once the pointer stops it dies away
+     over several seconds. */
+  var audio = null, soundWanted = true;
+  var RISE = 0.12;            // seconds (time constant) to swell toward the gust
+  var FADE = 2.6;             // time constant of the fade once movement stops
+
+  function buildAudio() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    var ac = new AC();
+    var len = ac.sampleRate * 4, buf = ac.createBuffer(1, len, ac.sampleRate);
+    var ch = buf.getChannelData(0), last = 0;
+    for (var i = 0; i < len; i++) {
+      last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02;
+      ch[i] = last * 3.5;
+    }
+    var src = ac.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+
+    var body = ac.createBiquadFilter();    // the broad rush
+    body.type = "bandpass";
+    body.frequency.value = 350;
+    body.Q.value = 0.7;
+
+    var whistle = ac.createBiquadFilter(); // a thin, higher howl on top
+    whistle.type = "bandpass";
+    whistle.frequency.value = 900;
+    whistle.Q.value = 9;
+    var whistleGain = ac.createGain();
+    whistleGain.gain.value = 0.35;
+
+    var gain = ac.createGain();
+    gain.gain.value = 0;
+
+    src.connect(body);
+    src.connect(whistle);
+    whistle.connect(whistleGain);
+    body.connect(gain);
+    whistleGain.connect(gain);
+    gain.connect(ac.destination);
+    src.start();
+    return { ac: ac, gain: gain.gain, body: body.frequency, whistle: whistle.frequency };
+  }
+
+  function soundOn() { return !!(audio && soundWanted && audio.ac.state === "running"); }
+
+  function showSound() {
+    var on = soundOn();
+    soundBtn.textContent = on ? "Sound on" : "Sound off";
+    soundBtn.setAttribute("aria-pressed", on ? "true" : "false");
+  }
+
+  function unlock(e) {
+    /* The Sound button decides for itself; unlocking on its pointerdown
+       would turn the sound on just before its click turns it back off. */
+    if (e && e.target.closest && e.target.closest(".stage-sound")) return;
+    if (!soundWanted) return;
+    if (!audio) audio = buildAudio();
+    if (!audio) return;
+    if (audio.ac.state !== "running" && active()) {
+      audio.ac.resume().then(showSound, showSound);
+    }
+    showSound();
+  }
+
+  function syncAudio() {
+    if (!audio) return;
+    if (soundWanted && active()) audio.ac.resume().then(showSound, showSound);
+    else audio.ac.suspend().then(showSound, showSound);
+  }
+
+  /* speed in px/s: swell toward it now, then let it go slowly. */
+  function gust(speed) {
+    if (!soundOn()) return;
+    var t = audio.ac.currentTime, s = Math.min(1, speed / 1800);
+    [
+      [audio.gain, 0.05 + 0.55 * Math.pow(s, 0.8), 0],
+      [audio.body, 320 + 900 * s, 320],
+      [audio.whistle, 700 + 1100 * s, 700]
+    ].forEach(function (p) {
+      var param = p[0];
+      param.cancelScheduledValues(t);
+      param.setValueAtTime(param.value, t);
+      param.setTargetAtTime(p[1], t, RISE);
+      param.setTargetAtTime(p[2], t + RISE * 1.5, FADE);
+    });
+  }
+
   function sync() {
+    syncAudio();
     if (!video) return;
     if (active() && !paused) {
       var p = video.play();
@@ -384,9 +481,14 @@
   function point(e) {
     var box = cvs.getBoundingClientRect();
     var x = e.clientX - box.left, y = e.clientY - box.top;
-    if (pointer.inside) cuts.push([pointer.x, pointer.y, x, y]);
+    if (pointer.inside) {
+      cuts.push([pointer.x, pointer.y, x, y]);
+      var dt = (e.timeStamp - pointer.t) / 1000;
+      if (dt > 0) gust(Math.sqrt((x - pointer.x) * (x - pointer.x) + (y - pointer.y) * (y - pointer.y)) / Math.max(dt, 0.008));
+    }
     pointer.x = x;
     pointer.y = y;
+    pointer.t = e.timeStamp;
     pointer.inside = true;
     kick();
   }
@@ -401,6 +503,17 @@
     toggle.textContent = paused ? "Play" : "Pause";
     toggle.setAttribute("aria-pressed", paused ? "true" : "false");
     sync();
+  });
+
+  soundBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    soundWanted = !soundOn();
+    if (soundWanted) unlock();
+    else syncAudio();
+    showSound();
+  });
+  ["pointerdown", "keydown"].forEach(function (type) {
+    document.addEventListener(type, unlock);
   });
 
   start();
