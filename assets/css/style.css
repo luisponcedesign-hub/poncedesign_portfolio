@@ -638,7 +638,11 @@ section{ position:relative; }
 .contact{ text-align:center; position:relative; overflow:hidden; }
 /* The copy rides above the two drifting glows below. */
 .contact .wrap{ position:relative; z-index:1; }
-.contact .h2{ margin:18px auto 0; max-width:16ch; }
+.contact .h2{ margin:18px auto 0; }
+/* Two fixed lines: "Got something tangled?" / "Let's untangle it." Each
+   line stays whole, so the size scales down with the viewport on phones. */
+.contact .h2 .ln{ display:block; white-space:nowrap; }
+@media (max-width:620px){ .contact .h2{ font-size:min(2rem, 8.4vw); } }
 
 /* Two slow colour glows, the hero's blobs carried down to close the page.
    Same .blob base — so they pick up the reduced-motion and intro-pause
@@ -698,20 +702,24 @@ section{ position:relative; }
              color var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
 }
 .contact-cta.show .btn[data-contact-open]{ visibility:visible; opacity:1; transition-delay:0s; }
+/* At the mobile breakpoint, drop the hidden button from the flow instead
+   of reserving its slot, so "Schedule a time to meet" centers on its own. */
+@media (max-width:860px){
+  .contact-cta:not(.show) .btn[data-contact-open]{ display:none; }
+}
 
-.socials{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:36px; }
+/* Logo links: 30×30 marks, no pill. The lift on hover carries over from the
+   old text buttons; focus-visible gives keyboard users the same cue. */
+.socials{ display:flex; flex-wrap:wrap; justify-content:center; gap:24px; margin-top:36px; }
 .socials a{
-  display:inline-flex; align-items:center; gap:9px;
-  font-family:var(--mono); font-size:.74rem; letter-spacing:.13em; text-transform:uppercase;
-  padding:12px 20px; border-radius:100px; border:1px solid var(--line-strong);
-  color:var(--ink-2); background:var(--surface);
-  transition:transform var(--t-med) var(--ease-out), border-color var(--t-fast) var(--ease),
-             color var(--t-fast) var(--ease), box-shadow var(--t-med) var(--ease);
+  display:block; width:30px; height:30px; border-radius:6px;
+  transition:transform var(--t-med) var(--ease-out), opacity var(--t-fast) var(--ease);
+  -webkit-tap-highlight-color:transparent;
 }
-.socials a:hover{
-  transform:translateY(-3px); color:var(--ink);
-  border-color:transparent; box-shadow:var(--shadow-md);
-}
+.socials img{ display:block; width:100%; height:100%; object-fit:contain; }
+.socials a:hover, .socials a:focus-visible{ transform:translateY(-3px); }
+.socials a:active{ transform:translateY(0); opacity:.7; }
+.socials a:focus-visible{ outline:2px solid var(--orange); outline-offset:4px; }
 
 /* ============================================================
    Footer
