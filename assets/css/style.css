@@ -708,15 +708,19 @@ section{ position:relative; }
   .contact-cta:not(.show) .btn[data-contact-open]{ display:none; }
 }
 
-/* Logo links: 30×30 marks, no pill. The lift on hover carries over from the
+/* Logo links: 36×36 marks, no pill. The lift on hover carries over from the
    old text buttons; focus-visible gives keyboard users the same cue. */
 .socials{ display:flex; flex-wrap:wrap; justify-content:center; gap:24px; margin-top:36px; }
 .socials a{
-  display:block; width:30px; height:30px; border-radius:6px;
+  display:block; width:36px; height:36px; border-radius:6px;
   transition:transform var(--t-med) var(--ease-out), opacity var(--t-fast) var(--ease);
   -webkit-tap-highlight-color:transparent;
 }
 .socials img{ display:block; width:100%; height:100%; object-fit:contain; }
+/* The reveal leaves will-change on, which keeps the row on its own
+   compositor layer and resamples the logos at fractional offsets. Drop it
+   once revealed so they paint straight onto the pixel grid. */
+.js .socials[data-rv].seen{ will-change:auto; }
 .socials a:hover, .socials a:focus-visible{ transform:translateY(-3px); }
 .socials a:active{ transform:translateY(0); opacity:.7; }
 .socials a:focus-visible{ outline:2px solid var(--orange); outline-offset:4px; }
