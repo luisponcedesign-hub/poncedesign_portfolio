@@ -690,22 +690,20 @@ section{ position:relative; }
 .mail-link:hover{ background-size:0% 2px; color:var(--orange); }
 /* Mirror of the header's "Let's talk", shown only while that one is off the
    screen — see contactCta() in main.js. The Calendly button beside it
-   always stays visible. visibility (not display) keeps the
-   slot's height reserved so the socials row never jumps as it toggles. */
+   always stays visible. While hidden, the mirror leaves the flow entirely
+   so "Schedule a time to meet" centers on its own; @starting-style keeps
+   the fade-in when it comes back from display:none. */
 .contact-cta{
   display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
   margin:34px 0 6px;
 }
 .contact-cta .btn[data-contact-open]{
-  visibility:hidden; opacity:0;
-  transition:opacity var(--t-med) var(--ease), visibility 0s linear var(--t-med),
+  transition:opacity var(--t-med) var(--ease),
              color var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
 }
-.contact-cta.show .btn[data-contact-open]{ visibility:visible; opacity:1; transition-delay:0s; }
-/* At the mobile breakpoint, drop the hidden button from the flow instead
-   of reserving its slot, so "Schedule a time to meet" centers on its own. */
-@media (max-width:860px){
-  .contact-cta:not(.show) .btn[data-contact-open]{ display:none; }
+.contact-cta:not(.show) .btn[data-contact-open]{ display:none; }
+@starting-style{
+  .contact-cta.show .btn[data-contact-open]{ opacity:0; }
 }
 
 /* Logo links: 36×36 marks, no pill. The lift on hover carries over from the
