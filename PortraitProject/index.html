@@ -37,6 +37,7 @@
   /* Labs nav, styled as tabs: one page per tab. */
   .tabs {
     display: flex;
+    flex-wrap: wrap;   /* four tabs, and Rain on grass is long on a phone */
     gap: 1.5rem;
     padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
   }
@@ -164,7 +165,8 @@
 <nav class="tabs" aria-label="PonceDesign Labs">
   <a href="../">PonceDesign</a>
   <a href="./" aria-current="page">Portraits</a>
-  <a href="movements.html">Movements</a>
+  <a href="movements.html">Overcast</a>
+  <a href="movements-rain.html">Rain on grass</a>
 </nav>
 
 <header>
@@ -187,7 +189,7 @@
   <figure><img src="images/wozniak.jpg" alt="Wozniak" width="825" height="1100" loading="lazy" decoding="async"><figcaption>Wozniak</figcaption></figure>
 </main>
 
-<footer>PonceDesign Labs 2026</footer>
+<footer>PDL 2026</footer>
 
 <script>
 (function () {

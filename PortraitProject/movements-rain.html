@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
+<title>Rain on grass</title>
+<style>
+  :root {
+    --page-pad: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 36px;
+  }
+
+  /* Labs nav, styled as tabs: one page per tab. */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;   /* four tabs, and Rain on grass is long on a phone */
+    gap: 1.5rem;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
+  }
+
+  .tabs a {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid transparent;
+    color: #8a8a8a;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .tabs a:hover { color: #f2efe9; }
+
+  .tabs a[aria-current="page"] {
+    color: #f2efe9;
+    border-bottom-color: #f2efe9;
+  }
+
+  .tabs a:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 4px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  /* Movements: the footage is never shown, only drawn as dots. */
+  .stage {
+    position: relative;
+    margin: 0 var(--page-pad);
+    height: min(56.25vw, 78vh);
+    min-height: 320px;
+    background: #000;
+    touch-action: pan-y;
+  }
+
+  .stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Kept rendered (not display:none) so every browser keeps decoding frames. */
+  .stage video {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .stage-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem var(--page-pad) 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+
+  .stage-bar button {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #3a3a3a;
+    border-radius: 999px;
+    background: none;
+    color: #f2efe9;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+  }
+
+  .stage-bar button:hover { border-color: #8a8a8a; }
+
+  .stage-bar button:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 2px;
+  }
+
+  footer {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabs" aria-label="PonceDesign Labs">
+  <a href="../">PonceDesign</a>
+  <a href="./">Portraits</a>
+  <a href="movements.html">Overcast</a>
+  <a href="movements-rain.html" aria-current="page">Rain on grass</a>
+</nav>
+
+<main>
+<section id="movements">
+<header>
+  <h1>Rain on grass</h1>
+  <p>Movements</p>
+</header>
+
+<div class="stage" data-src="../assets/video/grass01.mp4" data-poster="../assets/video/grass01.jpg">
+  <canvas role="img" aria-label="A field of dry grass drawn as white dots, which part around the pointer and close slowly behind it"></canvas>
+</div>
+<div class="stage-bar">
+  <button type="button" class="stage-sound">Sound off</button>
+  <button type="button" class="stage-toggle" aria-pressed="false">Pause</button>
+</div>
+</section>
+</main>
+
+<footer>PDL 2026</footer>
+
+<script>
+/* Movements: the grass footage, resampled every frame and redrawn on a
+   45-degree screen of dots sized by brightness. Moving over the stage parts
+   the dots in a tall diamond, as if something were pushing through; stop, or
+   move on, and they close slowly and settle back exactly where they began.
+   Drawing stops while the stage is off screen or the tab is in the background. */
+(function () {
+  "use strict";
+
+  var stage = document.querySelector(".stage");
+  var cvs = stage.querySelector("canvas");
+  var ctx = cvs.getContext("2d");
+  var toggle = document.querySelector(".stage-toggle");
+  var soundBtn = document.querySelector(".stage-sound");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var INK = "#f2efe9";
+  var ANGLE = Math.PI / 4;      // the screen angle of a printed halftone
+  var LO = 0.06, SPAN = 0.84;   // levels: the clip never blows out or blocks up
+  var GAMMA = 2.2;              // white dots on black, so the grass must be held back
+  var OPEN_X = 0.72, OPEN_Y = 1.6;  // the opening is far taller than it is wide
+  var OPEN_D = 0.48;            // how much of that reach is cleared, 0 to 0.5
+  var ATTACK = 0.28;            // per frame: the parting is quick
+  var CLOSE = reduced ? 0.7 : 1.9;  // seconds: closing is not
+  var STILL = 110;              // ms without movement before the dots close over
+  var SETTLED = 0.04;           // px: snap the last of the travel home
+
+  var sample = document.createElement("canvas");
+  var sctx = sample.getContext("2d", { willReadFrequently: true });
+
+  var video = null, poster = null;
+  var paused = reduced, onScreen = true, raf = 0;
+  var w = 0, h = 0, dpr = 1, cell = 10, cols = 0, rows = 0, maxR = 5;
+  /* One entry per dot: where it rests, which sample cell it reads, and how
+     far it is currently pushed from home. */
+  var dots = 0, restX, restY, look, offX, offY;
+  var healing = false, last = 0;
+  var pointer = { x: 0, y: 0, t: 0, vx: 0, vy: 0, moved: 0, inside: false };
+
+  function start() {
+    if (video) return;
+    poster = new Image();
+    poster.onload = kick;
+    poster.src = stage.getAttribute("data-poster");
+
+    video = document.createElement("video");
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.setAttribute("aria-hidden", "true");
+    video.disablePictureInPicture = true;
+    video.preload = "auto";
+    video.src = stage.getAttribute("data-src");
+    video.addEventListener("loadeddata", kick);
+    stage.appendChild(video);
+
+    measure();
+    if ("ResizeObserver" in window) new ResizeObserver(function () { measure(); kick(); }).observe(stage);
+    else addEventListener("resize", function () { measure(); kick(); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[0].isIntersecting;
+        sync();
+      }).observe(stage);
+    }
+    document.addEventListener("visibilitychange", sync);
+    toggle.textContent = paused ? "Play" : "Pause";
+    toggle.setAttribute("aria-pressed", paused ? "true" : "false");
+  }
+
+  /* The sample grid stays square to the screen; the dots sit on the turned
+     lattice above it and each reads the sample cell it lands in. */
+  function measure() {
+    w = stage.clientWidth;
+    h = stage.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cvs.width = Math.round(w * dpr);
+    cvs.height = Math.round(h * dpr);
+    cell = Math.max(7, Math.min(14, w / 110));
+    maxR = cell * 0.53;         // at full brightness the dots stop short of touching
+    cols = Math.ceil(w / cell) + 1;
+    rows = Math.ceil(h / cell) + 1;
+    sample.width = cols;
+    sample.height = rows;
+
+    var c = Math.cos(ANGLE), s = Math.sin(ANGLE), pad = cell * 2;
+    var u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity;
+    var corners = [[-pad, -pad], [w + pad, -pad], [-pad, h + pad], [w + pad, h + pad]];
+    for (var k = 0; k < corners.length; k++) {
+      var u = (corners[k][0] * c + corners[k][1] * s) / cell;
+      var v = (-corners[k][0] * s + corners[k][1] * c) / cell;
+      if (u < u0) u0 = u;
+      if (u > u1) u1 = u;
+      if (v < v0) v0 = v;
+      if (v > v1) v1 = v;
+    }
+    var xs = [], ys = [];
+    for (var i = Math.floor(u0); i <= Math.ceil(u1); i++) {
+      for (var j = Math.floor(v0); j <= Math.ceil(v1); j++) {
+        var x = (i + 0.5) * cell * c - (j + 0.5) * cell * s;
+        var y = (i + 0.5) * cell * s + (j + 0.5) * cell * c;
+        if (x > -pad && x < w + pad && y > -pad && y < h + pad) { xs.push(x); ys.push(y); }
+      }
+    }
+    dots = xs.length;
+    restX = new Float32Array(xs);
+    restY = new Float32Array(ys);
+    offX = new Float32Array(dots);
+    offY = new Float32Array(dots);
+    look = new Uint32Array(dots);
+    for (i = 0; i < dots; i++) {
+      var gx = Math.max(0, Math.min(cols - 1, Math.round(restX[i] / cell)));
+      var gy = Math.max(0, Math.min(rows - 1, Math.round(restY[i] / cell)));
+      look[i] = (gy * cols + gx) * 4;
+    }
+    healing = false;
+  }
+
+  function active() { return onScreen && !document.hidden; }
+
+  /* Rain on leaves: a soft noise wash with single drops scattered over it.
+     Nothing is tuned to a pitch, so nothing rings. It is all synthesised,
+     so there is no file to load, and it only sounds while the pointer is
+     moving through the grass — the faster the movement, the heavier the
+     rain. Browsers hold audio until a click, tap or key press, so the first
+     one of those on the page starts it. */
+  var audio = null, soundWanted = true, wet = 0, level = -1;
+
+  function buildAudio() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    var ac = new AC();
+    var sr = ac.sampleRate;
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+
+    var out = ac.createDynamicsCompressor();
+    out.threshold.value = -14;
+    out.ratio.value = 4;
+    out.connect(ac.destination);
+    var master = ac.createGain();
+    master.gain.value = 0;
+    master.connect(out);
+
+    /* A short tail, like open air under a canopy. */
+    var ir = ac.createBuffer(2, Math.floor(sr * 1.1), sr);
+    for (var ch = 0; ch < 2; ch++) {
+      var d = ir.getChannelData(ch);
+      for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (sr * 0.22));
+    }
+    var verb = ac.createConvolver();
+    verb.buffer = ir;
+    var verbGain = ac.createGain();
+    verbGain.gain.value = 0.35;
+    var drops = ac.createGain();
+    var soften = ac.createBiquadFilter();
+    soften.type = "lowpass";
+    soften.frequency.value = 3600;
+    soften.Q.value = 0.4;
+    drops.connect(soften);
+    soften.connect(master);
+    soften.connect(verb);
+    verb.connect(verbGain);
+    verbGain.connect(master);
+
+    function noiseLoop() {
+      var b = ac.createBuffer(2, sr * 4, sr);
+      for (var c = 0; c < 2; c++) {
+        var ch = b.getChannelData(c);
+        for (var i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
+      }
+      var src = ac.createBufferSource();
+      src.buffer = b;
+      src.loop = true;
+      src.start();
+      return src;
+    }
+    var hissG = ac.createGain();
+    hissG.gain.value = 0.03;
+    var hp = ac.createBiquadFilter();
+    hp.type = "highpass";
+    hp.frequency.value = 900;
+    var lp = ac.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 4500;
+    noiseLoop().connect(hp);
+    hp.connect(lp);
+    lp.connect(hissG);
+    hissG.connect(master);
+    var farG = ac.createGain();
+    farG.gain.value = 0.05;
+    var farLp = ac.createBiquadFilter();
+    farLp.type = "lowpass";
+    farLp.frequency.value = 900;
+    noiseLoop().connect(farLp);
+    farLp.connect(farG);
+    farG.connect(master);
+
+    /* Each drop is a noise burst with a soft edge: a leaf taking the hit. */
+    var bank = [];
+    for (var n = 0; n < 24; n++) {
+      var tau = sr * rnd(0.004, 0.022);
+      var len = Math.floor(Math.min(sr * 0.2, tau * 9));
+      var buf = ac.createBuffer(1, len, sr), data = buf.getChannelData(0);
+      var attack = sr * rnd(0.0008, 0.003), state = 0, peak = 0;
+      for (i = 0; i < len; i++) {
+        state += ((Math.random() * 2 - 1) - state) * 0.5;
+        data[i] = state * (1 - Math.exp(-i / attack)) * Math.exp(-i / tau);
+        peak = Math.max(peak, Math.abs(data[i]));
+      }
+      for (i = 0; i < len; i++) data[i] /= peak || 1;
+      bank.push(buf);
+    }
+
+    function drop(when) {
+      var src = ac.createBufferSource();
+      src.buffer = bank[(Math.random() * bank.length) | 0];
+      src.playbackRate.value = rnd(0.8, 1.25);
+      var bp = ac.createBiquadFilter();   // colour, but no pitch
+      bp.type = "bandpass";
+      bp.frequency.value = Math.exp(rnd(Math.log(600), Math.log(3800)));
+      bp.Q.value = rnd(0.6, 1.4);
+      var g = ac.createGain();
+      var r = Math.random();
+      g.gain.value = 0.03 + r * r * r * 0.22;   // mostly a light patter
+      src.connect(bp);
+      if (ac.createStereoPanner) {
+        var pan = ac.createStereoPanner();
+        pan.pan.value = rnd(-0.9, 0.9);
+        bp.connect(g);
+        g.connect(pan);
+        pan.connect(drops);
+      } else {
+        bp.connect(g);
+        g.connect(drops);
+      }
+      src.start(when);
+    }
+
+    var next = ac.currentTime, running = false;
+    setInterval(function () {
+      if (!running || ac.state !== "running") { next = ac.currentTime; return; }
+      var rate = 30 + 110 * wet;          // drops per second
+      var horizon = ac.currentTime + 0.12;
+      if (next < ac.currentTime) next = ac.currentTime;
+      while (next < horizon) {
+        drop(next);
+        next += -Math.log(1 - Math.random()) / rate;
+      }
+    }, 30);
+
+    return {
+      ac: ac,
+      playing: false,
+      fade: function (on) {
+        var t = ac.currentTime;
+        master.gain.cancelScheduledValues(t);
+        master.gain.setValueAtTime(master.gain.value, t);
+        master.gain.setTargetAtTime(on ? 0.5 : 0, t, on ? 0.1 : 0.5);
+      },
+      run: function (on) { running = on; },
+      weight: function (x) {
+        var t = ac.currentTime;
+        hissG.gain.setTargetAtTime(0.022 + 0.03 * x, t, 0.4);
+        farG.gain.setTargetAtTime(0.04 + 0.03 * x, t, 0.4);
+      }
+    };
+  }
+
+  function soundOn() { return !!(audio && soundWanted && audio.ac.state === "running"); }
+
+  /* The button names the action it takes ("Sound off" while sound is on),
+     so it carries no aria-pressed, which would contradict a changing label. */
+  function showSound() {
+    soundBtn.textContent = soundWanted ? "Sound off" : "Sound on";
+  }
+
+  function unlock(e) {
+    if (e && e.target.closest && e.target.closest(".stage-sound")) return;
+    if (!soundWanted) return;
+    if (!audio) audio = buildAudio();
+    if (!audio) return;
+    if (audio.ac.state !== "running" && active()) {
+      audio.ac.resume().then(showSound, showSound);
+    }
+    showSound();
+  }
+
+  function syncAudio() {
+    if (!audio) return;
+    if (soundWanted && active()) audio.ac.resume().then(showSound, showSound);
+    else audio.ac.suspend().then(showSound, showSound);
+  }
+
+  function sync() {
+    syncAudio();
+    if (!video) return;
+    if (active() && !paused) {
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    } else {
+      video.pause();
+    }
+    kick();
+  }
+
+  function kick() {
+    if (!raf && active()) raf = requestAnimationFrame(frame);
+  }
+
+  /* Cover-crop the source into the sample grid. */
+  function grab() {
+    var src = null, sw = 0, sh = 0;
+    if (video && video.readyState >= 2 && video.videoWidth) {
+      src = video; sw = video.videoWidth; sh = video.videoHeight;
+    } else if (poster && poster.complete && poster.naturalWidth) {
+      src = poster; sw = poster.naturalWidth; sh = poster.naturalHeight;
+    }
+    if (!src || !cols || !rows) return null;
+    var scale = Math.max(cols / sw, rows / sh);
+    var cw = cols / scale, ch = rows / scale;
+    sctx.imageSmoothingQuality = "high";
+    sctx.drawImage(src, (sw - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, cols, rows);
+    return sctx.getImageData(0, 0, cols, rows).data;
+  }
+
+  function frame(now) {
+    raf = 0;
+    var dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+    last = now;
+    var step = dt * 60;
+    var data = grab();
+    var i, x, y;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, w, h);
+
+    /* The opening exists only while the pointer is actually moving. */
+    var parting = pointer.inside && now - pointer.moved < STILL;
+    var reachX = Math.min(260, Math.max(130, Math.min(w, h) * 0.24));
+    var rx = reachX * OPEN_X, ry = reachX * OPEN_Y;
+    var swx = pointer.vx, swy = pointer.vy, sm = Math.sqrt(swx * swx + swy * swy);
+    if (sm > 30) { swx *= 30 / sm; swy *= 30 / sm; }
+    var attack = 1 - Math.pow(1 - ATTACK, step || 1);
+    var close = 1 - Math.exp(-(step || 1) / (60 * CLOSE));
+    var moving = false;
+
+    if (data) {
+      ctx.beginPath();
+      for (i = 0; i < dots; i++) {
+        var tx = 0, ty = 0;
+        if (parting) {
+          /* Distance measured as |x|/rx + |y|/ry: the level sets are diamonds. */
+          var ax = (restX[i] - pointer.x) / rx, ay = (restY[i] - pointer.y) / ry;
+          var m = Math.abs(ax) + Math.abs(ay);
+          if (m < 1) {
+            var t = 1 - m, push = OPEN_D * t * t;
+            var md = m > 1e-4 ? m : 1e-4;
+            tx = ax / md * push * rx + swx * 0.9 * t * t;
+            ty = ay / md * push * ry + swy * 0.9 * t * t;
+          }
+        }
+        x = offX[i];
+        y = offY[i];
+        if (tx * tx + ty * ty > x * x + y * y) {
+          x += (tx - x) * attack;
+          y += (ty - y) * attack;
+        } else {
+          x += (tx - x) * close;
+          y += (ty - y) * close;
+          if (!tx && !ty && Math.abs(x) < SETTLED && Math.abs(y) < SETTLED) { x = 0; y = 0; }
+        }
+        offX[i] = x;
+        offY[i] = y;
+        if (x || y) moving = true;
+
+        var l = (data[look[i]] * 0.2126 + data[look[i] + 1] * 0.7152 + data[look[i] + 2] * 0.0722) / 255;
+        l = (l - LO) / SPAN;
+        if (l <= 0) continue;
+        if (l > 1) l = 1;
+        var r = Math.sqrt(Math.pow(l, GAMMA)) * maxR;
+        if (r * dpr < 0.35) continue;
+        var px = restX[i] + x, py = restY[i] + y;
+        ctx.moveTo(px + r, py);
+        ctx.arc(px, py, r, 0, 6.2832);
+      }
+      ctx.fillStyle = INK;
+      ctx.fill();
+    }
+    healing = moving;
+
+    /* The rain follows the same movement the opening does. */
+    if (audio) {
+      var speed = parting ? Math.sqrt(pointer.vx * pointer.vx + pointer.vy * pointer.vy) * 60 : 0;
+      wet += (Math.min(1, speed / 1800) - wet) * 0.04;
+      var want = parting && soundOn();
+      if (audio.playing !== want) {
+        audio.playing = want;
+        audio.fade(want);
+      }
+      audio.run(want || (now - pointer.moved < 3000 && soundOn()));
+      if (Math.abs(wet - level) > 0.03) { audio.weight(wet); level = wet; }
+    }
+    if (now - pointer.moved > 80) { pointer.vx *= 0.8; pointer.vy *= 0.8; }
+
+    if (active() && (!paused || healing || parting || !data)) raf = requestAnimationFrame(frame);
+    else last = 0;
+  }
+
+  function point(e) {
+    var box = cvs.getBoundingClientRect();
+    var x = e.clientX - box.left, y = e.clientY - box.top;
+    unlock();
+    if (pointer.inside) {
+      pointer.vx = pointer.vx * 0.5 + (x - pointer.x) * 0.5;
+      pointer.vy = pointer.vy * 0.5 + (y - pointer.y) * 0.5;
+    }
+    pointer.x = x;
+    pointer.y = y;
+    pointer.t = e.timeStamp;
+    pointer.moved = performance.now();
+    pointer.inside = true;
+    kick();
+  }
+  function lift() { pointer.inside = false; }
+  cvs.addEventListener("pointermove", point);
+  cvs.addEventListener("pointerdown", function (e) { lift(); point(e); });
+  cvs.addEventListener("pointerleave", lift);
+  cvs.addEventListener("pointercancel", lift);
+
+  toggle.addEventListener("click", function () {
+    paused = !paused;
+    toggle.textContent = paused ? "Play" : "Pause";
+    toggle.setAttribute("aria-pressed", paused ? "true" : "false");
+    sync();
+  });
+
+  soundBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    soundWanted = !soundWanted;
+    if (soundWanted) unlock();
+    else syncAudio();
+    showSound();
+  });
+  ["pointerdown", "keydown"].forEach(function (type) {
+    document.addEventListener(type, unlock);
+  });
+
+  start();
+  sync();
+})();
+</script>
+
+</body>
+</html>
