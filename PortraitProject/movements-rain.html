@@ -162,7 +162,7 @@
   <canvas role="img" aria-label="A field of dry grass drawn as white dots, which part around the pointer and close slowly behind it"></canvas>
 </div>
 <div class="stage-bar">
-  <button type="button" class="stage-sound">Sound off</button>
+  <button type="button" class="stage-sound">Sound on</button>
   <button type="button" class="stage-toggle" aria-pressed="false">Pause</button>
 </div>
 </section>
@@ -295,9 +295,10 @@
      Nothing is tuned to a pitch, so nothing rings. It is all synthesised,
      so there is no file to load, and it only sounds while the pointer is
      moving through the grass — the faster the movement, the heavier the
-     rain. Browsers hold audio until a click, tap or key press, so the first
-     one of those on the page starts it. */
-  var audio = null, soundWanted = true, wet = 0, level = -1;
+     rain. Sound is off by default: nothing is built or heard until the
+     visitor presses Sound on, and that press is itself the click browsers
+     require before audio may start. */
+  var audio = null, soundWanted = false, wet = 0, level = -1;
 
   function buildAudio() {
     var AC = window.AudioContext || window.webkitAudioContext;

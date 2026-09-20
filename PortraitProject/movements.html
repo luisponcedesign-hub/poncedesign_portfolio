@@ -162,7 +162,7 @@
   <canvas role="img" aria-label="Grey clouds drifting across the sky, drawn as a field of white dots that swell with the light"></canvas>
 </div>
 <div class="stage-bar">
-  <button type="button" class="stage-sound">Sound off</button>
+  <button type="button" class="stage-sound">Sound on</button>
   <button type="button" class="stage-toggle" aria-pressed="false">Pause</button>
 </div>
 </section>
@@ -258,13 +258,11 @@
 
   /* Wind: looped brown noise through a band-pass whose level and pitch
      follow pointer speed. It is all synthesised, so there is no file to
-     load. Sound is on by default and starts with the first movement over
-     the canvas wherever the browser allows it. Some (Safari, or any visit
-     that did not arrive by a click on this site) hold audio until a click,
-     tap or key press on the page, so the first one of those starts it too.
-     Moving swells the wind quickly; once the pointer stops it dies away
-     over several seconds. */
-  var audio = null, soundWanted = true;
+     load. Sound is off by default: nothing is built or heard until the
+     visitor presses Sound on, and that press is itself the click browsers
+     require before audio may start. Once on, moving swells the wind
+     quickly; when the pointer stops it dies away over several seconds. */
+  var audio = null, soundWanted = false;
   var RISE = 0.12;            // seconds (time constant) to swell toward the gust
   var FADE = 2.6;             // time constant of the fade once movement stops
 
