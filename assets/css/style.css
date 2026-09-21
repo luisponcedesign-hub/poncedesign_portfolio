@@ -646,6 +646,9 @@ section{ position:relative; }
 /* Two fixed lines: "Got something tangled?" / "Let's untangle it." Each
    line stays whole, so the size scales down with the viewport on phones. */
 .contact .h2 .ln{ display:block; white-space:nowrap; }
+/* second line drops back in grey, the same pairing the Craft headline uses
+   for "I design it." / "Then I build it." */
+.contact .h2 .ln:last-child{ color:var(--ink-3); }
 @media (max-width:620px){ .contact .h2{ font-size:min(2rem, 8.4vw); } }
 
 /* Two slow colour glows, the hero's blobs carried down to close the page.
