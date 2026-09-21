@@ -610,6 +610,10 @@ section{ position:relative; }
 .about p{ color:var(--ink-2); }
 .about p strong{ color:var(--ink); font-weight:500; }
 
+/* the résumé CTA sits between the bio and the skills rule; it carries its
+   own bottom space so the rule below keeps the section's rhythm */
+.about-cta{ margin:4px 0 0; }
+
 .skills{
   display:grid; grid-template-columns:repeat(2,1fr);
   gap:26px 40px; margin-top:44px;
@@ -1607,4 +1611,134 @@ body.cmodal-open{ overflow:hidden; }
 @media (prefers-reduced-motion:reduce){
   .cdlg[open]{ opacity:1; transform:none; }
   .cdlg::backdrop{ opacity:1; }
+}
+
+/* ============================================================
+   Résumé page
+   One page on screen, one sheet on paper. Reuses the About
+   section's vocabulary: mono orange labels, hairline rules,
+   a narrow meta column against a wider content column.
+   ============================================================ */
+.rsm{ padding:clamp(44px,6vw,76px) 0 clamp(50px,6vw,80px); }
+.rsm-wrap{ max-width:960px; margin-inline:auto; }
+
+/* --- masthead --- */
+.rsm-head{ padding-bottom:30px; border-bottom:1px solid var(--line); }
+.rsm-head .crumb{ margin-bottom:22px; }
+.rsm-head h1{
+  font-size:clamp(2.2rem,5.6vw,3.6rem); letter-spacing:-.04em; line-height:1;
+}
+.rsm-role{
+  margin:14px 0 0; font-family:var(--mono); font-size:.74rem; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--orange);
+}
+.rsm-contact{
+  display:flex; flex-wrap:wrap; gap:8px 22px; margin:20px 0 0;
+  font-size:.92rem; color:var(--ink-2);
+}
+.rsm-contact a{ border-bottom:1px solid var(--line-strong); padding-bottom:1px; }
+.rsm-contact a:hover{ color:var(--orange); border-color:var(--orange); }
+.rsm-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
+
+/* --- section headers --- */
+.rsm-sec{ margin-top:clamp(38px,5vw,56px); }
+.rsm-sec > h2{
+  font-family:var(--mono); font-size:.68rem; font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--orange);
+  margin-bottom:18px;
+}
+.rsm-bio{ margin:0; font-size:1.02rem; line-height:1.7; color:var(--ink-2); max-width:72ch; }
+.rsm-bio strong{ color:var(--ink); font-weight:500; }
+
+/* --- experience --- */
+.rsm-job{
+  display:grid; grid-template-columns:172px 1fr; gap:24px;
+  padding:19px 0; border-top:1px solid var(--line);
+}
+.rsm-job:last-child{ border-bottom:1px solid var(--line); }
+.rsm-when{
+  font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.07em;
+  color:var(--ink-3); line-height:1.6;
+}
+.rsm-when i{ font-style:normal; display:block; color:var(--muted); }
+.rsm-job h3{
+  font-size:1.02rem; font-weight:700; letter-spacing:-.01em; line-height:1.35; margin:0;
+}
+.rsm-job h3 span{ color:var(--ink-3); font-weight:400; }
+.rsm-job ul{ margin:9px 0 0; }
+.rsm-job li{
+  position:relative; padding-left:17px; font-size:.93rem; line-height:1.6;
+  color:var(--ink-2); margin-bottom:3px;
+}
+.rsm-job li::before{
+  content:''; position:absolute; left:0; top:.62em;
+  width:6px; height:6px; border-radius:50%; background:var(--grad);
+}
+.rsm-job li b{ color:var(--ink); font-weight:500; }
+
+/* --- skills + education reuse .skills / .creds, minus the top rule --- */
+.rsm-sec .skills{ margin-top:0; padding-top:0; border-top:0; gap:22px 40px; }
+.rsm-sec .creds{ margin-top:0; }
+
+/* ============================================================
+   Résumé — narrow
+   ============================================================ */
+@media (max-width:760px){
+  .rsm{ padding-top:36px; }
+  .rsm-job{ grid-template-columns:1fr; gap:8px; }
+  .rsm-when i{ display:inline; color:var(--muted); }
+  .rsm-when i::before{ content:' · '; }
+  .rsm-sec .skills{ grid-template-columns:1fr; }
+}
+
+/* ============================================================
+   Résumé — print: one sheet
+   Everything here is tuned so the whole résumé lands on a
+   single letter page: three-up skills, two-up education,
+   and type dialled down to a printed-résumé scale.
+   ============================================================ */
+@media print{
+  @page{ size:letter; margin:12mm 14mm; }
+  .rsm{ padding:0; }
+  .rsm-wrap{ max-width:none; }
+  .rsm .wrap{ padding-inline:0; }
+  .rsm-actions,.ftr,.crumb{ display:none !important; }
+
+  .rsm-head{ padding-bottom:12px; }
+  .rsm-head h1{ font-size:23pt; }
+  .rsm-role{ margin-top:6px; font-size:7.2pt; letter-spacing:.16em; }
+  .rsm-contact{ margin-top:9px; gap:2px 15px; font-size:8.6pt; }
+  .rsm-contact a{ border:0; }
+
+  .rsm-sec{ margin-top:16px; }
+  .rsm-sec > h2{ font-size:7pt; margin-bottom:7px; }
+  .rsm-bio{ font-size:9pt; line-height:1.45; max-width:none; }
+
+  .rsm-job{ grid-template-columns:140px 1fr; gap:16px; padding:7px 0; break-inside:avoid; }
+  /* the narrow-screen rule turns the location into an inline ' · Remote';
+     a printed page is narrower than 760px, so put the block back */
+  .rsm-when{ font-size:7pt; line-height:1.5; }
+  .rsm-when i{ display:block; }
+  .rsm-when i::before{ content:none; }
+  .rsm-job h3{ font-size:9.4pt; line-height:1.3; }
+  .rsm-job ul{ margin-top:2px; }
+  .rsm-job li{ font-size:8.8pt; line-height:1.4; margin-bottom:0; padding-left:12px; }
+  .rsm-job li::before{
+    width:3.5px; height:3.5px; background:var(--orange); top:.5em;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  /* three-up skills and two-up education claw back the vertical space
+     the six-row / four-row screen layouts would otherwise spend */
+  .rsm-sec .skills{ grid-template-columns:repeat(3,1fr); gap:11px 24px; }
+  .rsm-sec .skills h4{ font-size:6.6pt; letter-spacing:.14em; margin-bottom:3px; }
+  .rsm-sec .skills p{ font-size:8.4pt; line-height:1.45; }
+
+  .rsm-sec .creds{ grid-template-columns:1fr 1fr; column-gap:26px; gap:0; }
+  .cred{ padding:7px 0; grid-template-columns:70px 1fr; gap:14px; break-inside:avoid; }
+  .cred:nth-child(2){ border-bottom:0; }
+  .cred:nth-last-child(-n+2){ border-bottom:1px solid var(--line); }
+  .cred b{ font-size:6.8pt; letter-spacing:.06em; }
+  .cred span{ font-size:8.6pt; line-height:1.35; }
+  .cred span i{ font-size:7.6pt; margin-top:1px; }
 }
