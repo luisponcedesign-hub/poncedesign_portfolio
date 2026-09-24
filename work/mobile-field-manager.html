@@ -16,14 +16,14 @@
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mobile Field Manager — Time Entry — Viewpoint · Luis Ponce de León</title>
-<meta name="description" content="Time entry designed for a job site — gloves on, sun glare, spotty signal, and about thirty seconds of patience.">
+<meta name="description" content="Redesigning time entry in Viewpoint's Mobile Field Manager iPad app: a grid that stays put as you scroll, where a foreman logs a crew's day with taps instead of forms.">
 <meta name="theme-color" content="#FAF8F4">
 <link rel="canonical" href="https://www.poncedesign.com/work/mobile-field-manager.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mobile Field Manager — Time Entry — Viewpoint">
-<meta property="og:description" content="Time entry designed for a job site — gloves on, sun glare, spotty signal, and about thirty seconds of patience.">
-<meta property="og:image" content="../assets/img/thumbs/mobile-field-manager.png">
+<meta property="og:description" content="Redesigning time entry in Viewpoint's Mobile Field Manager iPad app: a grid that stays put as you scroll, where a foreman logs a crew's day with taps instead of forms.">
+<meta property="og:image" content="../assets/img/case/mobile-field-manager/cover.png">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='-.0704' y1='.3994' x2='1.0704' y2='.6006'><stop offset='0' stop-color='%23E8630B'/><stop offset='1' stop-color='%23F5B301'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/></svg>">
@@ -80,40 +80,207 @@
     <p class="eyebrow">Viewpoint &nbsp;·&nbsp; 2016</p>
     <h1 data-rv>Mobile Field Manager — Time Entry</h1>
     <div class="lead-row">
-      <p class="lead" data-rv data-rv-delay="0.08">Time entry designed for a job site — gloves on, sun glare, spotty signal, and about thirty seconds of patience.</p>
-      <p class="lead-link" data-rv data-rv-delay="0.12"><a class="linkout" href="https://poncedesign.myportfolio.com/mobile-field-manager-time-entry-uiux-enhancements" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+      <p class="lead" data-rv data-rv-delay="0.08">At the end of a shift, a foreman has to log hours for every worker and machine on the crew, against the right job and cost codes. Viewpoint's Mobile Field Manager already had a time grid on the iPad, but it was slow to read and hard to correct. I redesigned the grid and how people interact with it, so a crew's day can be entered with taps, and every correction happens in the same view.</p>
     </div>
 
     <div class="facts" data-rv data-rv-delay="0.14">
       <div><h4>Client</h4><p>Viewpoint</p></div>
-      <div><h4>Year</h4><p>2016</p></div>
+      <!-- CONFIRM: timeline length -->
+      <div><h4>Timeline</h4><p>2016</p></div>
       <div><h4>Role</h4><p>Senior UX Designer</p></div>
-      <div><h4>Focus</h4><p>Mobile · Enterprise · Product UX</p></div>
+      <!-- CONFIRM: team makeup -->
+      <div><h4>Team</h4><p>Product manager, iOS engineers, Vista domain experts</p></div>
+      <div><h4>Product area</h4><p>Mobile Field Manager (MFM) · Field time entry</p></div>
+      <div><h4>Platform</h4><p>iPad · Native iOS</p></div>
+      <div><h4>Focus</h4><p>Mobile · Enterprise · Interaction design</p></div>
+      <div><h4>Impact</h4><p>One grid for daily time, with no separate forms and no saving step</p></div>
     </div>
   </div>
 </section>
 
 <div class="wrap">
   <figure class="cover" data-rv="scale" style="max-width:1040px">
-    <img src="../assets/img/thumbs/mobile-field-manager.png" alt="Mobile Field Manager — Time Entry — Viewpoint" width="1100" height="860" decoding="async">
+    <img src="../assets/img/case/mobile-field-manager/cover.png" alt="The MFM TimeGrid on an iPad before and after. On the left, on a yellow panel labelled Existing styling (old), a flat grid with thin labels, an empty total column and a dark blocked row. On the right, on a green panel labelled Improved styling (new), the same grid with zebra rows, all-caps phase labels closer to the grid, a lighter blocked row, caret icons, a photo for Barry Frangipane, large totals in the fixed front column and small DT and OT badges next to his hours" width="1490" height="575" decoding="async">
   </figure>
 </div>
 
 <section class="case-body" id="case">
   <div class="wrap">
     <div class="col">
-      <div class="blk" data-rv>
-        <h2>About this project</h2>
-        <p>Time entry designed for a job site — gloves on, sun glare, spotty signal, and about thirty seconds of patience.</p>
 
-        <h2>What I did</h2>
+      <div class="blk" data-rv>
+        <h2>In one line</h2>
+        <p>Mobile Field Manager (MFM) is the iPad app Viewpoint's construction customers use in the field, and it sends time and quantities back to Vista, Viewpoint's ERP. I redesigned the <b>TimeGrid</b>, the screen where a foreman records a crew's day. The redesign had three parts: a grid that stays readable as you scroll, a set of gestures that each do one thing, and a visual spec that engineering could build from without guessing.</p>
+        <div class="kpis">
+          <div class="kpi"><b>1 tap</b><i>From an empty cell to entering hours. The number pad is always on screen, and nothing needs saving</i></div>
+          <div class="kpi"><b>7</b><i>Work time types in one long-press panel: double time, overtime, regular time, bonus, hotel, per diem and salary</i></div>
+          <div class="kpi"><b>9</b><i>Interaction patterns specified end to end, from scrolling to onboarding</i></div>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Context and the problem</h2>
+        <p>On a construction job, hours are cost. Each hour a worker or machine spends is charged to a job and a phase (site excavation, forming walls, pouring floors), and that's how a contractor finds out whether a job is making or losing money. The foreman or superintendent is the one who records it, usually at the end of a long day, standing in a trailer or a truck.</p>
+        <p>MFM put that record on an iPad as a grid. Resources (people and equipment) run down the side, and the job's phases and cost codes run across the top. It worked, but it had grown one feature at a time:</p>
         <ul class="bul">
-          <li><b>Role.</b> Senior UX Designer at Viewpoint, 2016.</li>
-          <li><b>Focus.</b> Mobile · Enterprise · Product UX.</li>
-          <li><b>Scope.</b> Research through shipped design — discovery, information architecture,
-          interaction design, and hand-off to engineering.</li>
+          <li><b>Hard to read at a glance.</b> Labels sat far from the columns, rows had no banding, and the total for each resource sat apart from the resource's name.</li>
+          <li><b>Easy to lose your place.</b> Crews are long and jobs have many phases. When the grid scrolled, it was easy to lose track of which row and column you were in.</li>
+          <li><b>Detail lived elsewhere.</b> Overtime, per diem, production quantities and extra cost codes each needed their own path, away from the grid.</li>
+        </ul>
+        <p>The constraints:</p>
+        <!-- CONFIRM: constraints -->
+        <ul class="bul">
+          <li><b>Vista's data model.</b> Companies, jobs, phases, cost types and resource groups all came from Vista. The design could change how they're shown, but not what they are.</li>
+          <li><b>An existing native app.</b> The grid was already built and in customers' hands. Changes had to fit inside it and ship without retraining everyone.</li>
+          <li><b>Field conditions.</b> People use it outside, often with gloves on, in bright light, with a weak connection and not much patience.</li>
         </ul>
       </div>
+
+      <div class="blk" data-rv>
+        <h2>My role and what I owned</h2>
+        <p>I was the UX designer on the TimeGrid enhancements, from the interaction model to the visual spec handed to engineering.</p>
+        <!-- CONFIRM: split of ownership -->
+        <ul class="bul">
+          <li><b>I owned</b> the gesture model, the interaction flows (entry, work time types, selection, deletion, production units, multiple entries), the visual redesign and style guide, and the onboarding and help concepts.</li>
+          <li><b>Product management</b> owned priorities and scope, including which items moved to a later release (the style guide marks team integration as <i>later</i>).</li>
+          <li><b>Engineering</b> owned the iOS build and the sync with Vista, and worked through the gesture specs with me.</li>
+        </ul>
+        <div class="note">
+          <b>A note on the images</b>
+          <p>The figures are my original specification boards, cropped so each one shows a single flow. Names, companies and jobs in them are placeholder data.</p>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <!-- CONFIRM: goals are written from the specs; adjust to what was actually tracked -->
+        <h2>Goals, and how we'd know</h2>
+        <p>We agreed on what success looked like before changing the screens:</p>
+        <ul class="bul">
+          <li><b>Faster daily entry.</b> A foreman can log a typical crew's day in fewer taps and less time than before.</li>
+          <li><b>Fewer entry errors.</b> Fewer hours land on the wrong row or phase, and fewer entries have to be fixed in the office after sync.</li>
+          <li><b>Details without leaving the grid.</b> Overtime, per diem, quantities and extra codes can all be added from the grid itself.</li>
+          <li><b>Learnable in the field.</b> A new foreman can find the long press and the swipe without training.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What we learned in research</h2>
+        <!-- CONFIRM: research methods and sources -->
+        <p>I reviewed the existing app with Viewpoint's field and Vista experts and walked through how foremen actually record a day: who they enter first, what they check, and what they come back to fix. Three findings changed the design.</p>
+
+        <h3>1. People get lost in the grid, not in the data</h3>
+        <p>Foremen know their crew and their phases. What went wrong was position. After a scroll, they typed hours into the wrong row or phase. <b>So the grid's anchors became fixed</b>: resource names and totals stay put when you scroll sideways, and phase headers stay put when you scroll down (Decision 1).</p>
+
+        <h3>2. Most entries are simple; a few are detailed</h3>
+        <p>Most cells hold a single number: hours on a phase. Only some need a split between regular and overtime, a per diem or a production quantity. Putting every option in front of every entry would have slowed the common case. <b>So the gestures split the work</b>: a tap enters the number, and a long press opens the detail (Decision 2).</p>
+
+        <h3>3. The app has to teach itself</h3>
+        <p>Foremen change jobs and companies, and a long press can't be seen until someone tells you it's there. <b>So onboarding became part of the design</b>, with help in context instead of a manual (Decision 4).</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Strategy and the decisions that mattered</h2>
+
+        <h3>Decision 1: Make the grid hold still where it matters</h3>
+        <p>Before touching the visuals, I specified how the grid moves. When you scroll sideways, the phase headers move with the grid and the front columns (resource name and total) stay fixed. When you scroll down, the headers stay fixed. All the data loads when the grid opens, so scrolling never stops to load more. That uses more memory up front, but it makes scrolling predictable on a weak job-site connection.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/gestures.png" alt="Specification board titled MFM Time Grid, Gestures, with four rows of before-and-after iPad wireframes. Grid horizontal scroll: the header labels scroll with the grid and the main column stays fixed. Grid vertical scroll: the header labels stay fixed, and there is no loading because all data is loaded at first. Single tap, time entry: tapping a cell loads a number keyboard at the bottom, and the user does not need to press enter for the entry to persist. Long press, time entry modal details: a long press on a cell loads a details panel" width="1840" height="1560" loading="lazy" decoding="async">
+          <figcaption><b>The gesture model.</b> Two scroll behaviours and two touch gestures, each with one job. The notes on the right are the spec engineering built from.</figcaption>
+        </figure>
+
+        <h3>Decision 2: Tap to enter, long press for detail</h3>
+        <p>A tap selects a cell, and the number pad at the bottom enters the value. It saves right away, with no Enter or Save step. A long press on the same cell opens a <i>Work Time Type</i> panel for splitting the hours: double time, overtime and regular time in hours, and bonus, hotel, per diem and salary in dollars. Back on the grid, the cell shows the total, with small DT and OT badges so you can see at a glance that it's split.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/flow-cell-entry.png" alt="Two iPad TimeGrid screens with an arrow between them. In the first, a finger taps an empty cell in the 12.7 row under Project Superintendent. In the second, the cell and the row total both read 3, and the 3 key on the number pad is highlighted under the finger" width="1970" height="751" loading="lazy" decoding="async">
+          <figcaption><b>Tap.</b> Select a cell and press a number. The row total updates in the fixed front column right away.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/flow-long-press.png" alt="Three iPad TimeGrid screens. First, a long press on the 12.7 row's Project Superintendent cell. Second, a Work Time Type modal over a dimmed grid, with quantity fields for double time 7, overtime 4, regular time, bonus, hotel, per diem and salary, units of hours or dollars, and Save and Cancel buttons. Third, the grid shows 11 in the cell and the total, with DT and OT badges beside the cell" width="2962" height="751" loading="lazy" decoding="async">
+          <figcaption><b>Long press.</b> 7 hours double time and 4 overtime become 11 on the grid, with badges showing the split. The detail stays one gesture away, and the grid stays simple.</figcaption>
+        </figure>
+
+        <h3>Decision 3: Change context from the grid's own labels</h3>
+        <!-- CONFIRM: the disagreement framing; the artifacts show the result, not the discussion -->
+        <p>One proposal was to put company, job and resource group in a settings screen, which kept the grid clean. I argued that foremen switch these several times a day, and a settings screen would hide what the grid was showing. Instead, the labels at the top of the grid are the controls. Tap the resource group to change it, and tap the company and job to change those. The grid always says what it's showing, and changing it takes one tap.</p>
+        <p>Two small rules came out of the resource-group picker. On the first visit it defaults to <i>My Time</i>, and after that it opens on the last group you used. Groups you can't access still appear, with a lock, so a foreman can see they exist instead of wondering where they went.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/flow-resource-group.png" alt="Two iPad screens. First, a finger taps the TNT Construction Group label in the grid's title bar. Second, a Select Resource Group modal lists My Time, selected, then E Construction Company, AMAAR LLC, and Pizza Hut with a lock icon, with Select and Cancel buttons" width="1970" height="751" loading="lazy" decoding="async">
+          <figcaption><b>Resource group.</b> The label is the control. My Time is the default on the first visit, and groups without access show a lock instead of disappearing.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/flow-company-job.png" alt="Two iPad screens. First, a finger taps the VCS General Construction, First Ave Elementary School label above the resource column. Second, a Select Company and Job modal with two dropdowns, VCS General Construction and First Ave Elementary School, and Select and Cancel buttons" width="1970" height="751" loading="lazy" decoding="async">
+          <figcaption><b>Company and job.</b> The same pattern: tap the label, choose, and you're back on the grid.</figcaption>
+        </figure>
+
+        <h3>Decision 4: Put the rest in the grid, too</h3>
+        <p>Every other task followed the same rule: start it from the thing you want to change.</p>
+        <ul class="bul">
+          <li><b>Production units.</b> Tap a phase's header to record quantities by cost type (labor, subcontracts, equipment, burden), each with its unit of measure.</li>
+          <li><b>Multiple entries per person.</b> Expand a worker's row to see their separate entries, and add one with <b>+</b>. It asks for its codes, then appears in the grid as its own row.</li>
+          <li><b>Delete.</b> Swipe a row left to delete it, the way iOS does everywhere else. Swiping a parent row deletes it and its children. Swiping a child row deletes only that row.</li>
+        </ul>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/flow-production-units.png" alt="Two iPad screens. First, a finger taps the Project Superintendent phase header. Second, a Production Units modal lists labor with quantity 7 in MOS, subcontracts in LF, equipment in HRS and burden in MOS, each with a phase units checkbox, and Save and Cancel buttons" width="1970" height="751" loading="lazy" decoding="async">
+          <figcaption><b>Production units.</b> Tap the phase header to record quantities, with the unit shown next to every field.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/flow-multi-entry.png" alt="Three iPad screens. First, a finger taps the Barry Frangipane row. Second, the row is expanded into a grey parent row with a total of 6 and two child rows of 4 and 2, and a finger taps the plus icon on the last child. Third, a Select Codes modal with three dropdowns and Select and Cancel buttons" width="2962" height="751" loading="lazy" decoding="async">
+          <figcaption><b>More than one entry per person.</b> Expand a row to see each entry, and add one with <b>+</b>. The parent row keeps the total.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/flow-delete.png" alt="Three pairs of iPad screens. Top: a finger swipes left on Barry Frangipane's collapsed row, and a Delete button appears. Middle: the row is expanded, the finger swipes left on the parent row, and Delete appears next to the parent, with a note that the children are deleted as well. Bottom: the finger swipes left on one child row, and Delete appears on that row only" width="1970" height="2333" loading="lazy" decoding="async">
+          <figcaption><b>Swipe to delete, at three levels.</b> A single row, a parent row that takes its children with it, and one child row on its own. Where you swipe decides what gets deleted.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Design process and solution</h2>
+
+        <h3>A visual pass that makes the grid easier to scan</h3>
+        <p>With the interactions settled, I redesigned the grid's visuals, and every change had a reason written next to it. Zebra rows keep your eye on the row. Phase labels sit closer to their columns in all caps. Blocked cells are a lighter grey, so they look unavailable instead of looking like an error. Totals moved into the fixed front column at 24pt, so each row's total stays next to its name. The number pad is always on screen, because nearly every visit to the grid ends with typing a number.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/style-guide.png" alt="Style guide board. The existing grid on a yellow panel and the improved grid on a green panel, with callouts: make controls lighter for better contrast, color D8D8D8; move labels closer to the grid, Fira Sans Regular 16pt all caps; zebra bars, color F5F6F7; grayed out blocked areas, color 969D9F; use the caret icon; crop the picture in a 33 by 33 pixel circle; move the total time into the front fixed column, Fira Sans Medium 24pt, color 2E3133; number keyboard always visible; number font Fira Sans Light 20pt. Below, a modal spec: title bar 77px, H1 Fira Sans Thin 34pt, action bar 65px, grey overlay 4A4A4A at 40 percent, 1px stroke, scroll for extra content, a call-to-action button with 5px corners, 40px high, color 002856 VCS Blue, and a regular button in EDF1F4 VCS Aluminium" width="1715" height="1155" loading="lazy" decoding="async">
+          <figcaption><b>Old and new, with the spec.</b> Every change is written next to the pixel it applies to, with a size, font and colour token. The modal spec below it covers all the detail panels.</figcaption>
+        </figure>
+
+        <h3>One modal pattern for every detail</h3>
+        <p>Work time types, production units, codes, resource group and company and job all use the same modal: a thin title, a scrollable body, a 65px action bar, and a VCS Blue primary button next to a quieter Cancel. The grid stays visible under a 40% grey overlay, so you don't lose your place. Engineering built it once and reused it for every panel.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Validation and iteration</h2>
+        <!-- CONFIRM: how the designs were tested (field sessions, internal experts, customer reviews) -->
+        <p>I walked the flows through with Viewpoint's field experts and customers, using the boards and clickable prototypes of the main scenarios. They included entering a crew's day, splitting overtime, fixing a mistake and switching jobs. The biggest change came from the gestures.</p>
+        <h3>We thought gestures would be obvious. They weren't, so we taught them in the app.</h3>
+        <p><b>We thought</b> that long press and swipe, being standard iOS gestures, would be found on their own. <b>We learned</b> that people who spend all day on a job site don't try long-pressing a spreadsheet cell, and nothing on screen tells you it's there. The most useful part of the redesign was the easiest to miss. <b>So we</b> added onboarding and help to the grid. Tooltips point at each control the first time. A short <i>MFM Introduction</i> walks through the gestures one at a time, for example <i>to add time and edit details to a resource, just long press inside a cell</i>. A help menu in the title bar links to a video demo and to the full help site.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-field-manager/onboarding.png" alt="Onboarding and help board with four iPad screens. Top left: the grid with four tooltips reading quick explanatory text about this feature, and a help menu listing In-Page Help, Video Demo and Help. Top right: an MFM Introduction carousel over the dimmed grid, showing a hand long-pressing a cell and the text to add time and edit details to a resource, just long press inside a cell, with eight progress dots and Previous, Next and Cancel buttons. Bottom left: a video demo playing over the grid. Bottom right: a direct link to MFM Help opening in the browser" width="1420" height="1070" loading="lazy" decoding="async">
+          <figcaption><b>Three levels of help from one menu.</b> Tooltips in the page, a step-by-step introduction to the gestures, and a video demo. The full help site opens in the browser for anything else.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Outcome and impact</h2>
+        <!-- CONFIRM: release and adoption facts; no metrics were available from the source material -->
+        <p>The enhancements were specified as a set that engineering could ship in stages inside the existing app, with team integration planned for a later release. The source material has no numbers, so the outcome is described by what changed for the foreman:</p>
+        <ul class="bul">
+          <li><b>One screen for the day.</b> Hours, overtime, per diem, production quantities, extra codes and deletions all start from the grid. Nothing requires leaving it.</li>
+          <li><b>Less to remember.</b> Fixed anchors keep row and phase in view, totals sit next to names, and entries save without a separate step.</li>
+          <li><b>A spec engineering could build from.</b> Every gesture, state and visual change was written down with its rule, and one modal pattern covered every detail panel.</li>
+        </ul>
+        <blockquote class="pull">A time grid in the field isn't a spreadsheet you look at. It's one you type into at the end of a long day, so every tap you don't need is a tap that isn't made in the wrong row.</blockquote>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What I'd do differently</h2>
+        <ul class="bul">
+          <li><b>Measure the baseline first.</b> Our goals were about speed and errors, but we didn't record how long a day's entry took or how many entries were corrected after sync. With those numbers, the outcome above could be a result instead of a description.</li>
+          <li><b>Test on site, not in the office.</b> Glare, gloves and a truck cab change what counts as a good tap target. I'd run at least one round in the field, in the conditions the app is used in.</li>
+          <li><b>Design how to find a gesture along with the gesture.</b> Onboarding came after we saw people miss the long press. Now I plan how people will find a hidden gesture at the same time I design it, with a hint on the cell itself as well as a tutorial.</li>
+        </ul>
+        <p>The broader lesson: in a dense enterprise tool, speed comes from taking steps away more than adding features. The biggest improvements here were a column that stays put and a Save step that isn't there.</p>
+      </div>
+
     </div>
   </div>
 </section>
