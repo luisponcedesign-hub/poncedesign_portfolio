@@ -16,13 +16,13 @@
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Video Foundation Service — Seismic · Luis Ponce de León</title>
-<meta name="description" content="Consolidating a fragmented video experience into one architecture — playback, recording, upload and editing — for customers whose expectations are set by YouTube and Netflix.">
+<meta name="description" content="Leading the design of one shared video foundation for Seismic, so recording, playback, clips, chapters and audio work the same way in every app.">
 <meta name="theme-color" content="#FAF8F4">
 <link rel="canonical" href="https://www.poncedesign.com/work/seismic-video.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Video Foundation Service — Seismic">
-<meta property="og:description" content="Consolidating a fragmented video experience into one architecture — playback, recording, upload and editing — for customers whose expectations are set by YouTube and Netflix.">
+<meta property="og:description" content="Leading the design of one shared video foundation for Seismic, so recording, playback, clips, chapters and audio work the same way in every app.">
 <meta property="og:image" content="../assets/img/thumbs/seismic-video.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -77,46 +77,209 @@
   <div class="blob a" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
-    <p class="eyebrow">Seismic &nbsp;·&nbsp; 2024</p>
+    <p class="eyebrow">Seismic &nbsp;·&nbsp; 2022–2024</p>
     <h1 data-rv>Video Foundation Service</h1>
     <div class="lead-row">
-      <p class="lead" data-rv data-rv-delay="0.08">Consolidating a fragmented video experience into one architecture — playback, recording, upload and editing — for customers whose expectations are set by YouTube and Netflix.</p>
-      <p class="lead-link" data-rv data-rv-delay="0.12"><a class="linkout" href="https://poncedesign.myportfolio.com/seismic-video" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+      <p class="lead" data-rv data-rv-delay="0.08">Video in Seismic had grown up piecemeal, one app at a time. I led the design of the shared foundation underneath it all, so recording, playback, clips, chapters and audio work the same way wherever someone meets them, and users get the video experience YouTube and Zoom had already taught them to expect.</p>
     </div>
 
     <div class="facts" data-rv data-rv-delay="0.14">
       <div><h4>Client</h4><p>Seismic</p></div>
-      <div><h4>Year</h4><p>2024</p></div>
-      <div><h4>Role</h4><p>Lead Product Designer</p></div>
-      <div><h4>Focus</h4><p>Rich Media · Platform · Motion</p></div>
+      <!-- CONFIRM: timeline inferred from dates in the design files (Nov 2022 recorder, Oct 2023 meetings, Mar 2024 audio) -->
+      <div><h4>Year</h4><p>Nov 2022 – Mar 2024 · phased</p></div>
+      <div><h4>Role</h4><p>Lead Product Designer, Video Foundation</p></div>
+      <!-- CONFIRM: team makeup -->
+      <div><h4>Team</h4><p>Product, platform engineering &amp; app teams across Seismic</p></div>
+      <div><h4>Platform</h4><p>Web &amp; mobile · WorkSpace, Engagement, Universal Player</p></div>
+      <div><h4>Focus</h4><p>Rich Media · Platform · Design System</p></div>
     </div>
   </div>
 </section>
 
 <div class="wrap">
   <figure class="cover" data-rv="scale" style="max-width:1040px">
-    <img src="../assets/img/thumbs/seismic-video.png" alt="Video Foundation Service — Seismic" width="712" height="556" decoding="async">
+    <img src="../assets/img/case/seismic-video/clips-01.jpg" alt="A recorded meeting in Seismic Engagement: the video player with a Create clip button, a timeline showing screenshare, seven colour-coded topics and speaker talk time, and a Clips tab with an empty state inviting the user to create a shareable clip" width="1920" height="1374" decoding="async">
   </figure>
 </div>
 
 <section class="case-body" id="case">
   <div class="wrap">
     <div class="col">
+
       <div class="blk" data-rv>
-        <h2>The problem</h2>
-        <p>The user experience for video and related assets in Seismic was sub-standard and fragmented. Playback, recording, upload, and management had each been built separately, at different times, against different assumptions.</p>
-        <p>Two shifts made that unsustainable. First, customer expectations are now set by <b>YouTube and Netflix</b> — consumer-grade video is the baseline, not a differentiator. Second, remote work made everyone a video producer: <b>Zoom, Chorus, and Gong</b> normalized recording yourself, so users arrived already fluent and already impatient.</p>
-        <h2>Four initiatives</h2>
-        <ul class="bul">
-          <li><b>Video Foundation Service (VFS).</b> A unified architecture acting as the single integration point for third-party video platforms — managing media, transcripts, captions, thumbnails, and GIFs in one place.</li>
-          <li><b>Enhanced playback and recording.</b> Updates to the Universal Player and the User Generated Video Recorder, with third-party provider integrations behind a consistent interface.</li>
-          <li><b>Upload and download components.</b> Configurable, reusable components that work across media and traditional content types instead of forking per content type.</li>
-          <li><b>Video editing.</b> New capabilities to edit videos or add text, images, graphics, and calls-to-action — bringing personalization and collaboration into the video workflow itself.</li>
-        </ul>
-        <h2>Why a foundation, not a feature</h2>
-        <p>Every one of these could have shipped as an isolated improvement. Designing them against a shared service meant transcripts, captions, and thumbnails behave identically wherever video appears — and that each new video capability gets cheaper to add, not more expensive.</p>
-        <blockquote class="pull">Fragmentation is a design problem before it is an engineering one. Users don't experience your architecture; they experience its seams.</blockquote>
+        <h2>In one line</h2>
+        <p>Seismic customers wanted to record, watch, trim and share video inside the tool they already sell from. The product had pieces of that scattered across apps. I designed the <b>Video Foundation</b>, one service plus a set of Mantle components for recording, upload, playback, clips, chapters and audio, and shipped it in phases, starting with the experiences customers asked for most.</p>
+        <div class="kpis">
+          <div class="kpi"><b>1</b><i>Shared service behind every video surface, in place of a separate build per app</i></div>
+          <div class="kpi"><b>4</b><i>Initiatives: foundation service, record &amp; playback, upload &amp; download, editing</i></div>
+          <div class="kpi"><b>2</b><i>Delivery phases, split by who needed the feature first: learners, then content creators</i></div>
+        </div>
       </div>
+
+      <div class="blk" data-rv>
+        <h2>Context and the problem</h2>
+        <p>Seismic is a sales enablement platform. Marketers publish content, sellers use it with buyers, and managers coach and measure. Video now sits at every step: product demos, recorded pitches, coaching feedback, customer meetings.</p>
+        <p>The video experience didn't hold up. Playback, recording, upload and file management had each been built separately, at different times, on different assumptions. A transcript in one place didn't exist in another, and a thumbnail set in WorkSpace didn't follow the video into a meeting.</p>
+        <p>Meanwhile the bar had moved. <b>YouTube and Netflix</b> set what people expect from playback. Remote work had turned sellers into everyday producers, and <b>Zoom, Chorus and Gong</b> had taught them to expect recording, transcripts and highlights by default. Customers were asking for a modern video capability as a core part of their post-pandemic toolkit, not an add-on.</p>
+        <blockquote class="pull">Fragmentation is a design problem before it is an engineering one. Users don't experience your architecture; they experience its seams.</blockquote>
+        <p>The constraints:</p>
+        <ul class="bul">
+          <li><b>Legacy surfaces still in use.</b> The Universal Player (UP) and the User Generated Video Recorder (UGVR) were already embedded across the product. We had to improve them in place, not replace them overnight.</li>
+          <li><b>A third-party video platform underneath.</b> Encoding, transcripts and captions would come from an outside provider. The design had to work within what that provider could return, and when.</li>
+          <li><b>Many owning teams.</b> WorkSpace, Engagement, Learning and mobile each owned a surface where video appears. The foundation only mattered if every one of them could adopt it.</li>
+          <li><b>One design system.</b> Everything had to become a Mantle component that other teams could pick up, not a one-off screen.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>My role and what I owned</h2>
+        <p>I was the lead product designer on the Video Foundation from the lifecycle mapping through the audio MVP.</p>
+        <ul class="bul">
+          <li><b>I owned</b> the end-to-end video experience: the lifecycle model, the record and upload flows, the recorder and playback pages, the clip and chapter patterns, the audio recorder, and the Mantle component specs that app teams built from.</li>
+          <li><b>I partnered with</b> product management on use cases, phasing and must-have calls, and with app teams (WorkSpace, Engagement, mobile) on how each surface would adopt the components.</li>
+          <li><b>Platform engineering owned</b> the Video Foundation Service itself, the integration with the third-party video provider, and the pipeline for transcripts, captions, thumbnails and GIFs.</li>
+        </ul>
+        <div class="note">
+          <b>A note on the screens</b>
+          <p>Early record and playback work was designed in <i>Galileo</i>, a demo tenant, which is why its branding differs from the later Seismic screens. People, names and figures shown are demo data.</p>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <!-- CONFIRM: goals/measures below are written from the project's stated intent; adjust to what the team actually tracked -->
+        <h2>Goals, and how we'd know</h2>
+        <p>Because this was a foundation and not a single feature, success had two sides: the experience users saw, and how easily teams could build on it.</p>
+        <ul class="bul">
+          <li><b>One way to do each video task.</b> Recording, uploading, playing and sharing should behave the same in every app. Measured by how many surfaces moved onto the shared components.</li>
+          <li><b>Recording that finishes.</b> A seller who starts a recording should get to a saved, findable video. Measured by recordings started against recordings saved.</li>
+          <li><b>Video you can scan, not just watch.</b> Transcripts, chapters and clips should let someone find the two minutes that matter in a thirty-minute meeting. Measured by transcript search, clip creation and shares.</li>
+          <li><b>Faster to build the next thing.</b> Each new video feature should cost less than the last. Measured by how quickly an app team could adopt a component.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Research, and the three things that changed direction</h2>
+        <!-- CONFIRM: research methods (stakeholder workshops, customer requests, competitive review) -->
+        <p>I started by mapping where video already appeared in Seismic and where customers wanted it, then reviewed the tools our users were comparing us to. Three findings shaped the design.</p>
+
+        <h3>1. Video isn't a feature. It's a lifecycle.</h3>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/lifecycle-01.jpg" alt="Video production life cycle diagram with three columns. Pre-production: meeting prep, playlists, video templates. Production: Seismic for meetings, video recording, video editing, sound recording. Post-production: video playback, sound playback, advanced analytics, playlists, meeting details and analytics, video editing, follow up" width="1920" height="1173" loading="lazy" decoding="async">
+          <figcaption>The video production life cycle. Mapping every requested capability onto pre-production, production and post-production showed that the same needs, like editing and playlists, came up in more than one stage and more than one app. Built once per app, they would drift apart.</figcaption>
+        </figure>
+        <p>Laid out this way, the problem wasn't four missing features. It was a set of capabilities every stage needed, so they had to be built once and shared.</p>
+
+        <h3>2. Must-haves differ by who is holding the camera</h3>
+        <p>Record and upload looked like one feature. The job stories showed two. A <b>learner</b> needs to record or upload a quick response to a coaching prompt, then get back to work. A <b>content creator</b> needs to produce something other people will watch, which means choosing a location, a thumbnail, a background and a description. Both were must-haves, but not in the same release.</p>
+
+        <h3>3. Users already knew how video should work</h3>
+        <p>People came in with Zoom, Loom and Vimeo habits: blur my background, show me the transcript, let me jump to a chapter, give me a link to just this part. When we built something they already knew from another tool differently, it read as broken, not new. So I benchmarked the patterns they already had, and treated departures from them as costs that needed a reason.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Strategy and the decisions that mattered</h2>
+
+        <h3>Decision 1: Design components, not pages</h3>
+        <p>The first option on the table was to redesign the worst video page and let others follow. I pushed for a different unit of work: every capability becomes a Mantle component with a defined API, backed by the Video Foundation Service, and each app composes its own page from them. It was slower to show a first result, but it was the only approach where improving the transcript once improved it everywhere.</p>
+
+        <h3>Decision 2: Phase by persona, not by feature</h3>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/flows-01.jpg" alt="Key use cases by implementation: Record and Upload must-have Phase 1, and Record and Upload for content creators must-have Phase 2. A flow splits video creation into Record (choose camera, choose where to save, privacy settings, choose screen camera or both, recording screen, new recording modal, completion notification) and Upload (choose files, choose where to save, privacy settings, upload progress, completion notification), with work-in-progress Mantle camera components below" width="1920" height="1629" loading="lazy" decoding="async">
+          <figcaption>Key use cases by implementation. Record and Upload share the same spine, choose where it's saved, set privacy, get notified when it's done, so they share components. Phase 1 serves the learner; Phase 2 adds what the content creator needs. The Mantle camera components at the bottom were built to serve both.</figcaption>
+        </figure>
+        <p>Instead of shipping recording first and upload second, we shipped the smallest version of <i>both</i> that a learner needed, then layered on creator capabilities. That got a complete loop into customers' hands sooner and kept the two flows from diverging.</p>
+
+        <h3>Decision 3: One anatomy for every video page</h3>
+        <p>Whether it's a recording in WorkSpace or a customer meeting in Engagement, a video page has the same bones: the player on the left, a tool area under it (edit, clip, timeline), and a right rail of collapsible panels such as transcript, insights, details and related content. Users learn it once. App teams choose which panels to show; they don't redesign the page.</p>
+
+        <h3>Decision 4: Cut the audio recorder back to what we could ship well</h3>
+        <!-- CONFIRM: framing of the audio scope discussion -->
+        <p>My first audio design was ambitious: a live waveform you could scrub back through and restart recording from any point, with keyboard shortcuts for fine adjustment. Engineering was right that the live waveform and in-point editing meant a real-time audio pipeline we didn't have yet. We agreed on an MVP that kept the full flow, start, record, pause, save, and swapped the live waveform for a static image. The full design stayed in the backlog as the target.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/audio-01.jpg" alt="Record sound modal explorations in five states: start page, recording with a live waveform, paused, save screen with file location, thumbnail and description, and paused adjust in point where the user can dial back to restart recording from an earlier point, with notes on keyboard shortcuts" width="1920" height="975" loading="lazy" decoding="async">
+          <figcaption>The full audio design. A live waveform, a paused state where the user can drag back and re-record from an earlier point, and shortcuts noted underneath: <i>Enter</i> to resume, <i>Space</i> to play or pause, arrows to nudge.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/audio-02.jpg" alt="Record Audio MVP in four states, start page, recording, paused and save recording, with numbered developer notes: volume input control, sound level widget, static image for MVP, time indicator, and provide thumbnail by default, plus a Sound recording saved toast" width="1920" height="997" loading="lazy" decoding="async">
+          <figcaption>The MVP that shipped. Same four steps and same controls, with a static waveform graphic (note 3) instead of live rendering. A default thumbnail (note 5) means an audio file never shows up blank in WorkSpace, and a toast confirms where it was saved.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Design process and solution</h2>
+
+        <h3>Recording</h3>
+        <p>The recorder is where the Zoom comparison is hardest to avoid, so it borrows the most from what people already know.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/record-01.jpg" alt="Galileo recorder page with a live camera preview, a recording bar showing 04:10 of 60:00 with camera, mute, share screen and stop controls, and a right rail with video background options (normal, blur, Seismic branded, peaks, ocean, upload your own), camera and microphone selectors, teleprompter and transcript toggles, and a save-as panel with file name and location" width="1920" height="2188" loading="lazy" decoding="async">
+          <figcaption>The recorder. Backgrounds include a branded Seismic option and upload-your-own, since sellers record in home offices. <i>Create transcript from voice</i> is on by default, so every recording is searchable from the start. <i>Save as</i> sits in the rail during recording, with a sensible default name and location, so stopping never ends in a dialog.</figcaption>
+        </figure>
+
+        <h3>Playback</h3>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/playback-01.jpg" alt="Galileo playback page with the video player, captions, speed control, an Edit video panel with a trim range from 00:08 to 08:32 and thumbnail picker, and a right rail with a searchable transcript, insights for duration, shares and views, video details and linked content" width="1920" height="2188" loading="lazy" decoding="async">
+          <figcaption>Playback, using the same anatomy as the recorder. A searchable, timestamped transcript leads the rail. <i>Edit video</i> opens trim and thumbnail in place instead of a separate editor. Insights and details are panels any app can choose to include.</figcaption>
+        </figure>
+
+        <h3>Meetings: the same pieces, a harder job</h3>
+        <p>Recorded customer meetings put the foundation under strain: long videos, several speakers, and a user who wants one moment, not the whole hour.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/meetings-01.jpg" alt="Online meeting explorations: a transcript filtered to one speaker's section, and the meeting ingest layout at 1280 by 720 and 1920 by 1024 with speaker and topic timelines, people and content panels, and a note on how the video container grows with screen width" width="1920" height="899" loading="lazy" decoding="async">
+          <figcaption>Meeting explorations. Clicking a speaker's segment on the timeline filters the transcript to what they said. Layouts were checked at 1280 and 1920 wide; the note specifies that the video grows horizontally up to 1280px, then the page centers.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/clips-02.jpg" alt="Create a clip panel opened at playback 10:00, with name, start and end fields, a range selector showing a 28 minute 47 second clip, and the transcript tab scrolled to a Clip start 10:00 marker" width="1920" height="1374" loading="lazy" decoding="async">
+          <figcaption>Create clip, started from the playhead. The clip begins where you are, the range handles sit on the same timeline as the player, and the transcript jumps to a <i>Clip start</i> marker so you can check the words, not just the timestamps.</figcaption>
+        </figure>
+
+        <h3>Chapters</h3>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/chapters-01.jpg" alt="Mantle Chapters components covering create, read, update and delete, from an empty state through create, edit and a chapter list, shown in page, horizontal and meeting layouts, above reference screenshots of Vimeo's chapter controls and help documentation" width="1920" height="1312" loading="lazy" decoding="async">
+          <figcaption>Chapters as a Mantle component set: empty, create, list, edit and delete, then tested in three layouts (in-page, horizontal filmstrip, and alongside a meeting transcript). Below: the Vimeo patterns I benchmarked, because a chapter marker on a scrub bar is something users already know how to read.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Validation and iteration</h2>
+        <!-- CONFIRM: finding inferred from the Phase 1 → Phase 2 change -->
+        <h3>We thought a sensible default location was enough. It wasn't.</h3>
+        <p><b>We thought</b> saving every recording to <i>WorkSpace / My Files / Recordings</i> by default, with a folder tree to change it, would cover most people. <b>We learned</b> that content creators organise by account and opportunity, often in deep folder structures, and the tree made them scroll and expand their way to a folder that sometimes didn't exist yet. <b>So we did</b> two things in Phase 2: added search at the top of the location picker, and a <i>New folder</i> action inside it, on desktop and mobile.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/seismic-video/explore-01.jpg" alt="Explorations grid comparing Phase 1 and Phase 2 for desktop and mobile: Phase 1 shows recording name and a folder-tree location picker defaulting to WorkSpace My Files Recordings; Phase 2 adds a search field and a New folder action on desktop, and folder creation inline on mobile" width="1920" height="1050" loading="lazy" decoding="async">
+          <figcaption>Phase 1 against Phase 2, desktop and mobile. The save step barely changes. The location picker gains search and inline folder creation, which moved it from where it goes by default to where the creator actually wants it.</figcaption>
+        </figure>
+
+        <h3>Clips had to start from the moment, not a form</h3>
+        <p>Early clip concepts opened a blank form asking for start and end times. People didn't know the timestamps; they knew the moment they'd just watched. Starting the clip at the playhead and showing the transcript alongside turned the task from typing numbers into confirming what you'd just heard.</p>
+
+        <h3>The rail needed a speaker filter, not just search</h3>
+        <p>Transcript search works when you know the word. In meetings, people more often knew <i>who</i> said it. Tying the speaker timeline to the transcript, so a click on a speaker's segment filters to their lines, came directly from watching people hunt through long meeting recordings.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Outcome and impact</h2>
+        <!-- CONFIRM: add adoption, recording completion or clip/share numbers if available -->
+        <p>Usage metrics for the Video Foundation are internal, so the evidence here is structural: what now exists that didn't before, and how it changed the next piece of work.</p>
+        <ul class="bul">
+          <li><b>One video anatomy across apps.</b> Recording, playback and meetings share a player, a timeline and a right rail, so a user who learns one knows the others.</li>
+          <li><b>Components, not copies.</b> Camera, recorder, location picker, clips and chapters were specified as Mantle components with full CRUD states, ready for any team to adopt instead of rebuilding.</li>
+          <li><b>Searchable by default.</b> Transcripts are created at record time and sit first in the rail, which made clips, speaker filtering and chapters possible to build on top.</li>
+          <li><b>A path, not just a release.</b> The phased plan and the full audio design gave engineering a clear target past each MVP, so scope cuts were deferrals, not dead ends.</li>
+        </ul>
+        <!-- CONFIRM: that Online Meetings built on these patterns -->
+        <p>The foundation also carried into later work: the meeting timeline, transcript and clip patterns here are what <a href="seismic-online-meetings.html">Seismic Online Meetings</a> built on.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What I'd do differently</h2>
+        <ul class="bul">
+          <li><b>Put adoption on a scoreboard from day one.</b> A foundation only succeeds if teams build on it. I tracked that in conversations when it should have been a visible list of surfaces and which components each had adopted.</li>
+          <li><b>Prototype with the real provider sooner.</b> Some designs assumed transcripts and thumbnails would be ready the moment recording stopped. Testing against the third-party platform's actual processing times earlier would have put processing and partial states into the first specs, not later ones.</li>
+          <li><b>Scope the audio MVP before designing the full version.</b> The full recorder was the right target, but designing it first made the MVP feel like a loss. Starting from the smallest version that works, then designing the path up, makes the same conversation easier.</li>
+        </ul>
+        <p>The broader lesson: on platform work the design isn't the page, it's the agreement. The lifecycle map, the shared anatomy and the component specs mattered because they gave several teams the same answer to <i>how does video work here</i>. The screens follow from that.</p>
+      </div>
+
     </div>
   </div>
 </section>
