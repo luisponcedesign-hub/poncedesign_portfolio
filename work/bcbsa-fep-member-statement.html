@@ -16,13 +16,13 @@
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>FEP Member Statement UX — BlueCross BlueShield · Luis Ponce de León</title>
-<meta name="description" content="Redesigning the Federal Employee Program member statement — taking one of the most reliably confusing documents in American healthcare and making it readable.">
+<meta name="description" content="FEP member statement redesign: turning an annual and quarterly benefits statement for federal employees into a readable view of what they spent, what they saved and what their plan still covers.">
 <meta name="theme-color" content="#FAF8F4">
 <link rel="canonical" href="https://www.poncedesign.com/work/bcbsa-fep-member-statement.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="FEP Member Statement UX — BlueCross BlueShield">
-<meta property="og:description" content="Redesigning the Federal Employee Program member statement — taking one of the most reliably confusing documents in American healthcare and making it readable.">
+<meta property="og:description" content="FEP member statement redesign: turning an annual and quarterly benefits statement for federal employees into a readable view of what they spent, what they saved and what their plan still covers.">
 <meta property="og:image" content="../assets/img/thumbs/bcbsa-fep-member-statement.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -77,43 +77,188 @@
   <div class="blob a" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
-    <p class="eyebrow">BlueCross BlueShield &nbsp;·&nbsp; 2014</p>
+    <p class="eyebrow">BlueCross BlueShield Association &nbsp;·&nbsp; 2014</p>
     <h1 data-rv>FEP Member Statement UX</h1>
     <div class="lead-row">
-      <p class="lead" data-rv data-rv-delay="0.08">Redesigning the Federal Employee Program member statement — taking one of the most reliably confusing documents in American healthcare and making it readable.</p>
-      <p class="lead-link" data-rv data-rv-delay="0.12"><a class="linkout" href="https://poncedesign.myportfolio.com/bcbsa-federal-employee-program-member-statement-ux" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+      <p class="lead" data-rv data-rv-delay="0.08">The BlueCross BlueShield Federal Employee Program covers millions of federal employees, retirees and their families. Their benefit statement was a dense list of claims and totals that answered the plan's questions, not the member's. I redesigned the online Annual and Quarterly Benefits Statement so a member can see in one screen what their care cost, what the plan saved them, what they still owe toward their out-of-pocket maximum, and where they could save more.</p>
     </div>
 
     <div class="facts" data-rv data-rv-delay="0.14">
-      <div><h4>Client</h4><p>BlueCross BlueShield</p></div>
-      <div><h4>Year</h4><p>2014</p></div>
+      <!-- CONFIRM: client relationship; the comps carry "Powered by WebMD" -->
+      <div><h4>Client</h4><p>BCBSA Federal Employee Program, via WebMD Health Services</p></div>
+      <!-- CONFIRM: timeline -->
+      <div><h4>Timeline</h4><p>2014</p></div>
       <div><h4>Role</h4><p>UX Designer</p></div>
-      <div><h4>Focus</h4><p>Healthcare · Enterprise · Research</p></div>
+      <!-- CONFIRM: team makeup -->
+      <div><h4>Team</h4><p>Product manager, FEP business stakeholders, claims data engineers, visual design</p></div>
+      <div><h4>Product area</h4><p>Member portal · Benefits statement · Claims and cost data</p></div>
+      <div><h4>Focus</h4><p>Healthcare · Enterprise · Data visualization</p></div>
     </div>
   </div>
 </section>
 
 <div class="wrap">
-  <figure class="cover" data-rv="scale" style="max-width:1040px">
-    <img src="../assets/img/thumbs/bcbsa-fep-member-statement.png" alt="FEP Member Statement UX — BlueCross BlueShield" width="738" height="577" decoding="async">
+  <figure class="cover" data-rv="scale" style="max-width:840px">
+    <img src="../assets/img/case/bcbsa-fep-member-statement/annual-cover.png" alt="Top of the redesigned Annual Benefits Statement in a browser. The BlueCross BlueShield Federal Employee Program header, then a member picker set to Jane Doe Longname Smith and a period picker set to Annual 2013, January to December. Below, Contract ID R123456789, Benefit Plan Basic Option Family, the member address and a Download printable version link, and a table of covered members with relationship, date of birth and coverage status. Then Benefits Statement for Jane: a claims summary with $2,024 charged, $1,489 member savings and $535 paid or owed, beside a green panel reading You could have saved an additional $391 by choosing generic alternatives, and a blue Contact a Nurse panel" width="693" height="675" decoding="async">
   </figure>
 </div>
 
 <section class="case-body" id="case">
   <div class="wrap">
     <div class="col">
-      <div class="blk" data-rv>
-        <h2>About this project</h2>
-        <p>Redesigning the Federal Employee Program member statement — taking one of the most reliably confusing documents in American healthcare and making it readable.</p>
 
-        <h2>What I did</h2>
+      <div class="blk" data-rv>
+        <h2>In one line</h2>
+        <p>Federal employees got a benefit statement that listed claims but didn't explain them. I redesigned it around three numbers every member understands: <b>what was charged, what you saved, what you paid</b>. Everything else (the out-of-pocket maximum, claim details, plan coverage) sits below those numbers, and the statement points out where the member could save money next time.</p>
+        <div class="kpis">
+          <div class="kpi"><b>3</b><i>Numbers that lead every statement: charged, member savings, paid or owed</i></div>
+          <div class="kpi"><b>2</b><i>Statement views from one system: Annual for the family, Quarterly for the individual</i></div>
+          <div class="kpi"><b>1</b><i>Glance to see how much of the out-of-pocket maximum is left</i></div>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Context and the problem</h2>
+        <p>The Federal Employee Program (FEP) is the Blue Cross and Blue Shield plan for U.S. government workers and retirees. Members range from young staff to retirees managing several conditions, and many cover a spouse and children on one contract.</p>
+        <p>The benefit statement is meant to answer simple questions: <i>How much did our care cost this year? How much did my plan pay? How close am I to my maximum?</i> The existing statement answered them in insurance language (allowance, coinsurance, catastrophic), in long tables, one claim at a time. Members couldn't see the total picture, so they called customer service, and a statement meant to reduce calls was generating them.</p>
+        <p>The business needed a statement that showed members the value of their plan, reduced calls about bills and coverage, and encouraged cheaper choices such as generic drugs, in-network providers and the Blue Health Assessment wellness incentive.</p>
+        <p>The constraints:</p>
+        <!-- CONFIRM: constraints -->
         <ul class="bul">
-          <li><b>Role.</b> UX Designer at BlueCross BlueShield, 2014.</li>
-          <li><b>Focus.</b> Healthcare · Enterprise · Research.</li>
-          <li><b>Scope.</b> Research through shipped design — discovery, information architecture,
-          interaction design, and hand-off to engineering.</li>
+          <li><b>Legacy claims data.</b> Numbers came from existing claims systems with processing delays, so every view had to say which date the data was current to (<i>as of 01/14/2013</i>).</li>
+          <li><b>Regulated language.</b> Legal notes, footnotes and the <i>This is not a bill</i> disclaimer had to stay, and terms had to match the Service Benefit Plan brochure.</li>
+          <li><b>Two plan options, family and individual contracts.</b> Basic Option and Standard Option have different rules. For example, Basic Option has no combined catastrophic maximum. The layout had to work in every case.</li>
+          <li><b>Privacy within a family.</b> A contract holder can see some family members' claims but not others, depending on permissions.</li>
+          <li><b>Many stakeholders.</b> BCBSA, FEP operations, legal and the platform team all had a say in what appeared and how it was worded.</li>
         </ul>
       </div>
+
+      <div class="blk" data-rv>
+        <h2>My role and what I owned</h2>
+        <p>I was the UX designer on the online statement, from information architecture through high-fidelity comps.</p>
+        <!-- CONFIRM: split of ownership -->
+        <ul class="bul">
+          <li><b>I owned</b> the information hierarchy of the statement, the Annual and Quarterly layouts, the summary and savings modules, the cost charts, the claims timeline, the Benefits Snapshot and the high-fidelity comps shown here.</li>
+          <li><b>Product management and FEP stakeholders</b> owned scope, content rules and sign-off. <b>Legal</b> owned the notes and disclaimers.</li>
+          <li><b>Engineering</b> owned the claims data feeds and calculations. <b>Visual design</b> set the BCBS and WebMD look.</li>
+        </ul>
+        <div class="note">
+          <b>A note on the images</b>
+          <p>These are my original design comps. Member names, addresses, contract IDs, claims and dollar amounts are sample data.</p>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <!-- CONFIRM: measures written from the designs; adjust to what was actually tracked -->
+        <h2>Goals, and how we'd know</h2>
+        <p>We agreed on what success looked like before designing layouts:</p>
+        <ul class="bul">
+          <li><b>Answer the main question in five seconds.</b> A member can say what they paid and what the plan saved them without scrolling.</li>
+          <li><b>Fewer calls.</b> Fewer calls to customer service asking what a statement or claim means.</li>
+          <li><b>Show the plan's value.</b> Member savings are as visible as member costs.</li>
+          <li><b>Encourage cheaper choices.</b> Members notice and use generic drugs, in-network providers and wellness incentives.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What we learned in research</h2>
+        <!-- CONFIRM: research methods and sources -->
+        <p>I reviewed the existing statement with FEP stakeholders, listened to the most common customer service call topics, and walked members through their own statements. Three findings changed the design.</p>
+
+        <h3>1. Members ask three questions, in the same order</h3>
+        <p><i>What did it cost? What did the plan cover? What do I owe?</i> The old statement answered them in the order the claims system produced them. <b>So every statement now opens with three rows (charged, member savings, paid or owed), each with a colored total</b> that is used for the same meaning in every chart below.</p>
+
+        <h3>2. "Catastrophic" means nothing to most people</h3>
+        <p>The out-of-pocket maximum is the most important number for a member with a large bill, but <i>catastrophic benefit</i> sounded like disaster coverage. <b>So it became a progress bar</b> showing used and remaining, with a one-line explanation (<i>the maximum out-of-pocket amount you pay during the calendar year</i>).</p>
+
+        <h3>3. Savings only change behavior when they are specific</h3>
+        <p>A general reminder to use generics was ignored. A number tied to the member's own prescriptions was not. <b>So the statement calculates what this member could have saved</b> (<i>You could have saved an additional $391</i>) and places it next to their costs.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Strategy and the decisions that mattered</h2>
+
+        <h3>Decision 1: Summary first, claims second</h3>
+        <p>The alternative was to keep the claims list as the main content and add a total at the top. I argued for reversing it: the statement leads with the summary, and claims become supporting detail. Stakeholders worried that members would think claims were missing. We kept every claim one level down and linked to it from the summary with <i>Graph view</i> and <i>Table view</i>.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/bcbsa-fep-member-statement/annual-summary.png" alt="Annual statement modules. On the left, the Medical and Prescription Claims Summary: total charged $2,024 in a purple tag, member savings $1,489 in green, paid or owed $535 in blue, with a Graph view link. Below it a green Did you know panel: You could have earned a $35 MyBlue Wellness Incentive for completing your Blue Health Assessment in 2013, you can earn up to $75 in 2014, with a Get started button. On the right, the $391 generic savings panel, a Contact a Nurse panel, and a Catastrophic chart with two bars: Preferred $5,000 total with $3,300 used and $1,700 remaining, and Combined $8,000 total with $1,100 used and $6,900 remaining" width="693" height="517" loading="lazy" decoding="async">
+          <figcaption><b>The summary.</b> Three numbers, with color used for the same meaning throughout. Savings opportunities sit next to costs: generic drugs on the right, the wellness incentive below.</figcaption>
+        </figure>
+
+        <h3>Decision 2: Point out missed savings, not just past spending</h3>
+        <p>A statement usually looks backward. We added modules that look forward: the generic drug savings figure, a <i>Did you know?</i> panel for the $35 wellness incentive the member missed and the $75 available next year, and <i>Contact a Nurse</i> for members with questions. <!-- CONFIRM: the disagreement framing --> Legal and operations were cautious about promotional content in an official document. We agreed on a rule: every message had to be based on the member's own data and link to a specific action.</p>
+
+        <h3>Decision 3: Show costs as proportions</h3>
+        <p>Members don't compare $829 with $201 in their heads. The <i>My Costs &amp; Savings</i> section splits medical and pharmacy costs into pie charts (member discount, health plan paid, you paid), and the <i>Brand Name vs. Generic</i> chart compares what the member paid with the average cost per prescription. Each chart has a <i>Table view</i> for exact figures and for screen readers.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/bcbsa-fep-member-statement/annual-costs.png" alt="My Costs and Savings. A Medical Claims Summary with $829 charged and a pie chart: member discount $201, health plan paid $93, you paid or owe $535. A Pharmacy Claims Summary with $1,700 charged and a pie chart: member savings $1,195, you paid or owe $505. Both have Table view links. On the right, Brand Name vs. Generic Prescription Costs: for 4 brand-name prescriptions the member paid $250 against an average cost of $230; for 5 generic prescriptions they paid $210 against $170" width="693" height="657" loading="lazy" decoding="async">
+          <figcaption><b>Costs and savings.</b> Green always means savings and blue always means what the member paid. The brand vs. generic chart uses the member's own prescriptions, so the comparison is about them.</figcaption>
+        </figure>
+
+        <h3>Decision 4: One system, two statements</h3>
+        <p>The Annual statement covers the whole family for the year. The Quarterly statement covers one person for three months and needs more detail. Instead of two separate designs, both use the same modules. The header, summary and catastrophic bar stay the same; Quarterly replaces the cost charts with a claims timeline and a benefits reference. When a rule doesn't apply, such as the combined maximum under Basic Option, the module says so rather than disappearing.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/bcbsa-fep-member-statement/quarterly-summary.png" alt="The Quarterly Benefits Statement for Jane, Q1 2013, January to March, individual Basic Option contract. The Medical and Prescriptions Claims Summary shows $2,024 charged with a pie chart of $1,489 member savings and $535 paid or owed. The Catastrophic module shows one Preferred bar, $5,000 total with $3,300 used and $1,700 remaining, and a gray note: Combined is not applicable under the Basic Option" width="692" height="480" loading="lazy" decoding="async">
+          <figcaption><b>Quarterly.</b> The same summary as a single chart. The gray note keeps the layout consistent and explains why the second bar is missing.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Design process and solution</h2>
+
+        <h3>Claims as a timeline</h3>
+        <p>In the Quarterly view, medical and pharmacy claims appear on a date timeline. Each row shows the service or drug name and opens to show the details: provider, network status, charged, plan allowance, deductible, what FEP paid and what the member paid. A green note under an expanded claim explains it in plain language, for example <i>FEP negotiates lower rates for you with in-network physicians</i> or <i>You can save up to 30% by choosing generic alternatives</i>.</p>
+
+        <h3>A Benefits Snapshot next to the claims</h3>
+        <p>Next to the claims, the Benefits Snapshot lists what the plan covers in-network and out-of-network for medical and pharmacy services, with a year-to-date out-of-pocket table. A member looking at a claim can check the rule that applies without opening the brochure.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/bcbsa-fep-member-statement/quarterly-claims.png" alt="Quarterly claims and benefits. On the left, a Medical claims timeline: Feb 12 Specialist Visit expanded, with date of service 02/12/2012, John R. Smith MD, in-network, claim number 7453, charged $375, plan allowance $120, deductible $102.51, FEP paid $120, you paid $120, and a green note about in-network rates; Jan 04 Inpatient Facility Services collapsed. Below, an Rx timeline: Mar 13 Amoxillin 500mg expanded with NDC, Walgreens retail, 14 capsules, brand, cost $19, deductible $10, co-insurance $6, co-payment $6, total member cost $2, and a green note about saving up to 30% with generics; Feb 8 Pseudoephedrine and Jan 4 Protonix collapsed. On the right, a Medical Benefits Snapshot for Basic Option Family with in-network and out-of-network values for primary care, specialist, inpatient, outpatient, deductible, catastrophic and coinsurance; a Total Member Out-of-Pocket Costs table; and a Pharmacy Benefits Snapshot listing retail and mail-order tiers" width="692" height="825" loading="lazy" decoding="async">
+          <figcaption><b>Claims and coverage together.</b> Claims are collapsed by default and open one at a time. The snapshot on the right shows the rule behind each amount: a $35 specialist copay in-network, N/A out-of-network under Basic Option.</figcaption>
+        </figure>
+
+        <h3>The full statements</h3>
+        <p>Both statements end with collapsible benefit sections, the providers the member has visited, and the required legal notes, placed at the bottom and numbered to match the footnotes above.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/bcbsa-fep-member-statement/annual-full.png" alt="The complete Annual Benefits Statement from header to footer: member and period pickers, contract and plan details, covered members, the claims summary, generic savings and nurse panels, the Did you know wellness incentive, the catastrophic chart, My Costs and Savings with medical and pharmacy pie charts, the brand vs. generic chart, collapsible Medical Benefits and Pharmacy Benefits sections, and the legal notes" width="1000" height="2109" loading="lazy" decoding="async">
+          <figcaption><b>Annual statement, whole family, full year.</b> Select to enlarge.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/bcbsa-fep-member-statement/quarterly-full.png" alt="The complete Quarterly Benefits Statement from header to footer: the period picker set to Q1 2013, contract and plan details for an individual Basic Option contract, the claims summary pie chart, the catastrophic chart, the medical and Rx claims timelines, the medical and pharmacy Benefits Snapshots, the out-of-pocket table, a Providers You've Visited list and the legal notes" width="1000" height="1909" loading="lazy" decoding="async">
+          <figcaption><b>Quarterly statement, one member, one quarter.</b> Select to enlarge.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Validation and iteration</h2>
+        <!-- CONFIRM: how the designs were tested and what changed -->
+        <p>I reviewed the comps with FEP stakeholders, legal and engineering in rounds, and tested the summary and charts with members using their own type of contract. The biggest change was to the savings figures.</p>
+        <h3>We thought savings would feel like good news. At first they felt like fine print.</h3>
+        <p><b>We thought</b> a <i>Your member savings</i> line would make the value of the plan obvious. <b>We learned</b> that members didn't know what it included. Many read it as a discount they hadn't received, or ignored it because it looked like marketing. <b>So we</b> added numbered footnotes defining each figure in one sentence (<i>the amount comprised of the discount BlueCross and BlueShield negotiates and the amount your health plan pays</i>), split savings into <i>member discount</i> and <i>health plan paid</i> in the medical chart, and gave savings one color across every module, so the number read as money the member kept.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Outcome and impact</h2>
+        <!-- CONFIRM: launch facts and any call-volume, engagement or wellness numbers; none were in the source material -->
+        <p>The redesigned Annual and Quarterly statements were delivered as a set of modules for the FEP member portal, used for family and individual contracts under both plan options.</p>
+        <ul class="bul">
+          <li><b>A statement that explains itself.</b> The three numbers most members call about are the first thing on the page, with plain-language definitions.</li>
+          <li><b>The plan's value is visible.</b> Savings get the same space as costs, which is what FEP wanted members to see.</li>
+          <li><b>Savings members can act on.</b> Generic drug savings, in-network notes and the wellness incentive are based on the member's own claims and link to a next step.</li>
+          <li><b>One system for every contract.</b> The same modules work for Annual and Quarterly views, family and individual contracts, and Basic and Standard Option.</li>
+        </ul>
+        <blockquote class="pull">A benefit statement doesn't need to show less data. It needs to show the member's three numbers first and explain each one.</blockquote>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What I'd do differently</h2>
+        <ul class="bul">
+          <li><b>Measure calls from the start.</b> I'd agree on a baseline of statement-related customer service calls before launch, so the redesign could be judged on the number it was meant to reduce.</li>
+          <li><b>Design for phones.</b> These comps are desktop. Members increasingly checked claims on their phones, and a phone-first summary would have forced even tighter priorities.</li>
+          <li><b>Get legal involved earlier.</b> The footnotes solved a real comprehension problem, but they came late. Working with legal from the first sketch would have produced clear definitions sooner and made the statement shorter.</li>
+        </ul>
+        <p>The broader lesson: in healthcare, most of the design work is deciding the order of information. The data doesn't change, but the member's understanding depends on which number they see first.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -125,6 +270,7 @@
   </div>
 </nav>
 </main>
+
 
 <footer class="ftr">
   <div class="wrap ftr-in">
