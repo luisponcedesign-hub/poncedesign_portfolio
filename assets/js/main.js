@@ -232,6 +232,16 @@
     var live  = $('#filter-status');
     var hero  = $('.hero-card', grid);
 
+    // Case studies pinned to the top of a filter, in this order (by page slug)
+    var leads = {
+      'Product UX': ['seismic-workflow-approval', 'seismic-online-meetings'],
+      'Mobile':     ['dexcom-g6-cgm', 'webmd-device-integration']
+    };
+    function slug(card) {
+      var a = $('a', card);
+      return a ? a.getAttribute('href').replace(/^.*\/|\.html$/g, '') : '';
+    }
+
     bar.addEventListener('click', function (e) {
       var chip = e.target.closest('.chip');
       if (!chip) return;
@@ -241,17 +251,28 @@
       var want = chip.dataset.filter;
       var shown = 0;
 
-      // The featured card leads "All"; in any narrower filter it drops to
-      // second so that filter's own work comes first.
+      // The featured card leads "All"; in any narrower filter it drops below
+      // the pinned leads (or the first match) so that filter's own work comes first.
       var order = cards.slice();
       if (hero && want !== 'all') {
         order.splice(order.indexOf(hero), 1);
-        var first = -1;
-        order.some(function (c, i) {
-          if ((c.dataset.tags || '').split('|').indexOf(want) > -1) { first = i; return true; }
-          return false;
+        var pinned = [];
+        (leads[want] || []).forEach(function (name) {
+          order.some(function (c, i) {
+            if (slug(c) !== name) return false;
+            pinned.push(order.splice(i, 1)[0]);
+            return true;
+          });
         });
-        order.splice(first + 1, 0, hero);
+        order = pinned.concat(order);
+        var after = pinned.length - 1;
+        if (after < 0) {
+          order.some(function (c, i) {
+            if ((c.dataset.tags || '').split('|').indexOf(want) > -1) { after = i; return true; }
+            return false;
+          });
+        }
+        order.splice(after + 1, 0, hero);
       }
       order.forEach(function (card) { grid.insertBefore(card, empty); });
       if (hero) {
