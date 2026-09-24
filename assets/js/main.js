@@ -230,6 +230,7 @@
     var cards = $$('.card', grid);
     var empty = $('.empty', grid);
     var live  = $('#filter-status');
+    var hero  = $('.hero-card', grid);
 
     bar.addEventListener('click', function (e) {
       var chip = e.target.closest('.chip');
@@ -240,7 +241,26 @@
       var want = chip.dataset.filter;
       var shown = 0;
 
-      cards.forEach(function (card) {
+      // The featured card leads "All"; in any narrower filter it drops to
+      // second so that filter's own work comes first.
+      var order = cards.slice();
+      if (hero && want !== 'all') {
+        order.splice(order.indexOf(hero), 1);
+        var first = -1;
+        order.some(function (c, i) {
+          if ((c.dataset.tags || '').split('|').indexOf(want) > -1) { first = i; return true; }
+          return false;
+        });
+        order.splice(first + 1, 0, hero);
+      }
+      order.forEach(function (card) { grid.insertBefore(card, empty); });
+      if (hero) {
+        // ...and sits in the grid as an ordinary wide card rather than the split lead
+        hero.classList.toggle('hero-card', want === 'all');
+        hero.classList.toggle('wide', want !== 'all');
+      }
+
+      order.forEach(function (card) {
         var tags = (card.dataset.tags || '').split('|');
         var hit = want === 'all' || tags.indexOf(want) > -1;
         if (hit) shown++;
