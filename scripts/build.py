@@ -544,7 +544,8 @@ def stamp_assets():
                 digests[real] = hashlib.sha1(f.read()).hexdigest()[:8]
         return digests[real]
 
-    pages = [os.path.join(ROOT, 'index.html')] + [
+    pages = [os.path.join(ROOT, n) for n in ('index.html', 'resume.html')
+             if os.path.exists(os.path.join(ROOT, n))] + [
         os.path.join(ROOT, 'work', n)
         for n in sorted(os.listdir(os.path.join(ROOT, 'work')))
         if n.endswith('.html')]
@@ -572,10 +573,17 @@ def main():
     # 1. case study pages
     work_dir = os.path.join(ROOT, 'work')
     os.makedirs(work_dir, exist_ok=True)
+    skipped = []
     for i, p in enumerate(projects):
         prev_p = projects[i - 1] if i > 0 else None
         next_p = projects[i + 1] if i < len(projects) - 1 else None
         path = os.path.join(work_dir, p['slug'] + '.html')
+        # Pages marked "handAuthored" have been written and refined directly in
+        # HTML and cannot be reproduced from `sections`. Regenerating them would
+        # silently throw that work away, so they are left alone.
+        if p.get('handAuthored'):
+            skipped.append(p['slug'])
+            continue
         with open(path, 'w', encoding='utf-8') as f:
             f.write(case_page(p, prev_p, next_p))
 
@@ -601,7 +609,8 @@ def main():
         f.write(idx)
 
     # 3. sitemap
-    urls = ['%s/' % SITE] + ['%s/work/%s.html' % (SITE, p['slug']) for p in projects]
+    urls = (['%s/' % SITE, '%s/resume.html' % SITE]
+            + ['%s/work/%s.html' % (SITE, p['slug']) for p in projects])
     sm = ('<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + ''.join('  <url><loc>%s</loc></url>\n' % u for u in urls)
@@ -609,7 +618,10 @@ def main():
     with open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8') as f:
         f.write(sm)
 
-    print('built %d case study pages' % len(projects))
+    print('built %d case study pages' % (len(projects) - len(skipped)))
+    if skipped:
+        print('left %d hand-authored page(s) untouched: %s'
+              % (len(skipped), ', '.join(skipped)))
     print('injected %d cards into index.html' % len(projects))
     print('wrote sitemap.xml')
     print('stamped asset versions in %d pages' % stamp_assets())

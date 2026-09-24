@@ -29,6 +29,7 @@
   "projects": [
     {
       "slug": "mobile-aura-voice",
+      "handAuthored": true,
       "title": "AI-Powered Mobile",
       "client": "Seismic",
       "year": "2026",
@@ -97,6 +98,7 @@
     },
     {
       "slug": "integrations-app-exchange",
+      "handAuthored": true,
       "title": "App Exchange & Integrations Platform",
       "client": "Seismic",
       "year": "2025",
@@ -157,6 +159,7 @@
     },
     {
       "slug": "aura-chat-room",
+      "handAuthored": true,
       "title": "Ask Aura — AI Chat Room",
       "client": "Seismic",
       "year": "2024",
@@ -207,6 +210,7 @@
     },
     {
       "slug": "seismic-video",
+      "handAuthored": true,
       "title": "Video Foundation Service",
       "client": "Seismic",
       "year": "2024",
@@ -254,6 +258,7 @@
     },
     {
       "slug": "vacasa-cx-innovation",
+      "handAuthored": true,
       "title": "CX Innovation Roadmap + Design Sprint",
       "client": "Vacasa",
       "year": "2020",
@@ -302,6 +307,7 @@
     },
     {
       "slug": "seismic-learning-sessions",
+      "handAuthored": true,
       "title": "Learning Sessions — Information Architecture",
       "client": "Seismic",
       "year": "2023",
@@ -318,6 +324,7 @@
     },
     {
       "slug": "seismic-online-meetings",
+      "handAuthored": true,
       "title": "Seismic for Meetings",
       "client": "Seismic",
       "year": "2022",
@@ -333,6 +340,7 @@
     },
     {
       "slug": "seismic-workflow-approval",
+      "handAuthored": true,
       "title": "Approval Workflow",
       "client": "Seismic",
       "year": "2021",
@@ -349,6 +357,7 @@
     },
     {
       "slug": "vacasa-reservation-management",
+      "handAuthored": true,
       "title": "Reservation Management — Revamped",
       "client": "Vacasa",
       "year": "2020",
@@ -364,6 +373,7 @@
     },
     {
       "slug": "dexcom-g6-cgm",
+      "handAuthored": true,
       "title": "Dexcom G6 — User Journey + Device Integration",
       "client": "Dexcom",
       "year": "2019",
@@ -507,6 +517,7 @@
     },
     {
       "slug": "viewpoint-submittals",
+      "handAuthored": true,
       "title": "Viewpoint Online — Submittals UX",
       "client": "Viewpoint",
       "year": "2018",
@@ -522,6 +533,7 @@
     },
     {
       "slug": "vista-search",
+      "handAuthored": true,
       "title": "Vista Search UX/UI",
       "client": "Viewpoint",
       "year": "2016",
@@ -538,6 +550,7 @@
     },
     {
       "slug": "mobile-field-manager",
+      "handAuthored": true,
       "title": "Mobile Field Manager — Time Entry",
       "client": "Viewpoint",
       "year": "2016",
@@ -554,6 +567,7 @@
     },
     {
       "slug": "webmd-device-integration",
+      "handAuthored": true,
       "title": "WebMD — Device Integration UX",
       "client": "WebMD",
       "year": "2015",
@@ -570,6 +584,7 @@
     },
     {
       "slug": "bcbsa-fep-member-statement",
+      "handAuthored": true,
       "title": "FEP Member Statement UX",
       "client": "BlueCross BlueShield",
       "year": "2014",
