@@ -16,13 +16,13 @@
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vista Search UX/UI — Viewpoint · Luis Ponce de León</title>
-<meta name="description" content="Rethinking search inside a dense construction ERP, where users know exactly what they want but the system makes them prove it.">
+<meta name="description" content="Designing search for Viewpoint's Vista ERP: one box that finds any form, report or record, with advanced and saved searches for the work people repeat every week.">
 <meta name="theme-color" content="#FAF8F4">
 <link rel="canonical" href="https://www.poncedesign.com/work/vista-search.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vista Search UX/UI — Viewpoint">
-<meta property="og:description" content="Rethinking search inside a dense construction ERP, where users know exactly what they want but the system makes them prove it.">
+<meta property="og:description" content="Designing search for Viewpoint's Vista ERP: one box that finds any form, report or record, with advanced and saved searches for the work people repeat every week.">
 <meta property="og:image" content="../assets/img/thumbs/vista-search.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -80,40 +80,201 @@
     <p class="eyebrow">Viewpoint &nbsp;·&nbsp; 2016</p>
     <h1 data-rv>Vista Search UX/UI</h1>
     <div class="lead-row">
-      <p class="lead" data-rv data-rv-delay="0.08">Rethinking search inside a dense construction ERP, where users know exactly what they want but the system makes them prove it.</p>
-      <p class="lead-link" data-rv data-rv-delay="0.12"><a class="linkout" href="https://poncedesign.myportfolio.com/vista-search-uxui" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+      <p class="lead" data-rv data-rv-delay="0.08">Vista is Viewpoint's construction ERP, now Trimble Vista. It runs a contractor's job costing, accounting, payroll and HR, service and equipment management, and reporting. People who use it know exactly which form, report or record they want, but reaching it meant walking a deep module tree. I designed search for Vista: one box that finds anything, advanced and saved searches for work people repeat, and a home page that brings the right help alongside the results.</p>
     </div>
 
     <div class="facts" data-rv data-rv-delay="0.14">
-      <div><h4>Client</h4><p>Viewpoint</p></div>
-      <div><h4>Year</h4><p>2016</p></div>
+      <div><h4>Client</h4><p>Viewpoint (now Trimble)</p></div>
+      <!-- CONFIRM: timeline length -->
+      <div><h4>Timeline</h4><p>2016</p></div>
       <div><h4>Role</h4><p>Senior UX Designer</p></div>
-      <div><h4>Focus</h4><p>Enterprise · Search · Design Systems</p></div>
+      <!-- CONFIRM: team makeup -->
+      <div><h4>Team</h4><p>Product manager, Vista engineers, accounting domain experts</p></div>
+      <div><h4>Product area</h4><p>Vista ERP · Search and navigation</p></div>
+      <div><h4>Platform</h4><p>Web · Vista browser client</p></div>
+      <div><h4>Focus</h4><p>Enterprise · Search · Design systems</p></div>
+      <div><h4>Impact</h4><p>One search box for every form, report and record in Vista, with searches people can save and share</p></div>
     </div>
   </div>
 </section>
 
 <div class="wrap">
   <figure class="cover" data-rv="scale" style="max-width:1040px">
-    <img src="../assets/img/thumbs/vista-search.png" alt="Vista Search UX/UI — Viewpoint" width="1100" height="860" decoding="async">
+    <img src="../assets/img/case/vista-search/cover.png" alt="Vista home page concept, V1. A dark title bar for Manolis Construction with a Search Vista box, a module tree on the left, and three panels: Searches with saved searches, recent forms, modules and reports; Related Help Articles; and a yellow Learn Vista panel that expands to topics grouped under Accounting and HR, Project Management and Financial Reporting. A note reads: the selection on the main panel dynamically brings related content to the help panel" width="1611" height="1063" decoding="async">
   </figure>
 </div>
 
 <section class="case-body" id="case">
   <div class="wrap">
     <div class="col">
-      <div class="blk" data-rv>
-        <h2>About this project</h2>
-        <p>Rethinking search inside a dense construction ERP, where users know exactly what they want but the system makes them prove it.</p>
 
-        <h2>What I did</h2>
+      <div class="blk" data-rv>
+        <h2>In one line</h2>
+        <p>I designed search for Vista, from the information architecture it sits on to the pixel spec of the search box. The work had four parts: a model of where every result opens, one search box with clear states, advanced and Boolean search that stay optional, and saved searches that a team can share.</p>
+        <div class="kpis">
+          <div class="kpi"><b>1 box</b><i>Finds forms, reports, modules and documents across every Vista module, from any page</i></div>
+          <div class="kpi"><b>4</b><i>Boolean operators (AND, OR, NOT, NEAR) available behind one checkbox, never in the way</i></div>
+          <div class="kpi"><b>6</b><i>Actions on a saved search: edit, share, make public, make private, delete and duplicate</i></div>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Context and the problem</h2>
+        <p>Vista is where a contractor's money lives. Trimble says 8,000 contractors use its financial products. The people inside Vista are accountants, payroll and HR staff, project managers and controllers, and in 2016 the product already had more than twenty modules. Their work is specific: open the AP invoice form for one project, run the cost report for one job, find the subcontract a reviewer approved last month.</p>
+        <p>Vista was organised the way the business is organised: company, then project, then module (Accounts Payable, Job Cost, Payroll and the rest), then the programs and reports inside it. That structure is correct, but it was also the only way in. To reach a form you had to know which module it lived in and walk the tree to it:</p>
         <ul class="bul">
-          <li><b>Role.</b> Senior UX Designer at Viewpoint, 2016.</li>
-          <li><b>Focus.</b> Enterprise · Search · Design Systems.</li>
-          <li><b>Scope.</b> Research through shipped design — discovery, information architecture,
-          interaction design, and hand-off to engineering.</li>
+          <li><b>Deep paths.</b> Every task started with navigation. A report three levels down took three levels of clicking, every time.</li>
+          <li><b>Knowledge you had to bring.</b> New staff didn't know which module a form belonged to, and experienced staff kept notes to remember.</li>
+          <li><b>Windows that piled up.</b> Forms, reports and documents opened in their own windows, with no clear rule for which ones closed together.</li>
+        </ul>
+        <p>The constraints:</p>
+        <!-- CONFIRM: constraints -->
+        <ul class="bul">
+          <li><b>A large legacy product.</b> Vista had years of modules, forms and reports behind it. Search had to fit over the existing structure, not replace it.</li>
+          <li><b>Company and project context.</b> Every result depends on which company and project you're in. Search could never lose that context.</li>
+          <li><b>Mixed expertise.</b> The same box had to serve a new clerk typing a word and a controller who wants exact criteria.</li>
         </ul>
       </div>
+
+      <div class="blk" data-rv>
+        <h2>My role and what I owned</h2>
+        <p>I was the UX designer on search, from the information architecture to the component spec handed to engineering.</p>
+        <!-- CONFIRM: split of ownership -->
+        <ul class="bul">
+          <li><b>I owned</b> the IA and page model, the user flows from search to each result type, the home and module page concepts, advanced, Boolean and saved search, the breadcrumb options and the search box component.</li>
+          <li><b>Product management</b> owned priorities and scope, including what shipped first and what waited.</li>
+          <li><b>Engineering</b> owned the search index and how results were ranked, and reviewed the window and dependency rules with me.</li>
+        </ul>
+        <div class="note">
+          <b>A note on the images</b>
+          <p>The figures are my original specification boards, cropped so each one makes a single point. Companies, projects, people and records in them are placeholder data.</p>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <!-- CONFIRM: goals are written from the specs; adjust to what was actually tracked -->
+        <h2>Goals, and how we'd know</h2>
+        <p>We agreed on what success looked like before designing screens:</p>
+        <ul class="bul">
+          <li><b>Fewer steps to a known item.</b> Someone who knows the name of a form or report reaches it by typing, not by walking the tree.</li>
+          <li><b>No lost context.</b> Search results respect the current company and project, and the user always knows where a result will open.</li>
+          <li><b>Repeat work gets faster.</b> A search someone runs every week can be saved, rerun and shared with their team.</li>
+          <li><b>Learning happens in place.</b> Help that relates to what you're looking at shows up next to it.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What we learned in research</h2>
+        <!-- CONFIRM: research methods and sources -->
+        <p>I mapped Vista's structure with product and domain experts and walked through how accounting and project staff actually find things: what they type, what they bookmark, and what they ask a colleague. Three findings changed the design.</p>
+
+        <h3>1. People know the name, not the path</h3>
+        <p>Users could name the thing they wanted (an AP invoice, a job cost report, a vendor) far more often than they could say which module it lived in. <b>So search became the front door</b>, on every page, with results that open the item directly (Decision 2).</p>
+
+        <h3>2. The trouble is where things open</h3>
+        <p>Forms, reports and documents each opened their own window, and nothing said how those windows related. Closing a module could leave forms orphaned, or close a report someone still needed. <b>So I defined the page model before any screens</b>: what's a page, what's a popup, and what closes with what (Decision 1).</p>
+
+        <h3>3. The same searches come back every week</h3>
+        <p>Month-end close, weekly AP runs and payroll all repeat. People rebuilt the same criteria each time. <b>So saved searches became part of the core design</b>, not a later feature (Decision 4).</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Strategy and the decisions that mattered</h2>
+
+        <h3>Decision 1: Fix the page model first</h3>
+        <p>Before designing the search page, I mapped Vista's hierarchy (company, project, module, then programs and reports) against the page type each level should use. Company, project and module are main pages with side navigation and a breadcrumb. Programs and reports open as their own windows. Then the dependency rules: forms are children of their module, so closing the module closes its forms. Reports and documents stand alone, so they stay open when you move on.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/vista-search/ia-model.png" alt="Diagram with three columns. IA: Company, Manolis Construction, leads to Project, Lincoln HS Remodel, leads to Module, Accounts Payable, which splits into Programs and Reports; Reports split into Acct, Form and Drill Down, and Form into Inputs, Report Info and Notes. Nav structure and page type: company to module use side nav and breadcrumb on a main page; programs and reports are stand-alone modal windows or popups. Dependencies: a parent-child relationship where closing the parent closes the children, forms open in a modal window, and popups are independent of the main window" width="1010" height="690" loading="lazy" decoding="async">
+          <figcaption><b>Hierarchy, page type and dependencies side by side.</b> The rule of what closes with what came before any screen design.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/vista-search/page-flow.png" alt="User flow wireframes. The home page and the search results page both link to three popups: a form page, a report page and a document page. The home page also leads to a module page with a data grid, help and tips panels. Below, a form page as an in-page modal over a darkened page, with the note: look into locking the form page into a modal" width="1460" height="1495" loading="lazy" decoding="async">
+          <figcaption><b>Every route to a result.</b> Home, results and module pages all open the same three result types. The in-page modal at the bottom was the open question: keep forms in popups, or lock them to the page.</figcaption>
+        </figure>
+
+        <h3>Decision 2: One search box, with every state specified</h3>
+        <p>Search sits in the title bar on every page, labelled <i>Search Vista</i>. I specified it as a component: a rest state with a dropdown for scope, a focus state that swaps the arrow for a clear button, a typed state and a searching state with a spinner in the button. The field shows 40 characters before scrolling, and the button is a 40px square, so it has the same weight on every page it appears on.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/vista-search/search-box.png" alt="Search box spec. Rest state: Search Vista with a dropdown arrow and a blue search button. Focus state: Accounti with a cursor and a clear icon. Search typed state: Accounting. Searching state: Accounting with a spinner in the button. UI details: 1px stroke, 20px left padding, a field 40 characters wide, and a 40 by 40 pixel button in colour 2B81B3" width="700" height="640" loading="lazy" decoding="async">
+          <figcaption><b>Four states and the measurements.</b> Small, but it's the one component every Vista page shares.</figcaption>
+        </figure>
+
+        <h3>Decision 3: Advanced search stays one click away, not in the way</h3>
+        <p>Most searches are a word or two. Some need exact criteria: type, status, reviewer, location, a date range. Advanced search opens under the same box, so there's no second search page to learn. Boolean search is a checkbox inside it, with a dropdown for All, And, Or, Not and Near, so the controller who wants operators has them and the clerk never sees them. Location fields suggest as you type, and you can add more than one.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/vista-search/advanced-boolean.png" alt="Two panels. Advanced search UX: the Search Vista box, then an Advanced panel with fields for user defined, type, status, reviewer, location and a from and to date range, with Save Search, Search and Clear; below, the search box with three search criteria chips and a Save button. Boolean search UX: definitions of AND as plus, NOT as minus, OR as the default, and NEAR as a phrase in quotes, then four variants of the advanced panel with a Boolean checkbox and an All dropdown listing All, And, Or, Not and Near, a second location added with a plus button, and a location type-ahead listing Portland International Airport, Portland and Ponytail Falls" width="1740" height="1115" loading="lazy" decoding="async">
+          <figcaption><b>Advanced and Boolean in one panel.</b> Operators are opt-in with a checkbox. After a search, the criteria stay visible as chips you can remove or save.</figcaption>
+        </figure>
+
+        <h3>Decision 4: Make searches something you keep</h3>
+        <p>After a search runs, its criteria appear as chips under the box, with a Save button beside them. Saving asks for a label and whether it's private or public. Saved searches then appear in a dropdown at the top of advanced search, and a <i>Saved Searches</i> table lets people edit, share, make public or private, delete or duplicate them. A public search means an AP lead can set up the week's invoice search once and the whole team runs the same one.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/vista-search/save-search.png" alt="Save search flow in a browser window for Manolis Construction's JC Job Master. The advanced panel has a Saved Searches dropdown listing four saved labels and a Manage saved searches link. Save Search opens a modal with a search label, private or public sharing, and the search criteria tags. Running the search shows three criteria chips under the box, labelled search criteria visual indicator, and a Save button, labelled save search view" width="1430" height="1000" loading="lazy" decoding="async">
+          <figcaption><b>Save from where you searched.</b> The criteria chips show what's applied, and saving is one step from the results.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/vista-search/manage-searches.png" alt="A Saved Searches table with columns for sharing, name, created by, description and date created, with public and private rows and a highlighted row being edited. A settings menu lists Edit, Share, Make Public, Make Private, Delete and Duplicate. Below, an Edit Search modal with private or public sharing, search criteria tags, an Add Search Criteria link, a search label and a description" width="1220" height="1187" loading="lazy" decoding="async">
+          <figcaption><b>Managing saved searches.</b> One table for your own and your team's searches, with a lock showing which are private.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Design process and solution</h2>
+
+        <h3>V1: search and help on one home page</h3>
+        <p>The first home page concept (at the top of this page) put three panels next to the module tree: <i>Searches</i> with saved and recent searches and recently used forms, modules and reports; <i>Related Help Articles</i>; and a <i>Learn Vista</i> panel that expands into topics. Whatever you select in the main panel changes what the help panel shows, so help is about the thing you're looking at.</p>
+
+        <h3>V2: less chrome, context in the header</h3>
+        <!-- CONFIRM: the pivot framing; the boards show V1 and V2, not the discussion -->
+        <p>V1 kept Vista's legacy toolbar, with its menus, icon row and record navigation, above the new panels. Reviewing it with the team, the case for keeping everything familiar ran into a simple problem: the toolbar was about records, and the home page has no record open. In V2 I removed it. Project and module became dropdowns in the header, so changing context is one choice instead of a trip through the tree. The home page gained a <i>What is New</i> section and a feedback link.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/vista-search/concept-v2.png" alt="V2 home page concept. The Manolis Construction title bar with a company dropdown and the Search Vista box, a thin menu row, and a context bar with a project dropdown set to Lincoln HS Remodel and a module dropdown set to All. Below, the module tree, a Searches panel with saved searches, forms, reports and a What is New section with a Give feedback link, and the Related Help Articles and tips panels" width="1205" height="875" loading="lazy" decoding="async">
+          <figcaption><b>V2.</b> The toolbar is gone, and project and module sit in the header where you can change them.</figcaption>
+        </figure>
+
+        <h3>The module page and the breadcrumb</h3>
+        <p>Pick a module and the same header becomes a breadcrumb: project, module, then programs. I compared three breadcrumb models. A dropdown at each level is powerful but heavy. A classic linear trail is light but only goes up. The combination we chose is a link for the module with a small dropdown next to it, so a click goes back up and the arrow jumps sideways to a sibling module.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/vista-search/module-page.png" alt="Module page concept with the header breadcrumb reading Project, Lincoln HS Remodel, then Module, Accounts Payable, then Programs. The module tree has Accounts Payable expanded with Programs highlighted and Reports below it. The main area shows a list of result rows, with help and tips panels on the right" width="1205" height="860" loading="lazy" decoding="async">
+          <figcaption><b>Module page.</b> The tree and the breadcrumb show the same place two ways, so neither has to do everything.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/case/vista-search/breadcrumbs.png" alt="Three breadcrumb options. One, drop-down model: project and module are both dropdowns, then Programs. Two, classic linear: a project dropdown, then Accounts Payable as a link, then Programs. Three, combo clickdown: a project dropdown, then Accounts Payable as a link with a small dropdown button beside it, then Programs" width="660" height="310" loading="lazy" decoding="async">
+          <figcaption><b>Three breadcrumb models.</b> The combination keeps the classic trail and adds a sideways jump.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Validation and iteration</h2>
+        <!-- CONFIRM: how the designs were tested (internal experts, customer reviews, prototype sessions) -->
+        <p>I walked the flows through with Viewpoint's domain experts and customers, using the boards and clickable prototypes of the main scenarios: find a known form, find a report by criteria, rerun last week's search, and hand a search to a colleague. The biggest change came from the last two.</p>
+        <h3>We thought advanced search was a form you fill in. It was a query you come back to.</h3>
+        <p><b>We thought</b> advanced search would be used once in a while, for a hard lookup: fill in the fields, get the result, done. <b>We learned</b> that the most valuable searches were the ones people ran every week, and the ones a lead set up for their team. Filling in the same six fields again was the real cost, and there was no way to see which criteria were applied once the panel closed. <b>So we</b> made criteria visible as chips after every search, added saving directly from the results, and added a shared table with public and private searches, so one person's setup becomes the team's.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Outcome and impact</h2>
+        <!-- CONFIRM: release and adoption facts; no metrics were available from the source material -->
+        <p>The work was specified as a system engineering could build in stages: the page model and search box first, then advanced, Boolean and saved search. The source material has no numbers, so the outcome is described by what changed for people using Vista:</p>
+        <ul class="bul">
+          <li><b>Name it, open it.</b> A form or report you can name is a search away from any page, without knowing its module.</li>
+          <li><b>Predictable windows.</b> Every result type has a defined place to open and a rule for what closes with it.</li>
+          <li><b>Repeat work, saved.</b> Weekly searches are saved once, rerun in a click, and shared across a team.</li>
+          <li><b>A component, not a one-off.</b> The search box has specified states and measurements, so it looks and behaves the same on every page.</li>
+        </ul>
+        <blockquote class="pull">In an ERP, people rarely don't know what they want. They know the name. Search should take them straight there, without making them prove they know where it lives.</blockquote>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What I'd do differently</h2>
+        <ul class="bul">
+          <li><b>Measure the baseline first.</b> Our goals were about steps and time to a known item, but we didn't record how long it took to reach a form through the tree. With that number, the outcome above could be a result instead of a description.</li>
+          <li><b>Design results as early as the box.</b> The boards spend more on the search box and advanced panel than on the results list. Ranking, grouping by type and empty states decide whether search feels smart, and I'd design them alongside the input.</li>
+          <li><b>Settle the window model with engineering sooner.</b> Popup versus in-page modal for forms stayed open longer than it should have. I'd prototype both early and decide with engineering in the room.</li>
+        </ul>
+        <p>The broader lesson: in a big enterprise product, search isn't a feature on top of navigation. It changes what navigation has to do, so the page model and the search design have to be worked out together.</p>
+      </div>
+
     </div>
   </div>
 </section>
