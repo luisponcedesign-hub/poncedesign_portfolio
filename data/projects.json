@@ -297,7 +297,7 @@
           "h": "Outcome"
         },
         {
-          "p": "The sprint produced the CX innovation roadmap that fed directly into the <a href='vacasa-reservation-management.html'>Reservation Management revamp</a> — the concepts validated here became the design work that shipped."
+          "p": "The sprint produced the CX innovation roadmap that fed directly into the Reservation Management revamp — the concepts validated here became the design work that shipped."
         },
         {
           "note": "The original page for this project is image-led, so the narrative above is reconstructed from the sprint framing. Send me your sprint artifacts, participant count, or the roadmap deck and I'll swap in the specifics."
@@ -352,22 +352,6 @@
       "thumb": "seismic-workflow-approval.jpg",
       "summary": "Designing Seismic's distribution approval workflows: sellers submit personalized emails and links, compliance reviews them step by step, and everyone can see who has it, what changed and what happens next.",
       "orig": "https://poncedesign.myportfolio.com/seismic-workflow-approval-ux"
-    },
-    {
-      "slug": "vacasa-reservation-management",
-      "handAuthored": true,
-      "title": "Reservation Management — Revamped",
-      "client": "Vacasa",
-      "year": "2020",
-      "tags": [
-        "Product UX",
-        "Enterprise"
-      ],
-      "role": "Senior Product Designer",
-      "thumb": "vacasa-reservation-management.png",
-      "summary": "The build phase of the CX roadmap: a full redesign of the reservation management tool used daily by Vacasa's operations teams.",
-      "stub": true,
-      "orig": "https://poncedesign.myportfolio.com/vacasa-reservation-management-revamped-design-2020"
     },
     {
       "slug": "dexcom-g6-cgm",
