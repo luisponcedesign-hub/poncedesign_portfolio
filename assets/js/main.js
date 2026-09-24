@@ -235,7 +235,8 @@
     // Case studies pinned to the top of a filter, in this order (by page slug)
     var leads = {
       'Product UX': ['seismic-workflow-approval', 'seismic-online-meetings'],
-      'Mobile':     ['dexcom-g6-cgm', 'webmd-device-integration']
+      'Mobile':     ['dexcom-g6-cgm', 'webmd-device-integration'],
+      'Research':   ['vacasa-cx-innovation', 'dexcom-g6-cgm']
     };
     function slug(card) {
       var a = $('a', card);
