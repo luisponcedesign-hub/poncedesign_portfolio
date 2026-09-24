@@ -16,13 +16,13 @@
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Viewpoint Online — Submittals UX — Viewpoint · Luis Ponce de León</title>
-<meta name="description" content="Digitizing the construction submittal process — a document-heavy, multi-party approval chain where a lost revision costs real money.">
+<meta name="description" content="Designing construction submittals for Viewpoint Online: one shared log, status model and detail page that a general contractor, a subcontractor and an architect can all work from.">
 <meta name="theme-color" content="#FAF8F4">
 <link rel="canonical" href="https://www.poncedesign.com/work/viewpoint-submittals.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Viewpoint Online — Submittals UX — Viewpoint">
-<meta property="og:description" content="Digitizing the construction submittal process — a document-heavy, multi-party approval chain where a lost revision costs real money.">
+<meta property="og:description" content="Designing construction submittals for Viewpoint Online: one shared log, status model and detail page that a general contractor, a subcontractor and an architect can all work from.">
 <meta property="og:image" content="../assets/img/thumbs/viewpoint-submittals.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -80,40 +80,218 @@
     <p class="eyebrow">Viewpoint &nbsp;·&nbsp; 2018</p>
     <h1 data-rv>Viewpoint Online — Submittals UX</h1>
     <div class="lead-row">
-      <p class="lead" data-rv data-rv-delay="0.08">Digitizing the construction submittal process — a document-heavy, multi-party approval chain where a lost revision costs real money.</p>
-      <p class="lead-link" data-rv data-rv-delay="0.12"><a class="linkout" href="https://poncedesign.myportfolio.com/viewpoint-online-submittals-ux-1" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+      <p class="lead" data-rv data-rv-delay="0.08">On a construction project, every product, drawing and sample has to be approved before it's bought or installed. General contractors ran that chain on spreadsheets, email and phone calls with subcontractors and architects who didn't share their software. I designed submittals for Viewpoint Online: one shared log, one status model and one detail page that a contractor, a subcontractor and an architect can all work from, on desktop and in the field.</p>
     </div>
 
     <div class="facts" data-rv data-rv-delay="0.14">
       <div><h4>Client</h4><p>Viewpoint</p></div>
-      <div><h4>Year</h4><p>2018</p></div>
+      <!-- CONFIRM: timeline; the wireframes carry 2015–2016 sample dates -->
+      <div><h4>Timeline</h4><p>2018</p></div>
       <div><h4>Role</h4><p>Senior UX Designer</p></div>
-      <div><h4>Focus</h4><p>Enterprise · Product UX</p></div>
+      <!-- CONFIRM: team makeup -->
+      <div><h4>Team</h4><p>Product manager, Viewpoint Online engineers, visual design</p></div>
+      <div><h4>Product area</h4><p>Viewpoint Online (MyViewpoint) · Project collaboration</p></div>
+      <div><h4>Focus</h4><p>Enterprise · Product UX · Responsive web</p></div>
     </div>
   </div>
 </section>
 
 <div class="wrap">
   <figure class="cover" data-rv="scale" style="max-width:1040px">
-    <img src="../assets/img/thumbs/viewpoint-submittals.png" alt="Viewpoint Online — Submittals UX — Viewpoint" width="1100" height="859" decoding="async">
+    <img src="../assets/img/case/viewpoint-submittals/cover.jpg" alt="The finished submittals experience on three devices over faded wireframes: a laptop showing the Arbor Plaza submittal log with rejected, revised, assigned and approved rows; a phone showing the project menu and a submittal form; and a second laptop showing a submittal detail page with its people and dates rail" width="1024" height="768" decoding="async">
   </figure>
 </div>
 
 <section class="case-body" id="case">
   <div class="wrap">
     <div class="col">
-      <div class="blk" data-rv>
-        <h2>About this project</h2>
-        <p>Digitizing the construction submittal process — a document-heavy, multi-party approval chain where a lost revision costs real money.</p>
 
-        <h2>What I did</h2>
+      <div class="blk" data-rv>
+        <h2>In one line</h2>
+        <p>Viewpoint's contractors already ran their business on Vista, Viewpoint's ERP. Their subcontractors and architects didn't, so submittals lived in a spreadsheet and an inbox. I designed the <b>submittals workflow for Viewpoint Online</b>: a model of how an item moves between three companies, a log that works like the spreadsheet it replaces, and a detail page that tells every role what's needed from them and by when.</p>
+        <div class="kpis">
+          <div class="kpi"><b>3</b><i>Companies in one workflow: the general contractor, the subcontractor who submits and the architect who approves</i></div>
+          <div class="kpi"><b>8</b><i>States in one lifecycle, from Draft to Closed, including Rejected and Reissued</i></div>
+          <div class="kpi"><b>7</b><i>Schedule dates tracked per item, from Issued to Due on site</i></div>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Context and the problem</h2>
+        <p>A submittal is how a construction team proves it's building what was designed. The general contractor (GC) reads the spec book, lists every item that needs product data, shop drawings or samples, and asks the right subcontractor or supplier for each one. The GC checks what comes back and sends it to the architect, who approves it, approves it with conditions or rejects it. Only then can the sub order the material.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/viewpoint-submittals/process-request.png" alt="Diagram titled Submittal Process, GC Request Submittals. Design drawings and specs feed the contractor's submittal log. Seven submittals come out of the log. Submittals 1 and 2 are bundled into a Sub A submittal package, submittal 3 is requested from Supplier 1, submittal 4 from Sub B, and submittals 5, 6 and 7 are bundled into a package for Sub C" width="2458" height="1472" loading="lazy" decoding="async">
+          <figcaption><b>Going out.</b> The GC turns the specs into a log of items, then bundles them into packages by who has to supply them. One project can have hundreds of these.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/viewpoint-submittals/process-review.png" alt="Diagram titled Submittal Process, GC notifies downstream of review results. Two designers return decisions on the seven submittals: items 1, 4, 5, 6 and 7 approved, item 2 revise and resubmit, item 3 rejected. The GC passes each decision back to the right sub or supplier: approved, proceed; rejected, revise and resubmit; rejected, new submittal" width="2458" height="1472" loading="lazy" decoding="async">
+          <figcaption><b>Coming back.</b> More than one designer reviews, and each decision has to reach the right sub. <i>Revise and resubmit</i> and <i>rejected, new submittal</i> are different outcomes, and the product has to keep them apart.</figcaption>
+        </figure>
+        <p>Every hand-off in those two diagrams was an email or a phone call, and the log was a spreadsheet only the GC could see. A lost revision or a missed date means material arrives late or the wrong product gets installed, and both cost real money.</p>
+        <p>For Viewpoint, the goal was to bring those outside partners into Viewpoint Online so a Vista customer's project could run in one place. The constraints:</p>
         <ul class="bul">
-          <li><b>Role.</b> Senior UX Designer at Viewpoint, 2018.</li>
-          <li><b>Focus.</b> Enterprise · Product UX.</li>
-          <li><b>Scope.</b> Research through shipped design — discovery, information architecture,
-          interaction design, and hand-off to engineering.</li>
+          <li><b>Vista data.</b> Projects and submittal items start in Vista. The web experience had to stay connected to it, not become a second system to keep in sync.</li>
+          <li><b>Users we didn't sell to.</b> Subs and architects arrive by email invitation, use the product a few times per project, and have no training. The activity model called this out plainly: <i>not familiar with the system, learning curve</i>.</li>
+          <li><b>Volume.</b> Hundreds to thousands of items per project, tracked over months.</li>
+          <li><b>The field.</b> Superintendents and subs check status on a phone on site, so every screen had to work at phone width.</li>
+          <li><b>Scope.</b> The feature shipped in milestones, so the model had to hold together even when parts of it weren't built yet.</li>
         </ul>
       </div>
+
+      <div class="blk" data-rv>
+        <h2>My role and what I owned</h2>
+        <p>I was the UX designer on submittals, from the process research to the high-fidelity screens.</p>
+        <!-- CONFIRM: split of ownership -->
+        <ul class="bul">
+          <li><b>I owned</b> the process diagrams, the activity model and personas, the item state model, the information architecture and role permissions, the story map facilitation, the wireframes for the log, detail page, activity history and phone layouts, and the high-fidelity screens.</li>
+          <li><b>Product management</b> owned requirements and milestone scope, and worked the story map with me.</li>
+          <li><b>Engineering</b> owned the Vista integration and the workflow behind the states. <b>Visual design</b> set the Viewpoint Online look the high-fidelity screens are built on.</li>
+        </ul>
+        <div class="note">
+          <b>A note on the images</b>
+          <p>The figures are my working diagrams, wireframes and final screens. People, companies and projects in them are placeholder data.</p>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <!-- CONFIRM: measures are written from the research and the designs; adjust to what was actually tracked -->
+        <h2>Goals, and how we'd know</h2>
+        <p>We agreed on what success looked like before drawing screens:</p>
+        <ul class="bul">
+          <li><b>The GC can replace the spreadsheet.</b> Set up, filter and scan a log of hundreds of items as fast as in Excel, and act on many at once.</li>
+          <li><b>An outside user can finish their task cold.</b> A sub opens an invitation, sees what's asked and uploads it without help. An architect reviews and decides the same way.</li>
+          <li><b>Anyone can answer <i>where is it?</i></b> State, owner, next due date and what changed are visible without opening anything else.</li>
+          <li><b>Revisions never get lost.</b> A rejected item comes back as a new revision of the same item, with its history intact.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What we learned in research</h2>
+        <p>I mapped the process with Viewpoint's domain experts and customers, then built an activity model: every task each role does, in order, with the questions and worries around it. Three findings changed the design.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/viewpoint-submittals/activity-model.png" alt="Submittals activity model in five numbered stages. 1, the GC creates a list of items from the spec book, adds details, sets due dates, creates a numbering system, groups items by trade and determines who signs off, surrounded by notes: 100s to 1000s of them, needs to be like Excel, tedious work, needs to be fast and easy, extended periods, need to report up, where are things at. 2, the subcontractor gathers artifacts and returns them, noted not familiar with the system and time sensitive. 3, the GC reviews for completeness or sends it back, noted need way to reissue without revision number. 4, the architect reviews, signs off or returns, noted could approve with conditions. 5, the GC notifies the sub, requests revisions and marks it complete, noted stressed about cost, what did I miss, is this a valid rejection" width="1260" height="1873" loading="lazy" decoding="async">
+          <figcaption>The activity model. Yellow hexagons are what people told us they worry about. Grey diamonds are variations the system has to allow.</figcaption>
+        </figure>
+
+        <h3>1. It's a log before it's a workflow</h3>
+        <p>The GC's first job is building the list: <i>100s to 1000s of them</i>, <i>tedious work</i>, and, word for word, <i>needs to be like Excel</i>. A card or inbox view would have looked friendlier and slowed down the person who spends the most time in it. <b>So the log stayed a dense table</b>, with column choices, bulk selection and packages (Decision 2).</p>
+
+        <h3>2. The real question is <i>where is it?</i></h3>
+        <p>The same worries came up at every stage: <i>where are things at, what is going on</i>, <i>need to report up</i>, and at the end <i>what did I miss?</i> <b>So status went on top of every item</b>: one state, the person who has it and the next due date, in a bar that looks the same in the log, on the detail page and on a phone.</p>
+
+        <h3>3. Rejection isn't the end of an item</h3>
+        <p>Items bounce. The architect can approve with conditions, the GC can send an incomplete package back, and people asked for a way to <i>reissue without a new revision number</i> and whether a rejection was <i>valid</i>. <b>So rejection became a loop with a count</b>: the item is reissued, its revision number goes up and the reason stays attached (Decision 1).</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Strategy and the decisions that mattered</h2>
+
+        <h3>Decision 1: Model the item before designing the screens</h3>
+        <p>Three companies touch every item, and each can move it. Before any layout, I drew one state model with the three roles across the top and every transition labelled. Two choices in it shaped the product:</p>
+        <ul class="bul">
+          <li><b>Reissue, don't recreate.</b> A rejected or incomplete item goes to <i>Reissued</i> and gets a higher revision number. It stays the same item with the same history, instead of a new row that breaks the link to what was rejected.</li>
+          <li><b>Close from anywhere.</b> Specs change mid-project. The GC can close an item from any state, so dead items stop cluttering the log without being deleted.</li>
+        </ul>
+        <figure class="fig">
+          <img src="../assets/img/case/viewpoint-submittals/state-model.png" alt="Submittal state diagram with the submitter, the creator and the approver across the top. The creator creates a draft and issues it, or creates it new as issued. The submitter submits it; it becomes ready for review and moves to In review. The approver approves, moving it to Approved, or rejects it to Rejected. From Submitted or Rejected, a red Reissue line leads to Reissued, noted count added to revision number, which is submitted again. Every state has a Close line leading to Closed" width="1060" height="1220" loading="lazy" decoding="async">
+          <figcaption>The item lifecycle. Red is the rejection loop: <i>Reissued</i> adds to the revision count. Every state can close. The dotted box is what the GC controls.</figcaption>
+        </figure>
+
+        <h3>Decision 2: Keep the spreadsheet, add what spreadsheets can't do</h3>
+        <!-- CONFIRM: the disagreement framing; the artifacts show the result, not the discussion -->
+        <p>There was a pull toward a simpler, card-based list that would feel more modern and be easier for occasional users. I argued the log belongs to the GC, who lives in it all day, while subs and architects mostly arrive at a single item from an email. Designing the log for the occasional user would have slowed the main one and helped nobody.</p>
+        <p>So the log is a table with a submittal number, revision, spec section, package, type, state, assignee and dates. On top of that sit the things a spreadsheet can't do: a column chooser grouped into <i>fields</i>, <i>roles</i> and <i>dates</i>, attachments one click from the row, bulk <i>Assign</i> and <i>Add to a package</i>, and a colour on the due date when an item is running late.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/viewpoint-submittals/wire-log.png" alt="Wireframe of the Arbor Plaza submittals log inside a browser. A toolbar with filter, show, print and more; a table with checkboxes, attachments, submittal number, revision, spec section, package, type, title, due on site, state, assignee and due date. One overdue date is orange and one coming-due date is yellow. To the right, three menus: the show menu with checkboxes grouped as fields, roles and dates; an attachment list; and a more menu with Assign, Edit and Add to a package" width="1730" height="790" loading="lazy" decoding="async">
+          <figcaption>The log wireframe and its three menus. <b>Show</b> lets each GC pick columns by fields, roles and dates, like hiding columns in Excel. <b>More</b> holds the bulk actions. Orange is overdue, yellow is coming due.</figcaption>
+        </figure>
+
+        <h3>Decision 3: One detail page for every role</h3>
+        <p>The alternative was a separate screen for each role. That would have meant three designs to keep in sync and three different mental models of the same item. Instead there's one page, and the role changes only the primary action: the GC gets <i>Assign</i>, the sub gets <i>Upload and Submit</i>, the architect gets the decision.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/viewpoint-submittals/persona-do-go.png" alt="Board titled Submittals User personas with three rows: reviewer (the GC), submitter (the subcontractor) and approver (the architect). Each has a common box, where they sign in and go to account settings, projects, submittals, help and home, and a submittals box. The GC can invite external users, create projects, create and edit submittals, upload, submit, review and notify participants, and manage project settings and users. The submitter can upload, submit and notify the reviewer. The approver can upload, review and notify the reviewer" width="1188" height="1130" loading="lazy" decoding="async">
+          <figcaption><b>Do</b> and <b>Go</b> for each role. The navigation everyone shares is small, and only the GC gets settings and user management. Outside users see a short list of things they can do.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/viewpoint-submittals/persona-onboarding.png" alt="Swimlane diagram in three lanes. ABC Construction's GC creates a project, configures submittal items and invites the submitter and approver, which sends an invite email. In the Bridgeport Builders lane and the BlueSky Designs lane, each outside user receives the invite, sets up an account, is registered in MyViewpoint as an external user and reaches project communications" width="1188" height="600" loading="lazy" decoding="async">
+          <figcaption>How outside users arrive. Start: the contractor has Vista and MyViewpoint. Outcome: the sub and the architect are in the project through an email invite, without buying anything.</figcaption>
+        </figure>
+
+        <h3>Decision 4: Scope by story map, not by screen</h3>
+        <p>We laid out every task from the activity model as a story map, then drew release lines across it. The first milestones covered the full loop (issue, submit, review, decide) for single items. Packages, reporting and the full schedule of dates came in later slices. That meant a sub could complete a real submittal from the first release, even if the GC's power tools were still coming.</p>
+        <!-- CONFIRM: which features landed in which milestone -->
+        <figure class="fig wide">
+          <img src="../assets/img/case/viewpoint-submittals/story-map.jpg" alt="Photo of a large digital story map board. Red activity headers and orange task cards run across the top, with rows of yellow, blue and pink story cards below, split into four horizontal release bands. On the left, an assumptions and questions panel, M1 and M2 milestone descriptions and an MVP box" width="2053" height="1188" loading="lazy" decoding="async">
+          <figcaption>The story map. Activities run left to right, stories hang below them, and each horizontal band is a release. Assumptions and open questions were tracked on the left.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Design process and solution</h2>
+
+        <h3>The detail page</h3>
+        <p>The page is built to answer three questions from the top down: what state is this in, what's asked of me, and what do I need to do it.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/viewpoint-submittals/wire-detail.png" alt="Wireframe of a submittal detail page in the submitter's view. A grey status bar reads Submittal number, assigned to Eric Anderson by Will Smith, Assigned, and a Coming due Oct 5 pill, with edit and more icons. Below the title, a dismissable message from the GC: please submit your material specs as soon as possible. The main column has description, details (package, spec section, type), attachments with an Upload and Submit button, and comments, activity and history tabs. The right rail lists company, project, people (issuer, submitter, reviewer, approver, also notify) and seven dates" width="1417" height="1273" loading="lazy" decoding="async">
+          <figcaption><b>Status bar:</b> number, who assigned it to whom, state and the next deadline. <b>The ask:</b> the GC's message sits above everything else, so a sub who arrives from email reads it first. <b>Rail:</b> everyone involved and all seven dates, so nobody has to ask who has it or when it's due.</figcaption>
+        </figure>
+
+        <h3>Activity history</h3>
+        <p>Items live for months and change hands many times. The history groups every event by day, puts decisions in bold (issued, submitted, sent for review, approved) and keeps routine events like logins and downloads small. The note that came with a decision stays next to it, so <i>is this a valid rejection?</i> has an answer on the page.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/viewpoint-submittals/wire-activity.png" alt="Wireframe titled VO Activity history UX UI in page, Submittals. A rejected submittal, revision 1, with a Past due Oct 5 pill and the architect's rejection message at the top. The page dims except for the activity section, which has History and Comments toggles, a Hide full history link, a descending sort and a timeline grouped by day: Sept 26 issued, Sept 28 submitted, Oct 2 sent for review, Oct 6 approved, each with the comment that came with it and smaller login, download and print events around it" width="1305" height="1840" loading="lazy" decoding="async">
+          <figcaption>A rejected item, revision 1, with its full history. The dot on each day marks the decision. <b>Hide full history</b> removes the logins and downloads and leaves only the decisions.</figcaption>
+        </figure>
+
+        <h3>High fidelity</h3>
+        <figure class="fig wide">
+          <img src="../assets/img/case/viewpoint-submittals/hifi-log.png" alt="High-fidelity submittals log for Arbor Plaza in Viewpoint Online, with a dark top bar and project tabs for overview, RFIs, submittals, files, people, cost, resources and admin. Selected rows are highlighted in yellow. Each row has an attachment button, and states include rejected, revised, assigned and approved. Due dates that are late or coming due are marked with an orange or yellow bar" width="1443" height="790" loading="lazy" decoding="async">
+          <figcaption>The log in the final visual design. Selected rows turn yellow for bulk actions. The due-date flag became a thin bar, orange for late and yellow for coming due, so it stands out without filling the cell.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/case/viewpoint-submittals/hifi-detail.jpg" alt="High-fidelity submittal detail page. A status bar reads Submittal 273686-0, assigned to Eric Anderson by Will Smith, Assigned, with an orange Coming due Oct 5 badge. A dark blue banner reads Hey there, please submit your material specs as soon as possible, we are running behind schedule. Description, details, attachments with an Upload and Submit button, and comments, activity and history tabs fill the main column. The right rail lists company, project, people and dates" width="1024" height="868" loading="lazy" decoding="async">
+          <figcaption>The detail page. The deadline got the only orange on the screen, and the GC's request became the highest-contrast element in the main column.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/case/viewpoint-submittals/hifi-collage.jpg" alt="Collage of the high-fidelity system: the detail page, the log with selected rows, the MyViewpoint home with a to-do list and my projects, the New Submittal Item form with project, number, package, spec section, type, title and description fields, the phone navigation, and a component sheet for dialogs and growl messages in four severities" width="1024" height="768" loading="lazy" decoding="async">
+          <figcaption>The rest of the set: the MyViewpoint home and to-do list, the <i>New Submittal Item</i> form with <i>Import from file</i> for GCs moving over from spreadsheets, and component guidance for dialogs and messages.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Validation and iteration</h2>
+        <!-- CONFIRM: how the designs were tested (reviews with customers, internal experts, usability sessions) -->
+        <p>I reviewed the wireframes with Viewpoint's construction experts and walked each role's scenario from the activity model through them: a GC issuing a package, a sub responding from an invite, an architect rejecting an item and the GC reissuing it. The biggest change came from taking the detail page to a phone.</p>
+        <h3>We thought the phone could show everything. On site it had to show less.</h3>
+        <p><b>We thought</b> the phone layout could stack the desktop page as it was: status, description, attachments, activity, then people and dates. <b>We learned</b> that on a phone, in the field, people check two things, the state and what's asked of them, and the long people and dates lists pushed attachments and activity far down the page. <b>So we</b> cut descriptions to two lines with a <i>more</i> link, and collapsed People and Dates by default. That gave the space back to the state and the ask, and made the page lighter to load on a site connection.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/viewpoint-submittals/wire-responsive.png" alt="Detail page wireframe on desktop next to the same page on a phone. The phone stacks the status block, title, the GC's message, description, details, attachments with Upload and Submit, activity, then people and dates. Four callouts: limit descriptions on phone to two lines with a more option to save space; limit descriptions on phone to two lines with a more; have this section closed by default to gain real state space and improve performance, next to People; have this section closed by default, next to Dates" width="1996" height="1797" loading="lazy" decoding="async">
+          <figcaption>Desktop and phone, with the changes written on the phone layout. People and Dates collapse by default, and descriptions stop at two lines.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Outcome and impact</h2>
+        <!-- CONFIRM: release and adoption facts; no metrics were available from the source material -->
+        <p>Submittals shipped in Viewpoint Online in milestones, following the release lines on the story map. The GC, the sub and the architect work from the same item in the same product, and Vista stays the source of the project data.</p>
+        <ul class="bul">
+          <li><b>One place for the chain.</b> Requests, uploads, reviews and decisions that used to be emails and calls are events on the item, with a history anyone on the project can read.</li>
+          <li><b>Outside partners without a sale.</b> Subs and architects join by invitation, which gave Viewpoint's customers a reason to bring their whole project team into the product.</li>
+          <li><b>A pattern for the rest of the project.</b> The log, status bar, people and dates rail and activity history were designed as general patterns. RFIs sit next to submittals in the same project tabs, with the same item-with-a-state shape.</li>
+        </ul>
+        <blockquote class="pull">The approval is a moment. The waiting around it is what costs money, so the design is mostly about making the waiting visible.</blockquote>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What I'd do differently</h2>
+        <ul class="bul">
+          <li><b>Measure from day one.</b> Our goals were clear, but we didn't set up tracking for them: time from issued to approved, how often items are reissued, how many outside users finish their first task. Those numbers would have shown whether the product sped submittals up or just moved them online.</li>
+          <li><b>Test with outside users sooner.</b> Subs and architects were the least familiar users and the hardest to recruit. I'd put the invite-to-upload flow in front of real subcontractors before high fidelity, because that's where the product either earns their participation or loses it.</li>
+          <li><b>Design the phone first for field roles.</b> The phone layout came from adapting the desktop page, and our biggest change came from that step. For the sub and the superintendent, I'd start at phone width and scale up.</li>
+        </ul>
+        <p>The broader lesson: in a multi-company workflow, the hardest users to design for are the ones who didn't choose the software. Everything here, from the email-first detail page to the short Do and Go lists, came from designing for the person who shows up once, cold, with a deadline.</p>
+      </div>
+
     </div>
   </div>
 </section>
