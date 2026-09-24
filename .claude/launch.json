@@ -5,10 +5,10 @@
       "name": "portfolio",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
-        "scripts/serve.py",
-        "4321"
+        "scripts/serve.py"
       ],
-      "port": 4321
+      "port": 4321,
+      "autoPort": true
     }
   ]
 }

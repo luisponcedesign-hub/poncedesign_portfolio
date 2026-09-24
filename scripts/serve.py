@@ -76,7 +76,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 4321
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.environ.get("PORT", 4321))
     server = ThreadingHTTPServer(('', port), partial(RangeHandler, directory=ROOT))
     print('Serving %s at http://localhost:%d' % (ROOT, port))
     try:
