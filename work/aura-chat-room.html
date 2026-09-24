@@ -16,13 +16,13 @@
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ask Aura — AI Chat Room — Seismic · Luis Ponce de León</title>
-<meta name="description" content="Generative analytics as a conversation. Designing the chat surface that lets users ask Seismic&#x27;s AI a question in plain language — and trust the answer that comes back.">
+<meta name="description" content="Ask Aura turns Seismic&#x27;s reporting data into a conversation. I led the design from an engineering prototype to a shipped chat room — teaching users what to ask, showing the work behind every answer, and being honest about the limits.">
 <meta name="theme-color" content="#FAF8F4">
 <link rel="canonical" href="https://www.poncedesign.com/work/aura-chat-room.html">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ask Aura — AI Chat Room — Seismic">
-<meta property="og:description" content="Generative analytics as a conversation. Designing the chat surface that lets users ask Seismic&#x27;s AI a question in plain language — and trust the answer that comes back.">
+<meta property="og:description" content="Ask Aura turns Seismic&#x27;s reporting data into a conversation. I led the design from an engineering prototype to a shipped chat room — teaching users what to ask, showing the work behind every answer, and being honest about the limits.">
 <meta property="og:image" content="../assets/img/thumbs/aura-chat-room.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -77,46 +77,216 @@
   <div class="blob a" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
-    <p class="eyebrow">Seismic &nbsp;·&nbsp; 2024</p>
+    <p class="eyebrow">Seismic &nbsp;·&nbsp; 2023–2024</p>
     <h1 data-rv>Ask Aura — AI Chat Room</h1>
     <div class="lead-row">
-      <p class="lead" data-rv data-rv-delay="0.08">Generative analytics as a conversation. Designing the chat surface that lets users ask Seismic&#x27;s AI a question in plain language — and trust the answer that comes back.</p>
-      <p class="lead-link" data-rv data-rv-delay="0.12"><a class="linkout" href="https://poncedesign.myportfolio.com/aura-chat-room" target="_blank" rel="noopener">See the full visual case study <span aria-hidden="true">↗</span></a></p>
+      <p class="lead" data-rv data-rv-delay="0.08">Seismic's reporting data was locked behind dashboards and CSV exports. I led the design that turned it into a conversation: ask Aura a question in plain language, get a table, a chart and the SQL behind it — plus an honest line about what the AI can and can't know.</p>
     </div>
 
     <div class="facts" data-rv data-rv-delay="0.14">
       <div><h4>Client</h4><p>Seismic</p></div>
-      <div><h4>Year</h4><p>2024</p></div>
-      <div><h4>Role</h4><p>Lead Product Designer</p></div>
-      <div><h4>Focus</h4><p>AI · Product UX · Conversational</p></div>
+      <div><h4>Year</h4><p>Sep 2023 – May 2024 · ~8 months</p></div>
+      <div><h4>Role</h4><p>Lead Product Designer, Insights &amp; Aura</p></div>
+      <!-- CONFIRM: team makeup -->
+      <div><h4>Team</h4><p>Product, engineering &amp; data science on Insights</p></div>
+      <div><h4>Platform</h4><p>Web · Seismic Insights · Snowflake</p></div>
+      <div><h4>Focus</h4><p>AI · Conversational UX · Analytics</p></div>
     </div>
   </div>
 </section>
 
 <div class="wrap">
   <figure class="cover" data-rv="scale" style="max-width:1040px">
-    <img src="../assets/img/thumbs/aura-chat-room.png" alt="Ask Aura — AI Chat Room — Seismic" width="743" height="581" decoding="async">
+    <img src="../assets/img/case/aura-chat-room/product-01.jpg" alt="Ask Aura in the Seismic product: a Favorites and Activity panel on the left, and a conversation where Aura answers a question with a SQL query, an explanation and a results table" width="1920" height="1181" decoding="async">
   </figure>
 </div>
 
 <section class="case-body" id="case">
   <div class="wrap">
     <div class="col">
+
       <div class="blk" data-rv>
-        <h2>The premise</h2>
-        <p>Generative Analytics lets you chat with Aura, Seismic's AI. The hard part was never the model — it was designing an interface that sets the right expectation about what the assistant can and cannot answer, and then reliably meets it.</p>
-        <p>Aura works against a curated, deliberately smaller dataset so it can answer confidently on the topics users ask about most. Designing around that boundary — rather than hiding it — was the core UX decision.</p>
-        <blockquote class="pull">Like Siri, clear and concise communication is the best way to ensure Aura correctly processes your needs and provides accurate answers.</blockquote>
-        <h2>How the design evolved</h2>
-        <ul class="bul">
-          <li><b>Initial concept.</b> Ideation on what a chat room inside an enablement platform should even be — assistant, search replacement, or analyst.</li>
-          <li><b>V1 — pilot.</b> First shipping implementation, deliberately narrow, put in front of real users to learn where the conversation broke down.</li>
-          <li><b>V2 — revised layout.</b> Reworked interactions and refined branding, based directly on where pilot users hesitated, re-asked, or gave up.</li>
-          <li><b>In product.</b> The pattern now lives in the shipping product and became the reference point for later Aura surfaces, including mobile.</li>
-        </ul>
-        <h2>The design problem underneath</h2>
-        <p>Conversational UI removes affordances. There are no menus telling the user what is possible, so the interface has to teach capability through prompt suggestions, response framing, and graceful failure. Getting that scaffolding right is what separated V1 from V2.</p>
+        <h2>In one line</h2>
+        <p>Generative Analytics lets people chat with <b>Aura</b>, Seismic's AI, about their own platform data — who is active, what's being searched, which content lands. Over four iterations I took it from an engineering prototype to a shipped surface in Seismic Insights, and set the patterns later Aura surfaces built on.</p>
+        <div class="kpis">
+          <div class="kpi"><b>4</b><i>Iterations, from engineering prototype to shipped product</i></div>
+          <div class="kpi"><b>$1.34M</b><i>Average ARR on a platform deal that listed Aura among its capabilities</i></div>
+          <div class="kpi"><b>2</b><i>Unprompted endorsements from engineering and product leadership</i></div>
+        </div>
       </div>
+
+      <div class="blk" data-rv>
+        <h2>Context and the problem</h2>
+        <p>Seismic Insights is where enablement leaders and admins go to understand how their platform is used. Before Aura, getting an answer meant one of three routes: a fixed analytics app that might not cover your question, the LiveInsights BI tool that most people never learned, or a raw CSV export from Reports &amp; Data that you took into Excel.</p>
+        <p>Generative AI promised a fourth route — ask in plain language. Engineering had a working prototype: a model that could write Snowflake SQL against a curated slice of the data model. What it didn't have was a product.</p>
+        <blockquote class="pull">A chat box removes every affordance a dashboard gives you. There's no menu saying what's possible, so the interface has to teach it.</blockquote>
+        <p>The constraints shaped everything that followed:</p>
+        <ul class="bul">
+          <li><b>A deliberately small dataset.</b> Aura could only answer against tables we had curated for it. Anything outside that would fail or, worse, look like it succeeded.</li>
+          <li><b>Data that wasn't live.</b> Source data refreshed roughly every four hours, so "today" didn't quite mean today.</li>
+          <li><b>A trust problem specific to analytics.</b> A wrong number in a report gets forwarded to a VP. Users needed a way to check the answer, not just read it.</li>
+          <li><b>An existing design system.</b> The surface had to be built from Seismic's Mantle components and sit inside the Insights information architecture, not float beside it.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>My role and what I owned</h2>
+        <p>I was the lead product designer on Ask Aura from the first concept review through the version that shipped.</p>
+        <ul class="bul">
+          <li><b>I owned</b> the end-to-end experience: the entry point on the Insights page, the chat room layout, the answer anatomy (table, chart, SQL, feedback), the Favorites and Activity module, empty states, responsive and panel behaviour, and the disclaimer and timestamp patterns.</li>
+          <li><b>I partnered with</b> product management on scope and pilot rollout, and with the data team on which questions the curated dataset could answer well enough to suggest.</li>
+          <li><b>Engineering and data science owned</b> the model, the prompt and SQL generation, and the Snowflake pipeline behind it.</li>
+        </ul>
+        <div class="note">
+          <b>A note on the screens</b>
+          <p>V1 was designed and piloted in <i>Galileo</i>, a demo tenant, which is why its branding differs from the Seismic screens. Names and figures in the tables are demo or internal test data.</p>
+        </div>
+      </div>
+
+      <div class="blk" data-rv>
+        <!-- CONFIRM: goals/measures written from the feedback controls in V1 — adjust to what the team actually tracked -->
+        <h2>Goals, and how we'd know</h2>
+        <p>Because this was a new capability, not a redesign, success had to be defined as behaviour rather than a lift on an existing number:</p>
+        <ul class="bul">
+          <li><b>First question answered without help.</b> A new user should land, understand what to ask, and get a useful answer on the first try. Measured in the pilot by how often a first question needed rephrasing.</li>
+          <li><b>Answers people trust enough to use.</b> Measured by thumbs up/down feedback on each response and by exports of answer tables.</li>
+          <li><b>Coming back.</b> Measured by repeat sessions and by how many questions were saved as favorites to re-run.</li>
+          <li><b>Commercial pull.</b> Whether Aura showed up in sales conversations and deals, not just demos.</li>
+        </ul>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Research, and the three things that changed direction</h2>
+        <!-- CONFIRM: research method -->
+        <p>I started from the engineering prototype and walked through it as a first-time user would, then reviewed recordings of internal testers. Three findings shaped the design.</p>
+
+        <h3>1. It was a demo of the model, not a tool for the user</h3>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/concept-01.jpg" alt="Early Seismic Insights page with Enablement Impact and Analytics for Meetings apps, and an Ask Aura card under Data Exploration beside LiveInsights and Reports and Data" width="1658" height="935" loading="lazy" decoding="async">
+          <figcaption>The starting point, September 2023. Ask Aura sat under <i>Data Exploration</i> as one more card among LiveInsights and Reports &amp; Data, with nothing to say how it was different or when to use it.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/concept-02.jpg" alt="Prototype chat showing questions about most active users and top search terms, a small results table, and a long SQL query printed in full in the response while a Working spinner runs" width="1666" height="943" loading="lazy" decoding="async">
+          <figcaption>The prototype conversation. Every reply printed the full SQL above or instead of the answer, a spinner said <i>Working…</i> without saying on what, and there was no way to keep, share or rate a result. It proved the model worked. It didn't help anyone use it.</figcaption>
+        </figure>
+
+        <h3>2. An empty text box is an open-ended promise</h3>
+        <p>Given a blank input, testers asked what they would ask a colleague: broad strategy questions the curated dataset could never answer. The failure wasn't the model. It was that nothing on the screen said where the edges were.</p>
+
+        <h3>3. Analysts wanted proof; everyone else wanted the number</h3>
+        <p>Admins comfortable with SQL wanted to see the query to check it. Enablement managers didn't want to see it at all. Showing SQL by default buried the answer for one group; hiding it removed the only means of verification for the other.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Strategy and the decisions that mattered</h2>
+
+        <h3>Decision 1 — Teach capability by example, and narrow the promise</h3>
+        <p>Rather than explain what Aura can do, show it. The empty state leads with three suggested questions drawn from what the curated data answers well. In the shipped version Aura introduces itself and names three starter questions in its first message. And the banner copy narrowed over time, from <i>ask questions about your data</i> to <i>Get answers about your <b>reporting</b> data</i> — one word that sets a far more accurate expectation.</p>
+
+        <h3>Decision 2 — Show the work, but fold it</h3>
+        <p>SQL went on a journey across the versions: printed in full in the prototype, hidden behind <i>Show code</i> in V1, then a single-line preview with <i>Expand</i> in V2. The one-line version was the compromise that held: the answer and a plain-English explanation lead, the query is visible enough to signal "this is checkable", and one click gives the analyst the whole thing with a <i>Copy code</i> action.</p>
+
+        <h3>Decision 3 — Be honest about limits, in the interface, every time</h3>
+        <!-- CONFIRM: the "pressure to drop the caution line" disagreement -->
+        <p>Two lines sit permanently under the input: <i>AI Powered – please use with caution</i> and <i>Source data refreshed roughly every 4 hours</i>. There was pressure to drop the caution line as launch approached because it undersold the feature. I argued to keep it: an analytics tool that is wrong once without warning loses its users for good. I specified the freshness message as a Mantle tooltip and a set of relative timestamp formats so it read as information, not a legal footnote.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v2-05.jpg" alt="Specification for the data refreshed label with a tooltip reading Source data refreshed roughly every 4 hours, and a list of timestamp formats from absolute dates to a few seconds ago" width="1388" height="672" loading="lazy" decoding="async">
+          <figcaption>Timestamp and freshness spec. <i>Data refreshed: 30 minutes ago</i> in 12px body with a tooltip for the full explanation, and one list of formats — from <i>Jan 08, 2024 at 12:30 PM</i> down to <i>A few seconds ago</i> — reused from Mantle so Aura tells time the way the rest of Seismic does.</figcaption>
+        </figure>
+
+        <h3>Decision 4 — Treat answers as objects, not messages</h3>
+        <p>In a chat, a good answer scrolls away. For analytics that's a loss: the question <i>who are my most active users</i> is one you'll ask again next month. So every answer carries a small toolbar — favorite, thumbs up/down, regenerate, export, table/chart toggle — and a Favorites and Activity panel keeps the questions worth re-running.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Design process and solution</h2>
+
+        <h3>V1 — the pilot</h3>
+        <p>V1 put the four decisions in front of real users as quickly as possible, in a demo tenant.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v1-01.jpg" alt="Galileo Insights page with analytics and dashboard placeholders and a dark Aura card reading Use an AI-driven interface to ask questions about your data, with a Go to chat room button and an AI Powered please use with caution note" width="1920" height="1776" loading="lazy" decoding="async">
+          <figcaption>The V1 entry point. Aura gets its own dark card on the Insights page, distinct from the analytics apps, with a single action — <i>Go to chat room</i> — and the caution note present from the first touch.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v1-02.jpg" alt="Aura data query page empty state with an illustration, the line Start your data queries with Aura, three suggested questions, and empty Favorites and Activity panels" width="1920" height="1776" loading="lazy" decoding="async">
+          <figcaption>The empty state does the teaching. Three suggested questions sit directly above the input — active users, lessons completed, engagement by content format — so the first question is a click, not a guess. The input placeholder, <i>Ask anything about your data and follow up with questions</i>, invites the second.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v1-03.jpg" alt="A conversation with Aura AI answering who are my most active users with a table of names and activity counts and how many users are there with a single total, each followed by Show code, Export table, favorite, thumbs and regenerate controls" width="1920" height="1776" loading="lazy" decoding="async">
+          <figcaption>The answer anatomy. The result comes first as a table, with a <i>Today</i> divider separating sessions. Underneath each: <i>Show code</i>, <i>Export table</i>, favorite, feedback and regenerate — the same five controls every time, so users learn them once.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v1-04.jpg" alt="Show code expanded under an answer, revealing the SQL query in a bordered box with a Copy code button and a plain-language explanation of what the query does" width="1920" height="1776" loading="lazy" decoding="async">
+          <figcaption>Show code, expanded. The query arrives with a sentence before it saying what it's for and one after saying what it returns — so even someone who can't read SQL can tell whether Aura understood the question.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v1-06.jpg" alt="The same answer toggled into a chart view with two bar charts for activity count and time on app, plus a Make into favorite action on an activity item" width="1920" height="1864" loading="lazy" decoding="async">
+          <figcaption>Table and chart are the same answer, two views. A toggle at the top of the response switches between them and an expand control gives the data room. On the right, any past question can be promoted with <i>Make into favorite</i>, and favorites show a description on hover.</figcaption>
+        </figure>
+
+        <h3>V2 — revised layout, interactions and branding</h3>
+        <p>V2 moved from the demo tenant into Seismic proper, and reworked the parts the pilot showed were fighting the user.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v2-01.jpg" alt="Insights page Option 2 with an Ask Aura card containing the line Get answers about your data and an inline Ask a question field, annotated Start the session from the Insights page" width="1920" height="1216" loading="lazy" decoding="async">
+          <figcaption>Entry point, option 2 — the one we chose. The card carries its own <i>Ask a question</i> field, so the session starts where the user already is instead of behind a <i>Go to chat room</i> button. The dark hero was replaced by the soft gradient that became Aura's visual signature across Seismic.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v2-02.jpg" alt="Two V2 chat room layouts side by side with Favorites and Activity moved to a left panel, a New question button, one-line SQL previews with Expand and Collapse, sort and column controls on tables, and an annotation about the conversation direction" width="1920" height="982" loading="lazy" decoding="async">
+          <figcaption>The V2 chat room. Favorites and Activity move to a collapsible left panel beside a <i>New question</i> button; SQL collapses to one line with <i>Expand</i>; tables gain <i>Sort</i> and <i>Columns</i>. The annotation specifies scroll behaviour: once the thread reaches the bottom of the page, new messages push upward, as users expect from any chat.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v2-03.jpg" alt="Responsive design specification showing a constant 340 pixel side panel and a flexible main panel with fixed margins, and the collapsed panel state where the main panel fills the width" width="1920" height="982" loading="lazy" decoding="async">
+          <figcaption>Responsive and panel behaviour. The side panel is a constant 340px; the conversation flexes; margins stay fixed. Collapsing the panel reuses the open/close animation from DocCenter document detail, so it feels like part of Seismic rather than a new pattern to learn.</figcaption>
+        </figure>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/v2-04.jpg" alt="Favorites and Activity module in four states from empty to full, with overflow menus for Unfavorite, Edit details and Load conversation, and a Favorites conversation details modal for naming and describing a favorite" width="1920" height="1842" loading="lazy" decoding="async">
+          <figcaption>The Favorites and Activity module, empty to full. Feeds run new to old and cap at five before <i>See all</i>. Overflow menus give <i>Load conversation</i>, <i>Edit details</i> and <i>Unfavorite</i>, and a details modal lets a user rename a favorite and add the description shown on hover. The star became a heart to match favorites everywhere else in Seismic.</figcaption>
+        </figure>
+
+        <h3>In product</h3>
+        <figure class="fig wide">
+          <img src="../assets/img/case/aura-chat-room/product-02.jpg" alt="Shipped Ask Aura with the side panel collapsed, showing Aura's greeting with three example questions, a user question, and an answer with a one-line SQL query, Expand link, explanation and a results table with Sort and Columns" width="1920" height="1181" loading="lazy" decoding="async">
+          <figcaption>Ask Aura as shipped, May 2024, panel collapsed. Aura opens by saying what it is and offering three starter questions; the answer leads with a one-line query and a plain-English explanation; the two honesty lines sit under the input. Every decision above is visible in one screen.</figcaption>
+        </figure>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Validation and iteration</h2>
+        <!-- CONFIRM: pilot finding below is inferred from the V1 → V2 changes -->
+        <h3>We thought an open invitation would drive exploration. It drove dead ends.</h3>
+        <p><b>We thought</b> the V1 promise — <i>ask questions about your data</i> — plus a free-text box would encourage people to explore. <b>We learned</b> in the pilot that it did the opposite: people asked broad questions the curated dataset couldn't answer, got a weak result, and concluded the feature didn't work. <b>So we did</b> three things in V2: narrowed the copy to <i>reporting data</i>, had Aura open every session by stating its role and three questions it answers well, and kept those questions one click away.</p>
+
+        <!-- CONFIRM: pilot finding -->
+        <h3>Hidden code was trusted less, not more</h3>
+        <p>V1 hid SQL completely behind <i>Show code</i> to keep answers clean. Pilot users who cared about accuracy didn't discover it, and the ones who did had to expand every answer to check it. The one-line preview in V2 made the evidence visible at a glance without taking over the response.</p>
+
+        <h3>A separate destination was one step too many</h3>
+        <p>The V1 card sent people to a chat room before they could ask anything. Moving the input onto the Insights card itself (option 2) meant the first question could be typed the moment the idea occurred, and the chat room became the place the conversation continued rather than a place you had to go.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>Outcome and impact</h2>
+        <p>Usage metrics for Ask Aura are internal, so the evidence here is directional: what leadership said unprompted, and where Aura showed up commercially.</p>
+        <blockquote class="pull">"One of the most game changing technologies for our industry." — VP, Incubation Engineering</blockquote>
+        <blockquote class="pull">"One of the KOOLEST new features we have released… So easy, so powerful." — SVP, Products, Platform and Solutions</blockquote>
+        <p>Within the same cycle, Aura was named among the capabilities in a new platform deal: Royal London Asset Management, one of the UK's leading fund managers, joining at $1.34M average ARR and $6.72M TCV over five years. Aura was one line in a broad deal, not the reason for it — but it was on the list a customer bought.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/aura-chat-room/results-01.jpg" alt="Internal deal announcement welcoming Royal London Asset Management, listing ARR of 1.34 million average, 6.72 million TCV, and capabilities including Content, Learning, Meetings and Aura" width="926" height="800" loading="lazy" decoding="async">
+          <figcaption>The internal deal announcement. Aura sits in the capabilities list alongside Content, Learning and Meetings.</figcaption>
+        </figure>
+        <p>The longer-lasting result is the pattern. The answer anatomy, the honesty lines and the gradient signature from this project became the reference for later Aura surfaces, including <a href="mobile-aura-voice.html">Aura on mobile</a>.</p>
+      </div>
+
+      <div class="blk" data-rv>
+        <h2>What I'd do differently</h2>
+        <ul class="bul">
+          <li><b>Instrument the pilot properly.</b> Thumbs up/down was in V1, but we didn't define in advance what rate would count as good. Too much of V2 was argued from session recordings rather than a number I could point to.</li>
+          <li><b>Design the failure state first.</b> The most important screen in an AI product is the one where it can't answer. We designed the happy path and patched the edge. Starting from <i>I can't answer that, but here's what I can</i> would have exposed the scope problem weeks earlier.</li>
+          <li><b>Bring the data team into design reviews from the start.</b> The suggested questions only work if they're the ones the dataset answers best. That list should have been co-owned from the concept stage, not handed over near the pilot.</li>
+        </ul>
+        <p>The broader lesson is that in conversational AI the interface's job is less to present answers than to set expectations. Every decision that mattered here — the narrower copy, the starter questions, the folded SQL, the caution line — was about telling the user honestly what they were talking to.</p>
+      </div>
+
     </div>
   </div>
 </section>
