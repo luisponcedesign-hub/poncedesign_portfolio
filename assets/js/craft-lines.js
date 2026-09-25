@@ -25,8 +25,8 @@
      line-strong #D5D0C4 · orange #E8630B · orange-deep #C24E05 · yellow #F5B301
      x = position across the panel, tilt in radians, colours top to bottom */
   var LINES = [
-    { x: 0.068, tilt: 0.004, colors: ['#16151A','#D5D0C4','#918E97','#E8630B','#3A383F','#A7A3AC','#CDC7BA','#6B6871'] },
-    { x: 0.148, tilt: 0.006, colors: ['#16151A','#D5D0C4','#2E2C33','#918E97','#1D1C22','#CFC9BC','#E8630B','#A7A3AC','#222026','#C9C3B6','#3A383F','#848189','#16151A','#D5D0C4'] },
+    { x: 0.046, tilt: 0.004, colors: ['#16151A','#D5D0C4','#918E97','#E8630B','#3A383F','#A7A3AC','#CDC7BA','#6B6871'] },
+    { x: 0.138, tilt: 0.006, colors: ['#16151A','#D5D0C4','#2E2C33','#918E97','#1D1C22','#CFC9BC','#E8630B','#A7A3AC','#222026','#C9C3B6','#3A383F','#848189','#16151A','#D5D0C4'] },
     { x: 0.225, tilt: 0.003, colors: ['#524F58','#3A383F','#F5B301','#2A2830','#9C99A2','#C9C3B6','#16151A','#E07A2E'] },
     { x: 0.320, tilt:-0.002, colors: ['#F5B301','#EE9A12','#F3BC3A','#E8630B'] },
     { x: 0.415, tilt: 0.001, colors: ['#6B6871','#46434C','#1D1C22','#C24E05','#BDB7AA','#5C5962','#F0943F','#2E2C33'] },
@@ -37,11 +37,11 @@
     { x: 0.958, tilt:-0.006, colors: ['#6B6871','#E8630B','#2E2C33','#918E97','#F5B301','#46434C','#C24E05'] },
     /* ten more, in the gaps — each its own character */
     /* ember: deep oranges fading into ink */
-    { x: 0.030, tilt: 0.005, colors: ['#C24E05','#A8440A','#E8630B','#3A383F','#16151A','#D5D0C4','#C24E05'] },
+    { x: 0.000, tilt: 0.000, colors: ['#C24E05','#A8440A','#E8630B','#3A383F','#16151A','#D5D0C4','#C24E05'] },
     /* morse: short ink dots on long pale runs */
-    { x: 0.108, tilt:-0.003, colors: ['#D5D0C4','#16151A','#CFC9BC','#16151A','#D5D0C4','#2E2C33','#C9C3B6','#16151A','#D0CABD'] },
+    { x: 0.092, tilt:-0.003, colors: ['#D5D0C4','#16151A','#CFC9BC','#16151A','#D5D0C4','#2E2C33','#C9C3B6','#16151A','#D0CABD'] },
     /* dusk: purple-greys only, soft and quiet */
-    { x: 0.187, tilt: 0.002, colors: ['#6B6871','#848189','#5C5962','#9C99A2','#46434C','#A7A3AC'] },
+    { x: 0.184, tilt: 0.002, colors: ['#6B6871','#848189','#5C5962','#9C99A2','#46434C','#A7A3AC'] },
     /* flare: one long yellow run with dark caps */
     { x: 0.272, tilt:-0.004, colors: ['#16151A','#F5B301','#F3BC3A','#E9A30C','#16151A'] },
     /* checker: strict ink / cream alternation */
@@ -153,7 +153,7 @@
       /* offset spans 0 … -(L - H): the strip always covers the panel */
       var y = -(L - H) * (0.5 + 0.5 * ln.move(t));
       var sx = (1 + 0.04 * ln.wobble(t)) * ln.grow;
-      var x = cfg.x * W - baseW / 2;
+      var x = Math.max(0, cfg.x * W - baseW / 2);   /* x: 0 sits flush left */
       ln.el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' +
         cfg.tilt + 'rad) scaleX(' + sx + ')';
 
