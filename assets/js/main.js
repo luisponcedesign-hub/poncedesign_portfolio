@@ -236,7 +236,8 @@
     var leads = {
       'Product UX': ['seismic-workflow-approval', 'seismic-online-meetings'],
       'Mobile':     ['dexcom-g6-cgm', 'webmd-device-integration'],
-      'Research':   ['vacasa-cx-innovation', 'dexcom-g6-cgm']
+      'Research':   ['vacasa-cx-innovation', 'dexcom-g6-cgm'],
+      'Design Systems': ['vista-search']
     };
     function slug(card) {
       var a = $('a', card);
