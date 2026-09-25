@@ -126,26 +126,44 @@
 
   lines.forEach(function (ln) { ln.t = rand(0, 1000); ln.speed = 1; ln.grow = 1; });
 
+  /* Box sizes are set only when the panel resizes; every frame after that
+     is transform-only (position, width swell, block boundaries), so the
+     browser composites it without layout and without whole-pixel snapping. */
+  var sizedW = 0, sizedH = 0, baseW = 0;
+
+  function size(W, H) {
+    var L = H * LEN;
+    baseW = Math.max(4, WIDTH * W);
+    for (var k = 0; k < lines.length; k++) {
+      var ln = lines[k], st = ln.el.style;
+      st.left = '0px';
+      st.width = baseW + 'px';
+      st.height = L + 'px';
+      for (var i = 0; i < ln.segs.length; i++) ln.segs[i].style.height = L + 'px';
+    }
+    sizedW = W; sizedH = H;
+  }
+
   function draw() {
     var W = host.clientWidth, H = host.clientHeight;
     if (!W || !H) return;
+    if (W !== sizedW || H !== sizedH) size(W, H);
     var L = H * LEN;
 
     for (var k = 0; k < lines.length; k++) {
       var ln = lines[k], cfg = ln.cfg, t = ln.t;
       /* offset spans 0 … -(L - H): the strip always covers the panel */
       var y = -(L - H) * (0.5 + 0.5 * ln.move(t));
-      var w = Math.max(4, WIDTH * W) * (1 + 0.04 * ln.wobble(t)) * ln.grow;
-      var st = ln.el.style;
-      st.left = (cfg.x * W - w / 2) + 'px';
-      st.width = w + 'px';
-      st.height = L + 'px';
-      st.transform = 'translate3d(0,' + y + 'px,0) rotate(' + cfg.tilt + 'rad)';
+      var sx = (1 + 0.04 * ln.wobble(t)) * ln.grow;
+      var x = cfg.x * W - baseW / 2;
+      ln.el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' +
+        cfg.tilt + 'rad) scaleX(' + sx + ')';
 
+      /* each block is a full-length box scaled down to its share, from the top */
       var pos = ln.bounds.map(function (bd) { return (bd.b + bd.amp * bd.w(t)) * L; });
       for (var i = 0; i < ln.segs.length; i++) {
-        ln.segs[i].style.transform = 'translateY(' + pos[i] + 'px)';
-        ln.segs[i].style.height = (pos[i + 1] - pos[i] + 0.5) + 'px';
+        var h = (pos[i + 1] - pos[i] + 0.5) / L;
+        ln.segs[i].style.transform = 'translate3d(0,' + pos[i] + 'px,0) scaleY(' + h + ')';
       }
     }
   }
