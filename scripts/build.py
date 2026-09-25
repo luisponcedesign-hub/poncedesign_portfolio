@@ -458,6 +458,8 @@ def case_page(p, prev_p, next_p):
   <a href="../index.html#craft">Craft</a>
   <a href="../index.html#about">About</a>
   <a href="../index.html#contact">Contact</a>
+  <a href="mailto:luisponcedesign@gmail.com">Let’s talk</a>
+  <a href="https://www.poncedesign.com/PortraitProject/" target="_blank" rel="noopener" data-labs>PonceDesign Labs <span class="ext" aria-hidden="true">↗</span></a>
 </div>
 
 <main>
