@@ -1207,7 +1207,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .craft-head{ max-width:60ch; }
 .craft-lines{
   position:relative; overflow:hidden; min-height:260px;
-  background:#FFFFFE;
+  background:transparent;   /* shows the section surface behind it */
 }
 .craft-lines .cl-line{ position:absolute; top:0; will-change:transform; }
 .craft-lines .cl-seg{ position:absolute; top:0; left:0; right:0; transform-origin:0 0; }
