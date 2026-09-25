@@ -34,7 +34,7 @@
     { x: 0.638, tilt:-0.002, colors: ['#16151A','#D0CABD','#E8630B','#524F58','#B8B2A5','#848189','#262429','#E9A30C'] },
     { x: 0.765, tilt: 0.003, colors: ['#16151A','#3A383F','#6B6871','#918E97','#C24E05','#E8630B','#F5B301','#E8630B','#C24E05','#918E97','#6B6871','#3A383F'] },
     { x: 0.890, tilt:-0.004, colors: ['#918E97','#C24E05','#46434C','#3A383F','#F5B301','#6B6871','#C8C2B5','#1F1E24'] },
-    { x: 0.958, tilt:-0.006, double: true, colors: ['#6B6871','#E8630B','#2E2C33','#918E97','#F5B301','#46434C','#C24E05'] },
+    { x: 0.958, tilt:-0.006, colors: ['#6B6871','#E8630B','#2E2C33','#918E97','#F5B301','#46434C','#C24E05'] },
     /* ten more, in the gaps — each its own character */
     /* ember: deep oranges fading into ink */
     { x: 0.030, tilt: 0.005, colors: ['#C24E05','#A8440A','#E8630B','#3A383F','#16151A','#D5D0C4','#C24E05'] },
@@ -52,8 +52,8 @@
     { x: 0.583, tilt: 0.004, colors: ['#C9C3B6','#BDB7AA','#D5D0C4','#16151A','#B8B2A5','#CDC7BA'] },
     /* signal: orange and ink in quick pairs */
     { x: 0.702, tilt:-0.005, colors: ['#E8630B','#16151A','#E8630B','#2A2830','#F0943F','#16151A','#E8630B','#3A383F'] },
-    /* double ink: twin strips in near-blacks and one yellow */
-    { x: 0.828, tilt: 0.002, double: true, colors: ['#16151A','#2E2C33','#3A383F','#F5B301','#1D1C22','#46434C'] },
+    /* ink run: near-blacks with one yellow block */
+    { x: 0.828, tilt: 0.002, colors: ['#16151A','#2E2C33','#3A383F','#F5B301','#1D1C22','#46434C'] },
     /* spectrum: one of each palette colour */
     { x: 0.925, tilt: 0.005, colors: ['#16151A','#3A383F','#6B6871','#918E97','#D5D0C4','#F5B301','#E8630B','#C24E05'] }
   ];
@@ -95,9 +95,7 @@
     var segs = cfg.colors.map(function (c) {
       var s = document.createElement('div');
       s.className = 'cl-seg';
-      s.style.background = cfg.double
-        ? 'linear-gradient(90deg, ' + c + ' 0 38%, transparent 38% 62%, ' + c + ' 62%)'
-        : c;
+      s.style.background = c;
       el.appendChild(s);
       return s;
     });
