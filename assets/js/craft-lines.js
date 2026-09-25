@@ -37,7 +37,7 @@
     { x: 0.958, tilt:-0.006, colors: ['#6B6871','#E8630B','#2E2C33','#918E97','#F5B301','#46434C','#C24E05'] },
     /* ten more, in the gaps — each its own character */
     /* ember: deep oranges fading into ink */
-    { x: 0.000, tilt: 0.000, colors: ['#C24E05','#A8440A','#E8630B','#3A383F','#16151A','#D5D0C4','#C24E05'] },
+    { x: 0.000, dx: 3, tilt: 0.000, colors: ['#C24E05','#A8440A','#E8630B','#3A383F','#16151A','#D5D0C4','#C24E05'] },
     /* morse: short ink dots on long pale runs */
     { x: 0.092, tilt:-0.003, colors: ['#D5D0C4','#16151A','#CFC9BC','#16151A','#D5D0C4','#2E2C33','#C9C3B6','#16151A','#D0CABD'] },
     /* dusk: purple-greys only, soft and quiet */
@@ -153,7 +153,8 @@
       /* offset spans 0 … -(L - H): the strip always covers the panel */
       var y = -(L - H) * (0.5 + 0.5 * ln.move(t));
       var sx = (1 + 0.04 * ln.wobble(t)) * ln.grow;
-      var x = Math.max(0, cfg.x * W - baseW / 2);   /* x: 0 sits flush left */
+      /* x: 0 sits flush left; dx nudges a strip by whole pixels */
+      var x = Math.max(0, cfg.x * W - baseW / 2) + (cfg.dx || 0);
       ln.el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' +
         cfg.tilt + 'rad) scaleX(' + sx + ')';
 
