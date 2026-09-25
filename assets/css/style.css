@@ -1197,7 +1197,27 @@ body.intro-running .mq-track{ animation-play-state:paused; }
    Craft — development, AI, certifications, motion, principles
    ============================================================ */
 .craft{ background:var(--surface); border-block:1px solid var(--line); }
-.craft-head{ max-width:60ch; margin-bottom:clamp(38px,5vw,64px); }
+/* heading on the left, drifting-lines panel in the right column — same
+   columns and gap as .cgrid below, so the panel lines up with its blocks */
+.craft-top{
+  display:grid; gap:clamp(28px,4vw,56px);
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  margin-bottom:clamp(38px,5vw,64px);
+}
+.craft-head{ max-width:60ch; }
+.craft-lines{
+  position:relative; overflow:hidden; min-height:260px;
+  border-radius:var(--r-md); border:1px solid var(--line);
+  background:linear-gradient(180deg, var(--bg-tint) 0%, #F1EDE4 60%, #EAE5DA 72%, #EEEAE1 100%);
+}
+/* paper grain */
+.craft-lines::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  opacity:.35; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.craft-lines .cl-line{ position:absolute; top:0; will-change:transform; }
+.craft-lines .cl-seg{ position:absolute; left:0; right:0; will-change:transform,height; }
 .craft-head h2{ margin:16px 0 20px; }
 .craft-head h2 .line{ display:block; }
 .craft-head h2 .line:last-child{ color:var(--ink-3); }
@@ -1432,6 +1452,8 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 
 @media (max-width:900px){
   .cgrid{ grid-template-columns:1fr; }
+  .craft-top{ grid-template-columns:1fr; }
+  .craft-lines{ min-height:0; aspect-ratio:16/10; }
   .motion:has(.reel-frame){ grid-template-columns:1fr; }
   .certlist a{
     grid-template-columns:1fr 20px;
