@@ -454,11 +454,10 @@ def case_page(p, prev_p, next_p):
 </header>
 
 <div class="drawer" id="drawer" aria-hidden="true">
-  <a href="../index.html#work">Work <i>01</i></a>
-  <a href="../index.html#craft">Craft <i>02</i></a>
-  <a href="../index.html#about">About <i>03</i></a>
-  <a href="../index.html#contact">Contact <i>04</i></a>
-  <a href="mailto:luisponcedesign@gmail.com">Email <i>05</i></a>
+  <a href="../index.html#work">Work</a>
+  <a href="../index.html#craft">Craft</a>
+  <a href="../index.html#about">About</a>
+  <a href="../index.html#contact">Contact</a>
 </div>
 
 <main>
