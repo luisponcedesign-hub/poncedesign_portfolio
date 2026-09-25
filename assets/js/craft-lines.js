@@ -7,7 +7,8 @@
    always spans the panel top to bottom.
 
    Hovering speeds up the strips nearest the cursor, up to ten
-   times, and they ease slowly back once it moves away.
+   times, and swells them to three times their width; they ease
+   back to normal once it moves away.
 
    Purely decorative (the host is aria-hidden). Under reduced
    motion it draws one still frame; off screen it stops ticking.
@@ -117,9 +118,13 @@
   var REACH   = 60;    /* px either side of the cursor that feels it   */
   var RISE    = 6;     /* per second, easing toward a higher speed     */
   var FALL    = 0.7;   /* per second, easing back toward normal speed  */
+  /* …and swell up to GROW× wider, following the cursor more closely */
+  var GROW    = 3;
+  var W_RISE  = 8;     /* per second, widening                          */
+  var W_FALL  = 3;     /* per second, narrowing back                    */
   var pointer = null;  /* cursor x within the panel, or null           */
 
-  lines.forEach(function (ln) { ln.t = rand(0, 1000); ln.speed = 1; });
+  lines.forEach(function (ln) { ln.t = rand(0, 1000); ln.speed = 1; ln.grow = 1; });
 
   function draw() {
     var W = host.clientWidth, H = host.clientHeight;
@@ -130,7 +135,7 @@
       var ln = lines[k], cfg = ln.cfg, t = ln.t;
       /* offset spans 0 … -(L - H): the strip always covers the panel */
       var y = -(L - H) * (0.5 + 0.5 * ln.move(t));
-      var w = Math.max(4, WIDTH * W) * (1 + 0.04 * ln.wobble(t));
+      var w = Math.max(4, WIDTH * W) * (1 + 0.04 * ln.wobble(t)) * ln.grow;
       var st = ln.el.style;
       st.left = (cfg.x * W - w / 2) + 'px';
       st.width = w + 'px';
@@ -149,14 +154,19 @@
   function step(dt) {
     var W = host.clientWidth;
     for (var k = 0; k < lines.length; k++) {
-      var ln = lines[k], target = 1;
+      var ln = lines[k], near = 0;
       if (pointer !== null) {
         var d = Math.abs(pointer - ln.cfg.x * W) / REACH;
-        target = 1 + (BOOST - 1) * Math.exp(-d * d);   /* gaussian falloff */
+        near = Math.exp(-d * d);   /* gaussian falloff, 1 under the cursor */
       }
+      var target = 1 + (BOOST - 1) * near;
       var rate = target > ln.speed ? RISE : FALL;
       ln.speed += (target - ln.speed) * (1 - Math.exp(-rate * dt));
       ln.t += dt * ln.speed;
+
+      var gTarget = 1 + (GROW - 1) * near;
+      var gRate = gTarget > ln.grow ? W_RISE : W_FALL;
+      ln.grow += (gTarget - ln.grow) * (1 - Math.exp(-gRate * dt));
     }
   }
 
