@@ -28,184 +28,108 @@
   },
   "showcase": [
     {
-      "slug": "seismic-online-meetings",
-      "img": "launch.jpg",
-      "name": "Launch at Petco Park",
-      "focus": [
-        50,
-        50
-      ]
-    },
-    {
-      "slug": "viewpoint-submittals",
-      "img": "story-map.jpg",
-      "name": "Submittals story map",
-      "focus": [
-        50,
-        50
-      ]
-    },
-    {
-      "slug": "seismic-video",
-      "img": "clips-02.jpg",
-      "name": "Create a clip from the playhead",
-      "focus": [
-        25,
-        25
-      ]
-    },
-    {
-      "slug": "dexcom-g6-cgm",
-      "img": "concept-insulin-pens.png",
-      "name": "Smart insulin pens concept",
-      "focus": [
-        50,
-        50
-      ]
-    },
-    {
-      "slug": "seismic-online-meetings",
-      "img": "meetings-hard.jpg",
-      "name": "Why meetings are hard to get right",
-      "focus": [
-        25,
-        50
-      ]
-    },
-    {
-      "slug": "integrations-app-exchange",
-      "img": "devportal-02.jpg",
-      "name": "Developer portal guides",
-      "focus": [
-        75,
-        25
-      ]
-    },
-    {
-      "slug": "seismic-workflow-approval",
-      "img": "sketch-workflows.jpg",
-      "name": "Interview notes turned into sketches",
-      "focus": [
-        75,
-        50
-      ]
-    },
-    {
-      "slug": "webmd-device-integration",
-      "img": "flow-entry.png",
-      "name": "Device Connection Center",
-      "focus": [
-        75,
-        75
-      ]
-    },
-    {
       "slug": "aura-chat-room",
-      "img": "v2-01.jpg",
-      "name": "The Ask Aura card",
+      "img": "v1-06.jpg",
+      "name": "Answers as charts",
       "focus": [
-        75,
-        25
-      ]
-    },
-    {
-      "slug": "seismic-online-meetings",
-      "img": "timeline.jpg",
-      "name": "Meetings product timeline",
-      "focus": [
-        50,
-        50
-      ]
-    },
-    {
-      "slug": "seismic-workflow-approval",
-      "img": "state-flow.jpg",
-      "name": "One engagement through every state",
-      "focus": [
-        75,
-        25
-      ]
-    },
-    {
-      "slug": "seismic-video",
-      "img": "chapters-01.jpg",
-      "name": "Chapters as a component set",
-      "focus": [
-        25,
-        75
-      ]
-    },
-    {
-      "slug": "viewpoint-submittals",
-      "img": "process-review.png",
-      "name": "The submittal review process",
-      "focus": [
-        25,
-        25
+        43,
+        68
       ]
     },
     {
       "slug": "seismic-online-meetings",
       "img": "final-search.jpg",
-      "name": "Speakers and topics on one timeline",
+      "name": "Speakers on one timeline",
       "focus": [
-        50,
-        25
+        53,
+        33
       ]
     },
     {
-      "slug": "seismic-workflow-approval",
-      "img": "pacific-life.jpg",
-      "name": "Why it mattered: Pacific Life",
+      "slug": "dexcom-g6-cgm",
+      "img": "concept-insulin-pens.png",
+      "name": "Smart insulin pen concept",
       "focus": [
-        25,
-        25
+        39,
+        45
       ]
     },
     {
-      "slug": "mobile-field-manager",
-      "img": "flow-delete.png",
-      "name": "Swipe to delete",
+      "slug": "seismic-online-meetings",
+      "img": "launch.jpg",
+      "name": "Launch day in San Diego",
       "focus": [
-        75,
-        50
+        88,
+        8
       ]
+    },
+    {
+      "slug": "seismic-video",
+      "img": "chapters-01.jpg",
+      "name": "Chapters on a recording",
+      "focus": [
+        18.5,
+        72.9
+      ],
+      "zoom": 6.5
     },
     {
       "slug": "viewpoint-submittals",
-      "img": "wire-responsive.png",
-      "name": "Submittal detail at phone width",
+      "img": "wire-activity.png",
+      "name": "Submittal detail wireframe",
       "focus": [
-        75,
-        25
+        60.9,
+        89.4
+      ],
+      "zoom": 2.14
+    },
+    {
+      "slug": "mobile-field-manager",
+      "img": "style-guide.png",
+      "name": "Field Manager style guide",
+      "focus": [
+        33,
+        33
       ]
+    },
+    {
+      "slug": "seismic-video",
+      "img": "lifecycle-01.jpg",
+      "name": "Video production life cycle",
+      "focus": [
+        85.5,
+        19.6
+      ],
+      "zoom": 5.9
     },
     {
       "slug": "seismic-workflow-approval",
-      "img": "approval-dashboard.jpg",
-      "name": "The compliance queue",
+      "img": "sketch-workflows.jpg",
+      "name": "Workflow sketches",
       "focus": [
-        75,
-        25
+        30,
+        63
       ]
     },
     {
-      "slug": "vista-search",
-      "img": "advanced-boolean.png",
-      "name": "Advanced and Boolean search",
+      "slug": "mobile-aura-voice",
+      "img": "aura-voice.png",
+      "name": "Aura Voice, listening",
       "focus": [
-        75,
-        50
-      ]
+        50,
+        47.2
+      ],
+      "zoom": 5.45
     },
     {
-      "slug": "aura-chat-room",
-      "img": "product-02.jpg",
-      "name": "Ask Aura as shipped",
+      "slug": "webmd-device-integration",
+      "img": "record-steps.jpg",
+      "name": "A day of steps",
       "focus": [
-        25,
-        50
-      ]
+        50.7,
+        50.89
+      ],
+      "zoom": 4.0
     }
   ],
   "projects": [

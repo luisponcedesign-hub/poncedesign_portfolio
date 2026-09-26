@@ -277,9 +277,10 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .hero{
   position:relative; min-height:100svh;
   display:flex; flex-direction:column; justify-content:flex-start;
-  /* Top padding clears the 78px header and leaves a fixed 48px gap, so the
-     hero sits the same distance below the nav at every viewport height. */
-  padding:126px 0 clamp(72px,11vh,108px); overflow:hidden;
+  /* Top padding clears the 78px header and leaves a fixed 8px gap (the
+     carousel adds its own 20px), so the hero sits the same distance below
+     the nav at every viewport height. */
+  padding:86px 0 clamp(72px,11vh,108px); overflow:hidden;
 }
 .blob{
   position:absolute; border-radius:50%; filter:blur(80px);
@@ -350,17 +351,11 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   position:relative; display:block; aspect-ratio:16 / 9; overflow:hidden;
   border-radius:var(--r-md); background:var(--bg-tint);
 }
-/* A 2x detail of each image, centred on its --fx/--fy focus point. The
-   zoom is real layout (a box twice the frame) rather than a transform, so
-   the browser decodes and draws it at full resolution instead of scaling
-   up a bitmap. object-position puts the focus at the same fraction of the
-   box; the offsets then bring that point to the frame centre, clamped so
-   the box always covers the frame. */
+/* Each slide image is already the zoomed 16:9 detail, rendered and
+   sharpened by scripts/showcase.py at 960x540 — enough for the frame at
+   2x and 3x — so it is shown at its own size, never upscaled here. */
 .sc-slide img{
-  position:absolute; width:200%; height:200%; max-width:none;
-  left:clamp(-100%, calc(50% - var(--fx, 50%) * 2), 0%);
-  top:clamp(-100%, calc(50% - var(--fy, 50%) * 2), 0%);
-  object-fit:cover; object-position:var(--fx, 50%) var(--fy, 50%);
+  display:block; width:100%; height:100%; object-fit:cover;
   transition:transform .9s var(--ease-out);
 }
 .sc-slide a:hover img{ transform:scale(1.04); }
@@ -444,7 +439,7 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   position:relative; top:-32px;
 }
 /* Buttons and the scroll hint share one row so the hint stays level with them. */
-.hero-actions{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px 56px; }
+.hero-actions{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:24px 56px; margin-top:20px; }
 .hero-sub .lead{
   max-width:46ch; margin:0;
   font-size:clamp(.875rem, 1.3vw, 1.13rem);
@@ -1248,10 +1243,11 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   /* tighter tracking so the location line holds one row on a 375px screen */
   .eyebrow{ letter-spacing:.15em; font-size:.68rem; gap:9px; }
   .eyebrow::before{ width:20px; }
-  /* 126px clears the 78px header with a 48px gap; 94px closes that to
-     16px, lifting the whole hero block. The buttons are held at their
-     own position by the widened .hero-sub gap above. */
-  .hero{ padding-top:94px; }
+  /* Phones: 74px tucks the carousel's 20px margin just under the 78px
+     header, a 16px gap. Any less and the carousel slides under the bar.
+     The buttons are held at their own position by the widened .hero-sub
+     gap above. */
+  .hero{ padding-top:74px; }
 }
 
 /* ============================================================
@@ -1282,7 +1278,9 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 
 /* ---- hero discipline line ---------------------------------- */
 .disciplines{
-  margin:clamp(20px,3vw,32px) 0 0;
+  /* +20px sets "Depth in" and everything under it clear of the
+     carousel dots */
+  margin:calc(clamp(20px,3vw,32px) + 20px) 0 0;
   font-size:clamp(1.25rem,3.2vw,2.35rem);
   font-weight:700; letter-spacing:-.03em; line-height:1.1;
 }

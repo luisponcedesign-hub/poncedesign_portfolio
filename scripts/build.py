@@ -164,21 +164,23 @@ def build_showcase(items, projects):
     """Hero carousel slides, from the "showcase" list in projects.json.
 
     Each slide is a secondary image from inside a case study (never the grid
-    thumbnail) and opens the top of that case study. `focus` is the detail
-    to zoom into, as x/y percentages of the image; the CSS draws the image
-    at 2x the frame, centred there. The first three are in view on load,
-    so only the rest are lazy."""
+    thumbnail) and opens the top of that case study. The picture is the
+    pre-rendered 16:9 detail from scripts/showcase.py (zoomed around the
+    entry's `focus`, resampled and sharpened), shown at native size. The
+    first three are in view on load, so only the rest are lazy."""
     by_slug = {p['slug']: p for p in projects}
     out = []
     for i, it in enumerate(items):
         p = by_slug[it['slug']]
-        rel = 'assets/img/case/%s/%s' % (p['slug'], it['img'])
+        fx, fy = it.get('focus', [50, 50])
+        rel = 'assets/img/showcase/%s--%s--%g-%g.jpg' % (p['slug'], os.path.splitext(it['img'])[0], fx, fy)
+        if not os.path.exists(os.path.join(ROOT, rel)):
+            sys.exit('missing %s: run python3 scripts/showcase.py first' % rel)
         iw, ih = img_size(os.path.join(ROOT, rel))
         loading = '' if i < 3 else ' loading="lazy"'
-        fx, fy = it.get('focus', [50, 50])
         out.append(f'''          <div class="sc-slide" role="group" aria-roledescription="slide" aria-label="{i + 1} of {len(items)}" data-title="{esc(it['name'])}">
             <a href="work/{p['slug']}.html" aria-label="{esc(it['name'])} — {esc(p['title'])} case study">
-              <img src="{rel}" alt="" width="{iw}" height="{ih}" style="--fx:{fx}%;--fy:{fy}%"{loading} decoding="async">
+              <img src="{rel}" alt="" width="{iw}" height="{ih}"{loading} decoding="async">
               <span class="sc-cap" aria-hidden="true"><span class="cli">{esc(p['client'])} · {esc(p['title'])}</span><span class="ttl">{esc(it['name'])}</span></span>
             </a>
           </div>
