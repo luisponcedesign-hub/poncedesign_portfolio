@@ -26,6 +26,108 @@
       }
     ]
   },
+  "showcase": [
+    {
+      "slug": "seismic-online-meetings",
+      "img": "launch.jpg",
+      "name": "Launch at Petco Park"
+    },
+    {
+      "slug": "mobile-aura-voice",
+      "img": "podcast.png",
+      "name": "Aura podcast, generated from any page"
+    },
+    {
+      "slug": "integrations-app-exchange",
+      "img": "slack-05.jpg",
+      "name": "Programs in Slack"
+    },
+    {
+      "slug": "dexcom-g6-cgm",
+      "img": "journey-map.png",
+      "name": "Patient journey map"
+    },
+    {
+      "slug": "aura-chat-room",
+      "img": "product-02.jpg",
+      "name": "Ask Aura as shipped"
+    },
+    {
+      "slug": "vacasa-cx-innovation",
+      "img": "sprint-walls.jpg",
+      "name": "Two days of design sprint walls"
+    },
+    {
+      "slug": "seismic-learning-sessions",
+      "img": "seismic-personas.png",
+      "name": "Eight Seismic personas"
+    },
+    {
+      "slug": "seismic-video",
+      "img": "clips-02.jpg",
+      "name": "Create a clip from the playhead"
+    },
+    {
+      "slug": "viewpoint-submittals",
+      "img": "story-map.jpg",
+      "name": "Submittals story map"
+    },
+    {
+      "slug": "seismic-workflow-approval",
+      "img": "sketch-workflows.jpg",
+      "name": "Interview notes turned into sketches"
+    },
+    {
+      "slug": "mobile-field-manager",
+      "img": "onboarding.png",
+      "name": "Three levels of in-app help"
+    },
+    {
+      "slug": "bcbsa-fep-member-statement",
+      "img": "quarterly-summary.png",
+      "name": "Quarterly summary chart"
+    },
+    {
+      "slug": "mobile-aura-voice",
+      "img": "mobile-rewards.jpg",
+      "name": "Mobile rewards, sketch to screen"
+    },
+    {
+      "slug": "vista-search",
+      "img": "advanced-boolean.png",
+      "name": "Advanced and Boolean search"
+    },
+    {
+      "slug": "seismic-online-meetings",
+      "img": "problem-hmw.jpg",
+      "name": "How might we: the brief"
+    },
+    {
+      "slug": "webmd-device-integration",
+      "img": "flow-connected.png",
+      "name": "Connected device tiles"
+    },
+    {
+      "slug": "dexcom-g6-cgm",
+      "img": "concept-insulin-pens.png",
+      "name": "Smart insulin pens concept"
+    },
+    {
+      "slug": "seismic-workflow-approval",
+      "img": "approval-dashboard.jpg",
+      "name": "The compliance queue"
+    },
+    {
+      "slug": "vacasa-cx-innovation",
+      "img": "final-nudge.jpg",
+      "name": "Reservation timeline and nudge"
+    },
+    {
+      "slug": "viewpoint-submittals",
+      "img": "hifi-collage.jpg",
+      "name": "MyViewpoint final visual design"
+    }
+  ],
   "projects": [
     {
       "slug": "mobile-aura-voice",
