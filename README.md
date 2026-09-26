@@ -48,7 +48,11 @@ entry names a case study image, the caption shown on hover (`name`), and the
 detail to zoom into (`focus`, x/y percent of the image). `scripts/showcase.py`
 crops a 16:9 detail around that point, resamples and sharpens it with macOS
 Core Image (`scripts/crop.swift`, needs the Xcode command line tools), and
-writes it to `assets/img/showcase/`. After changing the list or a focus point:
+writes it to `assets/img/showcase/`. Optional per-slide fields: `zoom` (tighter
+or looser than the default), `mode` (`photo` for real texture; `vector` to trace
+solid-colour artwork into a razor-sharp SVG, with `colours` palette entries),
+`soften`, `clean` and `fill_enclosed` (tuning for small or noisy sources).
+After changing the list or a focus point:
 
 ```bash
 python3 scripts/showcase.py && python3 scripts/build.py

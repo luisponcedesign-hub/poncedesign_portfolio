@@ -364,15 +364,17 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   position:absolute; left:14px; right:14px; bottom:14px;
   display:flex; flex-direction:column; gap:3px;
   padding:12px 16px; border-radius:10px;
-  background:rgba(22,21,26,.8); color:#fff;
-  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  /* White card, AA contrast: ink title ~17:1, deep-orange eyebrow ~4.8:1.
+     The hairline and shadow keep it distinct on the many white slides. */
+  background:#fff; color:var(--ink);
+  border:1px solid var(--line); box-shadow:var(--shadow-md);
   opacity:0; transform:translateY(8px);
   transition:opacity var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
   pointer-events:none;
 }
 .sc-cap .cli{
   font-family:var(--mono); font-size:.66rem; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--yellow);
+  text-transform:uppercase; color:var(--orange-deep);
 }
 .sc-cap .ttl{ font-size:1.02rem; font-weight:600; letter-spacing:-.01em; line-height:1.25; }
 .sc-slide a:hover .sc-cap,

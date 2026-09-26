@@ -34,7 +34,9 @@
       "focus": [
         43,
         68
-      ]
+      ],
+      "mode": "vector",
+      "colours": 3
     },
     {
       "slug": "seismic-online-meetings",
@@ -43,7 +45,9 @@
       "focus": [
         53,
         33
-      ]
+      ],
+      "mode": "vector",
+      "colours": 6
     },
     {
       "slug": "dexcom-g6-cgm",
@@ -52,7 +56,10 @@
       "focus": [
         39,
         45
-      ]
+      ],
+      "mode": "vector",
+      "colours": 2,
+      "soften": 0.1
     },
     {
       "slug": "seismic-online-meetings",
@@ -81,7 +88,9 @@
         60.9,
         89.4
       ],
-      "zoom": 2.14
+      "zoom": 2.14,
+      "mode": "vector",
+      "colours": 4
     },
     {
       "slug": "mobile-field-manager",
@@ -90,7 +99,9 @@
       "focus": [
         33,
         33
-      ]
+      ],
+      "mode": "vector",
+      "colours": 6
     },
     {
       "slug": "seismic-video",
@@ -100,7 +111,9 @@
         85.5,
         19.6
       ],
-      "zoom": 5.9
+      "zoom": 5.9,
+      "mode": "vector",
+      "colours": 3
     },
     {
       "slug": "seismic-workflow-approval",
@@ -119,7 +132,12 @@
         50,
         47.2
       ],
-      "zoom": 5.45
+      "zoom": 5.45,
+      "mode": "vector",
+      "colours": 3,
+      "soften": 1.1,
+      "fill_enclosed": "ffffff>d1e8fd,2e8cf7>d1e8fd",
+      "clean": 5
     },
     {
       "slug": "webmd-device-integration",
@@ -129,7 +147,10 @@
         50.7,
         50.89
       ],
-      "zoom": 4.0
+      "zoom": 4.0,
+      "mode": "vector",
+      "colours": 4,
+      "soften": 0.8
     }
   ],
   "projects": [

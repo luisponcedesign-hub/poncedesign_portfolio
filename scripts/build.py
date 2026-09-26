@@ -18,6 +18,8 @@ import os
 import re
 import sys
 
+from showcase import out_name as showcase_out_name
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'data', 'projects.json')
 SITE = 'https://www.poncedesign.com'
@@ -172,11 +174,16 @@ def build_showcase(items, projects):
     out = []
     for i, it in enumerate(items):
         p = by_slug[it['slug']]
-        fx, fy = it.get('focus', [50, 50])
-        rel = 'assets/img/showcase/%s--%s--%g-%g.jpg' % (p['slug'], os.path.splitext(it['img'])[0], fx, fy)
+        rel = 'assets/img/showcase/' + showcase_out_name(it)
         if not os.path.exists(os.path.join(ROOT, rel)):
             sys.exit('missing %s: run python3 scripts/showcase.py first' % rel)
-        iw, ih = img_size(os.path.join(ROOT, rel))
+        if rel.endswith('.svg'):
+            with open(os.path.join(ROOT, rel), encoding='utf-8') as f:
+                head = f.read(400)
+            iw = int(re.search(r'width="(\d+)"', head).group(1))
+            ih = int(re.search(r'height="(\d+)"', head).group(1))
+        else:
+            iw, ih = img_size(os.path.join(ROOT, rel))
         loading = '' if i < 3 else ' loading="lazy"'
         out.append(f'''          <div class="sc-slide" role="group" aria-roledescription="slide" aria-label="{i + 1} of {len(items)}" data-title="{esc(it['name'])}">
             <a href="work/{p['slug']}.html" aria-label="{esc(it['name'])} — {esc(p['title'])} case study">
