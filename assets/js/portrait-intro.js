@@ -62,32 +62,19 @@
      release front follows it: a dot only comes loose once the crest has
      passed it. So the expansion propagates outward from the centre in
      the wave's wake instead of the whole field letting go at once.     */
-  var GATHER   = 5.6;   /* dispersed field eases into the portrait   */
-  var RIP_A    = 9.4;   /* the crest leaves the face                 */
-  var RIP_FADE = 11.6;  /* …and is clear of the field, so it fades   */
-  var CREST_SPEED = 430;  /* portrait units per second               */
+  var GATHER   = 4.0;   /* dispersed field eases into the portrait   */
+  var RIP_A    = 7.0;   /* the crest leaves the face                 */
+  var RIP_FADE = 8.7;   /* …and is clear of the field, so it fades   */
+  var CREST_SPEED = 560;  /* portrait units per second               */
   var CREST_HEAD  = 120;  /* crest starts this far inside the centre */
   var RELEASE_LAG  = 120; /* the front trails the crest by this much */
   var RELEASE_SOFT = 220; /* …and hands each dot over this smoothly  */
-  var SCATTER = 9.6;    /* first dots let go, right behind the crest */
-  var TOTAL   = 20.0;
+  var SCATTER = 7.2;    /* first dots let go, right behind the crest */
+  var TOTAL   = 15.0;
   var EXIT_K  = 1.5;    /* dots overshoot their scatter positions so
                            they keep expanding while they fade        */
-  var OUT_AT  = 12.4;   /* front has swept the field; fade from here  */
-  var FADE_OUT = TOTAL - OUT_AT; /* 7.6s — matches the CSS .is-out    */
-
-  /* Abstraction. The portrait is only the seed of a drifting cloud: the
-     field never finishes gathering (HOLD keeps a good share of the
-     unwound swirl), two layers of flow keep it billowing — a broad,
-     slow swell plus a finer curl — and the middle is opened up (SPREAD
-     pushes it apart, THIN shrinks its dots) so the centre is airy
-     rather than a dense mass. */
-  var HOLD   = 0.42;    /* share of the dispersal that never resolves  */
-  var FLOW   = 34;      /* broad swell, portrait units (grid step 13)  */
-  var FLOW2  = 12;      /* finer curl riding on top of it              */
-  var SPREAD = 0.42;    /* middle pushed out by up to this fraction    */
-  var THIN   = 0.5;     /* middle dots shrink by up to this fraction   */
-  var MID_R  = 420;     /* radius of the opened-up middle              */
+  var OUT_AT  = 9.2;    /* front has swept the field; fade from here  */
+  var FADE_OUT = TOTAL - OUT_AT; /* 5.8s — matches the CSS .is-out    */
 
   /* Quality tiers, best first. `stride` skips dots; `rBoost` fattens the
      survivors so the field keeps its ink weight when it does. Primitive
@@ -106,19 +93,12 @@
 
   function clamp(n, a, b) { return n < a ? a : (n > b ? b : n); }
   function hash(i, s) { var v = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453; return v - Math.floor(v); }
-  /* smootherstep: zero velocity and acceleration at both ends, so the
-     gather has no visible start or stop */
-  function enter(t) { t = clamp(t, 0, 1); return t * t * t * (t * (t * 6 - 15) + 10); }
+  function enter(t) { return 1 - Math.pow(1 - clamp(t, 0, 1), 3); }
   function wave(t)  { return 0.5 - 0.5 * Math.cos(Math.PI * clamp(t, 0, 1)); }
 
   /* ---- per-dot statics, built once the page is quiet ------- */
   var N = D.dots.length;
   var dx, dy, dr, dDist, dCos, dSin, dSx, dSy, dPh, dH2, dH3, dBre;
-  /* Sines and cosines of each dot's static phase. Every per-dot wave is
-     sin(static + time), so with these the angle-addition identity turns
-     it into two multiply-adds against per-frame scalars: no trig in the
-     inner loop at all, which is what keeps a 120Hz frame comfortable. */
-  var sPh, cPh, sBre, cBre, sA1, cA1, sB1, cB1, sA2, cA2, sB2, cB2;
 
   function build() {
     dx = new Float32Array(N); dy = new Float32Array(N); dr = new Float32Array(N);
@@ -126,37 +106,20 @@
     dSx = new Float32Array(N); dSy = new Float32Array(N);
     dPh = new Float32Array(N); dH2 = new Float32Array(N); dH3 = new Float32Array(N);
     dBre = new Float32Array(N);
-    sPh = new Float32Array(N); cPh = new Float32Array(N);
-    sBre = new Float32Array(N); cBre = new Float32Array(N);
-    sA1 = new Float32Array(N); cA1 = new Float32Array(N);
-    sB1 = new Float32Array(N); cB1 = new Float32Array(N);
-    sA2 = new Float32Array(N); cA2 = new Float32Array(N);
-    sB2 = new Float32Array(N); cB2 = new Float32Array(N);
     for (var i = 0; i < N; i++) {
       var src = D.dots[i];
       var x = src[0], y = src[1];
-      /* open up the middle: push out and thin, fading to nothing by MID_R */
-      var d0 = Math.hypot(x - CX, y - CY), g = Math.exp(-(d0 / MID_R) * (d0 / MID_R));
-      x = CX + (x - CX) * (1 + SPREAD * g);
-      y = CY + (y - CY) * (1 + SPREAD * g);
       var dist = Math.hypot(x - CX, y - CY);
       var ang  = Math.atan2(y - CY, x - CX);
       var h1 = hash(i, 1), h2 = hash(i, 2), h3 = hash(i, 3);
       var sang  = ang + 0.75 + h1 * 0.7;
       var sdist = dist * 1.06 + 70 + h2 * 250;
-      dx[i] = x; dy[i] = y; dr[i] = src[2] * (1 - THIN * g);
+      dx[i] = x; dy[i] = y; dr[i] = src[2];
       dDist[i] = dist; dCos[i] = Math.cos(ang); dSin[i] = Math.sin(ang);
       dSx[i] = CX + Math.cos(sang) * sdist;
       dSy[i] = CY + Math.sin(sang) * sdist * 0.88;
       dPh[i] = h3 * TAU; dH2[i] = h2; dH3[i] = h3;
       dBre[i] = h1 * 0.9 - y * 0.011;   /* breathe phase, hoisted out of the loop */
-      var ph = h3 * TAU, a2 = y * 0.021 + ph * 0.5, b2 = x * 0.019 + ph * 0.5;
-      sPh[i] = Math.sin(ph); cPh[i] = Math.cos(ph);
-      sBre[i] = Math.sin(dBre[i]); cBre[i] = Math.cos(dBre[i]);
-      sA1[i] = Math.sin(y * 0.005); cA1[i] = Math.cos(y * 0.005);
-      sB1[i] = Math.sin(x * 0.006); cB1[i] = Math.cos(x * 0.006);
-      sA2[i] = Math.sin(a2); cA2[i] = Math.cos(a2);
-      sB2[i] = Math.sin(b2); cB2[i] = Math.cos(b2);
     }
   }
 
@@ -194,31 +157,20 @@
        front below, so the crest visibly drives the expansion. Either way
        it runs past 1 at the end, so the dots are still spreading — and
        thinning, via the size falloff below — as the opacity runs down. */
-    var kGather = HOLD + (1 - HOLD) * (T < GATHER ? 1 - enter(T / GATHER) : 0);
+    var kGather = T < GATHER ? 1 - enter(T / GATHER) : 0;
     var kExit = T > SCATTER ? EXIT_K * (T - SCATTER) / (TOTAL - SCATTER) : 0;
-    /* The field unwinds on the way in and spirals back out on the way out.
-       kGather bottoms out at HOLD, so the exit spiral starts from there —
-       starting it from zero would snap the held swirl straight in one frame. */
-    var spin = 0.55 * (kGather - kExit);
+    /* the field unwinds on the way in and spirals back out on the way out */
+    var spin = 0.55 * (T < GATHER ? kGather : -kExit);
     var cs = Math.cos(spin), sn = Math.sin(spin);
 
     /* breathing only once the face has formed, gone again before it leaves */
     var breathe = wave((T - GATHER * 0.5) / 1.6) * (1 - wave((T - (SCATTER - 0.6)) / 1.4));
     var bAmp = 0.24 * breathe, bMove = 1.6 * breathe;
-    var bR = TAU * T * 0.3, bX = TAU * T * 0.16, bY = TAU * T * 0.13;
-    var sbR = Math.sin(bR), cbR = Math.cos(bR), sbX = Math.sin(bX), cbX = Math.cos(bX);
-    var sbY = Math.sin(bY), cbY = Math.cos(bY);
-
-    /* the flow is always on, easing in with the gather */
-    var fEnv = 0.35 + 0.65 * wave(T / GATHER);
-    var flow = FLOW * fEnv, flow2 = FLOW2 * fEnv;
-    var fT1 = T * 0.22, fT2 = T * 0.19, fT3 = T * 0.45, fT4 = T * 0.38;
-    var s1 = Math.sin(fT1), c1 = Math.cos(fT1), s2 = Math.sin(fT2), c2 = Math.cos(fT2);
-    var s3 = Math.sin(fT3), c3 = Math.cos(fT3), s4 = Math.sin(fT4), c4 = Math.cos(fT4);
+    var bR = TAU * T * 0.42, bX = TAU * T * 0.23, bY = TAU * T * 0.19;
 
     /* one crest, travelling out once — no second wrapped cycle */
     var rip = (T > RIP_A && T < RIP_FADE + 0.9)
-      ? wave((T - RIP_A) / 0.9) * (1 - wave((T - RIP_FADE) / 0.9))
+      ? wave((T - RIP_A) / 0.5) * (1 - wave((T - RIP_FADE) / 0.9))
       : 0;
     var crest = (T - RIP_A) * CREST_SPEED - CREST_HEAD;
     /* the release front, trailing the crest, is what lets each dot go */
@@ -266,16 +218,11 @@
     for (var i = 0; i < N; i += stride) {
       var x = dx[i], y = dy[i], rs = 1;
 
-      /* slow flow field: each axis is steered by the other, so the drift
-         curls instead of sliding the whole field one way */
-      x += flow * (sA1[i] * c1 + cA1[i] * s1) + flow2 * (sA2[i] * c3 + cA2[i] * s3);
-      y += flow * (cB1[i] * c2 + sB1[i] * s2) + flow2 * (cB2[i] * c4 + sB2[i] * s4);
-
       /* breathing size wave travelling up the portrait */
       if (breathe > 0.001) {
-        rs += bAmp * (sbR * cBre[i] + cbR * sBre[i]);
-        x += bMove * (sbX * cPh[i] + cbX * sPh[i]);
-        y += bMove * (cbY * cPh[i] - sbY * sPh[i]);
+        rs += bAmp * Math.sin(bR + dBre[i]);
+        x += bMove * Math.sin(bX + dPh[i]);
+        y += bMove * Math.cos(bY + dPh[i]);
       }
 
       /* radial ripples */
@@ -293,7 +240,7 @@
       var k = kGather;
       if (kExit > 0) {
         var rel = (releaseAt - dDist[i]) * (1 / RELEASE_SOFT);
-        k = HOLD + kExit * (rel < 0 ? 0 : (rel > 1 ? 1 : rel));
+        k = kExit * (rel < 0 ? 0 : (rel > 1 ? 1 : rel));
       }
       if (k > 0) {
         var tx = dSx[i] - CX, ty = dSy[i] - CY;
@@ -320,7 +267,7 @@
 
       var r = dr[i] * rBoost * rs;
       if (r < minR || x < bx0 || x > bx1 || y < by0 || y > by1) continue;
-      if (env > 0.5 || (k - HOLD > 0.15 && dH3[i] > 0.93)) {
+      if (env > 0.5 || (k > 0.15 && dH3[i] > 0.93)) {
         accX[accN] = x; accY[accN] = y; accR[accN] = r; accN++;
       } else {
         ctx.moveTo(x + r, y);
@@ -361,7 +308,7 @@
   function onLeave() { mWanted = 0; }
 
   /* ---- run once, then leave --------------------------------- */
-  var T = 0, last = 0, rafId = 0, fading = false, done = false, dtS = 1 / 60;
+  var T = 0, last = 0, rafId = 0, fading = false, done = false;
 
   /* The layer is fixed, so gate on the hero instead: scroll past it
      mid-intro and the dots stop rather than washing over the work grid. */
@@ -396,11 +343,7 @@
     if (!last) last = ts;
     var dtMs = ts - last;
     last = ts;
-    /* Advance on a lightly smoothed step: rAF delivery is never perfectly
-       even, and feeding its jitter straight into T shows up as the field
-       lurching. The clamp still survives a backgrounded tab. */
-    if (dtMs > 0) dtS += (Math.min(dtMs / 1000, 0.05) - dtS) * 0.25;
-    T += dtS;
+    T += Math.min(dtMs / 1000, 0.05);   /* survive a backgrounded tab */
     watch(dtMs);
 
     emx += (mx - emx) * 0.25;

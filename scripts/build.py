@@ -18,8 +18,6 @@ import os
 import re
 import sys
 
-from showcase import out_name as showcase_out_name
-
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'data', 'projects.json')
 SITE = 'https://www.poncedesign.com'
@@ -160,39 +158,6 @@ def card(p, size):
         </a>
       </article>
 '''
-
-
-def build_showcase(items, projects):
-    """Hero carousel slides, from the "showcase" list in projects.json.
-
-    Each slide is a secondary image from inside a case study (never the grid
-    thumbnail) and opens the top of that case study. The picture is the
-    pre-rendered 16:9 detail from scripts/showcase.py (zoomed around the
-    entry's `focus`, resampled and sharpened), shown at native size. The
-    first three are in view on load, so only the rest are lazy."""
-    by_slug = {p['slug']: p for p in projects}
-    out = []
-    for i, it in enumerate(items):
-        p = by_slug[it['slug']]
-        rel = 'assets/img/showcase/' + showcase_out_name(it)
-        if not os.path.exists(os.path.join(ROOT, rel)):
-            sys.exit('missing %s: run python3 scripts/showcase.py first' % rel)
-        if rel.endswith('.svg'):
-            with open(os.path.join(ROOT, rel), encoding='utf-8') as f:
-                head = f.read(400)
-            iw = int(re.search(r'width="(\d+)"', head).group(1))
-            ih = int(re.search(r'height="(\d+)"', head).group(1))
-        else:
-            iw, ih = img_size(os.path.join(ROOT, rel))
-        loading = '' if i < 3 else ' loading="lazy"'
-        out.append(f'''          <div class="sc-slide" role="group" aria-roledescription="slide" aria-label="{i + 1} of {len(items)}" data-title="{esc(it['name'])}">
-            <a href="work/{p['slug']}.html" aria-label="{esc(it['name'])} — {esc(p['title'])} case study">
-              <img src="{rel}" alt="" width="{iw}" height="{ih}"{loading} decoding="async">
-              <span class="sc-cap" aria-hidden="true"><span class="cli">{esc(p['client'])} · {esc(p['title'])}</span><span class="ttl">{esc(it['name'])}</span></span>
-            </a>
-          </div>
-''')
-    return ''.join(out)
 
 
 def build_grid(projects):
@@ -474,6 +439,7 @@ def case_page(p, prev_p, next_p):
     <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
       <span class="dot" aria-hidden="true"></span>
       <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
+      <span class="sub">Product Design</span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="../index.html#work">Work</a>
@@ -481,7 +447,7 @@ def case_page(p, prev_p, next_p):
       <a href="../index.html#about">About</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
-    <a class="btn ghost" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
+    <a class="btn" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
       Let's talk <span class="arw" aria-hidden="true">→</span>
     </a>
     <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
@@ -635,11 +601,6 @@ def main():
         r'<!--GRID:START-->.*?<!--GRID:END-->',
         '<!--GRID:START-->\n' + build_grid(projects) + '<!--GRID:END-->',
         idx, flags=re.S)
-    if '<!--SHOWCASE:START-->' in idx and data.get('showcase'):
-        idx = re.sub(
-            r'<!--SHOWCASE:START-->.*?<!--SHOWCASE:END-->',
-            '<!--SHOWCASE:START-->\n' + build_showcase(data.get('showcase', []), projects) + '<!--SHOWCASE:END-->',
-            idx, flags=re.S)
     if '<!--CRAFT:START-->' in idx:
         idx = re.sub(
             r'<!--CRAFT:START-->.*?<!--CRAFT:END-->',

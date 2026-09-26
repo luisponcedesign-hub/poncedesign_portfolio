@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" width="1440" height="810" shape-rendering="geometricPrecision">
-<rect width="100%" height="100%" fill="#eaeaea"/>
-<path fill="#ffffff" stroke="#ffffff" stroke-width="0.6" stroke-linejoin="round" fill-rule="evenodd" d="M113.1 0.1L0.0 0.2L0.0 345.0L0.0 689.8L278.4 689.9Q556.8 690.0 557.4 689.6L558.0 689.2L558.0 344.8L558.0 0.2L392.1 0.1Q226.2 0.0 113.1 0.1ZM49.1 698.6L0.0 698.8L0.1 754.4L0.2 810.0L720.1 809.9L1440.0 809.8L1439.9 754.1L1439.8 698.5L769.0 698.5Q98.2 698.5 49.1 698.6Z"/>
-<path fill="#c4c4c4" stroke="#c4c4c4" stroke-width="0.6" stroke-linejoin="round" fill-rule="evenodd" d="M632.2 696.0L0.2 696.0L0.1 694.6L0.0 693.2L279.4 693.1Q558.8 693.0 559.8 692.5Q560.8 692.0 1000.2 692.0L1439.8 692.0L1439.8 694.0L1439.8 696.0L1352.0 696.0Q1264.2 696.0 632.2 696.0Z"/>
-<path fill="#fdfdfd" stroke="#fdfdfd" stroke-width="0.6" stroke-linejoin="round" fill-rule="evenodd" d="M6.0 697.5L0.2 697.5L0.2 698.0L0.2 698.5L720.1 698.4L1440.0 698.2L1439.9 697.9L1439.8 697.5L725.8 697.5Q11.8 697.5 6.0 697.5ZM240.1 690.1L0.0 690.2L0.1 690.6L0.2 691.0L279.2 691.0Q558.2 691.0 558.9 690.6Q559.5 690.2 559.8 689.8Q560.0 689.2 559.9 344.6L559.8 0.0L558.9 0.1L558.0 0.2L558.0 344.8L558.0 689.2L557.4 689.6Q556.8 690.0 518.5 690.0Q480.2 690.0 240.1 690.1Z"/>
-</svg>
