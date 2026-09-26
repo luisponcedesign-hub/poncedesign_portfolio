@@ -354,7 +354,7 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .showcase{ position:relative; margin-top:20px; }
 .sc-view{
   position:relative; overflow:hidden; border-radius:var(--r-md);
-  height:clamp(220px, min(28vw, 40vh), 380px);
+  height:clamp(154px, min(19.6vw, 28vh), 266px);
 }
 .sc-track{
   display:flex; gap:var(--gap); height:100%;
@@ -364,7 +364,6 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .sc-slide a{
   position:relative; display:block; height:100%; overflow:hidden;
   border-radius:var(--r-md); background:var(--bg-tint);
-  border:1px solid var(--line);
 }
 .sc-slide img{
   display:block; width:100%; height:100%; object-fit:cover; object-position:center top;
@@ -406,7 +405,9 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow-md);
 }
 .sc-next:hover{ transform:translateX(3px); }
-.sc-ctrl{ display:none; align-items:center; justify-content:flex-start; gap:14px; margin-top:18px; padding-left:8px; }
+.sc-ctrl{ display:none; align-items:center; justify-content:flex-start; gap:14px; margin-top:18px;
+  /* right: 16px to the last visible dot, less the half hit area around it */
+  padding:0 calc(16px - (20px - 7px) / 2) 0 8px; }
 .js .sc-ctrl{ display:flex; }
 .sc-play{
   width:34px; height:34px; flex:none;
@@ -416,7 +417,8 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .sc-play .i-play{ display:none; margin-left:2px; }
 .sc-play[data-state="paused"] .i-pause{ display:none; }
 .sc-play[data-state="paused"] .i-play{ display:block; }
-.sc-dots{ display:flex; flex-wrap:wrap; align-items:center; }
+/* The dots spread across the rest of the row, ending 16px in from the carousel edge. */
+.sc-dots{ display:flex; flex:1; flex-wrap:wrap; align-items:center; justify-content:space-between; }
 .sc-dots button{
   display:grid; place-items:center; width:20px; height:24px;
   padding:0; border:0; background:none; cursor:pointer;
@@ -431,9 +433,9 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .sc-dots button[aria-current="true"]::before{ width:24px; background:var(--grad); }
 @media (max-width:620px){
   .hero-in{ --per:1.25; --gap:12px; }
-  .sc-view{ height:clamp(200px, 60vw, 300px); }
+  .sc-view{ height:clamp(140px, 42vw, 210px); }
   .sc-next{ width:44px; height:44px; margin-top:-22px; right:12px; }
-  .sc-ctrl{ gap:10px; }
+  .sc-ctrl{ gap:10px; padding-right:calc(16px - (12px - 6px) / 2); }
   .sc-dots{ flex-wrap:nowrap; }
   .sc-dots button{ width:12px; }
   .sc-dots button::before{ width:6px; height:6px; }
