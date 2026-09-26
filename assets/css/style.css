@@ -379,8 +379,10 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .sc-cap .ttl{ font-size:1.02rem; font-weight:600; letter-spacing:-.01em; line-height:1.25; }
 .sc-slide a:hover .sc-cap,
 .sc-slide a:focus-visible .sc-cap{ opacity:1; transform:none; }
-/* No hover on touch screens: keep the name up so it is still discoverable. */
-@media (hover:none){ .sc-cap{ opacity:1; transform:none; } }
+/* Phones and touch screens never show the caption: there is no hover to
+   reveal it, and a permanent label would cover the image. The slide's name
+   stays available to assistive tech through the link's aria-label. */
+@media (hover:none), (max-width:620px){ .sc-cap{ display:none; } }
 
 .sc-next{
   display:none; place-items:center; padding:0; cursor:pointer;
