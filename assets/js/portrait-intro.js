@@ -62,19 +62,32 @@
      release front follows it: a dot only comes loose once the crest has
      passed it. So the expansion propagates outward from the centre in
      the wave's wake instead of the whole field letting go at once.     */
-  var GATHER   = 4.0;   /* dispersed field eases into the portrait   */
-  var RIP_A    = 7.0;   /* the crest leaves the face                 */
-  var RIP_FADE = 8.7;   /* …and is clear of the field, so it fades   */
-  var CREST_SPEED = 560;  /* portrait units per second               */
+  var GATHER   = 5.6;   /* dispersed field eases into the portrait   */
+  var RIP_A    = 9.4;   /* the crest leaves the face                 */
+  var RIP_FADE = 11.6;  /* …and is clear of the field, so it fades   */
+  var CREST_SPEED = 430;  /* portrait units per second               */
   var CREST_HEAD  = 120;  /* crest starts this far inside the centre */
   var RELEASE_LAG  = 120; /* the front trails the crest by this much */
   var RELEASE_SOFT = 220; /* …and hands each dot over this smoothly  */
-  var SCATTER = 7.2;    /* first dots let go, right behind the crest */
-  var TOTAL   = 15.0;
+  var SCATTER = 9.6;    /* first dots let go, right behind the crest */
+  var TOTAL   = 20.0;
   var EXIT_K  = 1.5;    /* dots overshoot their scatter positions so
                            they keep expanding while they fade        */
-  var OUT_AT  = 9.2;    /* front has swept the field; fade from here  */
-  var FADE_OUT = TOTAL - OUT_AT; /* 5.8s — matches the CSS .is-out    */
+  var OUT_AT  = 12.4;   /* front has swept the field; fade from here  */
+  var FADE_OUT = TOTAL - OUT_AT; /* 7.6s — matches the CSS .is-out    */
+
+  /* Abstraction. The portrait is only the seed of a drifting cloud: the
+     field never finishes gathering (HOLD keeps a good share of the
+     unwound swirl), two layers of flow keep it billowing — a broad,
+     slow swell plus a finer curl — and the middle is opened up (SPREAD
+     pushes it apart, THIN shrinks its dots) so the centre is airy
+     rather than a dense mass. */
+  var HOLD   = 0.3;     /* share of the dispersal that never resolves  */
+  var FLOW   = 34;      /* broad swell, portrait units (grid step 13)  */
+  var FLOW2  = 12;      /* finer curl riding on top of it              */
+  var SPREAD = 0.42;    /* middle pushed out by up to this fraction    */
+  var THIN   = 0.5;     /* middle dots shrink by up to this fraction   */
+  var MID_R  = 420;     /* radius of the opened-up middle              */
 
   /* Quality tiers, best first. `stride` skips dots; `rBoost` fattens the
      survivors so the field keeps its ink weight when it does. Primitive
@@ -93,7 +106,9 @@
 
   function clamp(n, a, b) { return n < a ? a : (n > b ? b : n); }
   function hash(i, s) { var v = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453; return v - Math.floor(v); }
-  function enter(t) { return 1 - Math.pow(1 - clamp(t, 0, 1), 3); }
+  /* smootherstep: zero velocity and acceleration at both ends, so the
+     gather has no visible start or stop */
+  function enter(t) { t = clamp(t, 0, 1); return t * t * t * (t * (t * 6 - 15) + 10); }
   function wave(t)  { return 0.5 - 0.5 * Math.cos(Math.PI * clamp(t, 0, 1)); }
 
   /* ---- per-dot statics, built once the page is quiet ------- */
@@ -109,12 +124,16 @@
     for (var i = 0; i < N; i++) {
       var src = D.dots[i];
       var x = src[0], y = src[1];
+      /* open up the middle: push out and thin, fading to nothing by MID_R */
+      var d0 = Math.hypot(x - CX, y - CY), g = Math.exp(-(d0 / MID_R) * (d0 / MID_R));
+      x = CX + (x - CX) * (1 + SPREAD * g);
+      y = CY + (y - CY) * (1 + SPREAD * g);
       var dist = Math.hypot(x - CX, y - CY);
       var ang  = Math.atan2(y - CY, x - CX);
       var h1 = hash(i, 1), h2 = hash(i, 2), h3 = hash(i, 3);
       var sang  = ang + 0.75 + h1 * 0.7;
       var sdist = dist * 1.06 + 70 + h2 * 250;
-      dx[i] = x; dy[i] = y; dr[i] = src[2];
+      dx[i] = x; dy[i] = y; dr[i] = src[2] * (1 - THIN * g);
       dDist[i] = dist; dCos[i] = Math.cos(ang); dSin[i] = Math.sin(ang);
       dSx[i] = CX + Math.cos(sang) * sdist;
       dSy[i] = CY + Math.sin(sang) * sdist * 0.88;
@@ -157,7 +176,7 @@
        front below, so the crest visibly drives the expansion. Either way
        it runs past 1 at the end, so the dots are still spreading — and
        thinning, via the size falloff below — as the opacity runs down. */
-    var kGather = T < GATHER ? 1 - enter(T / GATHER) : 0;
+    var kGather = HOLD + (1 - HOLD) * (T < GATHER ? 1 - enter(T / GATHER) : 0);
     var kExit = T > SCATTER ? EXIT_K * (T - SCATTER) / (TOTAL - SCATTER) : 0;
     /* the field unwinds on the way in and spirals back out on the way out */
     var spin = 0.55 * (T < GATHER ? kGather : -kExit);
@@ -166,11 +185,16 @@
     /* breathing only once the face has formed, gone again before it leaves */
     var breathe = wave((T - GATHER * 0.5) / 1.6) * (1 - wave((T - (SCATTER - 0.6)) / 1.4));
     var bAmp = 0.24 * breathe, bMove = 1.6 * breathe;
-    var bR = TAU * T * 0.42, bX = TAU * T * 0.23, bY = TAU * T * 0.19;
+    var bR = TAU * T * 0.3, bX = TAU * T * 0.16, bY = TAU * T * 0.13;
+
+    /* the flow is always on, easing in with the gather */
+    var fEnv = 0.35 + 0.65 * wave(T / GATHER);
+    var flow = FLOW * fEnv, flow2 = FLOW2 * fEnv;
+    var fT1 = T * 0.22, fT2 = T * 0.19, fT3 = T * 0.45, fT4 = T * 0.38;
 
     /* one crest, travelling out once — no second wrapped cycle */
     var rip = (T > RIP_A && T < RIP_FADE + 0.9)
-      ? wave((T - RIP_A) / 0.5) * (1 - wave((T - RIP_FADE) / 0.9))
+      ? wave((T - RIP_A) / 0.9) * (1 - wave((T - RIP_FADE) / 0.9))
       : 0;
     var crest = (T - RIP_A) * CREST_SPEED - CREST_HEAD;
     /* the release front, trailing the crest, is what lets each dot go */
@@ -218,6 +242,11 @@
     for (var i = 0; i < N; i += stride) {
       var x = dx[i], y = dy[i], rs = 1;
 
+      /* slow flow field: each axis is steered by the other, so the drift
+         curls instead of sliding the whole field one way */
+      x += flow * Math.sin(dy[i] * 0.005 + fT1) + flow2 * Math.sin(dy[i] * 0.021 + fT3 + dPh[i] * 0.5);
+      y += flow * Math.cos(dx[i] * 0.006 - fT2) + flow2 * Math.cos(dx[i] * 0.019 - fT4 + dPh[i] * 0.5);
+
       /* breathing size wave travelling up the portrait */
       if (breathe > 0.001) {
         rs += bAmp * Math.sin(bR + dBre[i]);
@@ -240,7 +269,7 @@
       var k = kGather;
       if (kExit > 0) {
         var rel = (releaseAt - dDist[i]) * (1 / RELEASE_SOFT);
-        k = kExit * (rel < 0 ? 0 : (rel > 1 ? 1 : rel));
+        k = HOLD + kExit * (rel < 0 ? 0 : (rel > 1 ? 1 : rel));
       }
       if (k > 0) {
         var tx = dSx[i] - CX, ty = dSy[i] - CY;
@@ -267,7 +296,7 @@
 
       var r = dr[i] * rBoost * rs;
       if (r < minR || x < bx0 || x > bx1 || y < by0 || y > by1) continue;
-      if (env > 0.5 || (k > 0.15 && dH3[i] > 0.93)) {
+      if (env > 0.5 || (k - HOLD > 0.15 && dH3[i] > 0.93)) {
         accX[accN] = x; accY[accN] = y; accR[accN] = r; accN++;
       } else {
         ctx.moveTo(x + r, y);

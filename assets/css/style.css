@@ -164,10 +164,6 @@ ul{ margin:0; padding:0; list-style:none; }
   padding-left:11px; margin-left:2px; border-left:1px solid var(--line-strong);
 }
 
-/* Logo and availability pill share the left slot of the bar. */
-.hdr-id{ display:flex; align-items:center; gap:18px; min-width:0; }
-.hdr-id .avail{ padding:6px 13px; font-size:.64rem; white-space:nowrap; }
-
 .nav{ display:flex; align-items:center; gap:6px; }
 .nav a{
   position:relative; font-size:.92rem; font-weight:500; color:var(--ink-2);
@@ -305,6 +301,23 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
   gap:14px 24px;
 }
+/* The pill centres on the name line; the eyebrow's own bottom margin
+   would pull that centre down, and the pill already sets the row height. */
+.hero-top .eyebrow{ margin-bottom:0; }
+/* Same width as the visible part of the carousel's last panel: the row
+   is as wide as the carousel, minus two full slides and their gaps. */
+@media (min-width:621px){
+  .hero-top .avail{
+    width:calc(100% - 2 * (100% - 2 * var(--gap)) / var(--per) - 2 * var(--gap));
+    text-align:center; white-space:nowrap; padding-inline:6px;
+    /* One line at any width: the label is ~10.6em of mono caps (with the
+       tightened word spacing), sized against 11.7em so the sides keep
+       some air. The pill is ~21.5% of the row, so the type scales with
+       the row (cqi) and caps at the standard pill size. */
+    font-size:clamp(.5rem, calc((21.5cqi - 20px) / 11.7), .72rem);
+  }
+  .hero-top{ container-type:inline-size; }
+}
 .hero h1{ margin:20px 0 0; }
 /* char-split animation */
 .line{ display:block; overflow:hidden; padding-bottom:.06em; }
@@ -335,7 +348,10 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
    Two full panels and a narrower third that peeks in from the
    right edge — the triptych. Every slide is the same width; the
    view clips the third, so a one-slide translate keeps the rhythm. */
-.showcase{ --per:2.55; --gap:16px; position:relative; margin-top:20px; }
+/* --per and --gap live on .hero-in so the hero row can size the
+   availability pill to the carousel's third, peeking panel. */
+.hero-in{ --per:2.55; --gap:16px; }
+.showcase{ position:relative; margin-top:20px; }
 .sc-view{
   position:relative; overflow:hidden; border-radius:var(--r-md);
   height:clamp(220px, min(28vw, 40vh), 380px);
@@ -414,7 +430,7 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
 .sc-dots button[aria-current="true"]{ width:34px; }
 .sc-dots button[aria-current="true"]::before{ width:24px; background:var(--grad); }
 @media (max-width:620px){
-  .showcase{ --per:1.25; --gap:12px; }
+  .hero-in{ --per:1.25; --gap:12px; }
   .sc-view{ height:clamp(200px, 60vw, 300px); }
   .sc-next{ width:44px; height:44px; margin-top:-22px; right:12px; }
   .sc-ctrl{ gap:10px; }
@@ -456,8 +472,15 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   color:var(--ink-2); background:var(--surface);
   border:1px solid var(--line); border-radius:100px; padding:7px 15px;
   box-shadow:var(--shadow-sm);
+  /* A mono space plus tracking reads as a gap; pull the words together. */
+  word-spacing:-.38em;
 }
 .avail .hl{ color:var(--orange); font-weight:600; }
+a.avail{
+  transition:border-color var(--t-fast) var(--ease), box-shadow var(--t-med) var(--ease),
+             transform var(--t-fast) var(--ease);
+}
+a.avail:hover{ border-color:var(--orange); box-shadow:var(--shadow-md); transform:translateY(-1px); }
 
 .scroll-hint{
   /* Sits in the hero-sub flex row so it tracks the CTA buttons' baseline
@@ -1153,7 +1176,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   position:fixed; inset:0; z-index:1;
   pointer-events:none; opacity:0;
   /* slow arrival, slower exit — durations are mirrored in portrait-intro.js */
-  transition:opacity 4.2s var(--ease-out);
+  transition:opacity 5.6s var(--ease-out);
   /* One masked layer, not two stacked ones: the canvas repaints every
      frame, and each masked layer costs its own compositing pass. */
   -webkit-mask-image:radial-gradient(ellipse 78% 82% at 50% 48%,#000 55%,transparent 100%);
@@ -1162,7 +1185,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 }
 .portrait-intro canvas{ display:block; width:100%; height:100%; }
 .portrait-intro.is-in{ opacity:.1; }
-.portrait-intro.is-out{ opacity:0; transition:opacity 5.8s linear; }
+.portrait-intro.is-out{ opacity:0; transition:opacity 7.6s cubic-bezier(.45,0,.55,1); }
 /* Phones do not get the intro at all — see portrait-intro.js */
 @media (max-width:900px){ .portrait-intro{ display:none; } }
 
@@ -1230,8 +1253,6 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   /* margin-top drops the lead clear of the rotating role; the gap gives
      back the same 16 so the buttons keep their position. */
   .hero-sub{ margin-top:50px; gap:106px; }
-  .hdr-id{ gap:12px; }
-  .hdr-id .avail{ padding:5px 10px; font-size:.58rem; letter-spacing:.1em; }
   .mark .sub{ display:none; }
   .filters{ gap:7px; }
   .chip{ padding:8px 13px; font-size:.68rem; }
