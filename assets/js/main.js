@@ -921,9 +921,9 @@
      Clones of the first few slides trail the track, so stepping past
      the last slide slides onto a copy of the first and then snaps back
      to the real one with no visible jump. Rotation holds while the
-     pointer or focus is on it, while it is off-screen or the tab is
-     hidden, and whenever the visitor pauses it. Reduced motion starts
-     paused. Like the role words, it runs during the dot intro: the
+     pointer or focus is on it, and while it is off-screen or the tab
+     is hidden. Under reduced motion it never advances on its own; the
+     dots and the next arrow still move it. Like the role words, it runs during the dot intro: the
      slide is a compositor-only transform.
      ---------------------------------------------------------- */
   function showcase() {
@@ -933,7 +933,7 @@
     var track = $('.sc-track', root);
     var slides = $$('.sc-slide', track);
     var n = slides.length;
-    var next = $('.sc-next', root), play = $('.sc-play', root), dotsEl = $('.sc-dots', root);
+    var next = $('.sc-next', root), dotsEl = $('.sc-dots', root);
     if (n < 2) { root.classList.add('single'); return; }
 
     var DELAY = 5500;
@@ -954,7 +954,7 @@
       return b;
     });
 
-    var idx = 0, userPaused = reduced, hovering = false, focused = false, onScreen = true, timer = 0;
+    var idx = 0, hovering = false, focused = false, onScreen = true, timer = 0;
 
     function step() { return track.children[1].offsetLeft - track.children[0].offsetLeft; }
     function place(animate) {
@@ -975,18 +975,13 @@
       if (e.target === track && idx >= n) { idx -= n; place(false); }
     });
 
-    function running() { return !userPaused && !hovering && !focused && onScreen && !document.hidden; }
+    function running() { return !reduced && !hovering && !focused && onScreen && !document.hidden; }
     function schedule() {
       clearTimeout(timer);
       if (running()) timer = setTimeout(function () { go(idx + 1); }, DELAY);
     }
-    function setPlay() {
-      play.setAttribute('data-state', userPaused ? 'paused' : 'playing');
-      play.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
-    }
 
     next.addEventListener('click', function () { go(idx + 1); });
-    play.addEventListener('click', function () { userPaused = !userPaused; setPlay(); schedule(); });
     view.addEventListener('mouseenter', function () { hovering = true; schedule(); });
     view.addEventListener('mouseleave', function () { hovering = false; schedule(); });
     root.addEventListener('focusin', function (e) {
@@ -1013,42 +1008,12 @@
       }).observe(root);
     }
 
-    setPlay(); sync(); schedule();
-  }
-
-  /* ----------------------------------------------------------
-     19. Image deep links — #img-<file name> on a case study
-     The hero showcase links straight to an image inside a case study.
-     Hand-authored pages carry no ids, so match the fragment against
-     each image's file name instead, then scroll its figure clear of the
-     header and flash it once. Every <img> declares its size, so lazy
-     images above the target cannot shift it after the scroll.
-     ---------------------------------------------------------- */
-  function imageDeepLink() {
-    var m = /^#img-([\w-]+)$/.exec(location.hash);
-    if (!m) return;
-    var img = $$('img').filter(function (i) {
-      var file = (i.getAttribute('src') || '').split('/').pop().replace(/\.\w+$/, '');
-      return file === m[1];
-    })[0];
-    if (!img) return;
-    var fig = img.closest('figure') || img;
-    function jump() {
-      var y = fig.getBoundingClientRect().top + pageYOffset - 110;
-      scrollTo({ top: Math.max(0, y), behavior: 'auto' });
-    }
-    jump();
-    // fonts and the arrival curtain can still nudge layout; settle once more
-    addEventListener('load', jump, { once: true });
-    if (!reduced) {
-      fig.classList.add('deep-hit');
-      setTimeout(function () { fig.classList.remove('deep-hit'); }, 2600);
-    }
+    sync(); schedule();
   }
 
   /* ---------------------------------------------------------- */
   function init() {
-    imageDeepLink(); showcase(); splitHero(); roles(); progressBar(); header(); magnetic();
+    showcase(); splitHero(); roles(); progressBar(); header(); magnetic();
     reveals(); filters(); parallax(); counters(); drawer();
     spy(); transitions(); lightbox(); reel(); motionBg(); year();
     contactModal(); contactCta();

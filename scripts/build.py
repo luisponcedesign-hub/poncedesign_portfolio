@@ -164,20 +164,21 @@ def build_showcase(items, projects):
     """Hero carousel slides, from the "showcase" list in projects.json.
 
     Each slide is a secondary image from inside a case study (never the grid
-    thumbnail) and links to that image's place on the case study page: the
-    #img-<name> fragment is resolved by main.js, so hand-authored pages need
-    no ids. The first three are in view on load, so only the rest are lazy."""
+    thumbnail) and opens the top of that case study. `focus` is the detail
+    to zoom into, as x/y percentages of the image; the CSS draws the image
+    at 2x the frame, centred there. The first three are in view on load,
+    so only the rest are lazy."""
     by_slug = {p['slug']: p for p in projects}
     out = []
     for i, it in enumerate(items):
         p = by_slug[it['slug']]
         rel = 'assets/img/case/%s/%s' % (p['slug'], it['img'])
         iw, ih = img_size(os.path.join(ROOT, rel))
-        frag = 'img-' + os.path.splitext(it['img'])[0]
         loading = '' if i < 3 else ' loading="lazy"'
+        fx, fy = it.get('focus', [50, 50])
         out.append(f'''          <div class="sc-slide" role="group" aria-roledescription="slide" aria-label="{i + 1} of {len(items)}" data-title="{esc(it['name'])}">
-            <a href="work/{p['slug']}.html#{frag}" aria-label="{esc(it['name'])} — in the {esc(p['title'])} case study">
-              <img src="{rel}" alt="" width="{iw}" height="{ih}"{loading} decoding="async">
+            <a href="work/{p['slug']}.html" aria-label="{esc(it['name'])} — {esc(p['title'])} case study">
+              <img src="{rel}" alt="" width="{iw}" height="{ih}" style="--fx:{fx}%;--fy:{fy}%"{loading} decoding="async">
               <span class="sc-cap" aria-hidden="true"><span class="cli">{esc(p['client'])} · {esc(p['title'])}</span><span class="ttl">{esc(it['name'])}</span></span>
             </a>
           </div>
@@ -464,7 +465,6 @@ def case_page(p, prev_p, next_p):
     <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
       <span class="dot" aria-hidden="true"></span>
       <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
-      <span class="sub">Product Design</span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="../index.html#work">Work</a>
@@ -472,7 +472,7 @@ def case_page(p, prev_p, next_p):
       <a href="../index.html#about">About</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
-    <a class="btn" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
+    <a class="btn ghost" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
       Let's talk <span class="arw" aria-hidden="true">→</span>
     </a>
     <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">

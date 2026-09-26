@@ -30,102 +30,182 @@
     {
       "slug": "seismic-online-meetings",
       "img": "launch.jpg",
-      "name": "Launch at Petco Park"
-    },
-    {
-      "slug": "mobile-aura-voice",
-      "img": "podcast.png",
-      "name": "Aura podcast, generated from any page"
-    },
-    {
-      "slug": "integrations-app-exchange",
-      "img": "slack-05.jpg",
-      "name": "Programs in Slack"
-    },
-    {
-      "slug": "dexcom-g6-cgm",
-      "img": "journey-map.png",
-      "name": "Patient journey map"
-    },
-    {
-      "slug": "aura-chat-room",
-      "img": "product-02.jpg",
-      "name": "Ask Aura as shipped"
-    },
-    {
-      "slug": "vacasa-cx-innovation",
-      "img": "sprint-walls.jpg",
-      "name": "Two days of design sprint walls"
-    },
-    {
-      "slug": "seismic-learning-sessions",
-      "img": "seismic-personas.png",
-      "name": "Eight Seismic personas"
-    },
-    {
-      "slug": "seismic-video",
-      "img": "clips-02.jpg",
-      "name": "Create a clip from the playhead"
+      "name": "Launch at Petco Park",
+      "focus": [
+        50,
+        50
+      ]
     },
     {
       "slug": "viewpoint-submittals",
       "img": "story-map.jpg",
-      "name": "Submittals story map"
+      "name": "Submittals story map",
+      "focus": [
+        50,
+        50
+      ]
     },
     {
-      "slug": "seismic-workflow-approval",
-      "img": "sketch-workflows.jpg",
-      "name": "Interview notes turned into sketches"
-    },
-    {
-      "slug": "mobile-field-manager",
-      "img": "onboarding.png",
-      "name": "Three levels of in-app help"
-    },
-    {
-      "slug": "bcbsa-fep-member-statement",
-      "img": "quarterly-summary.png",
-      "name": "Quarterly summary chart"
-    },
-    {
-      "slug": "mobile-aura-voice",
-      "img": "mobile-rewards.jpg",
-      "name": "Mobile rewards, sketch to screen"
-    },
-    {
-      "slug": "vista-search",
-      "img": "advanced-boolean.png",
-      "name": "Advanced and Boolean search"
-    },
-    {
-      "slug": "seismic-online-meetings",
-      "img": "problem-hmw.jpg",
-      "name": "How might we: the brief"
-    },
-    {
-      "slug": "webmd-device-integration",
-      "img": "flow-connected.png",
-      "name": "Connected device tiles"
+      "slug": "seismic-video",
+      "img": "clips-02.jpg",
+      "name": "Create a clip from the playhead",
+      "focus": [
+        25,
+        25
+      ]
     },
     {
       "slug": "dexcom-g6-cgm",
       "img": "concept-insulin-pens.png",
-      "name": "Smart insulin pens concept"
+      "name": "Smart insulin pens concept",
+      "focus": [
+        50,
+        50
+      ]
+    },
+    {
+      "slug": "seismic-online-meetings",
+      "img": "meetings-hard.jpg",
+      "name": "Why meetings are hard to get right",
+      "focus": [
+        25,
+        50
+      ]
+    },
+    {
+      "slug": "integrations-app-exchange",
+      "img": "devportal-02.jpg",
+      "name": "Developer portal guides",
+      "focus": [
+        75,
+        25
+      ]
+    },
+    {
+      "slug": "seismic-workflow-approval",
+      "img": "sketch-workflows.jpg",
+      "name": "Interview notes turned into sketches",
+      "focus": [
+        75,
+        50
+      ]
+    },
+    {
+      "slug": "webmd-device-integration",
+      "img": "flow-entry.png",
+      "name": "Device Connection Center",
+      "focus": [
+        75,
+        75
+      ]
+    },
+    {
+      "slug": "aura-chat-room",
+      "img": "v2-01.jpg",
+      "name": "The Ask Aura card",
+      "focus": [
+        75,
+        25
+      ]
+    },
+    {
+      "slug": "seismic-online-meetings",
+      "img": "timeline.jpg",
+      "name": "Meetings product timeline",
+      "focus": [
+        50,
+        50
+      ]
+    },
+    {
+      "slug": "seismic-workflow-approval",
+      "img": "state-flow.jpg",
+      "name": "One engagement through every state",
+      "focus": [
+        75,
+        25
+      ]
+    },
+    {
+      "slug": "seismic-video",
+      "img": "chapters-01.jpg",
+      "name": "Chapters as a component set",
+      "focus": [
+        25,
+        75
+      ]
+    },
+    {
+      "slug": "viewpoint-submittals",
+      "img": "process-review.png",
+      "name": "The submittal review process",
+      "focus": [
+        25,
+        25
+      ]
+    },
+    {
+      "slug": "seismic-online-meetings",
+      "img": "final-search.jpg",
+      "name": "Speakers and topics on one timeline",
+      "focus": [
+        50,
+        25
+      ]
+    },
+    {
+      "slug": "seismic-workflow-approval",
+      "img": "pacific-life.jpg",
+      "name": "Why it mattered: Pacific Life",
+      "focus": [
+        25,
+        25
+      ]
+    },
+    {
+      "slug": "mobile-field-manager",
+      "img": "flow-delete.png",
+      "name": "Swipe to delete",
+      "focus": [
+        75,
+        50
+      ]
+    },
+    {
+      "slug": "viewpoint-submittals",
+      "img": "wire-responsive.png",
+      "name": "Submittal detail at phone width",
+      "focus": [
+        75,
+        25
+      ]
     },
     {
       "slug": "seismic-workflow-approval",
       "img": "approval-dashboard.jpg",
-      "name": "The compliance queue"
+      "name": "The compliance queue",
+      "focus": [
+        75,
+        25
+      ]
     },
     {
-      "slug": "vacasa-cx-innovation",
-      "img": "final-nudge.jpg",
-      "name": "Reservation timeline and nudge"
+      "slug": "vista-search",
+      "img": "advanced-boolean.png",
+      "name": "Advanced and Boolean search",
+      "focus": [
+        75,
+        50
+      ]
     },
     {
-      "slug": "viewpoint-submittals",
-      "img": "hifi-collage.jpg",
-      "name": "MyViewpoint final visual design"
+      "slug": "aura-chat-room",
+      "img": "product-02.jpg",
+      "name": "Ask Aura as shipped",
+      "focus": [
+        25,
+        50
+      ]
     }
   ],
   "projects": [
