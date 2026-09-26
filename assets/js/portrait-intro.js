@@ -82,7 +82,7 @@
      slow swell plus a finer curl — and the middle is opened up (SPREAD
      pushes it apart, THIN shrinks its dots) so the centre is airy
      rather than a dense mass. */
-  var HOLD   = 0.3;     /* share of the dispersal that never resolves  */
+  var HOLD   = 0.42;    /* share of the dispersal that never resolves  */
   var FLOW   = 34;      /* broad swell, portrait units (grid step 13)  */
   var FLOW2  = 12;      /* finer curl riding on top of it              */
   var SPREAD = 0.42;    /* middle pushed out by up to this fraction    */
