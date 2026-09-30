@@ -1228,7 +1228,7 @@ function renderFrames(){
 }
 function renderStage(){
   const f=frame(), s=st();
-  $('frameTitle').innerHTML='<span>'+(proj==='mobile'?'Seismic Mobile':'Exchange and Integrations')+'</span><span>/</span><b>'+f.name+'</b><span>'+(idx+1)+' of '+PROJECTS[proj].frames.length+'</span>';
+  $('frameTitle').innerHTML='<span>'+(proj==='mobile'?'Reimagining the mobile experience':'Exchange and Integrations')+'</span><span>/</span><b>'+f.name+'</b><span>'+(idx+1)+' of '+PROJECTS[proj].frames.length+'</span>';
   $('variants').innerHTML=(f.variants||[]).map(v=>'<button class="variant" data-var="'+v[0]+'" aria-pressed="'+(s.v===v[0])+'">'+v[1]+(v[2]?' <em>'+v[2]+'</em>':'')+'</button>').join('');
   const ae=document.activeElement, fid=ae&&ae.id&&$('stage').contains(ae)?ae.id:null;
   $('stage').innerHTML=f.render(s);

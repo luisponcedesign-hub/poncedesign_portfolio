@@ -646,7 +646,7 @@ footer a{color:var(--ink)}
   <div class="projects" role="tablist" aria-label="Case study">
     <button class="proj-tab" role="tab" id="tab-mobile" data-proj="mobile" aria-selected="true"><b>Reimagining the mobile experience</b><span>Navigation architecture that gave AI a place to live · 2025 to 2026</span></button>
     <button class="proj-tab" role="tab" id="tab-integrations" data-proj="integrations" aria-selected="false"><b>Exchange and Integrations</b><span>One horizontal platform across five surfaces · 2025</span></button>
-    <a class="other-cs" href="../mobile/">Next case study: Seismic Mobile →</a>
+    <a class="other-cs" href="../mobile/">Next case study: Reimagining the mobile experience →</a>
   </div>
 
   <div class="workspace" id="workspace">
@@ -1225,7 +1225,7 @@ function renderFrames(){
 }
 function renderStage(){
   const f=frame(), s=st();
-  $('frameTitle').innerHTML='<span>'+(proj==='mobile'?'Seismic Mobile':'Exchange and Integrations')+'</span><span>/</span><b>'+f.name+'</b><span>'+(idx+1)+' of '+PROJECTS[proj].frames.length+'</span>';
+  $('frameTitle').innerHTML='<span>'+(proj==='mobile'?'Reimagining the mobile experience':'Exchange and Integrations')+'</span><span>/</span><b>'+f.name+'</b><span>'+(idx+1)+' of '+PROJECTS[proj].frames.length+'</span>';
   $('variants').innerHTML=(f.variants||[]).map(v=>'<button class="variant" data-var="'+v[0]+'" aria-pressed="'+(s.v===v[0])+'">'+v[1]+(v[2]?' <em>'+v[2]+'</em>':'')+'</button>').join('');
   const ae=document.activeElement, fid=ae&&ae.id&&$('stage').contains(ae)?ae.id:null;
   $('stage').innerHTML=f.render(s);
