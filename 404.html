@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found · PonceDesign</title>
+<script>
+  // GitHub Pages paths are case sensitive and it serves no redirects, so a
+  // wrong-case link to the Rippling pages (/Rippling, /RIPPLING/mobile) lands
+  // here. Send it to the lowercase path the folder is actually served at.
+  (function () {
+    var p = location.pathname;
+    if (/^\/rippling(\/|$)/i.test(p) && !/^\/rippling(\/|$)/.test(p)) {
+      var fixed = p.toLowerCase();
+      if (!/\/$/.test(fixed) && !/\.html$/.test(fixed)) fixed += '/';
+      location.replace(fixed + location.search + location.hash);
+    }
+  })();
+</script>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 0 16px;
+         background: #FAF8F4; color: #1a1a1a; font: 16px/1.5 system-ui, -apple-system, sans-serif; }
+  a { color: #E8630B; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Page not found</h1>
+  <p><a href="/">Back to PonceDesign</a></p>
+</main>
+</body>
+</html>
