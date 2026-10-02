@@ -440,7 +440,6 @@ def case_page(p, prev_p, next_p):
     <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
       <span class="dot" aria-hidden="true"></span>
       <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
-      <span class="sub">Product Design</span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="../index.html#work">Work</a>

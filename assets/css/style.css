@@ -158,11 +158,6 @@ ul{ margin:0; padding:0; list-style:none; }
   width:11px; height:11px; border-radius:50%; background:var(--grad); flex:none;
 }
 .mark .nm{ font-size:.98rem; }
-.mark .sub{
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--ink-3); font-weight:400;
-  padding-left:11px; margin-left:2px; border-left:1px solid var(--line-strong);
-}
 
 .nav{ display:flex; align-items:center; gap:6px; }
 .nav a{
@@ -1124,7 +1119,6 @@ body.intro-running .mq-track{ animation-play-state:paused; }
      offset leaves the pill's layout box where it was, so the headline
      and everything under it hold the positions set above. */
   .avail{ position:relative; top:-32px; }
-  .mark .sub{ display:none; }
   .filters{ gap:7px; }
   .chip{ padding:8px 13px; font-size:.68rem; }
   /* tighter tracking so the location line holds one row on a 375px screen */

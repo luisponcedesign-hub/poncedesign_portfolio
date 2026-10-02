@@ -52,10 +52,11 @@
 
 /* ---------- Hero ---------- */
 .avail{ background:none; border:0; box-shadow:none; padding:0; border-radius:0; }
-.avail .hl::before{
-  content:''; display:inline-block; width:7px; height:7px; border-radius:50%;
-  background:var(--orange); margin-right:9px; vertical-align:1px;
-}
+/* The name line is a <p>, and its bottom margin rode inside the centred row,
+   lifting it ~6px above "Open to new work". Same size and line height on
+   both, so with the margin gone their baselines meet. Phones stack the two
+   and keep their own spacing (style.css, max-width:620px). */
+@media (min-width:621px){ .hero-top .eyebrow{ margin-bottom:0; } }
 .display{ font-weight:700; letter-spacing:-.05em; }
 .eyebrow::before{ height:1px; }
 
