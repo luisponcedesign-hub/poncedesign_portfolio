@@ -448,7 +448,7 @@ def case_page(p, prev_p, next_p):
       <a href="../index.html#about">About</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
-    <a class="btn" href="mailto:luisponcedesign@gmail.com" data-magnetic="0.25">
+    <a class="btn" href="mailto:luisponcedesign@gmail.com">
       Let's talk <span class="arw" aria-hidden="true">→</span>
     </a>
     <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">

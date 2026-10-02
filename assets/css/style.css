@@ -195,9 +195,7 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 .btn:hover::before{ transform:translateY(0); }
 .btn:hover{ color:var(--ink); border-color:transparent; }
-.btn:active{ transform:scale(.97); }
 .btn .arw{ transition:transform var(--t-med) var(--ease-out); }
-.btn:hover .arw{ transform:translateX(4px); }
 .btn.ghost{ background:transparent; color:var(--ink); border-color:var(--line-strong); }
 .btn.ghost:hover{ color:var(--ink); border-color:transparent; }
 .btn.lg{ padding:17px 30px; font-size:1rem; }
@@ -456,7 +454,6 @@ section{ position:relative; }
 .chip[aria-pressed="true"]{
   background:var(--ink); border-color:var(--ink); color:#fff;
 }
-.chip:active{ transform:scale(.95); }
 .chip em{ font-style:normal; opacity:.5; margin-left:6px; }
 
 .grid{
@@ -714,12 +711,12 @@ section{ position:relative; }
   .contact-cta.show .btn[data-contact-open]{ opacity:0; }
 }
 
-/* Logo links: 36×36 marks, no pill. The lift on hover carries over from the
-   old text buttons; focus-visible gives keyboard users the same cue. */
+/* Logo links: 36×36 marks, no pill. Hover dims rather than moves, so the row
+   stays still; focus-visible gives keyboard users the same cue. */
 .socials{ display:flex; flex-wrap:wrap; justify-content:center; gap:24px; margin-top:36px; }
 .socials a{
   display:block; width:36px; height:36px; border-radius:6px;
-  transition:transform var(--t-med) var(--ease-out), opacity var(--t-fast) var(--ease);
+  transition:opacity var(--t-fast) var(--ease);
   -webkit-tap-highlight-color:transparent;
 }
 .socials img{ display:block; width:100%; height:100%; object-fit:contain; }
@@ -727,8 +724,8 @@ section{ position:relative; }
    compositor layer and resamples the logos at fractional offsets. Drop it
    once revealed so they paint straight onto the pixel grid. */
 .js .socials[data-rv].seen{ will-change:auto; }
-.socials a:hover, .socials a:focus-visible{ transform:translateY(-3px); }
-.socials a:active{ transform:translateY(0); opacity:.7; }
+.socials a:hover, .socials a:focus-visible{ opacity:.7; }
+.socials a:active{ opacity:.5; }
 .socials a:focus-visible{ outline:2px solid var(--orange); outline-offset:4px; }
 
 /* ============================================================
@@ -743,7 +740,6 @@ section{ position:relative; }
 }
 .ftr-in a:hover{ color:var(--orange); }
 .to-top{ display:inline-flex; align-items:center; gap:8px; }
-.to-top:hover .arw{ transform:translateY(-3px); }
 .to-top .arw{ transition:transform var(--t-med) var(--ease-out); }
 
 /* ============================================================
@@ -757,7 +753,6 @@ section{ position:relative; }
 }
 .crumb:hover{ color:var(--orange); }
 .crumb .arw{ transition:transform var(--t-med) var(--ease-out); }
-.crumb:hover .arw{ transform:translateX(-4px); }
 .case-hero h1{ font-size:clamp(2.3rem,6.4vw,5rem); letter-spacing:-.04em; max-width:18ch; }
 .case-hero .lead{ max-width:60ch; margin-top:24px; }
 
@@ -868,7 +863,7 @@ section{ position:relative; }
   border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.08);
   transition:background-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
 }
-#lightbox .close:hover{ background:rgba(255,255,255,.2); transform:scale(1.06); }
+#lightbox .close:hover{ background:rgba(255,255,255,.2); }
 #lightbox .hint{
   position:fixed; bottom:clamp(12px,2vw,26px); left:0; right:0;
   text-align:center; color:rgba(255,255,255,.6);
@@ -1167,9 +1162,6 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .portrait.has-dots img{ opacity:1; }
 }
 
-/* magnetic elements — JS writes the translate, CSS eases the release */
-[data-magnetic]{ transition:transform .45s var(--ease-out); will-change:transform; }
-[data-magnetic].pulling{ transition:transform .1s linear; }
 
 /* ---- hero discipline line ---------------------------------- */
 .disciplines{
@@ -1273,7 +1265,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   font-size:.85rem; color:var(--muted); justify-self:end;
   transition:transform var(--t-med) var(--ease-out), color var(--t-fast) var(--ease);
 }
-.certlist a:hover .ca{ transform:translate(2px,-2px); color:var(--orange); }
+.certlist a:hover .ca{ color:var(--orange); }
 
 /* ---- motion (supporting note) ------------------------------ */
 .motion{
@@ -1356,7 +1348,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
   transition:background-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
 }
-.reel-sound:hover{ background:rgba(22,21,26,.82); transform:translateY(-2px); }
+.reel-sound:hover{ background:rgba(22,21,26,.82); }
 
 /* ---- design principles ------------------------------------- */
 .principles{

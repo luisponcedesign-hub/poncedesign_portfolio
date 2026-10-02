@@ -58,28 +58,6 @@
   }
 
   /* ----------------------------------------------------------
-     3. Magnetic elements  (fine pointers only)
-     ---------------------------------------------------------- */
-  function magnetic() {
-    if (reduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-    $$('[data-magnetic]').forEach(function (el) {
-      var strength = parseFloat(el.dataset.magnetic) || 0.32;
-      el.addEventListener('mousemove', function (e) {
-        var r = el.getBoundingClientRect();
-        var dx = e.clientX - (r.left + r.width / 2);
-        var dy = e.clientY - (r.top + r.height / 2);
-        el.classList.add('pulling');
-        el.style.transform = 'translate(' + (dx * strength) + 'px,' + (dy * strength) + 'px)';
-      });
-      el.addEventListener('mouseleave', function () {
-        el.classList.remove('pulling');
-        el.style.transform = '';
-      });
-    });
-  }
-
-  /* ----------------------------------------------------------
      4. Hero headline — split into characters, stagger in
      ---------------------------------------------------------- */
   function splitHero() {
@@ -918,7 +896,7 @@
 
   /* ---------------------------------------------------------- */
   function init() {
-    splitHero(); roles(); progressBar(); header(); magnetic();
+    splitHero(); roles(); progressBar(); header();
     reveals(); filters(); parallax(); counters(); drawer();
     spy(); transitions(); lightbox(); reel(); motionBg(); year();
     contactModal(); contactCta();
