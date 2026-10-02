@@ -23,6 +23,7 @@ assets/video/           optional showreel lives here
 data/projects.json      all project content   ← edit this
 scripts/build.py        generator
 assets/css/style.css    design tokens + all styles
+assets/css/swiss.css    Swiss surface layer, loaded after style.css
 assets/js/main.js       interaction layer
 assets/img/thumbs/      project imagery
 sitemap.xml             generated
@@ -87,6 +88,18 @@ Everything lives in the `:root` block at the top of `assets/css/style.css` — t
 grayscale ramp, the orange/yellow accents, the off-white surfaces, the type stack
 (Roboto, Roboto Condensed, Roboto Mono), the spacing rhythm and the easing curves.
 Change a token there and it propagates through both the home page and every case study.
+
+`assets/css/swiss.css` loads after `style.css` on every page and sets the current
+surface: white page, Helvetica, flush-left Swiss layout, tab-style buttons, orange
+only for labels and active states. It overrides tokens and surface rules only, so
+structure and behaviour still come from `style.css`. Delete its `<link>` to fall back
+to the original warm look.
+
+## Ideas sandbox
+
+`/ideas/` holds unlisted design experiments (noindex, disallowed in `robots.txt`,
+not in the sitemap; reachable by anyone with the URL). `ideas/build_variants.py`
+regenerates the home + case study variants from the live pages.
 
 ## The craft section
 

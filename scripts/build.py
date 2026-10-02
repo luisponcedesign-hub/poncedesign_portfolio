@@ -411,7 +411,7 @@ def case_page(p, prev_p, next_p):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{esc(p['title'])} — {esc(p['client'])} · Luis Ponce de León</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#FAF8F4">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="{SITE}/work/{p['slug']}.html">
 
 <meta property="og:type" content="article">
@@ -426,6 +426,7 @@ def case_page(p, prev_p, next_p):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/swiss.css">
 </head>
 
 <body>
