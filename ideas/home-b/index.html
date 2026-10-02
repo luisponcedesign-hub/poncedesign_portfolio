@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Home B — Halftone · Ideas</title>
+<meta name="theme-color" content="#000000">
+<link rel="stylesheet" href="../ideas.css">
+<style>
+/* Option B — Halftone.
+   The Masters of Computing grid, turned on the studio itself: Luis as the
+   first portrait in the series (his own halftone headshot), then every project as a halftone circle.
+   Hover swaps a circle for its name, exactly like the portraits. */
+
+.hero{
+  display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+  gap:clamp(1.5rem, 4vw, 4rem); align-items:end;
+  padding:clamp(2.5rem, 7vh, 5rem) var(--pad) 0;
+}
+.hero h1{
+  font-size:clamp(2.75rem, 7.6vw, 8.5rem);
+  line-height:.92; letter-spacing:-.04em;
+  margin-left:-.04em;
+}
+.hero .cap{ margin-top:1rem; display:block; }
+.lead{ max-width:30rem; margin-top:clamp(2rem, 6vh, 4rem); color:var(--gray); font-size:1.05rem; }
+.lead b{ color:var(--ink); font-weight:400; }
+.links{ display:flex; flex-wrap:wrap; gap:.75rem 1.75rem; margin-top:2rem; }
+.links a{
+  font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+  padding:.5rem 0; border-bottom:1px solid var(--dim);
+}
+.links a:hover{ border-color:var(--ink); }
+.links a.primary{ border-color:var(--ink); }
+
+.me{ position:relative; justify-self:end; width:min(100%, 640px); aspect-ratio:1; }
+.me img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; border-radius:50%; background:#fff; }
+.me figcaption{ position:absolute; right:0; bottom:-1.75rem; }
+
+/* Band of numbers */
+.band{
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  margin:clamp(4rem, 10vh, 7rem) var(--pad) 0;
+  border-top:1px solid var(--ink);
+}
+.band > div{ padding:1.25rem 0 0; }
+.band > div + div{ padding-left:1.25rem; border-left:1px solid var(--rule); }
+.band strong{ display:block; font-size:clamp(2.5rem, 6vw, 5.5rem); line-height:1; letter-spacing:-.045em; font-weight:600; }
+.band .cap{ display:block; margin-top:.6rem; }
+
+/* Work: the portrait grid */
+.work-hd{ padding:clamp(5rem, 14vh, 9rem) var(--pad) 36px; }
+.work-hd h2{ font-size:clamp(1.5rem, 4vw, 2.5rem); }
+.work-hd .cap{ display:block; margin-top:.5rem; font-size:.875rem; letter-spacing:.08em; }
+
+.grid{
+  --cols:3;
+  display:grid; grid-template-columns:repeat(var(--cols), 1fr);
+  gap:24px; padding:0 16px;
+  list-style:none; margin:0;
+}
+.grid a{ display:block; }
+.grid figure{ margin:0; }
+.disc{
+  position:relative; aspect-ratio:1; border-radius:50%; overflow:hidden; background:#000;
+}
+.disc canvas{ width:100%; height:100%; }
+.disc .nm{
+  position:absolute; inset:0; display:grid; place-content:center; gap:.6rem;
+  padding:14%; text-align:center; background:#000;
+  opacity:0; transition:opacity .18s ease;
+}
+.disc .nm b{ font-size:clamp(1rem, 2vw, 1.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.15; }
+.disc .nm span{ font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gray); }
+.grid a:hover .nm, .grid a:focus-visible .nm{ opacity:1; }
+.grid a:focus-visible{ outline:none; }
+.grid a:focus-visible .disc{ outline:2px solid var(--ink); outline-offset:-6px; }
+.grid figcaption{
+  display:flex; justify-content:space-between; gap:1rem;
+  padding:1rem 4px 0;
+  font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim);
+}
+.grid figcaption .t{ color:var(--gray); }
+
+/* About + contact, text only */
+.split{
+  display:grid; grid-template-columns:repeat(12, 1fr); gap:1.5rem;
+  padding:clamp(6rem, 16vh, 10rem) var(--pad) 0;
+}
+.split > .cap{ grid-column:1 / 4; padding-top:.5rem; }
+.split .big{ grid-column:4 / 11; font-size:clamp(1.6rem, 3.4vw, 3rem); line-height:1.08; letter-spacing:-.025em; font-weight:600; }
+.split .body{ grid-column:4 / 10; color:var(--gray); display:grid; gap:1rem; margin-top:.5rem; }
+.split .body a{ color:var(--ink); border-bottom:1px solid currentColor; justify-self:start; }
+
+.contact h2{
+  grid-column:4 / -1;
+  font-size:clamp(2.75rem, 9vw, 9rem); line-height:.92; letter-spacing:-.045em;
+}
+.contact h2 a{ border-bottom:.06em solid var(--ink); }
+.contact .links{ grid-column:4 / -1; }
+
+footer{
+  padding:clamp(5rem, 14vh, 8rem) var(--pad) 3rem;
+  font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--dim);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+}
+
+@media (max-width:900px){
+  .hero{ grid-template-columns:1fr; }
+  .me{ justify-self:stretch; width:100%; order:-1; }
+  .me figcaption{ display:none; }
+  .grid{ --cols:2; }
+  .split > .cap, .split .big, .split .body, .contact h2, .contact .links{ grid-column:1 / -1; }
+}
+@media (max-width:560px){
+  .grid{ --cols:1; }
+  .band{ grid-template-columns:1fr; }
+  .band > div + div{ padding-left:0; border-left:0; border-top:1px solid var(--rule); margin-top:1.25rem; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to work</a>
+
+<nav class="tabs" aria-label="Primary">
+  <a href="./" aria-current="page">PonceDesign</a>
+  <a href="#work">Work</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="../../PortraitProject/">Labs</a>
+</nav>
+
+<main>
+  <header class="hero">
+    <div>
+      <h1>Product design for 20+ years.</h1>
+      <span class="cap"><b>Luis Ponce de León</b> &nbsp;·&nbsp; Portland, OR &nbsp;·&nbsp; Open to new work</span>
+      <p class="lead"><b>PonceDesign is a design studio for digital products and AI,</b> shaping complex ideas into elegant, intuitive solutions. Depth in UX strategy, motion graphics, rich media and design systems.</p>
+      <div class="links">
+        <a class="primary" href="#work">See the work →</a>
+        <a href="mailto:luisponcedesign@gmail.com">Let's talk</a>
+      </div>
+    </div>
+    <figure class="me" style="margin:0">
+      <img src="../../assets/img/thumbs/lpl_headshot.jpg" alt="Halftone portrait of Luis Ponce de León" width="825" height="1100">
+      <figcaption class="cap">Ponce de León</figcaption>
+    </figure>
+  </header>
+
+  <div class="band">
+    <div><strong>20+</strong><span class="cap">Years in product design</span></div>
+    <div><strong>14</strong><span class="cap">Case studies</span></div>
+    <div><strong>12</strong><span class="cap">Brands, IBM to WIRED</span></div>
+  </div>
+
+  <section id="work" aria-labelledby="work-h">
+    <header class="work-hd">
+      <h2 id="work-h">Selected Work</h2>
+      <span class="cap">Product design · 2014–2026</span>
+    </header>
+    <ul class="grid" id="grid"></ul>
+  </section>
+
+  <section class="split" id="about" aria-labelledby="about-h">
+    <span class="cap" id="about-h">About</span>
+    <p class="big">Twenty years of making it legible. I design it, then I build it.</p>
+    <div class="body">
+      <p>SCAD, Razorfish, Viewpoint, WebMD, Vacasa and Seismic, for clients including IBM, Intel, WIRED, the American Red Cross, BlueCross BlueShield and GE. I lead medium-to-large UX projects, run research programs, and mentor the designers around me.</p>
+      <p>My MFA is in video, so motion keeps showing up in my product work as the fastest way to explain a system. I write my own front-end, so what I hand engineering I already know can be built.</p>
+      <a href="../../resume.html">Résumé →</a>
+    </div>
+  </section>
+
+  <section class="split contact" id="contact" aria-labelledby="contact-h">
+    <span class="cap">Contact</span>
+    <h2 id="contact-h"><a href="mailto:luisponcedesign@gmail.com">Let's talk.</a></h2>
+    <div class="links">
+      <a href="mailto:luisponcedesign@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/ponce/" rel="noopener">LinkedIn</a>
+      <a href="https://medium.com/@luisponcedesign" rel="noopener">Medium</a>
+      <a href="https://github.com/luisponcedesign-hub" rel="noopener">GitHub</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>PDL 2026</span>
+  <span>© Luis Ponce de León</span>
+</footer>
+
+<p class="ideas-badge">Idea · Home B — Halftone &nbsp;<a href="../">All ideas</a></p>
+
+<script src="../halftone.js"></script>
+<script>
+(function () {
+  "use strict";
+  var P = [
+    ["mobile-aura-voice","AI-Powered Mobile","Seismic",2026,"jpg"],
+    ["integrations-app-exchange","App Exchange & Integrations","Seismic",2025,"png"],
+    ["aura-chat-room","Ask Aura — AI Chat Room","Seismic",2024,"png"],
+    ["seismic-video","Video Foundation Service","Seismic",2024,"png"],
+    ["vacasa-cx-innovation","CX Innovation Roadmap + Sprint","Vacasa",2020,"png"],
+    ["seismic-learning-sessions","Learning Sessions — IA","Seismic",2023,"png"],
+    ["seismic-online-meetings","Seismic for Meetings","Seismic",2022,"png"],
+    ["seismic-workflow-approval","Approval Workflow","Seismic",2021,"jpg"],
+    ["dexcom-g6-cgm","Dexcom G6 — Journey + Device","Dexcom",2019,"png"],
+    ["viewpoint-submittals","Viewpoint Online — Submittals","Viewpoint",2018,"png"],
+    ["vista-search","Vista Search","Viewpoint",2016,"png"],
+    ["mobile-field-manager","Mobile Field Manager","Viewpoint",2016,"png"],
+    ["webmd-device-integration","WebMD — Device Integration","WebMD",2015,"jpg"],
+    ["bcbsa-fep-member-statement","FEP Member Statement","BlueCross BlueShield",2014,"png"]
+  ];
+  var grid = document.getElementById("grid");
+  grid.innerHTML = P.map(function (p, i) {
+    return '<li><a href="../../work/' + p[0] + '.html"><figure>' +
+      '<div class="disc"><canvas data-src="../../assets/img/thumbs/' + p[0] + '.' + p[4] + '"></canvas>' +
+      '<div class="nm"><b>' + p[1] + '</b><span>' + p[2] + ' · ' + p[3] + '</span></div></div>' +
+      '<figcaption><span class="t">' + String(i + 1).padStart(2, "0") + ' ' + p[2] + '</span><span>' + p[3] + '</span></figcaption>' +
+      '</figure></a></li>';
+  }).join("");
+
+  /* Render circles as they approach the viewport. */
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      halftone(e.target, e.target.dataset.src, { cell: 13, ref: 440, res: 120, gamma: 1.6 });
+    });
+  }, { rootMargin: "400px 0px" });
+  grid.querySelectorAll("canvas").forEach(function (c) { io.observe(c); });
+
+})();
+</script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /ideas/
 
 Sitemap: https://www.poncedesign.com/sitemap.xml

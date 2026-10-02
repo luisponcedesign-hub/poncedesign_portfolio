@@ -1,0 +1,166 @@
+/* ============================================================
+   /ideas — Swiss overrides for the live home page
+   Loaded after assets/css/style.css, so structure, copy and
+   behaviour stay the live site's; only the surface changes.
+   White page, black type, flush-left on the grid, hairline
+   rules, no blobs, gradients, shadows or rounded pills. Buttons
+   are the Masters of Computing tabs: tracked caps on a 1px rule.
+   Orange is the only colour, used for labels and active states.
+   html.v-c — Swiss, Roboto (the live About section's language)
+   html.v-d — Swiss, Helvetica (Masters of Computing), asymmetric hero
+   ============================================================ */
+:root{
+  --bg:#fff; --bg-tint:#f4f4f4; --surface:#fff;
+  --ink:#0e0e10; --ink-2:#3a3a3e; --ink-3:#6b6b70; --muted:#8a8a8e;
+  --line:#e6e6e6; --line-strong:#cfcfd2;
+  --grad:linear-gradient(var(--orange), var(--orange));
+  --r-sm:0; --r-md:0; --r-lg:0;
+  --shadow-sm:none; --shadow-md:none; --shadow-lg:none;
+}
+::selection{ background:var(--orange); color:#fff; }
+
+/* No atmosphere */
+.blob{ display:none !important; }
+#progress{ height:2px; }
+
+/* ---------- Header ---------- */
+.hdr::after{ background:rgba(255,255,255,.94); }
+.mark .dot{ border-radius:50%; }
+.nav{ gap:28px; }
+.nav a{
+  padding:8px 0; font-size:.74rem; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+}
+.nav a::after{ left:0; right:0; bottom:0; height:1px; background:var(--ink); }
+.nav a:hover, .nav a.active{ color:var(--ink); }
+
+/* ---------- Buttons: MoC tabs ---------- */
+.btn, .btn.lg{
+  gap:.6em; padding:.6rem 0; border:0; border-radius:0;
+  border-bottom:1px solid var(--ink);
+  background:transparent; color:var(--ink);
+  font-size:.78rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  transition:color .18s ease, border-color .18s ease;
+}
+.btn::before{ display:none; }
+.btn:hover{ color:var(--orange); border-color:var(--orange); }
+.btn:active{ transform:none; }
+.btn.ghost{ color:var(--ink-2); border-color:var(--line-strong); }
+.btn.ghost:hover{ color:var(--ink); border-color:var(--ink); }
+.btn.ghost.quiet{ color:var(--muted); border-color:transparent; }
+.btn.ghost.quiet:hover{ color:var(--ink); border-color:var(--ink); }
+.hero-cta, .contact-cta{ gap:12px 36px; }
+
+/* ---------- Hero ---------- */
+.avail{ background:none; border:0; box-shadow:none; padding:0; border-radius:0; }
+.avail .hl::before{
+  content:''; display:inline-block; width:7px; height:7px; border-radius:50%;
+  background:var(--orange); margin-right:9px; vertical-align:1px;
+}
+.display{ font-weight:700; letter-spacing:-.05em; }
+.eyebrow::before{ height:1px; }
+
+/* ---------- Clients ---------- */
+.marquee{ background:#fff; }
+.marquee::before, .marquee::after{ display:none; }
+.mq-track span::after{ width:4px; height:4px; border-radius:0; background:var(--line-strong); }
+.mq-track img{ opacity:.6; }
+
+/* ---------- Sections ---------- */
+.sec{ border-top:1px solid var(--line); }
+.h2{ font-weight:700; letter-spacing:-.04em; }
+
+/* ---------- Filters: tab row ---------- */
+.filters{ gap:4px 26px; border-bottom:1px solid var(--line); }
+.chip{
+  padding:10px 0; margin-bottom:-1px; border:0; border-radius:0;
+  border-bottom:1px solid transparent; background:none;
+  font-family:var(--sans); font-size:.74rem; font-weight:500; letter-spacing:.14em; color:var(--muted);
+}
+.chip:hover{ color:var(--ink); border-color:transparent; }
+.chip[aria-pressed="true"]{ background:none; color:var(--ink); border-bottom-color:var(--orange); }
+.chip:active{ transform:none; }
+.chip em{ opacity:1; color:var(--orange); font-family:var(--mono); }
+
+/* ---------- Cards ---------- */
+.card .shot{ border:1px solid var(--line); }
+.card .shot::after, .card .veil, .card .view{ display:none; }
+.card a:hover .shot{ transform:none; border-color:var(--line); }
+.card a:hover .shot img{ transform:scale(1.03); }
+.card .yr{
+  border:0; border-radius:0; background:#fff; backdrop-filter:none;
+  right:0; top:0; padding:6px 10px;
+}
+.card h3{ background-size:0% 1px; }
+.card a:hover h3{ background-size:100% 1px; }
+.card .tags{ gap:4px 14px; }
+.card .tags li{ background:none; padding:0; border-radius:0; color:var(--muted); }
+.card.hero-card .feat::before{ height:1px; }
+
+/* ---------- Craft / principles ---------- */
+.pgrid{ border-radius:0; }
+.reel-sound{ border-radius:0; }
+
+/* ---------- About ---------- */
+.about{ background:#fff; border-block:0; }
+.portrait{ border-radius:50%; }
+
+/* ---------- Contact: flush left ---------- */
+.contact{ text-align:left; }
+.contact .h2{ margin-left:0; }
+.contact-cta, .socials{ justify-content:flex-start; }
+.mail-link{ font-weight:400; background-size:100% 1px; }
+
+/* ---------- Dialog ---------- */
+.cdlg-card{ border-radius:0; box-shadow:none; border:1px solid var(--ink); }
+
+/* ---------- Ideas badge ---------- */
+.ideas-badge{
+  position:fixed; right:12px; bottom:12px; z-index:950;
+  font:500 .66rem/1 var(--mono); letter-spacing:.14em; text-transform:uppercase;
+  color:#fff; background:var(--ink); padding:.55rem .7rem; margin:0;
+}
+.ideas-badge a{ text-decoration:underline; text-underline-offset:2px; }
+
+/* ============================================================
+   D — Helvetica, asymmetric
+   ============================================================ */
+.v-d{
+  --sans:ui-sans-serif, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:ui-sans-serif, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.v-d body{ font-family:var(--sans); }
+.v-d .display{ font-weight:700; letter-spacing:-.045em; }
+.v-d .lead{ font-weight:400; }
+/* Every mono label becomes MoC caps: Helvetica, tracked, gray */
+.v-d .eyebrow, .v-d .count, .v-d .card .cli, .v-d .cred b, .v-d .stats i,
+.v-d .pby, .v-d .avail, .v-d .scroll-hint, .v-d .ftr-in{ letter-spacing:.12em; }
+.v-d .card .cli{ color:var(--muted); }
+
+/* Sections separate by space alone: no rules, no numbers */
+.v-d .sec{ border-top:0; }
+.v-d .about{ border-block:0; }
+.v-d .principles{ border-top:0; }
+
+/* Hero: lead and actions step to the right half of the grid */
+@media (min-width:1000px){
+  .v-d .hero-sub{ margin-left:50%; }
+  .v-d .hero-actions{ gap:24px 40px; }
+}
+.v-d .hero h1{ margin-top:28px; }
+.v-d h1, .v-d h2, .v-d .h2{ font-weight:700; }
+
+/* Contact's eyebrow is centred by an inline style on the live page */
+.contact .eyebrow{ justify-content:flex-start !important; }
+
+/* ============================================================
+   Case studies (work/<slug>.html under each variant)
+   ============================================================ */
+.case-hero h1{ font-weight:700; letter-spacing:-.045em; }
+.blk h2{ font-weight:700; }
+.cover{ border:1px solid var(--line); }
+.fig figcaption{ background:#fff; }
+.blk ul.bul li::before{ border-radius:0; width:6px; height:6px; }
+.kpi b, .score-cell b{ font-weight:700; }
+.pager-in > *{ border-radius:0; }
+.v-d .facts{ border-top:0; padding-top:0; }
