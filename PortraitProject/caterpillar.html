@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
+<title>Caterpillar</title>
+<style>
+  :root {
+    --page-pad: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 36px;
+  }
+
+  /* Labs nav, styled as tabs: one page per tab. */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;   /* five tabs, and Rain on grass is long on a phone */
+    gap: 1.5rem;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
+  }
+
+  .tabs a {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid transparent;
+    color: #8a8a8a;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .tabs a:hover { color: #f2efe9; }
+
+  .tabs a[aria-current="page"] {
+    color: #f2efe9;
+    border-bottom-color: #f2efe9;
+  }
+
+  .tabs a:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 4px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  /* Unlike the other Movements, this footage is shown as it is. */
+  .stage {
+    margin: 0 var(--page-pad);
+    height: min(56.25vw, 78vh);
+    min-height: 200px;
+    background: #000;
+  }
+
+  .stage video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .stage-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem var(--page-pad) 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+
+  .stage-bar button {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #3a3a3a;
+    border-radius: 999px;
+    background: none;
+    color: #f2efe9;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+  }
+
+  .stage-bar button:hover { border-color: #8a8a8a; }
+
+  .stage-bar button:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 2px;
+  }
+
+  footer {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabs" aria-label="PonceDesign Labs">
+  <a href="../">PonceDesign</a>
+  <a href="./">Portraits</a>
+  <a href="movements.html">Overcast</a>
+  <a href="movements-rain.html">Rain on grass</a>
+  <a href="caterpillar.html" aria-current="page">Caterpillar</a>
+</nav>
+
+<main>
+<section id="movements">
+<header>
+  <h1>Caterpillar</h1>
+  <p>Movements</p>
+</header>
+
+<div class="stage">
+  <video src="../assets/video/caterpillar.mp4" poster="../assets/video/caterpillar.jpg"
+         muted loop playsinline preload="auto" disablepictureinpicture
+         aria-label="A grub crawling across asphalt, its body in warm yellow against a black and white ground, with the sound of slow wind"></video>
+</div>
+<div class="stage-bar">
+  <button type="button" class="stage-sound">Sound on</button>
+  <button type="button" class="stage-toggle" aria-pressed="false">Pause</button>
+</div>
+</section>
+</main>
+
+<footer>PDL 2026</footer>
+
+<script>
+/* Caterpillar: the clip plays muted on a loop while it is on screen, like the
+   other Movements. Sound starts off; the Sound on press is the click browsers
+   require before audio may play. */
+(function () {
+  "use strict";
+
+  var video = document.querySelector(".stage video");
+  var toggle = document.querySelector(".stage-toggle");
+  var soundBtn = document.querySelector(".stage-sound");
+  var paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var onScreen = true;
+
+  function sync() {
+    if (onScreen && !document.hidden && !paused) {
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    } else {
+      video.pause();
+    }
+    toggle.textContent = paused ? "Play" : "Pause";
+    toggle.setAttribute("aria-pressed", paused ? "true" : "false");
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      onScreen = entries[0].isIntersecting;
+      sync();
+    }).observe(video);
+  }
+  document.addEventListener("visibilitychange", sync);
+
+  toggle.addEventListener("click", function () {
+    paused = !paused;
+    sync();
+  });
+
+  /* The button names the action it takes, so it carries no aria-pressed. */
+  soundBtn.addEventListener("click", function () {
+    video.muted = !video.muted;
+    soundBtn.textContent = video.muted ? "Sound on" : "Sound off";
+  });
+
+  sync();
+})();
+</script>
+
+</body>
+</html>
