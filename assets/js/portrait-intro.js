@@ -98,17 +98,28 @@
 
   /* ---- per-dot statics, built once the page is quiet ------- */
   var N = D.dots.length;
-  var dx, dy, dr, dDist, dCos, dSin, dSx, dSy, dPh, dH2, dH3, dBre;
+  var dx, dy, dr, dDist, dCos, dSin, dSx, dSy, dPh, dH2, dH3, dH4, dBre, dLoose;
+
+  /* Cloud, not portrait. LOOSE_SHARE of the dots never fully gather —
+     they hang in a soft halo part-way to their scatter positions — so the
+     middle of the field holds ~30% less ink at its most formed. The rest
+     are nudged off the halftone grid by up to CLOUD_JITTER, which breaks
+     the scanline rows and keeps the silhouette abstract. */
+  var LOOSE_SHARE  = 0.30;
+  var CLOUD_JITTER = 16;   /* portrait units; the grid step is 13 */
 
   function build() {
     dx = new Float32Array(N); dy = new Float32Array(N); dr = new Float32Array(N);
     dDist = new Float32Array(N); dCos = new Float32Array(N); dSin = new Float32Array(N);
     dSx = new Float32Array(N); dSy = new Float32Array(N);
     dPh = new Float32Array(N); dH2 = new Float32Array(N); dH3 = new Float32Array(N);
-    dBre = new Float32Array(N);
+    dH4 = new Float32Array(N); dBre = new Float32Array(N); dLoose = new Float32Array(N);
     for (var i = 0; i < N; i++) {
       var src = D.dots[i];
-      var x = src[0], y = src[1];
+      var ja = hash(i, 7) * TAU, jr = CLOUD_JITTER * Math.sqrt(hash(i, 8));
+      var x = src[0] + Math.cos(ja) * jr, y = src[1] + Math.sin(ja) * jr;
+      dH4[i] = hash(i, 4);
+      dLoose[i] = hash(i, 5) < LOOSE_SHARE ? 0.4 + 0.35 * hash(i, 6) : 0;
       var dist = Math.hypot(x - CX, y - CY);
       var ang  = Math.atan2(y - CY, x - CX);
       var h1 = hash(i, 1), h2 = hash(i, 2), h3 = hash(i, 3);
@@ -209,6 +220,12 @@
       mR2 = mR * mR;
       mPush = (MOUSE_PUSH / (scale * zoom)) * mStrength;
     }
+    /* frame-rate independent easing for the per-dot cursor displacement */
+    var steps = clamp((T - mLastT) * 60, 0, 4);
+    mLastT = T;
+    var aIn  = 1 - Math.pow(1 - MOUSE_IN,  steps);
+    var aOut = 1 - Math.pow(1 - MOUSE_OUT, steps);
+    var stillOff = false;
 
     /* Accents are a thin slice of the field, so they are collected as we go
        and stroked in a second pass rather than costing a branch per fill. */
@@ -225,23 +242,26 @@
         y += bMove * Math.cos(bY + dPh[i]);
       }
 
-      /* radial ripples */
+      /* radial ripples — each dot is pushed by its own amount and only
+         some of them swell, so the crest reads as a scatter, not a ring */
       var env = 0;
       if (rip > 0) {
         var u = (dDist[i] - crest) * (1 / 150);
         env = Math.exp(-u * u) * rip;
-        var push = 30 * env;
+        var push = 30 * env * (0.3 + 1.4 * dH2[i]);
         x += dCos[i] * push;
         y += dSin[i] * push;
-        rs += env;
+        rs += 0.6 * env * dH4[i];
       }
 
-      /* the crest passes, the dot lets go, and the swirl carries it out */
+      /* the crest passes, the dot lets go, and the swirl carries it out;
+         loose dots never come in closer than their cloud floor */
       var k = kGather;
       if (kExit > 0) {
         var rel = (releaseAt - dDist[i]) * (1 / RELEASE_SOFT);
         k = kExit * (rel < 0 ? 0 : (rel > 1 ? 1 : rel));
       }
+      if (k < dLoose[i]) k = dLoose[i];
       if (k > 0) {
         var tx = dSx[i] - CX, ty = dSy[i] - CY;
         x += (CX + tx * cs - ty * sn - dx[i]) * k;
@@ -250,24 +270,45 @@
         rs += 0.5 * k * (1 - k) * (0.5 + dH2[i]);
       }
 
-      /* shoulder out of the cursor's way — square distance first, so
-         dots outside the bubble cost a compare and nothing else */
-      if (mR2 > 0) {
-        var mdx = x - mpx, mdy = y - mpy;
-        var md2 = mdx * mdx + mdy * mdy;
-        if (md2 < mR2) {
-          var md = Math.sqrt(md2);
-          var f = 1 - md / mR;
-          f *= f;                     /* soft at the rim, firm at the core */
-          var shove = mPush * f / (md || 1);
-          x += mdx * shove;
-          y += mdy * shove;
+      /* Shoulder out of the cursor's way. Each dot carries its own
+         displacement, which chases the cursor's push quickly on the way
+         out but relaxes back slowly once the cursor has moved on, so the
+         field heals behind it as a trail rather than snapping shut.
+         Square distance first, so dots outside the bubble cost a compare. */
+      if (mR2 > 0 || mActive) {
+        var tdx = 0, tdy = 0, tsw = 0;
+        if (mR2 > 0) {
+          var mdx = x - mpx, mdy = y - mpy;
+          var md2 = mdx * mdx + mdy * mdy;
+          if (md2 < mR2) {
+            var md = Math.sqrt(md2);
+            var f = 1 - md / mR;
+            f *= f;                     /* soft at the rim, firm at the core */
+            var shove = mPush * f / (md || 1);
+            /* outward shove plus a sideways twist, so the dots swirl
+               around the cursor rather than just parting for it */
+            tdx = (mdx - mdy * MOUSE_SWIRL) * shove;
+            tdy = (mdy + mdx * MOUSE_SWIRL) * shove;
+            tsw = 0.4 * f * mStrength;  /* the wake swells a little */
+          }
         }
+        var cdx = mOffX[i], cdy = mOffY[i];
+        var a = (tdx * tdx + tdy * tdy > cdx * cdx + cdy * cdy) ? aIn : aOut;
+        cdx += (tdx - cdx) * a;
+        cdy += (tdy - cdy) * a;
+        var csw = mOffS[i] + (tsw - mOffS[i]) * a;
+        if (cdx * cdx + cdy * cdy < 0.01 && csw < 0.002) { cdx = cdy = csw = 0; }
+        else stillOff = true;
+        mOffX[i] = cdx; mOffY[i] = cdy; mOffS[i] = csw;
+        x += cdx; y += cdy; rs *= 1 + csw;
       }
 
       var r = dr[i] * rBoost * rs;
       if (r < minR || x < bx0 || x > bx1 || y < by0 || y > by1) continue;
-      if (env > 0.5 || (k > 0.15 && dH3[i] > 0.93)) {
+      /* Orange is a sparse sprinkle: a dot near the crest only turns if
+         its own hash falls under the envelope, so the burst lands as
+         dispersed flecks rather than a solid circle. */
+      if (dH4[i] < 0.16 * env || (kExit > 0 && k > 0.15 && dH3[i] > 0.95)) {
         accX[accN] = x; accY[accN] = y; accR[accN] = r; accN++;
       } else {
         ctx.moveTo(x + r, y);
@@ -286,6 +327,7 @@
       ctx.fillStyle = ACCENT;
       ctx.fill();
     }
+    mActive = stillOff;
   }
 
   /* accent scratch buffers — sized once, never reallocated per frame */
@@ -297,13 +339,22 @@
      so the bubble is the same size on screen whatever the fit. The
      pointer itself is eased, and the strength ramps in and out, so
      arriving and leaving are not a snap. */
-  var MOUSE_R = 165, MOUSE_PUSH = 62;
+  var MOUSE_R = 260, MOUSE_PUSH = 150, MOUSE_SWIRL = 0.35;
+  /* per-frame (at 60fps) easing: dots jump clear fast, drift home slowly */
+  var MOUSE_IN = 0.35, MOUSE_OUT = 0.02;
+  /* A resting cursor lets go: after this long without a move the push
+     fades out and the dots drift home; the next move picks it back up. */
+  var MOUSE_IDLE_MS = 140;
+  var mLastMove = 0;
+  var mOffX = new Float32Array(N), mOffY = new Float32Array(N), mOffS = new Float32Array(N);
+  var mActive = false, mLastT = 0;
   var mx = 0, my = 0, emx = 0, emy = 0, mStrength = 0, mWanted = 0, mSeen = false;
 
   function onMove(e) {
     mx = e.clientX; my = e.clientY;
     if (!mSeen) { mSeen = true; emx = mx; emy = my; }   /* no swoop in from 0,0 */
     mWanted = 1;
+    mLastMove = performance.now();
   }
   function onLeave() { mWanted = 0; }
 
@@ -346,9 +397,10 @@
     T += Math.min(dtMs / 1000, 0.05);   /* survive a backgrounded tab */
     watch(dtMs);
 
-    emx += (mx - emx) * 0.25;
-    emy += (my - emy) * 0.25;
-    mStrength += (mWanted - mStrength) * 0.12;
+    emx += (mx - emx) * 0.3;
+    emy += (my - emy) * 0.3;
+    if (mWanted && performance.now() - mLastMove > MOUSE_IDLE_MS) mWanted = 0;
+    mStrength += (mWanted - mStrength) * 0.16;
 
     if (!fading && T >= OUT_AT) { fading = true; host.classList.add('is-out'); }
     if (offscreen()) clear(); else draw(Math.min(T, TOTAL));
