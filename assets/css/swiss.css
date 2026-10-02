@@ -105,6 +105,7 @@
 /* ---------- Contact: flush left ---------- */
 .contact{ text-align:left; }
 .contact .h2{ margin-left:0; }
+.contact .h2 .ln:last-child{ color:var(--orange); }
 .contact-cta, .socials{ justify-content:flex-start; }
 .mail-link{ font-weight:400; background-size:100% 1px; }
 
