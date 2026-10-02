@@ -153,7 +153,7 @@
 </header>
 
 <div class="stage">
-  <video src="../assets/video/caterpillar.mp4" poster="../assets/video/caterpillar.jpg"
+  <video src="../assets/video/caterpillar.mp4?v=2" poster="../assets/video/caterpillar.jpg"
          muted loop playsinline preload="auto" disablepictureinpicture
          aria-label="A grub crawling across asphalt, its body in warm yellow against a black and white ground. Rest the pointer on it and it stops; the wind carries on."></video>
   <audio src="../assets/video/caterpillar-wind.m4a" loop preload="auto"></audio>
@@ -188,6 +188,13 @@
   var PAD = 28;          // px of the source frame: a little room around the body
   var GAP = 0.25;        // s: further than this from a tracked sample, there is no insect
   var STOP = reduced ? 0 : 350, GO = reduced ? 0 : 450;  // ms to ease out and back in
+  var LET_GO = 2.5;      // once stopped, the pointer must clear PAD × this to release it
+  var COOL = 700;        // ms after letting go before the insect can be stopped again
+  /* Each playbackRate write makes the browser re-time its pipeline, and
+     writing a new value every frame is what made the ease stutter. The
+     ease is walked through these few rates instead, so a stop or a start
+     costs four or five writes rather than twenty-odd. */
+  var RATES = [1, 0.7, 0.45, 0.25, 0.1];
 
   /* Where the insect lies through the clip: centre, length, width and angle
      of its body, sampled ten times a second, as fractions of the frame. */
@@ -225,7 +232,7 @@
      letterboxed by object-fit: contain). */
   var pointer = { x: 0, y: 0, inside: false, touch: false };
 
-  function overInsect() {
+  function overInsect(pad) {
     if (!pointer.inside || !video.videoWidth) return false;
     var box = video.getBoundingClientRect();
     var s = Math.min(box.width / video.videoWidth, box.height / video.videoHeight);
@@ -237,12 +244,20 @@
     var dx = x - body.x, dy = y - body.y;
     var c = Math.cos(body.ang), sn = Math.sin(body.ang);
     var u = dx * c + dy * sn, v = -dx * sn + dy * c;
-    return Math.abs(u) < body.len / 2 + PAD && Math.abs(v) < body.wid / 2 + PAD;
+    return Math.abs(u) < body.len / 2 + pad && Math.abs(v) < body.wid / 2 + pad;
   }
 
   /* Stopping: the playback rate eases down to nothing and the clip pauses;
      going again, it eases back up, so the insect slows rather than freezes. */
-  var held = false, ease = null, raf = 0;
+  var held = false, ease = null, raf = 0, setRate = 1, coolUntil = 0;
+
+  function applyRate(r) {
+    var q = RATES[RATES.length - 1];
+    for (var i = 0; i < RATES.length; i++) if (r >= RATES[i] - 0.06) { q = RATES[i]; break; }
+    if (q === setRate) return;
+    setRate = q;
+    try { video.playbackRate = q; } catch (e) {}
+  }
 
   function rate(from, to, ms, done) {
     var t0 = performance.now();
@@ -254,7 +269,7 @@
     var k = ease.ms ? Math.min(1, (now - ease.t0) / ease.ms) : 1;
     k = k * k * (3 - 2 * k);
     var r = ease.from + (ease.to - ease.from) * k;
-    try { video.playbackRate = Math.max(0.1, r); } catch (e) {}
+    applyRate(r);
     if (k >= 1) { var d = ease.done; ease = null; if (d) d(); }
   }
 
@@ -262,9 +277,10 @@
     if (held === on) return;
     held = on;
     if (on) {
-      rate(video.playbackRate, 0.1, STOP, function () { if (held) video.pause(); });
+      rate(setRate, 0.1, STOP, function () { if (held) video.pause(); });
     } else {
-      try { video.playbackRate = 0.1; } catch (e) {}
+      coolUntil = performance.now() + COOL;
+      applyRate(0.1);
       rate(0.1, 1, GO, null);
       sync();
     }
@@ -273,7 +289,12 @@
 
   function frame(now) {
     raf = 0;
-    hold(!paused && overInsect());
+    /* Hysteresis: a stopped insect lets go only once the pointer is well
+       clear, and a released one cannot be caught again straight away —
+       otherwise a pointer resting on its edge flickers it stop-go-stop. */
+    var want = !paused && (held ? overInsect(PAD * LET_GO)
+                                : now >= coolUntil && overInsect(PAD));
+    hold(want);
     stepEase(now);
     if (pointer.inside || ease) kick();
   }
@@ -333,7 +354,7 @@
 
   toggle.addEventListener("click", function () {
     paused = !paused;
-    if (paused) { held = false; ease = null; try { video.playbackRate = 1; } catch (e) {} }
+    if (paused) { held = false; ease = null; applyRate(1); }
     sync();
   });
 
