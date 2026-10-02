@@ -121,10 +121,15 @@ ul{ margin:0; padding:0; list-style:none; }
 /* ============================================================
    Scroll progress
    ============================================================ */
+/* Safari 26 tints its toolbar from the fixed element at the top edge, so
+   the full-width track stays page-colored and the fill grows by width. */
 #progress{
   position:fixed; inset:0 auto auto 0; height:3px; width:100%;
-  transform:scaleX(0); transform-origin:0 50%;
-  background:var(--grad); z-index:1000; will-change:transform;
+  background:var(--bg); z-index:1000; pointer-events:none;
+}
+#progress::before{
+  content:''; display:block; height:100%;
+  width:calc(var(--p, 0) * 100%); background:var(--grad);
 }
 
 /* ============================================================

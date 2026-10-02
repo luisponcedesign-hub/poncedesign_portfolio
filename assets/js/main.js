@@ -25,7 +25,7 @@
     function draw() {
       var h = document.documentElement.scrollHeight - window.innerHeight;
       var p = h > 0 ? clamp(window.scrollY / h, 0, 1) : 0;
-      bar.style.transform = 'scaleX(' + p + ')';
+      bar.style.setProperty('--p', p);
       ticking = false;
     }
     addEventListener('scroll', function () {
