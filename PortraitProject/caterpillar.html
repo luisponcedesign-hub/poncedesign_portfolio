@@ -84,6 +84,9 @@
     height: min(56.25vw, 78vh);
     min-height: 200px;
     background: #000;
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+    user-select: none;
   }
 
   .stage video {
@@ -152,7 +155,8 @@
 <div class="stage">
   <video src="../assets/video/caterpillar.mp4" poster="../assets/video/caterpillar.jpg"
          muted loop playsinline preload="auto" disablepictureinpicture
-         aria-label="A grub crawling across asphalt, its body in warm yellow against a black and white ground, with the sound of slow wind"></video>
+         aria-label="A grub crawling across asphalt, its body in warm yellow against a black and white ground. Rest the pointer on it and it stops; the wind carries on."></video>
+  <audio src="../assets/video/caterpillar-wind.m4a" loop preload="auto"></audio>
 </div>
 <div class="stage-bar">
   <button type="button" class="stage-sound">Sound on</button>
@@ -165,27 +169,159 @@
 
 <script>
 /* Caterpillar: the clip plays muted on a loop while it is on screen, like the
-   other Movements. Sound starts off; the Sound on press is the click browsers
-   require before audio may play. */
+   other Movements. Rest the pointer on the insect (or hold a finger on it)
+   and it stops for a while; move away and it carries on. The wind is a
+   separate track, so it keeps blowing while the insect is still. Sound
+   starts off; the Sound on press is the click browsers require before audio
+   may play. */
 (function () {
   "use strict";
 
-  var video = document.querySelector(".stage video");
+  var stage = document.querySelector(".stage");
+  var video = stage.querySelector("video");
+  var wind = stage.querySelector("audio");
   var toggle = document.querySelector(".stage-toggle");
   var soundBtn = document.querySelector(".stage-sound");
-  var paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var onScreen = true;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var paused = reduced, onScreen = true, soundWanted = false;
+
+  var PAD = 28;          // px of the source frame: a little room around the body
+  var GAP = 0.25;        // s: further than this from a tracked sample, there is no insect
+  var STOP = reduced ? 0 : 350, GO = reduced ? 0 : 450;  // ms to ease out and back in
+
+  /* Where the insect lies through the clip: centre, length, width and angle
+     of its body, sampled ten times a second, as fractions of the frame. */
+  var track = [], frameW = 1920, frameH = 1080;
+  fetch("../assets/video/caterpillar-track.json")
+    .then(function (r) { return r.json(); })
+    .then(function (d) { track = d.track; frameW = d.w; frameH = d.h; })
+    .catch(function () {});
+
+  function bodyAt(t) {
+    var lo = 0, hi = track.length - 1;
+    if (hi < 0) return null;
+    while (lo < hi) {               // first sample at or after t
+      var mid = (lo + hi) >> 1;
+      if (track[mid][0] < t) lo = mid + 1; else hi = mid;
+    }
+    var b = track[lo], a = track[lo - 1] || b;
+    if (Math.abs(b[0] - t) > GAP && Math.abs(a[0] - t) > GAP) return null;
+    if (Math.abs(b[0] - t) > GAP) b = a;
+    if (Math.abs(a[0] - t) > GAP) a = b;
+    var k = b[0] > a[0] ? (t - a[0]) / (b[0] - a[0]) : 0;
+    var da = b[5] - a[5];
+    while (da > Math.PI / 2) da -= Math.PI;   // a body has no head or tail here
+    while (da < -Math.PI / 2) da += Math.PI;
+    return {
+      x: (a[1] + (b[1] - a[1]) * k) * frameW,
+      y: (a[2] + (b[2] - a[2]) * k) * frameH,
+      len: (a[3] + (b[3] - a[3]) * k) * frameW,
+      wid: (a[4] + (b[4] - a[4]) * k) * frameH,
+      ang: a[5] + da * k
+    };
+  }
+
+  /* Pointer, mapped from the page into the source frame (the video is
+     letterboxed by object-fit: contain). */
+  var pointer = { x: 0, y: 0, inside: false, touch: false };
+
+  function overInsect() {
+    if (!pointer.inside || !video.videoWidth) return false;
+    var box = video.getBoundingClientRect();
+    var s = Math.min(box.width / video.videoWidth, box.height / video.videoHeight);
+    var ox = (box.width - video.videoWidth * s) / 2, oy = (box.height - video.videoHeight * s) / 2;
+    var x = (pointer.x - box.left - ox) / s * (frameW / video.videoWidth);
+    var y = (pointer.y - box.top - oy) / s * (frameH / video.videoHeight);
+    var body = bodyAt(video.currentTime);
+    if (!body) return false;
+    var dx = x - body.x, dy = y - body.y;
+    var c = Math.cos(body.ang), sn = Math.sin(body.ang);
+    var u = dx * c + dy * sn, v = -dx * sn + dy * c;
+    return Math.abs(u) < body.len / 2 + PAD && Math.abs(v) < body.wid / 2 + PAD;
+  }
+
+  /* Stopping: the playback rate eases down to nothing and the clip pauses;
+     going again, it eases back up, so the insect slows rather than freezes. */
+  var held = false, ease = null, raf = 0;
+
+  function rate(from, to, ms, done) {
+    var t0 = performance.now();
+    ease = { from: from, to: to, ms: ms, t0: t0, done: done };
+  }
+
+  function stepEase(now) {
+    if (!ease) return;
+    var k = ease.ms ? Math.min(1, (now - ease.t0) / ease.ms) : 1;
+    k = k * k * (3 - 2 * k);
+    var r = ease.from + (ease.to - ease.from) * k;
+    try { video.playbackRate = Math.max(0.1, r); } catch (e) {}
+    if (k >= 1) { var d = ease.done; ease = null; if (d) d(); }
+  }
+
+  function hold(on) {
+    if (held === on) return;
+    held = on;
+    if (on) {
+      rate(video.playbackRate, 0.1, STOP, function () { if (held) video.pause(); });
+    } else {
+      try { video.playbackRate = 0.1; } catch (e) {}
+      rate(0.1, 1, GO, null);
+      sync();
+    }
+    kick();
+  }
+
+  function frame(now) {
+    raf = 0;
+    hold(!paused && overInsect());
+    stepEase(now);
+    if (pointer.inside || ease) kick();
+  }
+
+  function kick() { if (!raf) raf = requestAnimationFrame(frame); }
 
   function sync() {
-    if (onScreen && !document.hidden && !paused) {
+    var live = onScreen && !document.hidden;
+    if (live && !paused && !held) {
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
-    } else {
+    } else if (!held || !live || paused) {
       video.pause();
+    }
+    if (live && !paused && soundWanted) {
+      var q = wind.play();
+      if (q && q.catch) q.catch(function () {});
+    } else {
+      wind.pause();
     }
     toggle.textContent = paused ? "Play" : "Pause";
     toggle.setAttribute("aria-pressed", paused ? "true" : "false");
   }
+
+  function point(e) {
+    if (e.pointerType === "touch" && !pointer.touch) return;
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+    pointer.inside = true;
+    kick();
+  }
+
+  stage.addEventListener("pointermove", point);
+  stage.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "touch") pointer.touch = true;
+    point(e);
+  });
+  function lift(e) {
+    if (e.pointerType === "touch") pointer.touch = false;
+    if (e.pointerType === "touch" || e.type === "pointerleave") {
+      pointer.inside = false;
+      hold(false);
+    }
+  }
+  stage.addEventListener("pointerup", lift);
+  stage.addEventListener("pointercancel", lift);
+  stage.addEventListener("pointerleave", lift);
+  stage.addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) {
@@ -197,13 +333,15 @@
 
   toggle.addEventListener("click", function () {
     paused = !paused;
+    if (paused) { held = false; ease = null; try { video.playbackRate = 1; } catch (e) {} }
     sync();
   });
 
   /* The button names the action it takes, so it carries no aria-pressed. */
   soundBtn.addEventListener("click", function () {
-    video.muted = !video.muted;
-    soundBtn.textContent = video.muted ? "Sound on" : "Sound off";
+    soundWanted = !soundWanted;
+    soundBtn.textContent = soundWanted ? "Sound off" : "Sound on";
+    sync();
   });
 
   sync();
