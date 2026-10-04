@@ -894,12 +894,44 @@
     io.observe(navBtn);
   }
 
+  /* ----------------------------------------------------------
+     18. Labs in the hero — one Movements piece a week, in turn, shown
+         in its embed mode: unscaled, cropped to the middle, no sound,
+         with its pointer interactions. Weeks start Monday 00:00 UTC, so
+         every visitor sees the same piece; the rotation began with
+         Michigan Ave the week of 5 October 2026. Wide screens only;
+         nothing loads below.
+     ---------------------------------------------------------- */
+  function heroLab() {
+    var box = $('.hero-lab');
+    if (!box) return;
+    var frame = $('iframe', box);
+    var LABS = [
+      ['michigan-ave.html', 'Michigan Ave'],
+      ['movements.html', 'Overcast'],
+      ['movements-rain.html', 'Rain on grass'],
+      ['caterpillar.html', 'Caterpillar']
+    ];
+    var WEEK = 7 * 24 * 3600 * 1000;
+    var FIRST = Date.UTC(2026, 9, 5);   // Monday 5 October 2026
+    var wide = window.matchMedia('(min-width:1000px)');
+    function load() {
+      if (frame.getAttribute('src') || !wide.matches) return;
+      var week = Math.max(0, Math.floor((Date.now() - FIRST) / WEEK));
+      var lab = LABS[week % LABS.length];
+      frame.title = 'PonceDesign Labs: ' + lab[1];
+      frame.src = 'PortraitProject/' + lab[0] + '?embed';
+    }
+    load();
+    wide.addEventListener && wide.addEventListener('change', load);
+  }
+
   /* ---------------------------------------------------------- */
   function init() {
     splitHero(); roles(); progressBar(); header();
     reveals(); filters(); parallax(); counters(); drawer();
     spy(); transitions(); lightbox(); reel(); motionBg(); year();
-    contactModal(); contactCta();
+    contactModal(); contactCta(); heroLab();
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

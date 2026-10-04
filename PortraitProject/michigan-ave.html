@@ -100,6 +100,10 @@
     height: 100%;
   }
 
+  /* On the home page (embed mode) the curtain hangs on white, matching the
+     page; the footage still shows wherever it is open. */
+  html.embed .stage { background: #fff; }
+
   /* Kept rendered (not display:none) so every browser keeps decoding frames. */
   .stage video {
     position: absolute;
@@ -147,6 +151,7 @@
     color: #6a6a6a;
   }
 </style>
+<script src="embed.js"></script>
 </head>
 <body>
 
@@ -216,6 +221,8 @@
   var SLOW = 0.4;             // playback rate of the footage
   var PERIOD = 12.10667;      // seconds for a layer to cross the stage once
   var BASE_ALPHA = 0.5;       // each layer at 50%, so overlaps reach 75%
+  /* On the home page (embed mode, on white) the orange lines are held at 70%. */
+  if (document.documentElement.classList.contains("embed")) LAYERS[1].alpha = 0.7;
   var NEAR_ALPHA = 0.05;      // opacity right under the pointer
   var NODE = 8;               // px between points along each line
 
@@ -354,7 +361,7 @@
 
   /* A smooth outline through the strand's points, filled with a gradient
      that carries each point's opacity. */
-  function drawStrand(s, x, bw, rgb) {
+  function drawStrand(s, x, bw, rgb, base) {
     var dx = s.dx, e = s.e, i, bottom = (nodes - 1) * NODE;
     ctx.beginPath();
     ctx.moveTo(x + dx[0], 0);
@@ -370,7 +377,7 @@
     ctx.closePath();
     var g = ctx.createLinearGradient(0, 0, 0, bottom);
     for (i = 0; i < nodes; i += 2) {
-      var a = BASE_ALPHA + (NEAR_ALPHA - BASE_ALPHA) * Math.min(1, e[i]);
+      var a = base + (NEAR_ALPHA - base) * Math.min(1, e[i]);
       g.addColorStop(Math.min(1, (i * NODE) / bottom), "rgba(" + rgb + ", " + a.toFixed(3) + ")");
     }
     ctx.fillStyle = g;
@@ -429,7 +436,8 @@
     LAYERS.forEach(function (layer, li) {
       var scale = w / layer.ref, phase = (clock / PERIOD) % 1;
       var offset = layer.dir > 0 ? -w + phase * w : -phase * w;
-      var solid = "rgba(" + layer.rgb + ", " + BASE_ALPHA + ")";
+      var base = layer.alpha || BASE_ALPHA;
+      var solid = "rgba(" + layer.rgb + ", " + base + ")";
       for (var copy = 0; copy < 2; copy++) {
         layer.bars.forEach(function (bar, bi) {
           var x = offset + copy * w + bar[0] * scale, bw = bar[1] * scale;
@@ -443,7 +451,7 @@
           }
           if (s.awake) moving = true;
           if (x + bw + push < 0 || x - push > w) return;
-          if (s.awake) drawStrand(s, x, bw, layer.rgb);
+          if (s.awake) drawStrand(s, x, bw, layer.rgb, base);
           else { ctx.fillStyle = solid; ctx.fillRect(x, 0, bw, h); }
         });
       }
