@@ -232,9 +232,10 @@
   if (document.documentElement.classList.contains("embed")) {
     LAYERS[1].alpha = 0.7;
     /* ...and a third layer of 1px grey hairlines over the colour, drifting
-       right at their own, slower pace. Positions scale with the stage; the
-       width stays 1px. Home page only. */
-    LAYERS.push({ ref: 1039, dir: 1, rgb: "120, 120, 120", alpha: 0.55, px: 1, period: 19.5, bars: [[28,1],[72,1],[98,1],[158,1],[262,1],[288,1],[366,1],[401,1],[496,1],[557,1],[618,1],[687,1],[705,1],[765,1],[809,1],[878,1],[965,1],[1017,1]] });
+       right at their own, slower pace and colour-burned into the stripes
+       they cross. Positions scale with the stage; the width stays 1px.
+       Home page only. */
+    LAYERS.push({ ref: 1039, dir: 1, rgb: "120, 120, 120", alpha: 0.55, px: 1, blend: "color-burn", period: 19.5, bars: [[28,1],[72,1],[98,1],[158,1],[262,1],[288,1],[366,1],[401,1],[496,1],[557,1],[618,1],[687,1],[705,1],[765,1],[809,1],[878,1],[965,1],[1017,1]] });
   }
   var NEAR_ALPHA = 0.05;      // opacity right under the pointer
   var NODE = 8;               // px between points along each line
@@ -451,6 +452,7 @@
       var offset = layer.dir > 0 ? -w + phase * w : -phase * w;
       var base = layer.alpha || BASE_ALPHA;
       var solid = "rgba(" + layer.rgb + ", " + base + ")";
+      ctx.globalCompositeOperation = layer.blend || "source-over";
       for (var copy = 0; copy < 2; copy++) {
         layer.bars.forEach(function (bar, bi) {
           var x = offset + copy * w + bar[0] * scale, bw = layer.px || bar[1] * scale;
@@ -469,6 +471,7 @@
         });
       }
     });
+    ctx.globalCompositeOperation = "source-over";
 
     /* Open areas of the curtain, for the mask. */
     var kIn = 1 - Math.exp(-dt / FADE_IN), kOut = 1 - Math.exp(-dt / FADE_OUT), peak = 0;
