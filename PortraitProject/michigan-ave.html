@@ -180,7 +180,7 @@
 <div class="stage">
   <canvas class="picture" aria-hidden="true"></canvas>
   <canvas class="curtain" role="img"
-          aria-label="A curtain of yellow and orange lines drifting in opposite directions. Move the pointer over it and the lines part to show a busy Michigan Avenue corner in slow motion, in black and white; move away and they sway closed."></canvas>
+          aria-label="A curtain of yellow and orange lines drifting in opposite directions, crossed by thin grey hairlines. Move the pointer over it and the lines part to show a busy Michigan Avenue corner in slow motion, in black and white; move away and they sway closed."></canvas>
   <video src="../assets/video/michigan-ave.mp4" poster="../assets/video/michigan-ave.jpg"
          muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
   <audio src="../assets/video/michigan-ave-street.m4a" loop preload="auto"></audio>
@@ -197,7 +197,8 @@
 <script>
 /* Michigan Ave: the street footage (10x, played back at 0.4, so slow motion
    at four times life) hangs behind two layers of lines, yellow drifting right
-   and orange drifting left, each at half opacity. Under the pointer the lines
+   and orange drifting left, each at half opacity, with a third of thin grey
+   hairlines drifting right over them. Under the pointer the lines
    part and fade to 5%, and the footage shows only where they are open, with
    old-film grain on it. When the pointer moves on, the lines sway back and
    the opening closes. The street sound is a separate track at normal speed;
@@ -222,7 +223,10 @@
   /* Line patterns, as [x, width] in the pixels of the two reference strips. */
   var LAYERS = [
     { ref: 1312, dir: 1, rgb: "255, 217, 0", bars: [[0,33],[49,11],[87,50],[183,6],[216,25],[258,14],[323,22],[362,35],[414,10],[451,13],[481,6],[513,26],[555,44],[621,22],[665,22],[709,44],[769,25],[821,6],[844,13],[883,11],[910,36],[962,22],[1036,14],[1067,25],[1119,6],[1171,50],[1248,10],[1275,35]] },
-    { ref: 1272, dir: -1, rgb: "255, 118, 0", bars: [[27,33],[76,10],[111,47],[201,5],[231,24],[270,14],[332,20],[368,33],[417,9],[451,12],[479,6],[510,23],[549,40],[610,21],[651,21],[693,40],[749,23],[797,6],[819,12],[856,10],[881,33],[930,20],[999,13],[1027,24],[1076,5],[1124,47],[1196,10],[1222,33]] }
+    { ref: 1272, dir: -1, rgb: "255, 118, 0", bars: [[27,33],[76,10],[111,47],[201,5],[231,24],[270,14],[332,20],[368,33],[417,9],[451,12],[479,6],[510,23],[549,40],[610,21],[651,21],[693,40],[749,23],[797,6],[819,12],[856,10],[881,33],[930,20],[999,13],[1027,24],[1076,5],[1124,47],[1196,10],[1222,33]] },
+    /* Hairlines: 1px grey lines over the colour, drifting right at their own,
+       slower pace. Positions scale with the stage; the width stays 1px. */
+    { ref: 1039, dir: 1, rgb: "120, 120, 120", alpha: 0.25, px: 1, period: 19.5, bars: [[28,1],[72,1],[98,1],[158,1],[262,1],[288,1],[366,1],[401,1],[496,1],[557,1],[618,1],[687,1],[705,1],[765,1],[809,1],[878,1],[965,1],[1017,1]] }
   ];
   var SLOW = 0.4;             // playback rate of the footage
   var PERIOD = 12.10667;      // seconds for a layer to cross the stage once
@@ -440,13 +444,13 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
     LAYERS.forEach(function (layer, li) {
-      var scale = w / layer.ref, phase = (clock / PERIOD) % 1;
+      var scale = w / layer.ref, phase = (clock / (layer.period || PERIOD)) % 1;
       var offset = layer.dir > 0 ? -w + phase * w : -phase * w;
       var base = layer.alpha || BASE_ALPHA;
       var solid = "rgba(" + layer.rgb + ", " + base + ")";
       for (var copy = 0; copy < 2; copy++) {
         layer.bars.forEach(function (bar, bi) {
-          var x = offset + copy * w + bar[0] * scale, bw = bar[1] * scale;
+          var x = offset + copy * w + bar[0] * scale, bw = layer.px || bar[1] * scale;
           var s = strands[li][copy * layer.bars.length + bi], cx = x + bw / 2;
           var near = field.strength > 0.001 && Math.abs(cx - field.x) < radius + push;
           if ((near || s.awake) && dt > 0) {
