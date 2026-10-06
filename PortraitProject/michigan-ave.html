@@ -103,6 +103,10 @@
   /* On the home page (embed mode) the curtain hangs on white, matching the
      page; the footage still shows wherever it is open. */
   html.embed .stage { background: #fff; }
+  /* ...and so does the frame behind it: embed.js paints it black, which
+     bled through the stage's sub-pixel edges as a grey outline. :root
+     outranks embed.js's html.embed, which loads after this. */
+  :root.embed, :root.embed body { background: #fff; }
   /* ...and it sits 100px lower than centre. On a short window the drop is
      capped so the stage's top edge never comes down into the frame (100vh
      is the frame's height here). */

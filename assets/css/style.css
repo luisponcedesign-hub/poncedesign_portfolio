@@ -1115,11 +1115,10 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .pager-in > a.nx{ text-align:left; }
   .cred{ grid-template-columns:1fr; gap:4px; }
   .scroll-hint{ display:none; }
-  /* Phones only — the 860px rule sets 26px here, which runs the buttons
-     close under the lead. Tablets keep that tighter pairing. */
-  /* margin-top drops the lead clear of the rotating role; the gap gives
-     back the same 16 so the buttons keep their position. */
-  .hero-sub{ margin-top:50px; gap:106px; }
+  /* margin-top drops the lead clear of the rotating role. The gap was
+     106px; it closed to 31 to lift the buttons up under the lead once the
+     Labs piece took space above it. */
+  .hero-sub{ margin-top:50px; gap:31px; }
   /* Lifted off the headline without disturbing anything: a relative
      offset leaves the pill's layout box where it was, so the headline
      and everything under it hold the positions set above. */

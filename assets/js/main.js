@@ -899,8 +899,8 @@
          in its embed mode: unscaled, cropped to the middle, no sound,
          with its pointer interactions. Weeks start Monday 00:00 UTC, so
          every visitor sees the same piece; the rotation began with
-         Michigan Ave the week of 5 October 2026. Wide screens only;
-         nothing loads below.
+         Michigan Ave the week of 5 October 2026. Every width: beside the
+         lead on wide screens, above it in the column below 1000px.
      ---------------------------------------------------------- */
   function heroLab() {
     var box = $('.hero-lab');
@@ -914,16 +914,10 @@
     ];
     var WEEK = 7 * 24 * 3600 * 1000;
     var FIRST = Date.UTC(2026, 9, 5);   // Monday 5 October 2026
-    var wide = window.matchMedia('(min-width:1000px)');
-    function load() {
-      if (frame.getAttribute('src') || !wide.matches) return;
-      var week = Math.max(0, Math.floor((Date.now() - FIRST) / WEEK));
-      var lab = LABS[week % LABS.length];
-      frame.title = 'PonceDesign Labs: ' + lab[1];
-      frame.src = 'PortraitProject/' + lab[0] + '?embed';
-    }
-    load();
-    wide.addEventListener && wide.addEventListener('change', load);
+    var week = Math.max(0, Math.floor((Date.now() - FIRST) / WEEK));
+    var lab = LABS[week % LABS.length];
+    frame.title = 'PonceDesign Labs: ' + lab[1];
+    frame.src = 'PortraitProject/' + lab[0] + '?embed';
   }
 
   /* ---------------------------------------------------------- */
