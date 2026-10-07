@@ -134,6 +134,13 @@
   .stanza .line { display: block; white-space: nowrap; }
   .stanza.gone { opacity: 0; }
 
+  /* The closing dedication: unspoken, smaller, in italic. */
+  .stanza.dedication {
+    font-size: calc(56cqw / 19.2);
+    font-style: italic;
+    transition: opacity 1.6s ease;
+  }
+
   /* Words rise in as they are spoken. */
   .w {
     display: inline-block;
@@ -241,7 +248,8 @@
    piano and the wind in the trees. The trees show through a yellow circle
    painted on a wall. Each stanza is centred in the circle and written word
    by word, each word at the moment it is spoken (times measured from the
-   recording), then fades as the next one begins. Under the pointer the
+   recording), then fades as the next one begins. A dedication to Jacques
+   Prévert closes it. Under the pointer the
    letters scatter in a swirl, turning branch-brown, changing size and
    angle, and drift slowly home when it moves on. */
 (function () {
@@ -257,11 +265,23 @@
   var progress = document.querySelector(".stage-progress");
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* After the last stanza fades, the dedication is written in the circle,
+     a word every half second, and stays once the reading ends. */
+  var last = TIMELINE.paragraphs[TIMELINE.paragraphs.length - 1];
+  var DEDICATION = "In loving memory of Jacques Pr\u00e9vert.";
+  var dedStart = last.fadeOut + 1.2;
+  TIMELINE.paragraphs.push({
+    dedication: true,
+    fadeOut: Infinity,
+    lines: [{ text: DEDICATION, start: dedStart,
+              words: DEDICATION.split(" ").map(function (w, i) { return dedStart + 0.2 + i * 0.5; }) }]
+  });
+
   /* One block per stanza, one span per word and per letter. */
   var letters = [];
   var stanzas = TIMELINE.paragraphs.map(function (p) {
     var el = document.createElement("p");
-    el.className = "stanza gone";
+    el.className = p.dedication ? "stanza dedication gone" : "stanza gone";
     var words = [];
     p.lines.forEach(function (ln) {
       var line = document.createElement("span");
@@ -302,7 +322,7 @@
       if (t >= s.start) current = i;
       s.words.forEach(function (w) { w.el.classList.toggle("on", t >= w.at); });
     });
-    progress.textContent = "Stanza " + ROMAN[current] + " / VI";
+    progress.textContent = "Stanza " + ROMAN[Math.min(current, 5)] + " / VI";
     if (!voice.paused) raf = requestAnimationFrame(render);
   }
 
@@ -323,7 +343,7 @@
   voice.addEventListener("play", function () { setLabel(); if (!raf) render(); });
   voice.addEventListener("pause", setLabel);
   voice.addEventListener("ended", function () {
-    stanzas.forEach(function (s) { s.el.classList.add("gone"); });
+    stanzas.forEach(function (s, i) { if (i < 6) s.el.classList.add("gone"); });
     toggle.textContent = "Play again";
   });
 
