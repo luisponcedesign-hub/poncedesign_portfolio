@@ -138,7 +138,7 @@
   .stanza.dedication {
     font-size: calc(56cqw / 19.2);
     font-style: italic;
-    transition: opacity 1.6s ease;
+    transition: opacity 2.4s ease;
   }
 
   /* Words rise in as they are spoken. */
@@ -249,7 +249,7 @@
    painted on a wall. Each stanza is centred in the circle and written word
    by word, each word at the moment it is spoken (times measured from the
    recording), then fades as the next one begins. A dedication to Jacques
-   Prévert closes it. Under the pointer the
+   Prévert closes it, then fades away. Under the pointer the
    letters scatter in a swirl, turning branch-brown, changing size and
    angle, and drift slowly home when it moves on. */
 (function () {
@@ -266,14 +266,14 @@
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* After the last stanza fades, the dedication is written in the circle
-     on two centred lines, a word every half second, and stays once the
-     reading ends. */
+     on two centred lines, a word every half second, holds, then fades
+     away slowly before the music ends. */
   var last = TIMELINE.paragraphs[TIMELINE.paragraphs.length - 1];
   var DEDICATION = ["In loving memory of", "Jacques Pr\u00e9vert"];
   var dedStart = last.fadeOut + 1.2, wordIndex = 0;
   TIMELINE.paragraphs.push({
     dedication: true,
-    fadeOut: Infinity,
+    fadeOut: last.fadeOut + 6.6,   // fully faded about a second before the music ends
     lines: DEDICATION.map(function (text) {
       return { text: text, start: dedStart,
                words: text.split(" ").map(function () { return dedStart + 0.2 + 0.5 * wordIndex++; }) };
@@ -346,7 +346,7 @@
   voice.addEventListener("play", function () { setLabel(); if (!raf) render(); });
   voice.addEventListener("pause", setLabel);
   voice.addEventListener("ended", function () {
-    stanzas.forEach(function (s, i) { if (i < 6) s.el.classList.add("gone"); });
+    stanzas.forEach(function (s) { s.el.classList.add("gone"); });
     toggle.textContent = "Play again";
   });
 
