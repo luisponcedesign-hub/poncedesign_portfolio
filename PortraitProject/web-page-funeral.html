@@ -265,16 +265,19 @@
   var progress = document.querySelector(".stage-progress");
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* After the last stanza fades, the dedication is written in the circle,
-     a word every half second, and stays once the reading ends. */
+  /* After the last stanza fades, the dedication is written in the circle
+     on two centred lines, a word every half second, and stays once the
+     reading ends. */
   var last = TIMELINE.paragraphs[TIMELINE.paragraphs.length - 1];
-  var DEDICATION = "In loving memory of Jacques Pr\u00e9vert.";
-  var dedStart = last.fadeOut + 1.2;
+  var DEDICATION = ["In loving memory of", "Jacques Pr\u00e9vert"];
+  var dedStart = last.fadeOut + 1.2, wordIndex = 0;
   TIMELINE.paragraphs.push({
     dedication: true,
     fadeOut: Infinity,
-    lines: [{ text: DEDICATION, start: dedStart,
-              words: DEDICATION.split(" ").map(function (w, i) { return dedStart + 0.2 + i * 0.5; }) }]
+    lines: DEDICATION.map(function (text) {
+      return { text: text, start: dedStart,
+               words: text.split(" ").map(function () { return dedStart + 0.2 + 0.5 * wordIndex++; }) };
+    })
   });
 
   /* One block per stanza, one span per word and per letter. */
