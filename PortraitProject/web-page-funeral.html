@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
+<title>A Web Page Funeral</title>
+<style>
+  :root {
+    --page-pad: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 36px;
+  }
+
+  /* Labs nav, styled as tabs: one page per tab. */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;   /* seven tabs, and Rain on grass is long on a phone */
+    gap: 1.5rem;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
+  }
+
+  .tabs a {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid transparent;
+    color: #8a8a8a;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .tabs a:hover { color: #f2efe9; }
+
+  .tabs a[aria-current="page"] {
+    color: #f2efe9;
+    border-bottom-color: #f2efe9;
+  }
+
+  .tabs a:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 4px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  /* A 16:9 stage, laid out in 1920 x 1080 design units: the tree footage
+     shows through a circle cut in a painted wall, and the poem is written
+     over it, word by word, as it is read. */
+  .stage {
+    position: relative;
+    width: min(calc(100% - 2 * var(--page-pad)), calc(78vh * 16 / 9));
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+    background: #000;
+    overflow: hidden;
+    container-type: inline-size;
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  .layer { position: absolute; inset: 0; pointer-events: none; }
+
+  /* The footage is cropped to the 864px square behind the window. */
+  .stage video {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 80%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Darkens only what shows through the window, so white type holds. */
+  .scrim {
+    background: radial-gradient(circle at 50% 50%, rgba(12, 14, 10, 0.38) 0%, rgba(12, 14, 10, 0.28) 55%, rgba(12, 14, 10, 0.12) 100%);
+  }
+
+  .wall img { display: block; width: 100%; height: 100%; }
+
+  .stanza {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    text-align: center;
+    font-family: "Times New Roman", Times, "Liberation Serif", serif;
+    font-size: calc(100cqw / 19.2);   /* 100px on a 1920-wide stage */
+    font-weight: 400;
+    line-height: 1.12;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 22px rgba(0, 0, 0, 0.45);
+    transition: opacity 0.8s ease;
+  }
+
+  .stanza .line { display: block; white-space: nowrap; }
+  .stanza.gone { opacity: 0; }
+
+  /* Words rise in as they are spoken. */
+  .w {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.18em);
+    filter: blur(6px);
+    transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s ease;
+  }
+  .w.on { opacity: 1; transform: none; filter: none; }
+  .stanza.preview .w { opacity: 0.9; transform: none; filter: none; transition: none; }
+
+  /* Letters scatter under the pointer; script sets their transform. */
+  .ch { display: inline-block; will-change: transform; }
+
+  .stage-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    width: min(calc(100% - 2 * var(--page-pad)), calc(78vh * 16 / 9));
+    margin: 0 auto;
+    padding: 1rem 0 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+
+  .stage-bar .stage-progress {
+    margin-right: auto;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stage-bar button {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #3a3a3a;
+    border-radius: 999px;
+    background: none;
+    color: #f2efe9;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+  }
+
+  .stage-bar button:hover { border-color: #8a8a8a; }
+
+  .stage-bar button:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .w { transition: opacity 0.3s linear; transform: none; filter: none; }
+  }
+
+  footer {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+</style>
+</head>
+<body>
+
+<nav class="tabs" aria-label="PonceDesign Labs">
+  <a href="../">PonceDesign</a>
+  <a href="./">Portraits</a>
+  <a href="movements.html">Overcast</a>
+  <a href="movements-rain.html">Rain on grass</a>
+  <a href="caterpillar.html">Caterpillar</a>
+  <a href="michigan-ave.html">Michigan Ave</a>
+  <a href="web-page-funeral.html" aria-current="page">A Web Page Funeral</a>
+</nav>
+
+<main>
+<section id="funeral">
+<header>
+  <h1>A Web Page Funeral</h1>
+  <p>Poem</p>
+</header>
+
+<div class="stage">
+  <div class="layer">
+    <video src="../assets/video/web-page-funeral.mp4" poster="../assets/video/web-page-funeral.jpg"
+           muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+  </div>
+  <div class="layer scrim"></div>
+  <div class="layer wall"><img src="../assets/video/web-page-funeral-wall.webp" alt="" width="2560" height="1440"></div>
+  <div class="layer poem" aria-live="polite"></div>
+  <audio src="../assets/video/web-page-funeral-reading.m4a" preload="auto"></audio>
+</div>
+<div class="stage-bar">
+  <span class="stage-progress">Stanza I / VI</span>
+  <button type="button" class="stage-toggle">Play</button>
+</div>
+</section>
+</main>
+
+<footer>PDL 2026</footer>
+
+<script>
+/* A Web Page Funeral: a six-stanza poem, read aloud over a Debussy-like
+   piano and the wind in the trees. The trees show through a yellow circle
+   painted on a wall. Each stanza is centred in the circle and written word
+   by word, each word at the moment it is spoken (times measured from the
+   recording), then fades as the next one begins. Under the pointer the
+   letters scatter in a swirl, turning branch-brown, changing size and
+   angle, and drift slowly home when it moves on. */
+(function () {
+  "use strict";
+
+  var TIMELINE = {"fade":0.8,"duration":107.14,"paragraphs":[{"lines":[{"text":"To a web page funeral","start":5.58,"end":7.52,"words":[5.58,6.26,6.4,6.61,6.82]},{"text":"Two digital designers go","start":8.16,"end":9.7,"words":[8.16,8.24,8.72,9.28]},{"text":"They\u2019re wearing dark t-shirts","start":10.66,"end":11.94,"words":[10.66,10.76,11.08,11.42]},{"text":"And black-rimmed sun-shades","start":11.94,"end":13.84,"words":[11.94,12.34,13.09]},{"text":"It\u2019s a dreary winter evening","start":14.76,"end":16.52,"words":[14.76,15.08,15.2,15.6,15.94]},{"text":"Past the midnight train","start":16.52,"end":18.66,"words":[16.52,17.34,17.56,17.9]}],"fadeOut":18.97},{"lines":[{"text":"Sadly when they arrive","start":20.12,"end":21.48,"words":[20.12,20.3,20.78,20.92]},{"text":"All the files are long gone","start":21.78,"end":23.88,"words":[21.78,22.1,22.3,22.84,23.16,23.4]},{"text":"The style sheets are no more","start":24.5,"end":25.96,"words":[24.5,24.62,24.92,25.22,25.44,25.62]},{"text":"And their accounts are blocked","start":26.2,"end":28.22,"words":[26.2,26.6,26.72,27.24,27.82]},{"text":"The two sad web designers","start":29.06,"end":31.24,"words":[29.06,29.7,30.0,30.32,30.56]},{"text":"Are depressed to the core","start":31.24,"end":33.78,"words":[31.24,32.2,32.76,33.24,33.38]}],"fadeOut":34.49},{"lines":[{"text":"But hello says bright sunshine","start":35.64,"end":37.78,"words":[35.64,35.64,36.24,36.68,37.18]},{"text":"The spring has just arrived","start":38.66,"end":40.4,"words":[38.66,38.88,39.22,39.48,39.78]},{"text":"Take a pause my good friends","start":41.18,"end":42.62,"words":[41.18,41.34,41.52,41.8,41.92,42.1]},{"text":"And enjoy a glass of wine","start":43.02,"end":44.88,"words":[43.02,43.3,43.68,43.92,44.08,44.32]},{"text":"And if it pleases you well","start":45.72,"end":47.18,"words":[45.72,45.94,46.1,46.24,46.56,46.82]},{"text":"Get a ride back to Portland","start":47.72,"end":49.12,"words":[47.72,47.92,48.08,48.28,48.54,48.72]}],"fadeOut":49.67},{"lines":[{"text":"Don\u2019t you cry my creatives","start":50.82,"end":52.6,"words":[50.82,51.14,51.32,51.74,51.86]},{"text":"A new app will be made","start":53.0,"end":54.66,"words":[53.0,53.16,53.32,53.7,54.0,54.2]},{"text":"With fresh colors and assets","start":54.66,"end":57.7,"words":[54.66,55.64,56.0,56.52,57.16]},{"text":"And a new shiny tech","start":57.7,"end":59.64,"words":[57.7,58.36,58.5,58.72,59.12]},{"text":"You can charge by the hour","start":60.42,"end":62.22,"words":[60.42,60.64,60.82,61.24,61.56,61.74]},{"text":"Since this product shall sell","start":62.58,"end":64.78,"words":[62.58,62.86,63.16,63.62,64.32]}],"fadeOut":64.97},{"lines":[{"text":"All business managers","start":66.12,"end":67.8,"words":[66.12,66.54,67.02]},{"text":"Are busy planning ahead","start":67.8,"end":69.94,"words":[67.8,68.56,69.02,69.38]},{"text":"All schedules are ready","start":70.64,"end":72.02,"words":[70.64,70.84,71.28,71.62]},{"text":"And the swim lanes are fed","start":72.48,"end":74.18,"words":[72.48,72.66,72.82,73.14,73.48,73.8]},{"text":"All dev teams are ignited","start":74.96,"end":76.54,"words":[74.96,75.14,75.34,75.78,76.04]},{"text":"Excitement is in the air","start":77.26,"end":79.1,"words":[77.26,77.88,78.38,78.54,78.68]}],"fadeOut":79.59},{"lines":[{"text":"My dear product designers","start":80.74,"end":82.18,"words":[80.74,80.96,81.2,81.64]},{"text":"This is a bright new day","start":82.9,"end":84.8,"words":[82.9,83.14,83.34,83.54,83.9,84.34]},{"text":"The next thing is now happening","start":84.8,"end":87.2,"words":[84.8,85.7,85.94,86.18,86.36,86.6]},{"text":"Polish up your instruments","start":87.96,"end":89.38,"words":[87.96,88.1,88.5,88.72]},{"text":"Brace yourself for this future","start":90.6,"end":92.52,"words":[90.6,90.86,91.4,91.68,91.92]},{"text":"Smile and turn the page","start":93.46,"end":95.34,"words":[93.46,93.54,94.44,94.72,94.92]}],"fadeOut":98.34}]};
+  var ROMAN = ["I", "II", "III", "IV", "V", "VI"];
+  var stage = document.querySelector(".stage");
+  var poem = stage.querySelector(".poem");
+  var video = stage.querySelector("video");
+  var voice = stage.querySelector("audio");
+  var toggle = document.querySelector(".stage-toggle");
+  var progress = document.querySelector(".stage-progress");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* One block per stanza, one span per word and per letter. */
+  var letters = [];
+  var stanzas = TIMELINE.paragraphs.map(function (p) {
+    var el = document.createElement("p");
+    el.className = "stanza gone";
+    var words = [];
+    p.lines.forEach(function (ln) {
+      var line = document.createElement("span");
+      line.className = "line";
+      var parts = ln.text.split(" ");
+      parts.forEach(function (w, i) {
+        var span = document.createElement("span");
+        span.className = "w";
+        Array.prototype.forEach.call(w, function (c) {
+          var ch = document.createElement("span");
+          ch.className = "ch";
+          ch.textContent = c;
+          letters.push({ el: ch, x: 0, y: 0, f: 0,
+            spin: (Math.random() < 0.5 ? -1 : 1) * (90 + Math.random() * 200),
+            grow: Math.random() * 1.5 - 0.55, swirl: 0.6 + Math.random() * 0.7 });
+          span.appendChild(ch);
+        });
+        words.push({ el: span, at: ln.words[i] - 0.06 });
+        line.appendChild(span);
+        if (i < parts.length - 1) line.appendChild(document.createTextNode(" "));
+      });
+      el.appendChild(line);
+    });
+    poem.appendChild(el);
+    return { el: el, words: words, start: p.lines[0].start - 0.2, fadeOut: p.fadeOut };
+  });
+
+  /* At rest, the first stanza is shown in full. */
+  stanzas[0].el.classList.remove("gone");
+  stanzas[0].el.classList.add("preview");
+
+  var raf = 0;
+  function render() {
+    raf = 0;
+    var t = voice.currentTime, current = 0;
+    stanzas.forEach(function (s, i) {
+      s.el.classList.toggle("gone", !(t >= s.start && t < s.fadeOut));
+      if (t >= s.start) current = i;
+      s.words.forEach(function (w) { w.el.classList.toggle("on", t >= w.at); });
+    });
+    progress.textContent = "Stanza " + ROMAN[current] + " / VI";
+    if (!voice.paused) raf = requestAnimationFrame(render);
+  }
+
+  function setLabel() {
+    toggle.textContent = voice.paused ? (voice.currentTime > 0 && !voice.ended ? "Resume" : "Play") : "Pause";
+  }
+
+  toggle.addEventListener("click", function () {
+    stanzas[0].el.classList.remove("preview");
+    if (voice.paused) {
+      if (voice.ended) voice.currentTime = 0;
+      var p = voice.play();
+      if (p && p.catch) p.catch(function () {});
+    } else {
+      voice.pause();
+    }
+  });
+  voice.addEventListener("play", function () { setLabel(); if (!raf) render(); });
+  voice.addEventListener("pause", setLabel);
+  voice.addEventListener("ended", function () {
+    stanzas.forEach(function (s) { s.el.classList.add("gone"); });
+    toggle.textContent = "Play again";
+  });
+
+  /* The reading stops when the tab goes to the background. */
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden && !voice.paused) voice.pause();
+  });
+
+  /* The footage plays only while the stage is on screen. */
+  function playVideo() { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && !document.hidden) playVideo(); else video.pause();
+    }).observe(stage);
+  } else {
+    playVideo();
+  }
+
+  /* Scatter: letters near the pointer are pushed outward and swirled round
+     it, quickly; once it moves on they drift home slowly. */
+  var pointer = null;
+  function point(e) {
+    var box = stage.getBoundingClientRect();
+    pointer = { x: e.clientX - box.left, y: e.clientY - box.top };
+    kick();
+  }
+  function lift(e) {
+    if (e.type === "pointerleave" || e.pointerType !== "mouse") pointer = null;
+  }
+  stage.addEventListener("pointermove", point);
+  stage.addEventListener("pointerdown", point);
+  stage.addEventListener("pointerup", lift);
+  stage.addEventListener("pointercancel", lift);
+  stage.addEventListener("pointerleave", lift);
+  stage.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  var scatterRaf = 0;
+
+  function scatter() {
+    scatterRaf = 0;
+    var size = parseFloat(getComputedStyle(stanzas[0].el).fontSize) || 100;
+    var R = size * 2.6, box = stage.getBoundingClientRect(), busy = !!pointer;
+
+    /* Read pass: each letter's resting centre, in stage coordinates. */
+    var live = [];
+    letters.forEach(function (L) {
+      var hidden = L.el.closest(".stanza").classList.contains("gone");
+      if (hidden && L.f < 0.001 && !L.x && !L.y) return;
+      var b = L.el.getBoundingClientRect();
+      live.push([L, b.left - box.left + b.width / 2 - L.x, b.top - box.top + b.height / 2 - L.y, hidden]);
+    });
+
+    /* Write pass. */
+    live.forEach(function (item) {
+      var L = item[0], hx = item[1], hy = item[2], tx = 0, ty = 0, f = 0;
+      if (pointer && !item[3]) {
+        var dx = hx - pointer.x, dy = hy - pointer.y, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < R) {
+          f = 1 - d / R;
+          f = f * f * (3 - 2 * f);
+          var a = Math.atan2(dy, dx) + f * L.swirl;   // swirl round the pointer
+          var rr = d + f * R * 0.75;                  // and push outward
+          tx = pointer.x + Math.cos(a) * rr - hx;
+          ty = pointer.y + Math.sin(a) * rr - hy;
+        }
+      }
+      var rate = f > L.f ? 0.16 : 0.028;              // quick out, slow home
+      L.x = lerp(L.x, tx, rate);
+      L.y = lerp(L.y, ty, rate);
+      L.f = lerp(L.f, f, rate);
+      if (L.f < 0.001 && Math.abs(L.x) + Math.abs(L.y) < 0.05) {
+        L.x = L.y = L.f = 0;
+        L.el.style.transform = L.el.style.color = L.el.style.textShadow = L.el.style.opacity = "";
+        return;
+      }
+      busy = true;
+      var g = L.f;
+      L.el.style.transform = "translate(" + L.x + "px, " + L.y + "px) rotate(" + (g * L.spin) + "deg) scale(" + (1 + g * L.grow) + ")";
+      /* White turns the brown of the branches, and the shadow deepens. */
+      L.el.style.color = "rgb(" + Math.round(255 - g * 157) + ", " + Math.round(255 - g * 186) + ", " + Math.round(255 - g * 212) + ")";
+      L.el.style.textShadow = "0 " + (2 + g * 10) + "px " + (4 + g * 22) + "px rgba(0, 0, 0, " + (0.45 + g * 0.35) + ")";
+      L.el.style.opacity = String(1 - g * 0.25);
+    });
+
+    if (busy) scatterRaf = requestAnimationFrame(scatter);
+  }
+
+  function kick() {
+    if (!reduced && !scatterRaf) scatterRaf = requestAnimationFrame(scatter);
+  }
+})();
+</script>
+
+</body>
+</html>
