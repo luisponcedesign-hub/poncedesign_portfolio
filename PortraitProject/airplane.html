@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
+<title>Airplane</title>
+<style>
+  :root {
+    --page-pad: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 36px;
+  }
+
+  /* Labs nav, styled as tabs: one page per tab. */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;   /* eight tabs, and Rain on grass is long on a phone */
+    gap: 1.5rem;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
+  }
+
+  .tabs a {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid transparent;
+    color: #8a8a8a;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .tabs a:hover { color: #f2efe9; }
+
+  .tabs a[aria-current="page"] {
+    color: #f2efe9;
+    border-bottom-color: #f2efe9;
+  }
+
+  .tabs a:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 4px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  /* A portrait photograph, so the stage is 3:4 rather than the Movements'
+     16:9: as tall as theirs (78% of the window) and centred. */
+  .frame {
+    width: min(calc(100vw - 2 * var(--page-pad)), calc(78vh * 3 / 4));
+    margin: 0 auto;
+  }
+
+  /* The photograph itself is the stage's background, so it still shows
+     where WebGL is unavailable. */
+  .stage {
+    aspect-ratio: 3 / 4;
+    background: #000 url("../assets/video/airplane.jpg") center / cover no-repeat;
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  .stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .stage-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+
+  .stage-bar button {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #3a3a3a;
+    border-radius: 999px;
+    background: none;
+    color: #f2efe9;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+  }
+
+  .stage-bar button:hover { border-color: #8a8a8a; }
+
+  .stage-bar button:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 2px;
+  }
+
+  footer {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+</style>
+<script src="embed.js"></script>
+</head>
+<body>
+
+<nav class="tabs" aria-label="PonceDesign Labs">
+  <a href="../">PonceDesign</a>
+  <a href="./">Portraits</a>
+  <a href="movements.html">Overcast</a>
+  <a href="movements-rain.html">Rain on grass</a>
+  <a href="caterpillar.html">Caterpillar</a>
+  <a href="michigan-ave.html">Michigan Ave</a>
+  <a href="web-page-funeral.html">A Web Page Funeral</a>
+  <a href="airplane.html" aria-current="page">Airplane</a>
+</nav>
+
+<main>
+<section id="movements">
+<header>
+  <h1>Airplane</h1>
+  <p>Movements</p>
+</header>
+
+<div class="frame">
+  <div class="stage">
+    <canvas role="img" aria-label="A small toy airplane floating on still water, clouds reflected around it. The reflections ripple gently; move the pointer over the water and it stirs, settling again when the pointer rests. The airplane stays still."></canvas>
+  </div>
+  <div class="stage-bar">
+    <button type="button" class="stage-toggle" aria-pressed="false">Pause</button>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>PDL 2026</footer>
+
+<script type="x-shader/x-fragment" id="water">
+precision highp float;
+varying vec2 v;
+uniform sampler2D tex;
+uniform float t;
+uniform vec2 res;
+#define N 16
+uniform vec2 trail[N];
+uniform float trailW[N];
+
+/* The full 3:4 frame of the photograph (x, y, w, h in image space),
+   trimmed a hair so warped samples never run off its edges. */
+const vec4 crop = vec4(0.0175, 0.0175, 0.965, 0.965);
+const vec2 TS = vec2(768., 1024.);   // the photograph, in pixels
+
+/* How stirred a point is: soft blobs along the pointer's recent path. */
+float hover(vec2 uv) {
+  float s = 0.0;
+  for (int i = 0; i < N; i++) {
+    vec2 d = (uv - trail[i]) * vec2(1.0, 4. / 3.);
+    s += trailW[i] * exp(-dot(d, d) / 0.022);
+  }
+  return smoothstep(0.0, 1.0, clamp(s, 0.0, 1.0));
+}
+
+/* Smooth gradient noise. */
+vec2 h2(vec2 p) { p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3))); return -1. + 2. * fract(sin(p) * 43758.5453); }
+float noise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * f * (f * (f * 6. - 15.) + 10.);
+  return mix(mix(dot(h2(i), f), dot(h2(i + vec2(1, 0)), f - vec2(1, 0)), u.x),
+             mix(dot(h2(i + vec2(0, 1)), f - vec2(0, 1)), dot(h2(i + vec2(1, 1)), f - vec2(1, 1)), u.x), u.y);
+}
+
+/* The water's surface: drifting, domain-warped layers, stretched sideways
+   and compressed toward the top of the frame for the camera's angle. */
+float height(vec2 uv) {
+  vec2 p = vec2(uv.x * 2.6, uv.y * 5.5 + uv.y * uv.y * 3.0);
+  vec2 w = vec2(noise(p * 0.7 + vec2(t * 0.05, t * 0.08)), noise(p * 0.7 + vec2(5.2 - t * 0.06, 1.3 + t * 0.04)));
+  p += w * 1.4;
+  float h = 0.0;
+  h += noise(p       + vec2( t * 0.10,  t * 0.16)) * 0.55;
+  h += noise(p * 2.1 + vec2(-t * 0.18,  t * 0.22)) * 0.28;
+  h += noise(p * 4.3 + vec2( t * 0.30, -t * 0.12)) * 0.12;
+  h += noise(p * 8.7 + vec2(-t * 0.40,  t * 0.35)) * 0.05;
+  return h;
+}
+
+/* Catmull-Rom bicubic sampling: crisper than the GPU's bilinear when the
+   photograph is enlarged. */
+vec3 bicubic(vec2 uv) {
+  vec2 sp = uv * TS, tp = floor(sp - 0.5) + 0.5, f = sp - tp;
+  vec2 w0 = f * (-0.5 + f * (1.0 - 0.5 * f));
+  vec2 w1 = 1.0 + f * f * (-2.5 + 1.5 * f);
+  vec2 w2 = f * (0.5 + f * (2.0 - 1.5 * f));
+  vec2 w3 = f * f * (-0.5 + 0.5 * f);
+  vec2 w12 = w1 + w2;
+  vec2 t0 = (tp - 1.0) / TS, t3 = (tp + 2.0) / TS, t12 = (tp + w2 / w12) / TS;
+  return (texture2D(tex, vec2(t0.x,  t0.y)).rgb  * w0.x + texture2D(tex, vec2(t12.x, t0.y)).rgb  * w12.x + texture2D(tex, vec2(t3.x, t0.y)).rgb  * w3.x) * w0.y
+       + (texture2D(tex, vec2(t0.x,  t12.y)).rgb * w0.x + texture2D(tex, vec2(t12.x, t12.y)).rgb * w12.x + texture2D(tex, vec2(t3.x, t12.y)).rgb * w3.x) * w12.y
+       + (texture2D(tex, vec2(t0.x,  t3.y)).rgb  * w0.x + texture2D(tex, vec2(t12.x, t3.y)).rgb  * w12.x + texture2D(tex, vec2(t3.x, t3.y)).rgb  * w3.x) * w3.y;
+}
+
+/* 0 on and just around the airplane, 1 in open water. */
+float planeMask(vec2 p) {
+  vec2 d = (p - vec2(520. / 768., 635. / 1024.)) * vec2(768. / 76., 1024. / 44.);
+  return smoothstep(1.0, 2.4, length(d));
+}
+
+void main() {
+  vec2 cuv = vec2(v.x, 1.0 - v.y);        // canvas space, y down: the pointer's
+  vec2 uv = crop.xy + cuv * crop.zw;      // image space
+  vec2 e = vec2(1.5 / res.x, 1.5 / res.y) * crop.zw;
+  float h = height(uv);
+  vec2 grad = vec2(height(uv + vec2(e.x, 0.)) - h, height(uv + vec2(0., e.y)) - h) / e;
+
+  /* The airplane holds perfectly still. */
+  float m = planeMask(uv);
+
+  /* A faint ripple everywhere, stronger nearer the camera, and up to
+     seven times that where the pointer stirs it. */
+  float depth = mix(0.55, 1.15, cuv.y);
+  float hv = 0.4 + 6.6 * hover(cuv);
+  vec2 off = grad * 0.0016 * depth * hv * m;
+  off *= planeMask(uv + off);             // never smear the airplane into the water
+  vec2 suv = uv + off;
+
+  vec3 col = bicubic(suv);
+
+  /* Unsharp mask on the airplane only, leaving the water's grain alone. */
+  vec2 px = 0.85 / TS;
+  vec3 blur = 0.25 * (texture2D(tex, suv + vec2( px.x,  px.y)).rgb + texture2D(tex, suv + vec2(-px.x,  px.y)).rgb
+                    + texture2D(tex, suv + vec2( px.x, -px.y)).rgb + texture2D(tex, suv + vec2(-px.x, -px.y)).rgb);
+  col = clamp(col + (col - blur) * 0.9 * (1.0 - m), 0.0, 1.0);
+
+  /* Light glinting where the surface tilts toward the sky. */
+  float spec = pow(max(0.0, -grad.y * 0.012 + grad.x * 0.004), 2.0);
+  col += spec * 0.45 * m * hv;
+  col *= 1.0 + h * 0.06 * m * hv;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<script>
+/* Airplane: a photograph of a toy airplane on a lake, its reflected clouds
+   rippling as if the water moved. Moving the pointer over it stirs the
+   water along its path; resting the pointer lets it settle slowly. The
+   airplane never moves. Without WebGL the still photograph shows. */
+(function () {
+  "use strict";
+
+  var stage = document.querySelector(".stage");
+  var canvas = stage.querySelector("canvas");
+  var toggle = document.querySelector(".stage-toggle");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var paused = reduced, onScreen = true;
+
+  var gl = canvas.getContext("webgl", { antialias: false, alpha: false });
+  if (!gl) { canvas.style.visibility = "hidden"; return; }
+
+  function shader(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  var prog = gl.createProgram();
+  gl.attachShader(prog, shader(gl.VERTEX_SHADER,
+    "attribute vec2 p; varying vec2 v; void main() { v = p * 0.5 + 0.5; gl_Position = vec4(p, 0., 1.); }"));
+  gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, document.getElementById("water").textContent));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { canvas.style.visibility = "hidden"; return; }
+  gl.useProgram(prog);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, "p");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var uT = gl.getUniformLocation(prog, "t");
+  var uRes = gl.getUniformLocation(prog, "res");
+  var uTrail = gl.getUniformLocation(prog, "trail");
+  var uTrailW = gl.getUniformLocation(prog, "trailW");
+
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 3);
+    var r = canvas.getBoundingClientRect();
+    canvas.width = Math.round(r.width * dpr);
+    canvas.height = Math.round(r.height * dpr);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+
+  /* The pointer's trail: points dropped along its path, each fading out.
+     Moving pumps energy in; at rest it drains slowly, so the water calms. */
+  var N = 16, trail = new Float32Array(N * 2), trailW = new Float32Array(N);
+  var head = 0, inside = false, sinceDrop = 0, moved = 0, energy = 0;
+  var target = { x: 0.5, y: 0.5 }, cur = { x: 0.5, y: 0.5 };
+
+  function point(e) {
+    var r = canvas.getBoundingClientRect();
+    var nx = (e.clientX - r.left) / r.width, ny = (e.clientY - r.top) / r.height;
+    if (inside) moved += Math.hypot(nx - target.x, ny - target.y);
+    target.x = nx; target.y = ny;
+    if (!inside) { cur.x = nx; cur.y = ny; }
+    inside = true;
+  }
+  function lift() { inside = false; energy = 0; }
+  stage.addEventListener("pointermove", point);
+  stage.addEventListener("pointerdown", point);
+  stage.addEventListener("pointerleave", lift);
+  stage.addEventListener("pointercancel", lift);
+  stage.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+
+  function stepTrail(dt) {
+    for (var i = 0; i < N; i++) trailW[i] *= Math.exp(-dt * 0.9);
+    if (!inside) return;
+    var k = 1 - Math.exp(-dt * 6);
+    cur.x += (target.x - cur.x) * k;
+    cur.y += (target.y - cur.y) * k;
+    sinceDrop += dt;
+    if (sinceDrop > 0.07) {
+      sinceDrop = 0;
+      var w = trailW[head];
+      head = (head + 1) % N;
+      trailW[head] = w;
+    }
+    trail[head * 2] = cur.x;
+    trail[head * 2 + 1] = cur.y;
+    energy = Math.min(1, energy + moved * 8);
+    moved = 0;
+    energy *= Math.exp(-dt * 0.6);
+    trailW[head] = energy;
+  }
+
+  var time = 0, last = 0, raf = 0;
+
+  function draw() {
+    gl.uniform1f(uT, time);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform2fv(uTrail, trail);
+    gl.uniform1fv(uTrailW, trailW);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  function frame(now) {
+    raf = 0;
+    var dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
+    last = now;
+    time += dt;
+    stepTrail(dt);
+    draw();
+    sync();
+  }
+
+  /* Runs only while on screen, visible and not paused; paused, the water
+     holds the frame it was showing. */
+  function sync() {
+    var live = onScreen && !document.hidden && !paused;
+    if (live && !raf) raf = requestAnimationFrame(frame);
+    if (!live) last = 0;
+    toggle.textContent = paused ? "Play" : "Pause";
+    toggle.setAttribute("aria-pressed", paused ? "true" : "false");
+  }
+
+  var img = new Image();
+  img.onload = function () {
+    var tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    resize();
+    window.addEventListener("resize", function () { resize(); draw(); });
+    draw();
+    sync();
+  };
+  img.src = "../assets/video/airplane.jpg";
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      onScreen = entries[0].isIntersecting;
+      sync();
+    }).observe(canvas);
+  }
+  document.addEventListener("visibilitychange", sync);
+
+  toggle.addEventListener("click", function () {
+    paused = !paused;
+    sync();
+  });
+})();
+</script>
+
+</body>
+</html>
