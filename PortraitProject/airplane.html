@@ -101,35 +101,6 @@
     height: 100%;
   }
 
-  .stage-bar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 0 0;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #6a6a6a;
-  }
-
-  .stage-bar button {
-    padding: 0.4rem 0.9rem;
-    border: 1px solid #3a3a3a;
-    border-radius: 999px;
-    background: none;
-    color: #f2efe9;
-    font: inherit;
-    letter-spacing: inherit;
-    cursor: pointer;
-  }
-
-  .stage-bar button:hover { border-color: #8a8a8a; }
-
-  .stage-bar button:focus-visible {
-    outline: 2px solid #f2efe9;
-    outline-offset: 2px;
-  }
 
   footer {
     padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
@@ -164,9 +135,6 @@
 <div class="frame">
   <div class="stage">
     <canvas role="img" aria-label="A small toy airplane floating on still water, clouds reflected around it. The reflections ripple gently; move the pointer over the water and it stirs, settling again when the pointer rests. The airplane stays still."></canvas>
-  </div>
-  <div class="stage-bar">
-    <button type="button" class="stage-toggle" aria-pressed="false">Pause</button>
   </div>
 </div>
 </section>
@@ -288,9 +256,8 @@ void main() {
 
   var stage = document.querySelector(".stage");
   var canvas = stage.querySelector("canvas");
-  var toggle = document.querySelector(".stage-toggle");
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var paused = reduced, onScreen = true;
+  var paused = reduced, onScreen = true;   // reduced motion: the still frame only
 
   var gl = canvas.getContext("webgl", { antialias: false, alpha: false });
   if (!gl) { canvas.style.visibility = "hidden"; return; }
@@ -390,14 +357,12 @@ void main() {
     sync();
   }
 
-  /* Runs only while on screen, visible and not paused; paused, the water
-     holds the frame it was showing. */
+  /* Runs only while on screen and visible; otherwise the water holds the
+     frame it was showing. */
   function sync() {
     var live = onScreen && !document.hidden && !paused;
     if (live && !raf) raf = requestAnimationFrame(frame);
     if (!live) last = 0;
-    toggle.textContent = paused ? "Play" : "Pause";
-    toggle.setAttribute("aria-pressed", paused ? "true" : "false");
   }
 
   var img = new Image();
@@ -423,11 +388,6 @@ void main() {
     }).observe(canvas);
   }
   document.addEventListener("visibilitychange", sync);
-
-  toggle.addEventListener("click", function () {
-    paused = !paused;
-    sync();
-  });
 })();
 </script>
 
