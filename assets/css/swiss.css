@@ -154,7 +154,7 @@ body{ font-family:var(--sans); }
     right:calc(100% + 32px); width:calc(100% - 32px);
   }
 }
-.hero h1{ margin-top:28px; }
+.hero h1{ margin-top:0; }
 h1, h2, .h2{ font-weight:700; }
 
 /* Contact's eyebrow is centred by an inline style on the live page */

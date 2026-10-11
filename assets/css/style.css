@@ -264,11 +264,13 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
    Hero
    ============================================================ */
 .hero{
-  position:relative; min-height:100svh;
+  /* Short of a full screen by the marquee's height (65px), so the logo bar
+     sits at the bottom of the first view as part of the hero. */
+  position:relative; min-height:calc(100svh - 65px);
   display:flex; flex-direction:column; justify-content:flex-start;
-  /* Top padding clears the 78px header and leaves a fixed 48px gap, so the
+  /* Top padding clears the 78px header and leaves a fixed 32px gap, so the
      hero sits the same distance below the nav at every viewport height. */
-  padding:126px 0 clamp(72px,11vh,108px); overflow:hidden;
+  padding:110px 0 clamp(40px,7vh,72px); overflow:hidden;
 }
 .blob{
   position:absolute; border-radius:50%; filter:blur(80px);
