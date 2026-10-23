@@ -920,12 +920,41 @@
     frame.src = 'PortraitProject/' + lab[0] + '?embed';
   }
 
+  /* ----------------------------------------------------------
+     Active users card
+     data/active-users.json is written by a scheduled GitHub Action
+     (scripts/fetch_active_users.py). The card stays hidden until
+     the file loads.
+     ---------------------------------------------------------- */
+  function activeUsers() {
+    var box = $('[data-active-users]');
+    if (!box || !window.fetch) return;
+    fetch('data/active-users.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw r; return r.json(); })
+      .then(function (d) {
+        if (typeof d.value !== 'number') return;
+        $('[data-au-value]', box).textContent = d.value.toLocaleString();
+        var trend = $('[data-au-trend]', box);
+        if (typeof d.change === 'number') {
+          trend.classList.toggle('down', d.change < 0);
+          $('[data-au-change]', box).textContent = Math.abs(d.change).toFixed(1) + '%';
+          trend.setAttribute('aria-label', (d.change < 0 ? 'Down ' : 'Up ') +
+            Math.abs(d.change).toFixed(1) + '% on the previous period');
+        } else {
+          trend.hidden = true;
+        }
+        if (d.period) box.title = 'Google Analytics, ' + d.period;
+        box.hidden = false;
+      })
+      .catch(function () {});
+  }
+
   /* ---------------------------------------------------------- */
   function init() {
     splitHero(); roles(); progressBar(); header();
     reveals(); filters(); parallax(); counters(); drawer();
     spy(); transitions(); lightbox(); reel(); motionBg(); year();
-    contactModal(); contactCta(); heroLab();
+    contactModal(); contactCta(); heroLab(); activeUsers();
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
