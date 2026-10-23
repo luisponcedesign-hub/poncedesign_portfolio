@@ -8,8 +8,9 @@ GitHub Actions (.github/workflows/active-users.yml) and commits the result.
 Users over the last 30 complete days, compared with the 30 days before.
 The longer window smooths out day-to-day swings.
 
-Needs `pip install google-analytics-data` and GOOGLE_APPLICATION_CREDENTIALS
-pointing at a service account key that has Viewer access to the property.
+Needs `pip install google-analytics-data` and Google credentials for an
+account with Viewer access to the property. In Actions those come from
+google-github-actions/auth; locally, `gcloud auth application-default login`.
 """
 import json
 import os

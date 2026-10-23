@@ -1,6 +1,9 @@
 # Refreshes data/active-users.json for the contact section's "Active users" card.
-# Needs the repository secret GA_CREDENTIALS: the JSON key of a Google Cloud
+# Signs in to Google Cloud keylessly (Workload Identity Federation) as a
 # service account that has Viewer access on GA4 property 554579350.
+# Needs two repository variables (not secrets):
+#   GCP_WIF_PROVIDER     projects/<number>/locations/global/workloadIdentityPools/github/providers/poncedesign
+#   GCP_SERVICE_ACCOUNT  ga-ticker@<project-id>.iam.gserviceaccount.com
 name: Active users
 
 on:
@@ -10,6 +13,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write   # lets the job prove to Google it's this repo
 
 concurrency:
   group: active-users
@@ -27,12 +31,14 @@ jobs:
 
       - run: pip install google-analytics-data
 
+      # Sets GOOGLE_APPLICATION_CREDENTIALS for the next step; no stored key.
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
       - name: Fetch from Google Analytics
-        env:
-          GA_CREDENTIALS: ${{ secrets.GA_CREDENTIALS }}
-        run: |
-          printf '%s' "$GA_CREDENTIALS" > "$RUNNER_TEMP/ga.json"
-          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/ga.json" python3 scripts/fetch_active_users.py
+        run: python3 scripts/fetch_active_users.py
 
       - name: Commit if the numbers moved
         run: |
