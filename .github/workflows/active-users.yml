@@ -43,10 +43,11 @@ jobs:
       - name: Commit if the numbers moved
         run: |
           # The timestamp alone changing isn't worth a commit and a Pages rebuild.
-          if git diff -U0 data/active-users.json | grep -E '^[+-] *"(value|change)"' -q; then
+          # Staged first so the very first run, when the file is new, counts too.
+          git add data/active-users.json
+          if git diff --cached -U0 data/active-users.json | grep -E '^[+-] *"(value|change)"' -q; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898283+github-actions[bot]@users.noreply.github.com'
-            git add data/active-users.json
             git commit -m 'Refresh active users'
             git push
           fi
