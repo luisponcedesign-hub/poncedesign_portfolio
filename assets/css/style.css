@@ -730,18 +730,24 @@ section{ position:relative; }
 .socials a:active{ opacity:.5; }
 .socials a:focus-visible{ outline:2px solid var(--orange); outline-offset:4px; }
 
-/* Active users card under the logos. Green when up on the previous
-   period, orange when down. */
+/* Active users card under the logos, built like a .kpi: tracked caps
+   label, heavy tight figure, site tokens throughout. Green (--ok) when up
+   on the previous period, orange when down. */
 .au{
-  display:inline-block; margin-top:80px; padding:14px 24px 14px 18px;
-  border:1px solid var(--line-strong); border-radius:10px; text-align:left;
-  font-family:'Roboto', system-ui, sans-serif; color:var(--ink); line-height:1.2;
+  display:inline-block; margin-top:80px; padding:16px 26px 15px 18px;
+  border:1px solid var(--line); border-radius:var(--r-md); background:var(--surface);
+  text-align:left; color:var(--ink); line-height:1;
 }
 .au[hidden]{ display:none; }
 .au p{ margin:0; }
-.au-label{ font-size:.95rem; }
-.au-value{ margin-top:10px !important; font-size:1.5rem; }
-.au-trend{ display:flex; align-items:center; gap:3px; margin-top:8px !important; font-size:.95rem; color:#3b9a5d; }
+.au-label, .au-trend{
+  font-family:var(--mono); font-size:.72rem; font-weight:500;
+  letter-spacing:.12em; text-transform:uppercase;
+}
+.au-label{ color:var(--ink-3); }
+.au-value{ margin-top:12px !important; font-size:1.9rem; font-weight:700; letter-spacing:-.04em; }
+.au-trend{ display:flex; align-items:center; gap:4px; margin-top:10px !important; color:var(--ok); }
+.au-trend svg{ width:8px; height:11px; }
 .au-trend.down{ color:var(--orange); }
 .au-trend.down svg{ transform:rotate(180deg); }
 /* Tablet and up: the card sits to the right of the logos, tops aligned. */
