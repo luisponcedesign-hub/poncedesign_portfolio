@@ -744,6 +744,11 @@ section{ position:relative; }
 .au-trend{ display:flex; align-items:center; gap:3px; margin-top:8px !important; font-size:.95rem; color:#3b9a5d; }
 .au-trend.down{ color:var(--orange); }
 .au-trend.down svg{ transform:rotate(180deg); }
+/* Tablet and up: the card sits to the right of the logos, tops aligned. */
+@media (min-width:621px){
+  .contact-row{ display:flex; align-items:flex-start; gap:80px; margin-top:36px; }
+  .contact-row .socials, .contact-row .au{ margin-top:0; }
+}
 
 /* ============================================================
    Footer
