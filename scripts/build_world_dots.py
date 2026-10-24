@@ -20,7 +20,7 @@ CODES = 'https://cdn.jsdelivr.net/npm/i18n-iso-countries@7.11.0/codes.json'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'data', 'world-dots.json')
 
-COLS, ROWS = 36, 18          # ~3px pitch at 107px wide; rows stretch latitude a little
+COLS, ROWS = 28, 14          # ~3.8px pitch at 107px wide; rows stretch latitude a little
 NORTH, SOUTH = 80, -58       # crop the poles; Antarctica is never a visitor
 SUB = 3                      # subsamples per cell side
 

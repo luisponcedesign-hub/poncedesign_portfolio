@@ -936,7 +936,7 @@
         svg.setAttribute('viewBox', '0 0 ' + w.cols + ' ' + w.rows);
         w.dots.forEach(function (d) {
           var on = d.slice(2).some(function (c) { return c in countries; });
-          html += '<circle cx="' + (d[0] + .5) + '" cy="' + (d[1] + .5) + '" r=".44"' +
+          html += '<circle cx="' + (d[0] + .5) + '" cy="' + (d[1] + .5) + '" r=".38"' +
             (on ? ' class="on"' : '') + '/>';
         });
         svg.innerHTML = html;
