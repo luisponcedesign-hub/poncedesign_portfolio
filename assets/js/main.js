@@ -921,11 +921,34 @@
   }
 
   /* ----------------------------------------------------------
-     Active users card
+     Active users + Countries cards
      data/active-users.json is written by a scheduled GitHub Action
-     (scripts/fetch_active_users.py). The card stays hidden until
-     the file loads.
+     (scripts/fetch_active_users.py). The cards stay hidden until
+     the file loads; the map also needs data/world-dots.json.
      ---------------------------------------------------------- */
+  function worldMap(box, countries) {
+    var codes = Object.keys(countries || {});
+    if (!codes.length) return;
+    fetch('data/world-dots.json')
+      .then(function (r) { if (!r.ok) throw r; return r.json(); })
+      .then(function (w) {
+        var svg = $('[data-au-world]', box), html = '';
+        svg.setAttribute('viewBox', '0 0 ' + w.cols + ' ' + w.rows);
+        w.dots.forEach(function (d) {
+          var on = d.slice(2).some(function (c) { return c in countries; });
+          html += '<circle cx="' + (d[0] + .5) + '" cy="' + (d[1] + .5) + '" r=".44"' +
+            (on ? ' class="on"' : '') + '/>';
+        });
+        svg.innerHTML = html;
+        var names = window.Intl && Intl.DisplayNames ? new Intl.DisplayNames(['en'], { type: 'region' }) : null;
+        svg.setAttribute('aria-label', 'Visitors from ' + codes.map(function (c) {
+          return names ? names.of(c) : c;
+        }).join(', '));
+        box.hidden = false;
+      })
+      .catch(function () {});
+  }
+
   function activeUsers() {
     var box = $('[data-active-users]');
     if (!box || !window.fetch) return;
@@ -945,6 +968,7 @@
         }
         if (d.period) box.title = 'Google Analytics, ' + d.period;
         box.hidden = false;
+        worldMap($('[data-au-map]', box), d.countries);
       })
       .catch(function () {});
   }

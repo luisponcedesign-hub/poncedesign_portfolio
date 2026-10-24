@@ -1,4 +1,5 @@
-# Refreshes data/active-users.json for the contact section's "Active users" card.
+# Refreshes data/active-users.json for the contact section's "Active users" and
+# "Countries" cards.
 # Signs in to Google Cloud keylessly (Workload Identity Federation) as a
 # service account that has Viewer access on GA4 property 554579350.
 # Needs two repository variables (not secrets):
@@ -45,7 +46,7 @@ jobs:
           # The timestamp alone changing isn't worth a commit and a Pages rebuild.
           # Staged first so the very first run, when the file is new, counts too.
           git add data/active-users.json
-          if git diff --cached -U0 data/active-users.json | grep -E '^[+-] *"(value|change)"' -q; then
+          if git diff --cached -U0 data/active-users.json | grep -E '^[+-] *"(value|change|[A-Z]{2})"' -q; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898283+github-actions[bot]@users.noreply.github.com'
             git commit -m 'Refresh active users'

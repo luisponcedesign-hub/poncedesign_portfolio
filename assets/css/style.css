@@ -733,8 +733,10 @@ section{ position:relative; }
 /* Active users card under the logos, built like a .kpi: tracked caps
    label, heavy tight figure, site tokens throughout. Green (--ok) when up
    on the previous period, orange when down. */
+.au-pair{ display:inline-grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:16px; margin-top:80px; }
+.au-pair[hidden]{ display:none; }
 .au{
-  display:inline-block; margin-top:80px; padding:16px 26px 15px 18px;
+  display:inline-block; padding:16px 26px 15px 18px;
   border:1px solid var(--line); border-radius:var(--r-md); background:var(--surface);
   text-align:left; color:var(--ink); line-height:1;
 }
@@ -750,10 +752,17 @@ section{ position:relative; }
 .au-trend svg{ width:8px; height:11px; }
 .au-trend.down{ color:var(--orange); }
 .au-trend.down svg{ transform:rotate(180deg); }
+/* Its neighbour: a dot-grid world, grey land, orange where visitors are.
+   Same box as .au (the pair's grid makes them equal); map pinned to the base. */
+.au-map{ display:flex; flex-direction:column; justify-content:space-between; padding-right:18px; }
+/* width:0 + min-width keeps the svg from sizing the pair; .au sets the width. */
+.au-world{ display:block; width:0; min-width:100%; height:auto; margin-top:10px; overflow:visible; }
+.au-world circle{ fill:var(--line-strong); }
+.au-world circle.on{ fill:var(--orange); }
 /* Tablet and up: the card sits to the right of the logos, tops aligned. */
 @media (min-width:621px){
   .contact-row{ display:flex; align-items:flex-start; gap:80px; margin-top:36px; }
-  .contact-row .socials, .contact-row .au{ margin-top:0; }
+  .contact-row .socials, .contact-row .au-pair{ margin-top:0; }
 }
 
 /* ============================================================

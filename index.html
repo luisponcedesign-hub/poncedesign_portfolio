@@ -40,7 +40,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=2cbcf58f">
+<link rel="stylesheet" href="assets/css/style.css?v=dfb18088">
 <link rel="stylesheet" href="assets/css/swiss.css?v=6fb5c864">
 
 <script type="application/ld+json">
@@ -701,10 +701,17 @@
       </div>
 
       <!-- Filled from data/active-users.json (scripts/fetch_active_users.py); stays hidden without it. -->
-      <div class="au" data-active-users hidden>
-        <p class="au-label">Active users</p>
-        <p class="au-value" data-au-value></p>
-        <p class="au-trend" data-au-trend><svg viewBox="0 0 12 16" width="10" height="14" aria-hidden="true"><path d="M6 15V1.5M1 6.5l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span data-au-change></span></p>
+      <div class="au-pair" data-active-users hidden>
+        <div class="au">
+          <p class="au-label">Active users</p>
+          <p class="au-value" data-au-value></p>
+          <p class="au-trend" data-au-trend><svg viewBox="0 0 12 16" width="10" height="14" aria-hidden="true"><path d="M6 15V1.5M1 6.5l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span data-au-change></span></p>
+        </div>
+        <!-- Dots from data/world-dots.json (scripts/build_world_dots.py). -->
+        <div class="au au-map" data-au-map hidden>
+          <p class="au-label">Countries</p>
+          <svg class="au-world" data-au-world role="img"></svg>
+        </div>
       </div>
     </div>
   </div>
@@ -794,6 +801,6 @@
 <script src="assets/js/portrait-dots.js?v=2ac58e4b" defer></script>
 <script src="assets/js/portrait-about.js?v=ec416ab7" defer></script>
 <script src="assets/js/craft-lines.js?v=a10bc109" defer></script>
-<script src="assets/js/main.js?v=c73955c4"></script>
+<script src="assets/js/main.js?v=48c9e7b2"></script>
 </body>
 </html>
