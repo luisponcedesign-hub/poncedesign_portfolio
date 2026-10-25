@@ -203,7 +203,7 @@ ul{ margin:0; padding:0; list-style:none; }
 /* Quiet ghost — same pill as .ghost, label dropped to the mid-grey so it reads
    as a tertiary action. Returns to full ink on hover for contrast over the
    gradient sweep. */
-.btn.ghost.quiet{ color:var(--muted); }
+.btn.ghost.quiet{ color:var(--ink-3); }
 .btn.ghost.quiet:hover{ color:var(--ink); }
 
 /* Mobile nav */
@@ -352,7 +352,7 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   border:1px solid var(--line); border-radius:100px; padding:7px 15px;
   box-shadow:var(--shadow-sm);
 }
-.avail .hl{ color:var(--orange); font-weight:600; }
+.avail .hl{ color:var(--orange-deep); font-weight:600; }
 
 .scroll-hint{
   /* Sits in the hero-sub flex row so it tracks the CTA buttons' baseline
@@ -360,7 +360,7 @@ body.menu-open .drawer a:nth-child(6){ transition-delay:.48s; }
   margin:0 0 0 auto; z-index:2;
   display:flex; align-items:center; gap:11px;
   font-family:var(--mono); font-size:.66rem; letter-spacing:.2em;
-  text-transform:uppercase; color:var(--muted);
+  text-transform:uppercase; color:var(--ink-3);
 }
 .scroll-hint .rail{
   width:1px; height:40px; background:var(--line-strong); position:relative; overflow:hidden;
@@ -422,7 +422,7 @@ section{ position:relative; }
 .sec-head h2{ margin-top:16px; }
 .count{
   font-family:var(--mono); font-size:.75rem; letter-spacing:.16em;
-  color:var(--muted); text-transform:uppercase;
+  color:var(--ink-3); text-transform:uppercase;
 }
 
 /* Stats */
@@ -522,7 +522,7 @@ section{ position:relative; }
 .card .meta{ padding:17px 2px 0; }
 .card .cli{
   font-family:var(--mono); font-size:.68rem; letter-spacing:.17em;
-  text-transform:uppercase; color:var(--orange); font-weight:500;
+  text-transform:uppercase; color:var(--orange-deep); font-weight:500;
 }
 .card h3{
   margin:8px 0 7px; font-size:1.16rem; font-weight:700; letter-spacing:-.02em;
@@ -563,7 +563,7 @@ section{ position:relative; }
 .card:not(.hero-card) .feat{ display:none; }   /* lead card demoted by a filter */
 
 .empty{
-  grid-column:1/-1; text-align:center; padding:70px 0; color:var(--muted);
+  grid-column:1/-1; text-align:center; padding:70px 0; color:var(--ink-3);
   font-family:var(--mono); font-size:.82rem; letter-spacing:.1em; text-transform:uppercase;
 }
 
@@ -621,7 +621,7 @@ section{ position:relative; }
 }
 .skills h4{
   font-family:var(--mono); font-size:.68rem; font-weight:500;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--orange);
+  letter-spacing:.18em; text-transform:uppercase; color:var(--orange-deep);
   margin-bottom:11px;
 }
 .skills p{ margin:0; font-size:.94rem; line-height:1.75; color:var(--ink-2); }
@@ -632,9 +632,9 @@ section{ position:relative; }
   padding:15px 0; border-top:1px solid var(--line);
 }
 .cred:last-child{ border-bottom:1px solid var(--line); }
-.cred b{ font-family:var(--mono); font-size:.74rem; font-weight:500; letter-spacing:.09em; color:var(--muted); }
+.cred b{ font-family:var(--mono); font-size:.74rem; font-weight:500; letter-spacing:.09em; color:var(--ink-3); }
 .cred span{ font-size:.96rem; color:var(--ink-2); }
-.cred span i{ font-style:normal; display:block; color:var(--muted); font-size:.85rem; margin-top:2px; }
+.cred span i{ font-style:normal; display:block; color:var(--ink-3); font-size:.85rem; margin-top:2px; }
 
 /* ============================================================
    Contact
@@ -694,7 +694,7 @@ section{ position:relative; }
   transition:background-size .5s var(--ease-out), color var(--t-med) var(--ease);
   padding-bottom:5px; word-break:break-word;
 }
-.mail-link:hover{ background-size:0% 2px; color:var(--orange); }
+.mail-link:hover{ background-size:0% 2px; color:var(--orange-deep); }
 /* Mirror of the header's "Let's talk", shown only while that one is off the
    screen — see contactCta() in main.js. The Calendly button beside it
    always stays visible. While hidden, the mirror leaves the flow entirely
@@ -750,7 +750,7 @@ section{ position:relative; }
 .au-value{ margin-top:12px !important; font-size:1.9rem; font-weight:700; letter-spacing:-.04em; }
 .au-trend{ display:flex; align-items:center; gap:4px; margin-top:10px !important; color:var(--ok); }
 .au-trend svg{ width:8px; height:11px; }
-.au-trend.down{ color:var(--orange); }
+.au-trend.down{ color:var(--orange-deep); }
 .au-trend.down svg{ transform:rotate(180deg); }
 /* Its neighbour: a dot-grid world, grey land, orange where visitors are.
    Same box as .au (the pair's grid makes them equal); map pinned to the base. */
@@ -773,9 +773,9 @@ section{ position:relative; }
   display:flex; flex-wrap:wrap; gap:16px 30px;
   align-items:center; justify-content:space-between;
   font-family:var(--mono); font-size:.72rem; letter-spacing:.11em;
-  text-transform:uppercase; color:var(--muted);
+  text-transform:uppercase; color:var(--ink-3);
 }
-.ftr-in a:hover{ color:var(--orange); }
+.ftr-in a:hover{ color:var(--orange-deep); }
 .to-top{ display:inline-flex; align-items:center; gap:8px; }
 .to-top .arw{ transition:transform var(--t-med) var(--ease-out); }
 
@@ -788,7 +788,7 @@ section{ position:relative; }
   font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
   color:var(--ink-3); margin-bottom:26px;
 }
-.crumb:hover{ color:var(--orange); }
+.crumb:hover{ color:var(--orange-deep); }
 .crumb .arw{ transition:transform var(--t-med) var(--ease-out); }
 .case-hero h1{ font-size:clamp(2.3rem,6.4vw,5rem); letter-spacing:-.04em; max-width:18ch; }
 .case-hero .lead{ max-width:60ch; margin-top:24px; }
@@ -809,7 +809,7 @@ section{ position:relative; }
 }
 .facts div h4{
   font-family:var(--mono); font-size:.66rem; font-weight:500;
-  letter-spacing:.17em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;
+  letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px;
 }
 .facts div p{ margin:0; font-size:.97rem; color:var(--ink); font-weight:500; }
 
@@ -1004,7 +1004,7 @@ section{ position:relative; }
 }
 .score-foot{
   margin:0; background:var(--surface); padding:14px 24px;
-  font-size:.8rem; color:var(--muted);
+  font-size:.8rem; color:var(--ink-3);
 }
 @media (max-width:560px){
   .score-head,.score-band,.score-foot{ padding-left:18px; padding-right:18px; }
@@ -1026,7 +1026,7 @@ section{ position:relative; }
   color:var(--ink); border-bottom:2px solid var(--yellow); padding-bottom:2px;
   transition:color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
 }
-.linkout:hover{ color:var(--orange); border-color:var(--orange); }
+.linkout:hover{ color:var(--orange-deep); border-color:var(--orange-deep); }
 
 /* next / prev */
 .pager{ border-top:1px solid var(--line); }
@@ -1042,13 +1042,13 @@ section{ position:relative; }
 .pager-in > a.nx{ text-align:right; }
 .pager-in span{
   font-family:var(--mono); font-size:.68rem; letter-spacing:.17em;
-  text-transform:uppercase; color:var(--muted);
+  text-transform:uppercase; color:var(--ink-3);
 }
 .pager-in strong{
   display:block; margin-top:11px; font-size:clamp(1.05rem,2.2vw,1.6rem);
   font-weight:700; letter-spacing:-.025em; line-height:1.25;
 }
-.pager-in > a:hover strong{ color:var(--orange); }
+.pager-in > a:hover strong{ color:var(--orange-deep); }
 
 /* ============================================================
    Reveal system
@@ -1297,12 +1297,12 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .certlist .cd{
   font-family:var(--mono); font-size:.73rem; letter-spacing:.08em; color:var(--ink-3);
 }
-.certlist .cd{ color:var(--muted); }
+.certlist .cd{ color:var(--ink-3); }
 .certlist .ca{
-  font-size:.85rem; color:var(--muted); justify-self:end;
+  font-size:.85rem; color:var(--ink-3); justify-self:end;
   transition:transform var(--t-med) var(--ease-out), color var(--t-fast) var(--ease);
 }
-.certlist a:hover .ca{ color:var(--orange); }
+.certlist a:hover .ca{ color:var(--orange-deep); }
 
 /* ---- motion (supporting note) ------------------------------ */
 .motion{
@@ -1421,7 +1421,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   transition:color var(--t-fast) var(--ease);
 }
 .pset > summary:hover h3,
-.certs > summary:hover h3{ color:var(--orange); }
+.certs > summary:hover h3{ color:var(--orange-deep); }
 /* Chevron, drawn from two borders so it needs no asset. */
 .pchev{
   flex:none; width:11px; height:11px; margin-top:6px;
@@ -1441,7 +1441,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 }
 .pby{
   margin:9px 0 0; font-family:var(--mono); font-size:.7rem;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--orange);
+  letter-spacing:.14em; text-transform:uppercase; color:var(--orange-deep);
 }
 .pnote{
   margin:14px 0 20px; font-size:.92rem; color:var(--ink-3);
@@ -1457,7 +1457,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .plist li:last-child{ border-bottom:0; }
 .plist .n{
   font-family:var(--mono); font-size:.72rem; font-weight:500;
-  letter-spacing:.06em; color:var(--muted);
+  letter-spacing:.06em; color:var(--ink-3);
 }
 .plist li:nth-child(10) .n{
   background:var(--grad);
@@ -1577,7 +1577,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   display:block; margin-bottom:8px;
   font-weight:700; font-size:.9rem; letter-spacing:-.01em;
 }
-.cfield .opt{ font-weight:400; color:var(--muted); }
+.cfield .opt{ font-weight:400; color:var(--ink-3); }
 
 .cfield input,
 .cfield textarea{
@@ -1599,7 +1599,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
    and stays the single place this box is sized. rows is the no-CSS fallback. */
 .cfield textarea{ height:119px; min-height:119px; resize:vertical; }
 .cfield input::placeholder,
-.cfield textarea::placeholder{ color:var(--muted); }
+.cfield textarea::placeholder{ color:var(--ink-3); }
 
 .cfield input:hover,
 .cfield textarea:hover{ background:#EFEBE2; }
@@ -1745,21 +1745,21 @@ body.cmodal-open{ overflow:hidden; }
 }
 .rsm-role{
   margin:14px 0 0; font-family:var(--mono); font-size:.74rem; font-weight:500;
-  letter-spacing:.2em; text-transform:uppercase; color:var(--orange);
+  letter-spacing:.2em; text-transform:uppercase; color:var(--orange-deep);
 }
 .rsm-contact{
   display:flex; flex-wrap:wrap; gap:8px 22px; margin:20px 0 0;
   font-size:.92rem; color:var(--ink-2);
 }
 .rsm-contact a{ border-bottom:1px solid var(--line-strong); padding-bottom:1px; }
-.rsm-contact a:hover{ color:var(--orange); border-color:var(--orange); }
+.rsm-contact a:hover{ color:var(--orange-deep); border-color:var(--orange-deep); }
 .rsm-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
 
 /* --- section headers --- */
 .rsm-sec{ margin-top:clamp(38px,5vw,56px); }
 .rsm-sec > h2{
   font-family:var(--mono); font-size:.68rem; font-weight:500;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--orange);
+  letter-spacing:.18em; text-transform:uppercase; color:var(--orange-deep);
   margin-bottom:18px;
 }
 .rsm-bio{ margin:0; font-size:1.02rem; line-height:1.7; color:var(--ink-2); max-width:72ch; }
@@ -1775,7 +1775,7 @@ body.cmodal-open{ overflow:hidden; }
   font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.07em;
   color:var(--ink-3); line-height:1.6;
 }
-.rsm-when i{ font-style:normal; display:block; color:var(--muted); }
+.rsm-when i{ font-style:normal; display:block; color:var(--ink-3); }
 .rsm-job h3{
   font-size:1.02rem; font-weight:700; letter-spacing:-.01em; line-height:1.35; margin:0;
 }
@@ -1808,7 +1808,7 @@ body.cmodal-open{ overflow:hidden; }
 @media (max-width:760px){
   .rsm{ padding-top:36px; }
   .rsm-job{ grid-template-columns:1fr; gap:8px; }
-  .rsm-when i{ display:inline; color:var(--muted); }
+  .rsm-when i{ display:inline; color:var(--ink-3); }
   .rsm-when i::before{ content:' · '; }
   .rsm-sec .skills{ grid-template-columns:1fr; }
 }

@@ -37,8 +37,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=827803e0">
-<link rel="stylesheet" href="assets/css/swiss.css?v=6fb5c864">
+<link rel="stylesheet" href="assets/css/style.css?v=5bedd6d5">
+<link rel="stylesheet" href="assets/css/swiss.css?v=355cb10b">
 <style>
   /* Guide scaffolding only. Every specimen below uses the site's own
      classes from style.css + swiss.css, so this page can't drift from them. */
@@ -63,6 +63,53 @@
   .sg-meta{
     display:block; margin-top:6px; font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size:.72rem; line-height:1.5; color:var(--ink-3);
+  }
+
+  /* accessibility report card */
+  .a11y{ max-width:760px; margin-top:clamp(36px,5vw,56px); border:1px solid var(--line); padding:clamp(22px,3vw,36px); }
+  .a11y-head{ display:flex; align-items:flex-start; gap:24px; cursor:pointer; list-style:none; }
+  .a11y-head::-webkit-details-marker{ display:none; }
+  .a11y-head > div{ flex:1; min-width:0; }
+  .a11y-head:focus-visible{ outline:2px solid var(--orange); outline-offset:6px; }
+  .a11y-head h2{ transition:color var(--t-fast) var(--ease); }
+  .a11y-head:hover h2{ color:var(--orange); }
+  .a11y-head:hover .pchev{ border-color:var(--orange); }
+  .a11y-head .pchev{ margin-top:14px; }
+  .a11y[open] .pchev{ transform:rotate(-135deg); }
+  .a11y[open] .a11y-body{ animation:pbody-in .3s var(--ease-out) both; }
+  .a11y-head h2{ margin:12px 0 8px; font-size:clamp(1.5rem,3vw,2.1rem); letter-spacing:-.035em; }
+  .a11y-sub{ margin:0; font-size:.9rem; color:var(--ink-3); max-width:46ch; }
+  .a11y-score{ margin:0; text-align:right; flex:none; }
+  .a11y-score b{ display:block; font-size:clamp(2.2rem,5vw,3.2rem); font-weight:700; letter-spacing:-.05em; line-height:1; }
+  .a11y-score i{ display:block; margin-top:6px; font-style:normal; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); }
+  .a11y-part{ margin-top:28px; }
+  .a11y-part h3{ font-size:.72rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); padding-bottom:10px; border-bottom:1px solid var(--line); }
+  .a11y-list li{
+    display:grid; grid-template-columns:44px minmax(0,1fr) auto 52px; align-items:center; gap:14px;
+    padding:12px 0; border-bottom:1px solid var(--line);
+  }
+  .a11y-aa{ display:grid; place-items:center; width:44px; height:32px; border:1px solid var(--line); font-weight:700; font-size:.95rem; }
+  .a11y-pair b{ display:block; font-size:.92rem; font-weight:500; }
+  .a11y-pair i{ display:block; font-style:normal; font-size:.8rem; color:var(--ink-3); }
+  .a11y-note{ display:block; margin-top:3px; font-size:.78rem; color:var(--danger); }
+  .a11y-list li:has(.a11y-pass) .a11y-note{ color:var(--ink-3); }
+  .a11y-ratio{ font-variant-numeric:tabular-nums; font-size:.9rem; font-weight:500; text-align:right; }
+  .a11y-pass, .a11y-fail{
+    justify-self:end; font-size:.66rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+    padding:3px 0; border-bottom:1px solid currentColor;
+  }
+  .a11y-pass{ color:var(--ok); }
+  .a11y-fail{ color:var(--danger); }
+  .a11y-checks li{ display:grid; grid-template-columns:52px 1fr; gap:14px; align-items:baseline; padding:11px 0; border-bottom:1px solid var(--line); font-size:.92rem; color:var(--ink-2); }
+  .a11y-checks .a11y-pass, .a11y-checks .a11y-fail{ justify-self:start; }
+  .a11y-foot{ margin:22px 0 0; font-size:.84rem; color:var(--ink-3); }
+  .a11y-foot code{ font-size:.78rem; color:var(--ink-2); }
+  @media (max-width:560px){
+    .a11y-head{ flex-wrap:wrap; }
+    .a11y-head > div{ flex-basis:calc(100% - 40px); }
+    .a11y-score{ order:3; text-align:left; }
+    .a11y-list li{ grid-template-columns:40px minmax(0,1fr) auto; }
+    .a11y-list .a11y-pass, .a11y-list .a11y-fail{ grid-column:2; justify-self:start; }
   }
 
   /* colour */
@@ -199,6 +246,50 @@
     <a class="crumb" href="./#craft"><span class="arw" aria-hidden="true">←</span> Back to craft</a>
     <h1 data-rv>Style guide</h1>
     <p class="lead" data-rv data-rv-delay="0.06">Every UI element on poncedesign.com on one page. Nothing here is a picture: each specimen is live markup styled by the same two stylesheets the rest of the site loads, so if a token changes, this page changes with it.</p>
+
+    <details class="a11y" data-rv data-rv-delay="0.1">
+      <summary class="a11y-head">
+        <div>
+          <p class="eyebrow">Accessibility</p>
+          <h2 id="a11y-title">Report card</h2>
+          <p class="a11y-sub">WCAG 2.2 AA, measured live in your browser from the site's own tokens and this page's markup.</p>
+        </div>
+        <p class="a11y-score"><b data-a11y-score>16/16</b><i>checks pass</i></p>
+        <span class="pchev" aria-hidden="true"></span>
+      </summary>
+
+      <div class="a11y-body">
+      <section class="a11y-part" aria-labelledby="a11y-c">
+        <h3 id="a11y-c">Colour contrast</h3>
+        <ul class="a11y-list" data-a11y-contrast>
+          <li data-fg="--ink" data-bg="--bg" data-need="4.5"><span class="a11y-aa" style="color:var(--ink);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Ink on white</b><i>Headlines, titles</i></span><span class="a11y-ratio">19.28:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--ink-2" data-bg="--bg" data-need="4.5"><span class="a11y-aa" style="color:var(--ink-2);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Ink 2 on white</b><i>Body copy, leads</i></span><span class="a11y-ratio">11.32:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--ink-3" data-bg="--bg" data-need="4.5"><span class="a11y-aa" style="color:var(--ink-3);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Ink 3 on white</b><i>Nav, filter tabs, labels, captions, footer</i></span><span class="a11y-ratio">5.30:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--ink-3" data-bg="--bg-tint" data-need="4.5"><span class="a11y-aa" style="color:var(--ink-3);background:var(--bg-tint)">Aa</span><span class="a11y-pair"><b>Ink 3 on tint</b><i>Figure captions, tags</i></span><span class="a11y-ratio">4.81:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--orange-deep" data-bg="--bg" data-need="4.5"><span class="a11y-aa" style="color:var(--orange-deep);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Orange deep on white</b><i>Small orange labels, counts, hover states</i></span><span class="a11y-ratio">4.78:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--danger" data-bg="--danger-soft" data-need="4.5"><span class="a11y-aa" style="color:var(--danger);background:var(--danger-soft)">Aa</span><span class="a11y-pair"><b>Danger on danger soft</b><i>Form errors</i></span><span class="a11y-ratio">5.71:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--ok" data-bg="--bg" data-need="4.5"><span class="a11y-aa" style="color:var(--ok);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Positive on white</b><i>Upward trends</i></span><span class="a11y-ratio">5.32:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--muted" data-bg="--bg" data-need="3"><span class="a11y-aa" style="color:var(--muted);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Muted on white</b><i>Chevrons and the wordmark only</i><span class="a11y-note">No longer used for text. Small labels moved to --ink-3.</span></span><span class="a11y-ratio">3.43:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--orange" data-bg="--bg" data-need="3"><span class="a11y-aa" style="color:var(--orange);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Orange on white</b><i>Contact headline, menu hover: large type only</i><span class="a11y-note">Large text needs 3:1. Small labels moved to --orange-deep.</span></span><span class="a11y-ratio">3.37:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--orange" data-bg="--bg" data-need="3"><span class="a11y-aa" style="color:var(--orange);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Focus ring on white</b><i>Keyboard focus outline</i><span class="a11y-note">Non text contrast needs 3:1.</span></span><span class="a11y-ratio">3.37:1</span><b class="a11y-pass">Pass</b></li>
+        </ul>
+      </section>
+
+      <section class="a11y-part" aria-labelledby="a11y-p">
+        <h3 id="a11y-p">This page</h3>
+        <ul class="a11y-checks" data-a11y-checks>
+          <li data-check="lang"><b class="a11y-pass">Pass</b>Page language is declared</li>
+          <li data-check="skip"><b class="a11y-pass">Pass</b>Skip link reaches the main content</li>
+          <li data-check="alt"><b class="a11y-pass">Pass</b>Every image has alt text or is marked decorative</li>
+          <li data-check="names"><b class="a11y-pass">Pass</b>Every link and button has an accessible name</li>
+          <li data-check="labels"><b class="a11y-pass">Pass</b>Every form field has a label</li>
+          <li data-check="h1"><b class="a11y-pass">Pass</b>One h1, and headings never skip a level</li>
+        </ul>
+      </section>
+
+      <p class="a11y-foot">Built in across the site: visible focus rings, <code>prefers-reduced-motion</code> support, <code>aria-pressed</code> filters with a live result count, an Escape to close menu, a native dialog for contact, and every page readable without JavaScript.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -223,7 +314,7 @@
     </div>
 
     <div class="sg-row">
-      <header><h3>Accent &amp; state</h3><p>Orange is the only colour, kept for labels, hover and active states. Yellow survives in the favicon and editor's notes.</p></header>
+      <header><h3>Accent &amp; state</h3><p>Orange is the only colour. Small orange text uses Orange deep to meet 4.5:1; bright Orange is kept for focus rings, fills and large type. Muted is for non text marks only.</p></header>
       <div class="sg-demo sg-swatches">
         <div class="sg-sw"><i style="background:var(--orange)"></i><b>Orange</b><span class="sg-meta">--orange #E8630B</span></div>
         <div class="sg-sw"><i style="background:var(--orange-deep)"></i><b>Orange deep</b><span class="sg-meta">--orange-deep #C24E05</span></div>
@@ -313,7 +404,7 @@
       <div class="sg-demo sg-inline">
         <div><a class="crumb" href="#controls" style="margin:0"><span class="arw" aria-hidden="true">←</span> All work</a><span class="sg-meta">.crumb</span></div>
         <div><a class="linkout" href="#controls">Original case study <span aria-hidden="true">↗</span></a><span class="sg-meta">.linkout</span></div>
-        <div><a class="to-top" href="#" style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Back to top <span class="arw" aria-hidden="true">↑</span></a><span class="sg-meta">.to-top</span></div>
+        <div><a class="to-top" href="#" style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">Back to top <span class="arw" aria-hidden="true">↑</span></a><span class="sg-meta">.to-top</span></div>
         <div style="flex-basis:100%"><a class="mail-link" href="mailto:luisponcedesign@gmail.com" style="margin:0">luisponcedesign@gmail.com</a><span class="sg-meta">.mail-link</span></div>
       </div>
     </div>
@@ -752,6 +843,78 @@
   </div>
 </footer>
 
+<script>
+  // Accessibility report card: recomputes every contrast ratio from the live
+  // tokens and runs the page checks, so the card can't go stale. The markup
+  // carries the last measured values as a no-JS fallback.
+  (function () {
+    var card = document.querySelector('.a11y');
+    if (!card) return;
+    var root = getComputedStyle(document.documentElement);
+
+    function rgb(v) {
+      var c = document.createElement('canvas').getContext('2d');
+      c.fillStyle = v.trim(); var h = c.fillStyle;   // normalises to #rrggbb
+      return [1, 3, 5].map(function (i) { return parseInt(h.substr(i, 2), 16) / 255; });
+    }
+    function lum(v) {
+      var c = rgb(v).map(function (x) { return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); });
+      return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
+    }
+    function ratio(a, b) {
+      var x = lum(a), y = lum(b);
+      return (Math.max(x, y) + .05) / (Math.min(x, y) + .05);
+    }
+    function mark(el, ok) {
+      el.className = ok ? 'a11y-pass' : 'a11y-fail';
+      el.textContent = ok ? 'Pass' : 'Fail';
+    }
+
+    var pass = 0, total = 0;
+    card.querySelectorAll('[data-a11y-contrast] li').forEach(function (li) {
+      var r = ratio(root.getPropertyValue(li.dataset.fg), root.getPropertyValue(li.dataset.bg));
+      var ok = r >= +li.dataset.need;
+      li.querySelector('.a11y-ratio').textContent = (Math.floor(r * 100) / 100).toFixed(2) + ':1';
+      mark(li.querySelector('b:last-child'), ok);
+      total++; if (ok) pass++;
+    });
+
+    function named(el) {
+      return (el.getAttribute('aria-label') || el.getAttribute('title') || el.textContent || '').trim() ||
+        !!el.querySelector('img[alt]:not([alt=""])');
+    }
+    var checks = {
+      lang: function () { return !!document.documentElement.lang; },
+      skip: function () {
+        var a = document.querySelector('.skip');
+        return !!(a && document.querySelector(a.getAttribute('href')));
+      },
+      alt: function () { return !document.querySelector('img:not([alt])'); },
+      names: function () {
+        return [].every.call(document.querySelectorAll('a[href], button'), function (el) {
+          return el.closest('[aria-hidden="true"]') || named(el);
+        });
+      },
+      labels: function () {
+        return [].every.call(document.querySelectorAll('input, textarea, select'), function (el) {
+          return el.labels && el.labels.length || el.getAttribute('aria-label');
+        });
+      },
+      h1: function () {
+        var hs = document.querySelectorAll('h1, h2, h3, h4, h5, h6'), last = 0, ok = true;
+        hs.forEach(function (h) { var n = +h.tagName[1]; if (n > last + 1) ok = false; last = n; });
+        return ok && document.querySelectorAll('h1').length === 1;
+      }
+    };
+    card.querySelectorAll('[data-check]').forEach(function (li) {
+      var ok = !!checks[li.dataset.check]();
+      mark(li.querySelector('b'), ok);
+      total++; if (ok) pass++;
+    });
+
+    card.querySelector('[data-a11y-score]').textContent = pass + '/' + total;
+  })();
+</script>
 <script>
   // The filter specimen toggles on its own; main.js only wires the real grid.
   document.querySelectorAll('[data-sg-filters]').forEach(function (bar) {
