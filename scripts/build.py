@@ -142,9 +142,9 @@ def card(p, size):
     flag = '<p class="feat">Featured</p>' if lead else ''
 
     return f'''      <article class="{cls}" data-tags="{esc(tags)}" data-rv="scale">
-        <a href="work/{p['slug']}.html" aria-label="{esc(p['title'])} — case study">
+        <a href="work/{p['slug']}.html" aria-label="{esc(p['title'])}, case study">
           <div class="shot">
-            <div class="pll"><img src="{img}" alt="{esc(p['title'])} — {esc(p['client'])}" width="{iw}" height="{ih}"{loading} decoding="async"></div>
+            <div class="pll"><img src="{img}" alt="{esc(p['title'])}, {esc(p['client'])}" width="{iw}" height="{ih}"{loading} decoding="async"></div>
             <span class="veil" aria-hidden="true"></span>
             <span class="yr">{esc(p['year'])}</span>
             <span class="view" aria-hidden="true">View case study <span>→</span></span>
@@ -361,7 +361,7 @@ def stub_body(p):
 
         <aside class="note">
           <b>Case study in progress</b>
-          <p>The full write-up for this project — problem, process, and outcome — is being
+          <p>The full write-up for this project (problem, process, and outcome) is being
           rebuilt. In the meantime the original visual case study is still live on the previous
           portfolio.</p>
           <p style="margin-bottom:0"><a class="linkout" href="{esc(p['orig'])}" target="_blank" rel="noopener">See the original case study <span aria-hidden="true">↗</span></a></p>
@@ -371,8 +371,8 @@ def stub_body(p):
         <ul class="bul">
           <li><b>Role.</b> {esc(p['role'])} at {esc(p['client'])}, {esc(p['year'])}.</li>
           <li><b>Focus.</b> {esc(' · '.join(p['tags']))}.</li>
-          <li><b>Scope.</b> Research through shipped design — discovery, information architecture,
-          interaction design, and hand-off to engineering.</li>
+          <li><b>Scope.</b> Research through shipped design: discovery, information architecture,
+          interaction design, and handoff to engineering.</li>
         </ul>
 '''
 
@@ -409,13 +409,13 @@ def case_page(p, prev_p, next_p):
 {ANALYTICS}
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{esc(p['title'])} — {esc(p['client'])} · Luis Ponce de León</title>
+<title>{esc(p['title'])} · {esc(p['client'])} · Luis Ponce de León</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="{SITE}/work/{p['slug']}.html">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="{esc(p['title'])} — {esc(p['client'])}">
+<meta property="og:title" content="{esc(p['title'])} · {esc(p['client'])}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="../assets/img/thumbs/{p['thumb']}">
 <meta name="twitter:card" content="summary_large_image">
@@ -437,7 +437,7 @@ def case_page(p, prev_p, next_p):
 
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
+    <a class="mark" href="../index.html" aria-label="Luis Ponce de León, home">
       <span class="dot" aria-hidden="true"></span>
       <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
     </a>
@@ -488,7 +488,7 @@ def case_page(p, prev_p, next_p):
 
 <div class="wrap">
   <figure class="cover" data-rv="scale" style="max-width:{cap}px">
-    <img src="../assets/img/thumbs/{p['thumb']}" alt="{esc(p['title'])} — {esc(p['client'])}" width="{iw}" height="{ih}" decoding="async">
+    <img src="../assets/img/thumbs/{p['thumb']}" alt="{esc(p['title'])}, {esc(p['client'])}" width="{iw}" height="{ih}" decoding="async">
   </figure>
 </div>
 
