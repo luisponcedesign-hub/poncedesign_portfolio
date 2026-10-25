@@ -15,13 +15,13 @@
 </script>
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vista Search UX/UI — Viewpoint · Luis Ponce de León</title>
+<title>Vista Search UX/UI · Viewpoint · Luis Ponce de León</title>
 <meta name="description" content="Designing search for Viewpoint's Vista ERP: one box that finds any form, report or record, with advanced and saved searches for the work people repeat every week.">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="https://www.poncedesign.com/work/vista-search.html">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vista Search UX/UI — Viewpoint">
+<meta property="og:title" content="Vista Search UX/UI · Viewpoint">
 <meta property="og:description" content="Designing search for Viewpoint's Vista ERP: one box that finds any form, report or record, with advanced and saved searches for the work people repeat every week.">
 <meta property="og:image" content="../assets/img/thumbs/vista-search.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -43,7 +43,7 @@
 
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
+    <a class="mark" href="../index.html" aria-label="Luis Ponce de León, home">
       <span class="dot" aria-hidden="true"></span>
       <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
     </a>
@@ -174,7 +174,7 @@
         <p>Forms, reports and documents each opened their own window, and nothing said how those windows related. Closing a module could leave forms orphaned, or close a report someone still needed. <b>So I defined the page model before any screens</b>: what's a page, what's a popup, and what closes with what (Decision 1).</p>
 
         <h3>3. The same searches come back every week</h3>
-        <p>Month-end close, weekly AP runs and payroll all repeat. People rebuilt the same criteria each time. <b>So saved searches became part of the core design</b>, not a later feature (Decision 4).</p>
+        <p>Month end close, weekly AP runs and payroll all repeat. People rebuilt the same criteria each time. <b>So saved searches became part of the core design</b>, not a later feature (Decision 4).</p>
       </div>
 
       <div class="blk" data-rv>
@@ -183,12 +183,12 @@
         <h3>Decision 1: Fix the page model first</h3>
         <p>Before designing the search page, I mapped Vista's hierarchy (company, project, module, then programs and reports) against the page type each level should use. Company, project and module are main pages with side navigation and a breadcrumb. Programs and reports open as their own windows. Then the dependency rules: forms are children of their module, so closing the module closes its forms. Reports and documents stand alone, so they stay open when you move on.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/vista-search/ia-model.png" alt="Diagram with three columns. IA: Company, Manolis Construction, leads to Project, Lincoln HS Remodel, leads to Module, Accounts Payable, which splits into Programs and Reports; Reports split into Acct, Form and Drill Down, and Form into Inputs, Report Info and Notes. Nav structure and page type: company to module use side nav and breadcrumb on a main page; programs and reports are stand-alone modal windows or popups. Dependencies: a parent-child relationship where closing the parent closes the children, forms open in a modal window, and popups are independent of the main window" width="1010" height="690" loading="lazy" decoding="async">
+          <img src="../assets/img/case/vista-search/ia-model.png" alt="Diagram with three columns. IA: Company, Manolis Construction, leads to Project, Lincoln HS Remodel, leads to Module, Accounts Payable, which splits into Programs and Reports; Reports split into Acct, Form and Drill Down, and Form into Inputs, Report Info and Notes. Nav structure and page type: company to module use side nav and breadcrumb on a main page; programs and reports are standalone modal windows or popups. Dependencies: a parent child relationship where closing the parent closes the children, forms open in a modal window, and popups are independent of the main window" width="1010" height="690" loading="lazy" decoding="async">
           <figcaption><b>Hierarchy, page type and dependencies side by side.</b> The rule of what closes with what came before any screen design.</figcaption>
         </figure>
         <figure class="fig wide">
-          <img src="../assets/img/case/vista-search/page-flow.png" alt="User flow wireframes. The home page and the search results page both link to three popups: a form page, a report page and a document page. The home page also leads to a module page with a data grid, help and tips panels. Below, a form page as an in-page modal over a darkened page, with the note: look into locking the form page into a modal" width="1460" height="1495" loading="lazy" decoding="async">
-          <figcaption><b>Every route to a result.</b> Home, results and module pages all open the same three result types. The in-page modal at the bottom was the open question: keep forms in popups, or lock them to the page.</figcaption>
+          <img src="../assets/img/case/vista-search/page-flow.png" alt="User flow wireframes. The home page and the search results page both link to three popups: a form page, a report page and a document page. The home page also leads to a module page with a data grid, help and tips panels. Below, a form page as an in page modal over a darkened page, with the note: look into locking the form page into a modal" width="1460" height="1495" loading="lazy" decoding="async">
+          <figcaption><b>Every route to a result.</b> Home, results and module pages all open the same three result types. The in page modal at the bottom was the open question: keep forms in popups, or lock them to the page.</figcaption>
         </figure>
 
         <h3>Decision 2: One search box, with every state specified</h3>
@@ -201,8 +201,8 @@
         <h3>Decision 3: Advanced search stays one click away, not in the way</h3>
         <p>Most searches are a word or two. Some need exact criteria: type, status, reviewer, location, a date range. Advanced search opens under the same box, so there's no second search page to learn. Boolean search is a checkbox inside it, with a dropdown for All, And, Or, Not and Near, so the controller who wants operators has them and the clerk never sees them. Location fields suggest as you type, and you can add more than one.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/vista-search/advanced-boolean.png" alt="Two panels. Advanced search UX: the Search Vista box, then an Advanced panel with fields for user defined, type, status, reviewer, location and a from and to date range, with Save Search, Search and Clear; below, the search box with three search criteria chips and a Save button. Boolean search UX: definitions of AND as plus, NOT as minus, OR as the default, and NEAR as a phrase in quotes, then four variants of the advanced panel with a Boolean checkbox and an All dropdown listing All, And, Or, Not and Near, a second location added with a plus button, and a location type-ahead listing Portland International Airport, Portland and Ponytail Falls" width="1740" height="1115" loading="lazy" decoding="async">
-          <figcaption><b>Advanced and Boolean in one panel.</b> Operators are opt-in with a checkbox. After a search, the criteria stay visible as chips you can remove or save.</figcaption>
+          <img src="../assets/img/case/vista-search/advanced-boolean.png" alt="Two panels. Advanced search UX: the Search Vista box, then an Advanced panel with fields for user defined, type, status, reviewer, location and a from and to date range, with Save Search, Search and Clear; below, the search box with three search criteria chips and a Save button. Boolean search UX: definitions of AND as plus, NOT as minus, OR as the default, and NEAR as a phrase in quotes, then four variants of the advanced panel with a Boolean checkbox and an All dropdown listing All, And, Or, Not and Near, a second location added with a plus button, and a location typeahead listing Portland International Airport, Portland and Ponytail Falls" width="1740" height="1115" loading="lazy" decoding="async">
+          <figcaption><b>Advanced and Boolean in one panel.</b> Operators are opt in with a checkbox. After a search, the criteria stay visible as chips you can remove or save.</figcaption>
         </figure>
 
         <h3>Decision 4: Make searches something you keep</h3>
@@ -238,7 +238,7 @@
           <figcaption><b>Module page.</b> The tree and the breadcrumb show the same place two ways, so neither has to do everything.</figcaption>
         </figure>
         <figure class="fig">
-          <img src="../assets/img/case/vista-search/breadcrumbs.png" alt="Three breadcrumb options. One, drop-down model: project and module are both dropdowns, then Programs. Two, classic linear: a project dropdown, then Accounts Payable as a link, then Programs. Three, combo clickdown: a project dropdown, then Accounts Payable as a link with a small dropdown button beside it, then Programs" width="660" height="310" loading="lazy" decoding="async">
+          <img src="../assets/img/case/vista-search/breadcrumbs.png" alt="Three breadcrumb options. One, dropdown model: project and module are both dropdowns, then Programs. Two, classic linear: a project dropdown, then Accounts Payable as a link, then Programs. Three, combo clickdown: a project dropdown, then Accounts Payable as a link with a small dropdown button beside it, then Programs" width="660" height="310" loading="lazy" decoding="async">
           <figcaption><b>Three breadcrumb models.</b> The combination keeps the classic trail and adds a sideways jump.</figcaption>
         </figure>
       </div>
@@ -259,7 +259,7 @@
           <li><b>Name it, open it.</b> A form or report you can name is a search away from any page, without knowing its module.</li>
           <li><b>Predictable windows.</b> Every result type has a defined place to open and a rule for what closes with it.</li>
           <li><b>Repeat work, saved.</b> Weekly searches are saved once, rerun in a click, and shared across a team.</li>
-          <li><b>A component, not a one-off.</b> The search box has specified states and measurements, so it looks and behaves the same on every page.</li>
+          <li><b>A component, not a one off.</b> The search box has specified states and measurements, so it looks and behaves the same on every page.</li>
         </ul>
         <blockquote class="pull">In an ERP, people rarely don't know what they want. They know the name. Search should take them straight there, without making them prove they know where it lives.</blockquote>
       </div>
@@ -269,7 +269,7 @@
         <ul class="bul">
           <li><b>Measure the baseline first.</b> Our goals were about steps and time to a known item, but we didn't record how long it took to reach a form through the tree. With that number, the outcome above could be a result instead of a description.</li>
           <li><b>Design results as early as the box.</b> The boards spend more on the search box and advanced panel than on the results list. Ranking, grouping by type and empty states decide whether search feels smart, and I'd design them alongside the input.</li>
-          <li><b>Settle the window model with engineering sooner.</b> Popup versus in-page modal for forms stayed open longer than it should have. I'd prototype both early and decide with engineering in the room.</li>
+          <li><b>Settle the window model with engineering sooner.</b> Popup versus in page modal for forms stayed open longer than it should have. I'd prototype both early and decide with engineering in the room.</li>
         </ul>
         <p>The broader lesson: in a big enterprise product, search isn't a feature on top of navigation. It changes what navigation has to do, so the page model and the search design have to be worked out together.</p>
       </div>
@@ -280,8 +280,8 @@
 
 <nav class="pager" aria-label="More projects">
   <div class="pager-in">
-    <a class="pv" href="viewpoint-submittals.html"><span>← Previous project</span><strong>Viewpoint Online — Submittals UX</strong></a>
-    <a class="nx" href="mobile-field-manager.html"><span>Next project →</span><strong>Mobile Field Manager — Time Entry</strong></a>
+    <a class="pv" href="viewpoint-submittals.html"><span>← Previous project</span><strong>Viewpoint Online: Submittals UX</strong></a>
+    <a class="nx" href="mobile-field-manager.html"><span>Next project →</span><strong>Mobile Field Manager: Time Entry</strong></a>
   </div>
 </nav>
 </main>

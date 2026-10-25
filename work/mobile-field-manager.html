@@ -15,13 +15,13 @@
 </script>
 <script>document.documentElement.className += ' js';</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mobile Field Manager — Time Entry — Viewpoint · Luis Ponce de León</title>
+<title>Mobile Field Manager: Time Entry · Viewpoint · Luis Ponce de León</title>
 <meta name="description" content="Redesigning time entry in Viewpoint's Mobile Field Manager iPad app: a grid that stays put as you scroll, where a foreman logs a crew's day with taps instead of forms.">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="https://www.poncedesign.com/work/mobile-field-manager.html">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mobile Field Manager — Time Entry — Viewpoint">
+<meta property="og:title" content="Mobile Field Manager: Time Entry · Viewpoint">
 <meta property="og:description" content="Redesigning time entry in Viewpoint's Mobile Field Manager iPad app: a grid that stays put as you scroll, where a foreman logs a crew's day with taps instead of forms.">
 <meta property="og:image" content="../assets/img/case/mobile-field-manager/cover.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -43,7 +43,7 @@
 
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="mark" href="../index.html" aria-label="Luis Ponce de León — home">
+    <a class="mark" href="../index.html" aria-label="Luis Ponce de León, home">
       <span class="dot" aria-hidden="true"></span>
       <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
     </a>
@@ -77,7 +77,7 @@
   <div class="wrap hero-in">
     <a class="crumb" href="../index.html#work"><span class="arw" aria-hidden="true">←</span> All work</a>
     <p class="eyebrow">Viewpoint &nbsp;·&nbsp; 2016</p>
-    <h1 data-rv>Mobile Field Manager — Time Entry</h1>
+    <h1 data-rv>Mobile Field Manager: Time Entry</h1>
     <div class="lead-row">
       <p class="lead" data-rv data-rv-delay="0.08">At the end of a shift, a foreman has to log hours for every worker and machine on the crew, against the right job and cost codes. Viewpoint's Mobile Field Manager already had a time grid on the iPad, but it was slow to read and hard to correct. I redesigned the grid and how people interact with it, so a crew's day can be entered with taps, and every correction happens in the same view.</p>
     </div>
@@ -99,7 +99,7 @@
 
 <div class="wrap">
   <figure class="cover" data-rv="scale" style="max-width:1040px">
-    <img src="../assets/img/case/mobile-field-manager/cover.png" alt="The MFM TimeGrid on an iPad before and after. On the left, on a yellow panel labelled Existing styling (old), a flat grid with thin labels, an empty total column and a dark blocked row. On the right, on a green panel labelled Improved styling (new), the same grid with zebra rows, all-caps phase labels closer to the grid, a lighter blocked row, caret icons, a photo for Barry Frangipane, large totals in the fixed front column and small DT and OT badges next to his hours" width="1490" height="575" decoding="async">
+    <img src="../assets/img/case/mobile-field-manager/cover.png" alt="The MFM TimeGrid on an iPad before and after. On the left, on a yellow panel labelled Existing styling (old), a flat grid with thin labels, an empty total column and a dark blocked row. On the right, on a green panel labelled Improved styling (new), the same grid with zebra rows, all caps phase labels closer to the grid, a lighter blocked row, caret icons, a photo for Barry Frangipane, large totals in the fixed front column and small DT and OT badges next to his hours" width="1490" height="575" decoding="async">
   </figure>
 </div>
 
@@ -112,7 +112,7 @@
         <p>Mobile Field Manager (MFM) is the iPad app Viewpoint's construction customers use in the field, and it sends time and quantities back to Vista, Viewpoint's ERP. I redesigned the <b>TimeGrid</b>, the screen where a foreman records a crew's day. The redesign had three parts: a grid that stays readable as you scroll, a set of gestures that each do one thing, and a visual spec that engineering could build from without guessing.</p>
         <div class="kpis">
           <div class="kpi"><b>1 tap</b><i>From an empty cell to entering hours. The number pad is always on screen, and nothing needs saving</i></div>
-          <div class="kpi"><b>7</b><i>Work time types in one long-press panel: double time, overtime, regular time, bonus, hotel, per diem and salary</i></div>
+          <div class="kpi"><b>7</b><i>Work time types in one long press panel: double time, overtime, regular time, bonus, hotel, per diem and salary</i></div>
           <div class="kpi"><b>9</b><i>Interaction patterns specified end to end, from scrolling to onboarding</i></div>
         </div>
       </div>
@@ -181,9 +181,9 @@
         <h2>Strategy and the decisions that mattered</h2>
 
         <h3>Decision 1: Make the grid hold still where it matters</h3>
-        <p>Before touching the visuals, I specified how the grid moves. When you scroll sideways, the phase headers move with the grid and the front columns (resource name and total) stay fixed. When you scroll down, the headers stay fixed. All the data loads when the grid opens, so scrolling never stops to load more. That uses more memory up front, but it makes scrolling predictable on a weak job-site connection.</p>
+        <p>Before touching the visuals, I specified how the grid moves. When you scroll sideways, the phase headers move with the grid and the front columns (resource name and total) stay fixed. When you scroll down, the headers stay fixed. All the data loads when the grid opens, so scrolling never stops to load more. That uses more memory up front, but it makes scrolling predictable on a weak job site connection.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-field-manager/gestures.png" alt="Specification board titled MFM Time Grid, Gestures, with four rows of before-and-after iPad wireframes. Grid horizontal scroll: the header labels scroll with the grid and the main column stays fixed. Grid vertical scroll: the header labels stay fixed, and there is no loading because all data is loaded at first. Single tap, time entry: tapping a cell loads a number keyboard at the bottom, and the user does not need to press enter for the entry to persist. Long press, time entry modal details: a long press on a cell loads a details panel" width="1840" height="1560" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-field-manager/gestures.png" alt="Specification board titled MFM Time Grid, Gestures, with four rows of before and after iPad wireframes. Grid horizontal scroll: the header labels scroll with the grid and the main column stays fixed. Grid vertical scroll: the header labels stay fixed, and there is no loading because all data is loaded at first. Single tap, time entry: tapping a cell loads a number keyboard at the bottom, and the user does not need to press enter for the entry to persist. Long press, time entry modal details: a long press on a cell loads a details panel" width="1840" height="1560" loading="lazy" decoding="async">
           <figcaption><b>The gesture model.</b> Two scroll behaviours and two touch gestures, each with one job. The notes on the right are the spec engineering built from.</figcaption>
         </figure>
 
@@ -201,7 +201,7 @@
         <h3>Decision 3: Change context from the grid's own labels</h3>
         <!-- CONFIRM: the disagreement framing; the artifacts show the result, not the discussion -->
         <p>One proposal was to put company, job and resource group in a settings screen, which kept the grid clean. I argued that foremen switch these several times a day, and a settings screen would hide what the grid was showing. Instead, the labels at the top of the grid are the controls. Tap the resource group to change it, and tap the company and job to change those. The grid always says what it's showing, and changing it takes one tap.</p>
-        <p>Two small rules came out of the resource-group picker. On the first visit it defaults to <i>My Time</i>, and after that it opens on the last group you used. Groups you can't access still appear, with a lock, so a foreman can see they exist instead of wondering where they went.</p>
+        <p>Two small rules came out of the resource group picker. On the first visit it defaults to <i>My Time</i>, and after that it opens on the last group you used. Groups you can't access still appear, with a lock, so a foreman can see they exist instead of wondering where they went.</p>
         <figure class="fig wide">
           <img src="../assets/img/case/mobile-field-manager/flow-resource-group.png" alt="Two iPad screens. First, a finger taps the TNT Construction Group label in the grid's title bar. Second, a Select Resource Group modal lists My Time, selected, then E Construction Company, AMAAR LLC, and Pizza Hut with a lock icon, with Select and Cancel buttons" width="1970" height="751" loading="lazy" decoding="async">
           <figcaption><b>Resource group.</b> The label is the control. My Time is the default on the first visit, and groups without access show a lock instead of disappearing.</figcaption>
@@ -238,7 +238,7 @@
         <h3>A visual pass that makes the grid easier to scan</h3>
         <p>With the interactions settled, I redesigned the grid's visuals, and every change had a reason written next to it. Zebra rows keep your eye on the row. Phase labels sit closer to their columns in all caps. Blocked cells are a lighter grey, so they look unavailable instead of looking like an error. Totals moved into the fixed front column at 24pt, so each row's total stays next to its name. The number pad is always on screen, because nearly every visit to the grid ends with typing a number.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-field-manager/style-guide.png" alt="Style guide board. The existing grid on a yellow panel and the improved grid on a green panel, with callouts: make controls lighter for better contrast, color D8D8D8; move labels closer to the grid, Fira Sans Regular 16pt all caps; zebra bars, color F5F6F7; grayed out blocked areas, color 969D9F; use the caret icon; crop the picture in a 33 by 33 pixel circle; move the total time into the front fixed column, Fira Sans Medium 24pt, color 2E3133; number keyboard always visible; number font Fira Sans Light 20pt. Below, a modal spec: title bar 77px, H1 Fira Sans Thin 34pt, action bar 65px, grey overlay 4A4A4A at 40 percent, 1px stroke, scroll for extra content, a call-to-action button with 5px corners, 40px high, color 002856 VCS Blue, and a regular button in EDF1F4 VCS Aluminium" width="1715" height="1155" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-field-manager/style-guide.png" alt="Style guide board. The existing grid on a yellow panel and the improved grid on a green panel, with callouts: make controls lighter for better contrast, color D8D8D8; move labels closer to the grid, Fira Sans Regular 16pt all caps; zebra bars, color F5F6F7; grayed out blocked areas, color 969D9F; use the caret icon; crop the picture in a 33 by 33 pixel circle; move the total time into the front fixed column, Fira Sans Medium 24pt, color 2E3133; number keyboard always visible; number font Fira Sans Light 20pt. Below, a modal spec: title bar 77px, H1 Fira Sans Thin 34pt, action bar 65px, grey overlay 4A4A4A at 40 percent, 1px stroke, scroll for extra content, a call to action button with 5px corners, 40px high, color 002856 VCS Blue, and a regular button in EDF1F4 VCS Aluminium" width="1715" height="1155" loading="lazy" decoding="async">
           <figcaption><b>Old and new, with the spec.</b> Every change is written next to the pixel it applies to, with a size, font and colour token. The modal spec below it covers all the detail panels.</figcaption>
         </figure>
 
@@ -251,10 +251,10 @@
         <!-- CONFIRM: how the designs were tested (field sessions, internal experts, customer reviews) -->
         <p>I walked the flows through with Viewpoint's field experts and customers, using the boards and clickable prototypes of the main scenarios. They included entering a crew's day, splitting overtime, fixing a mistake and switching jobs. The biggest change came from the gestures.</p>
         <h3>We thought gestures would be obvious. They weren't, so we taught them in the app.</h3>
-        <p><b>We thought</b> that long press and swipe, being standard iOS gestures, would be found on their own. <b>We learned</b> that people who spend all day on a job site don't try long-pressing a spreadsheet cell, and nothing on screen tells you it's there. The most useful part of the redesign was the easiest to miss. <b>So we</b> added onboarding and help to the grid. Tooltips point at each control the first time. A short <i>MFM Introduction</i> walks through the gestures one at a time, for example <i>to add time and edit details to a resource, just long press inside a cell</i>. A help menu in the title bar links to a video demo and to the full help site.</p>
+        <p><b>We thought</b> that long press and swipe, being standard iOS gestures, would be found on their own. <b>We learned</b> that people who spend all day on a job site don't try long pressing a spreadsheet cell, and nothing on screen tells you it's there. The most useful part of the redesign was the easiest to miss. <b>So we</b> added onboarding and help to the grid. Tooltips point at each control the first time. A short <i>MFM Introduction</i> walks through the gestures one at a time, for example <i>to add time and edit details to a resource, just long press inside a cell</i>. A help menu in the title bar links to a video demo and to the full help site.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-field-manager/onboarding.png" alt="Onboarding and help board with four iPad screens. Top left: the grid with four tooltips reading quick explanatory text about this feature, and a help menu listing In-Page Help, Video Demo and Help. Top right: an MFM Introduction carousel over the dimmed grid, showing a hand long-pressing a cell and the text to add time and edit details to a resource, just long press inside a cell, with eight progress dots and Previous, Next and Cancel buttons. Bottom left: a video demo playing over the grid. Bottom right: a direct link to MFM Help opening in the browser" width="1420" height="1070" loading="lazy" decoding="async">
-          <figcaption><b>Three levels of help from one menu.</b> Tooltips in the page, a step-by-step introduction to the gestures, and a video demo. The full help site opens in the browser for anything else.</figcaption>
+          <img src="../assets/img/case/mobile-field-manager/onboarding.png" alt="Onboarding and help board with four iPad screens. Top left: the grid with four tooltips reading quick explanatory text about this feature, and a help menu listing In Page Help, Video Demo and Help. Top right: an MFM Introduction carousel over the dimmed grid, showing a hand long pressing a cell and the text to add time and edit details to a resource, just long press inside a cell, with eight progress dots and Previous, Next and Cancel buttons. Bottom left: a video demo playing over the grid. Bottom right: a direct link to MFM Help opening in the browser" width="1420" height="1070" loading="lazy" decoding="async">
+          <figcaption><b>Three levels of help from one menu.</b> Tooltips in the page, a step by step introduction to the gestures, and a video demo. The full help site opens in the browser for anything else.</figcaption>
         </figure>
       </div>
 
@@ -287,7 +287,7 @@
 <nav class="pager" aria-label="More projects">
   <div class="pager-in">
     <a class="pv" href="vista-search.html"><span>← Previous project</span><strong>Vista Search UX/UI</strong></a>
-    <a class="nx" href="webmd-device-integration.html"><span>Next project →</span><strong>WebMD — Device Integration UX</strong></a>
+    <a class="nx" href="webmd-device-integration.html"><span>Next project →</span><strong>WebMD: Device Integration UX</strong></a>
   </div>
 </nav>
 </main>
