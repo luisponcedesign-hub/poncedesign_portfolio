@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
+<script>document.documentElement.className += ' js';</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Style guide · PonceDesign</title>
+<meta name="description" content="The PonceDesign style guide: colour, type, layout, motion and every UI component on poncedesign.com, rendered from the site's own stylesheets.">
+<meta name="author" content="Luis Ponce de León">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="canonical" href="https://www.poncedesign.com/styleguide.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Style guide · PonceDesign">
+<meta property="og:description" content="Colour, type, layout, motion and every UI component on poncedesign.com.">
+<meta property="og:image" content="https://www.poncedesign.com/assets/img/social/og-dot.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PonceDesign logo: an orange gradient dot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.poncedesign.com/assets/img/social/og-dot.png">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='-.0704' y1='.3994' x2='1.0704' y2='.6006'><stop offset='0' stop-color='%23E8630B'/><stop offset='1' stop-color='%23F5B301'/></linearGradient></defs><circle cx='16' cy='16' r='16' fill='url(%23g)'/></svg>">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=827803e0">
+<link rel="stylesheet" href="assets/css/swiss.css?v=6fb5c864">
+<style>
+  /* Guide scaffolding only. Every specimen below uses the site's own
+     classes from style.css + swiss.css, so this page can't drift from them. */
+  .sg-hero{ padding:150px 0 clamp(40px,6vw,70px); }
+  .sg-hero h1{ font-size:clamp(2.3rem,6.4vw,5rem); letter-spacing:-.045em; margin:0 0 24px; }
+  .sg-hero .lead{ max-width:60ch; margin:0; }
+
+  .sg-sec{ padding:clamp(56px,8vw,110px) 0 0; scroll-margin-top:70px; }
+  .sg-sec > .wrap > .h2{ margin:16px 0 clamp(28px,4vw,48px); font-size:clamp(1.8rem,4vw,3rem); }
+  .sg-row{
+    display:grid; grid-template-columns:minmax(0,220px) minmax(0,1fr);
+    gap:20px clamp(28px,4vw,56px); padding:clamp(28px,3vw,40px) 0;
+    border-top:1px solid var(--line);
+  }
+  .sg-row > header h3{ font-size:1.05rem; font-weight:700; letter-spacing:-.02em; line-height:1.3; }
+  .sg-row > header p{ margin:8px 0 0; font-size:.88rem; line-height:1.55; color:var(--ink-3); }
+  .sg-row > header code, .sg-meta code{ font-size:.78rem; color:var(--orange-deep); }
+  .sg-demo{ min-width:0; }
+  .sg-inline{ display:flex; flex-wrap:wrap; align-items:center; gap:18px 36px; }
+
+  /* Spec notes keep their case: token and class names are case sensitive. */
+  .sg-meta{
+    display:block; margin-top:6px; font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size:.72rem; line-height:1.5; color:var(--ink-3);
+  }
+
+  /* colour */
+  .sg-swatches{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:22px; }
+  .sg-sw i{ display:block; aspect-ratio:2/1; border:1px solid var(--line); }
+  .sg-sw b{ display:block; margin-top:10px; font-size:.9rem; font-weight:500; }
+
+  /* type */
+  .sg-type{ display:grid; gap:30px; }
+  .sg-type > div{ min-width:0; }
+  .sg-type .display{ margin:0; }
+
+  /* layout */
+  .sg-cols{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(8px,1.4vw,18px); }
+  .sg-cols span{ height:72px; background:var(--orange-soft); border:1px solid #f7d2b4; }
+  .sg-scale{ display:grid; gap:10px; }
+  .sg-scale div{ display:grid; grid-template-columns:120px 1fr; align-items:center; gap:18px; }
+  .sg-scale i{ display:block; height:10px; background:var(--ink); }
+  .sg-ease{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:22px; }
+  .sg-ease > div{ border:1px solid var(--line); padding:16px; }
+  .sg-track{ position:relative; height:20px; margin-bottom:14px; background:var(--bg-tint); }
+  .sg-track i{ position:absolute; top:0; left:0; width:20px; height:20px; background:var(--orange); }
+  .sg-ease > div:hover .sg-track i{ transform:translateX(calc(var(--w,140px) - 20px)); }
+
+  /* specimens that are normally fixed, sticky or nested */
+  .sg-frame{ align-self:start; border:1px solid var(--line); background:var(--bg); }
+  .sg-frame .hdr{ position:relative; z-index:1; transform:none; }
+  .sg-frame .hdr::after{ opacity:1; border-bottom-color:var(--line); }
+  .sg-frame .hdr-in{ height:62px; }
+  .sg-frame .ftr{ border-top:0; }
+  .sg-demo .card{ max-width:440px; }
+  .sg-demo .filters, .sg-demo .stats, .sg-demo .certs,
+  .sg-demo .pgrid, .sg-demo .facts{ margin:0; }
+  .sg-demo .facts{ padding-top:0; }
+  .sg-blk{ display:block; margin:0; max-width:74ch; }
+  .sg-blk > :first-child{ margin-top:0; }
+  .sg-blk > :last-child{ margin-bottom:0; }
+  .sg-demo .creds{ margin-top:0; max-width:620px; }
+  .sg-demo .pager{ border:1px solid var(--line); }
+  .sg-form{ max-width:520px; }
+  /* :focus can't be held open in a static specimen; this mirrors the
+     .cfield input:focus rule so the state stays visible. */
+  .sg-form .is-focus{
+    background:var(--surface); border-color:var(--orange);
+    box-shadow:0 0 0 4px var(--orange-soft);
+  }
+  .sg-form .cstatus{ display:block; }
+
+  /* animation demos */
+  .sg-stage{ position:relative; overflow:hidden; border:1px solid var(--line); padding:clamp(22px,3vw,36px); }
+  .sg-split{ margin:0; }
+  .sg-ctl{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 24px; margin-top:16px; }
+  .sg-ctl .sg-meta{ margin:0; }
+  .sg-rules li{ padding:12px 0; border-top:1px solid var(--line); font-size:.95rem; color:var(--ink-2); }
+  .sg-rules li:first-child{ border-top:0; padding-top:0; }
+  .sg-rules b{ color:var(--ink); font-weight:500; }
+  .sg-reveals{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px; }
+  .sg-tile{ border:1px solid var(--line); padding:22px 18px; font-weight:700; letter-spacing:-.02em; }
+  .sg-lines{ min-height:220px; }
+  .sg-about{ background:transparent; }
+  .sg-about .portrait{ position:relative; top:auto; max-width:260px; margin:0; }
+  .sg-drawer{ height:220px; padding:0; background:var(--bg-tint); }
+  .sg-drawer-fill{
+    position:absolute; inset:0; padding:22px 26px; background:var(--bg);
+    display:flex; flex-direction:column; justify-content:center;
+    clip-path:circle(0% at calc(100% - 30px) 30px);
+    transition:clip-path .62s var(--ease-in-out);
+  }
+  .sg-drawer-fill span{
+    font-size:1.6rem; font-weight:700; letter-spacing:-.04em; line-height:1.25;
+    border-bottom:1px solid var(--line); opacity:0; transform:translateY(18px);
+    transition:opacity .4s var(--ease-out), transform .4s var(--ease-out);
+  }
+  .sg-drawer.open .sg-drawer-fill{ clip-path:circle(150% at calc(100% - 30px) 30px); }
+  .sg-drawer.open .sg-drawer-fill span{ opacity:1; transform:none; }
+  .sg-drawer.open span:nth-child(1){ transition-delay:.18s; }
+  .sg-drawer.open span:nth-child(2){ transition-delay:.24s; }
+  .sg-drawer.open span:nth-child(3){ transition-delay:.30s; }
+  .sg-drawer.open span:nth-child(4){ transition-delay:.36s; }
+  .sg-progress{ height:2px; background:var(--line); max-width:520px; }
+  .sg-progress i{ display:block; height:100%; width:0; background:var(--orange); }
+
+  @media (max-width:760px){
+    .sg-row{ grid-template-columns:1fr; }
+    .sg-scale div{ grid-template-columns:96px 1fr; }
+  }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="curtain" aria-hidden="true"></div>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="mark" href="./" aria-label="PonceDesign, home">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="nm">Ponce<span style="color:var(--muted)">Design</span></span>
+    </a>
+
+    <nav class="nav" aria-label="Style guide sections">
+      <a href="#foundations">Foundations</a>
+      <a href="#controls">Controls</a>
+      <a href="#components">Components</a>
+      <a href="#animation">Animation</a>
+      <a href="#forms">Forms</a>
+    </nav>
+
+    <a class="btn" href="./">
+      Back to site <span class="arw" aria-hidden="true">→</span>
+    </a>
+
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="#foundations">Foundations</a>
+  <a href="#controls">Controls</a>
+  <a href="#components">Components</a>
+  <a href="#animation">Animation</a>
+  <a href="#forms">Forms</a>
+  <a href="./">Back to site</a>
+</div>
+
+<main id="main">
+
+<section class="sg-hero">
+  <div class="wrap">
+    <a class="crumb" href="./#craft"><span class="arw" aria-hidden="true">←</span> Back to craft</a>
+    <h1 data-rv>Style guide</h1>
+    <p class="lead" data-rv data-rv-delay="0.06">Every UI element on poncedesign.com on one page. Nothing here is a picture: each specimen is live markup styled by the same two stylesheets the rest of the site loads, so if a token changes, this page changes with it.</p>
+  </div>
+</section>
+
+<!-- =========================================================== FOUNDATIONS -->
+<section class="sg-sec" id="foundations">
+  <div class="wrap">
+    <p class="eyebrow" data-rv="left">01 Foundations</p>
+    <h2 class="h2" data-rv>Colour, type, space &amp; motion</h2>
+
+    <div class="sg-row">
+      <header><h3>Surface &amp; ink</h3><p>A white page and a cool grayscale ramp. Lines separate, they never decorate.</p></header>
+      <div class="sg-demo sg-swatches">
+        <div class="sg-sw"><i style="background:var(--bg)"></i><b>Background</b><span class="sg-meta">--bg #FFFFFF</span></div>
+        <div class="sg-sw"><i style="background:var(--bg-tint)"></i><b>Tint</b><span class="sg-meta">--bg-tint #F4F4F4</span></div>
+        <div class="sg-sw"><i style="background:var(--ink)"></i><b>Ink</b><span class="sg-meta">--ink #0E0E10</span></div>
+        <div class="sg-sw"><i style="background:var(--ink-2)"></i><b>Ink 2</b><span class="sg-meta">--ink-2 #3A3A3E</span></div>
+        <div class="sg-sw"><i style="background:var(--ink-3)"></i><b>Ink 3</b><span class="sg-meta">--ink-3 #6B6B70</span></div>
+        <div class="sg-sw"><i style="background:var(--muted)"></i><b>Muted</b><span class="sg-meta">--muted #8A8A8E</span></div>
+        <div class="sg-sw"><i style="background:var(--line)"></i><b>Line</b><span class="sg-meta">--line #E6E6E6</span></div>
+        <div class="sg-sw"><i style="background:var(--line-strong)"></i><b>Line strong</b><span class="sg-meta">--line-strong #CFCFD2</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Accent &amp; state</h3><p>Orange is the only colour, kept for labels, hover and active states. Yellow survives in the favicon and editor's notes.</p></header>
+      <div class="sg-demo sg-swatches">
+        <div class="sg-sw"><i style="background:var(--orange)"></i><b>Orange</b><span class="sg-meta">--orange #E8630B</span></div>
+        <div class="sg-sw"><i style="background:var(--orange-deep)"></i><b>Orange deep</b><span class="sg-meta">--orange-deep #C24E05</span></div>
+        <div class="sg-sw"><i style="background:var(--orange-soft)"></i><b>Orange soft</b><span class="sg-meta">--orange-soft #FDEEE1</span></div>
+        <div class="sg-sw"><i style="background:var(--yellow)"></i><b>Yellow</b><span class="sg-meta">--yellow #F5B301</span></div>
+        <div class="sg-sw"><i style="background:var(--yellow-soft)"></i><b>Yellow soft</b><span class="sg-meta">--yellow-soft #FDF3D6</span></div>
+        <div class="sg-sw"><i style="background:var(--ok)"></i><b>Positive</b><span class="sg-meta">--ok #1D7A4C</span></div>
+        <div class="sg-sw"><i style="background:var(--danger)"></i><b>Danger</b><span class="sg-meta">--danger #B3261E</span></div>
+        <div class="sg-sw"><i style="background:var(--danger-soft)"></i><b>Danger soft</b><span class="sg-meta">--danger-soft #FDECEA</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Typeface</h3><p>Helvetica Neue through the system stack. One family, weights 300 to 700. Labels are tracked capitals of the same face, not a mono.</p></header>
+      <div class="sg-demo sg-type">
+        <div>
+          <p class="display">Aa Bb Cc 0123</p>
+          <span class="sg-meta">--sans: ui-sans-serif, -apple-system, "Helvetica Neue", Helvetica, Arial</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Type scale</h3><p>Fluid sizes clamp between phone and desktop. Headlines run tight; body copy runs at 17px on a 1.65 line.</p></header>
+      <div class="sg-demo sg-type">
+        <div><p class="display">Display</p><span class="sg-meta">.display · clamp 2.75 to 7.9rem · 700 · −.045em</span></div>
+        <div><h2 class="h2">Section headline</h2><span class="sg-meta">.h2 · clamp 2 to 3.9rem · 700 · −.04em</span></div>
+        <div><p class="h3" style="margin:0">Block heading</p><span class="sg-meta">.h3 · clamp 1.35 to 1.95rem · 700</span></div>
+        <div><p class="lead" style="margin:0">Lead paragraph. Most designers hand off a file. I hand off something that already runs.</p><span class="sg-meta">.lead · clamp 1.08 to 1.4rem · 400 · ink 2</span></div>
+        <div><p style="margin:0">Body copy. I've written front end code for as long as I've designed interfaces, and it changes what I hand engineering. <b>Bold</b> lifts to full ink.</p><span class="sg-meta">body · 17px / 1.65 · 400</span></div>
+        <div><p class="eyebrow" style="margin:0">Eyebrow label</p><span class="sg-meta">.eyebrow · .72rem · 500 · .12em caps · rule</span></div>
+        <div><p class="count" style="margin:0">14 projects · 2006 to 2026</p><span class="sg-meta">.count · .75rem · caps · muted</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Grid</h3><p>Twelve columns inside a 1320px wrapper with a fluid gutter. Cards take 4, 6 or 12.</p></header>
+      <div class="sg-demo">
+        <div class="sg-cols" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="sg-meta">--maxw 1320px · --gut clamp(20px, 5vw, 64px) · gap clamp(22px, 3vw, 42px)</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Spacing</h3><p>Sections separate by space alone, no rules between them. Corners are square and nothing casts a shadow.</p></header>
+      <div class="sg-demo sg-scale">
+        <div><span class="sg-meta">Section</span><i style="width:min(100%,150px)"></i></div>
+        <div><span class="sg-meta">Head to body</span><i style="width:64px"></i></div>
+        <div><span class="sg-meta">Block gap</span><i style="width:56px"></i></div>
+        <div><span class="sg-meta">Field gap</span><i style="width:20px"></i></div>
+        <div><span class="sg-meta">Tag gap</span><i style="width:7px"></i></div>
+        <span class="sg-meta">.sec padding clamp(78px, 11vw, 150px) · --r-sm / md / lg 0 · --shadow-* none</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Motion</h3><p>Three curves and three durations. Hover a card to run it. Everything stops under <code>prefers-reduced-motion</code>.</p></header>
+      <div class="sg-demo sg-ease">
+        <div><div class="sg-track"><i style="transition:transform var(--t-med) var(--ease)"></i></div><b>Ease</b><span class="sg-meta">--ease · general state changes</span></div>
+        <div><div class="sg-track"><i style="transition:transform var(--t-med) var(--ease-out)"></i></div><b>Ease out</b><span class="sg-meta">--ease-out · reveals, underlines</span></div>
+        <div><div class="sg-track"><i style="transition:transform .62s var(--ease-in-out)"></i></div><b>Ease in out</b><span class="sg-meta">--ease-in-out · drawer, curtain</span></div>
+        <div><div class="sg-track"><i style="transition:transform var(--t-slow) var(--ease-out)"></i></div><b>Durations</b><span class="sg-meta">--t-fast .18s · --t-med .42s · --t-slow .9s</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== CONTROLS -->
+<section class="sg-sec" id="controls">
+  <div class="wrap">
+    <p class="eyebrow" data-rv="left">02 Controls</p>
+    <h2 class="h2" data-rv>Buttons, links &amp; navigation</h2>
+
+    <div class="sg-row">
+      <header><h3>Buttons</h3><p>Tabs, not pills: tracked capitals on a 1px rule. Primary for the one action that matters, ghost for the alternative, quiet for a tertiary exit.</p></header>
+      <div class="sg-demo sg-inline">
+        <div><a class="btn" href="#controls">Let's talk <span class="arw" aria-hidden="true">→</span></a><span class="sg-meta">.btn</span></div>
+        <div><a class="btn ghost" href="#controls">See selected work <span class="arw" aria-hidden="true">→</span></a><span class="sg-meta">.btn.ghost</span></div>
+        <div><a class="btn ghost quiet" href="#controls">PonceDesign Labs <span class="arw" aria-hidden="true">↗</span></a><span class="sg-meta">.btn.ghost.quiet</span></div>
+        <div><a class="btn lg" href="#controls">Download PDF <span class="arw" aria-hidden="true">↓</span></a><span class="sg-meta">.btn.lg</span></div>
+        <div><button class="btn" type="button" disabled style="opacity:.55;pointer-events:none">Sending</button><span class="sg-meta">disabled</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Text links</h3><p>Breadcrumbs lead out of a page, link outs leave the site, and the mail link is the one oversized link on the home page.</p></header>
+      <div class="sg-demo sg-inline">
+        <div><a class="crumb" href="#controls" style="margin:0"><span class="arw" aria-hidden="true">←</span> All work</a><span class="sg-meta">.crumb</span></div>
+        <div><a class="linkout" href="#controls">Original case study <span aria-hidden="true">↗</span></a><span class="sg-meta">.linkout</span></div>
+        <div><a class="to-top" href="#" style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Back to top <span class="arw" aria-hidden="true">↑</span></a><span class="sg-meta">.to-top</span></div>
+        <div style="flex-basis:100%"><a class="mail-link" href="mailto:luisponcedesign@gmail.com" style="margin:0">luisponcedesign@gmail.com</a><span class="sg-meta">.mail-link</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Header</h3><p>Mark, primary nav and one action. Under 860px the nav folds into a burger that opens a full screen drawer. The live header on this page condenses, hides on the way down and returns on the way up.</p></header>
+      <div class="sg-demo sg-frame">
+        <div class="hdr" role="presentation">
+          <div class="wrap hdr-in">
+            <span class="mark"><span class="dot" aria-hidden="true"></span><span class="nm">Ponce<span style="color:var(--muted)">Design</span></span></span>
+            <span class="nav">
+              <a href="#controls">Work</a>
+              <a href="#controls" class="active">Craft</a>
+              <a href="#controls">About</a>
+              <a href="#controls">Contact</a>
+            </span>
+            <a class="btn" href="#controls">Let's talk <span class="arw" aria-hidden="true">→</span></a>
+            <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Filter tabs</h3><p>A row of toggles with <code>aria-pressed</code>. The active tab takes an orange rule and its count stays orange.</p></header>
+      <div class="sg-demo">
+        <div class="filters" role="group" aria-label="Example filter" data-sg-filters>
+          <button class="chip" type="button" aria-pressed="true">All <em>14</em></button>
+          <button class="chip" type="button" aria-pressed="false">AI <em>4</em></button>
+          <button class="chip" type="button" aria-pressed="false">Mobile <em>5</em></button>
+          <button class="chip" type="button" aria-pressed="false">Product UX <em>9</em></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Tags</h3><p>Capability tags sit on a tint with a hairline; card tags drop the container entirely.</p></header>
+      <div class="sg-demo">
+        <ul class="ttags" style="margin-top:0"><li>HTML5</li><li>CSS3</li><li>JavaScript</li></ul>
+        <span class="sg-meta">.ttags</span>
+        <div class="card" style="margin-top:22px"><ul class="tags" style="margin:0"><li>AI</li><li>Mobile</li><li>Product UX</li></ul></div>
+        <span class="sg-meta">.card .tags</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Focus</h3><p>Every interactive element gets a visible 2.5px orange ring on keyboard focus. Tab through this page to see it.</p></header>
+      <div class="sg-demo sg-inline">
+        <div><a class="btn ghost" href="#controls" style="outline:2.5px solid var(--orange);outline-offset:3px">Focused button</a><span class="sg-meta" style="margin-top:12px">:focus-visible · outline 2.5px orange · offset 3px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== COMPONENTS -->
+<section class="sg-sec" id="components">
+  <div class="wrap">
+    <p class="eyebrow" data-rv="left">03 Components</p>
+    <h2 class="h2" data-rv>Cards, data &amp; content blocks</h2>
+
+    <div class="sg-row">
+      <header><h3>Project card</h3><p>Framed thumbnail, client label, title and two lines of summary. On hover the title takes a 1px underline; the image stays still.</p></header>
+      <div class="sg-demo">
+        <article class="card">
+          <a href="work/dexcom-g6-cgm.html">
+            <div class="shot">
+              <div class="pll"><img src="assets/img/thumbs/dexcom-g6-cgm.png" alt="Dexcom G6 CGM case study thumbnail" loading="lazy" decoding="async"></div>
+              <span class="yr">2018</span>
+            </div>
+            <div class="meta">
+              <p class="cli">Dexcom</p>
+              <h3>G6 Continuous Glucose Monitoring</h3>
+              <p class="desc">Mapping a day in the life of people managing diabetes, and designing the concepts that came out of it.</p>
+              <ul class="tags"><li>Mobile</li><li>Health</li><li>Research</li></ul>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Capability block</h3><p>A heading, a tag row and short prose. Two sit side by side in the craft section and stack under 900px.</p></header>
+      <div class="sg-demo">
+        <div class="cblk" style="max-width:560px">
+          <h3>Front end</h3>
+          <ul class="ttags"><li>HTML5</li><li>CSS3</li><li>JavaScript</li></ul>
+          <p>Handwritten HTML, CSS and JavaScript. <b>This page is the example</b>: no framework, no build step beyond a small generator.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Stats</h3><p>Heavy numerals over tracked labels, ruled top and bottom.</p></header>
+      <div class="sg-demo">
+        <ul class="stats">
+          <li><b>20+</b><i>Years in product</i></li>
+          <li><b>14</b><i>Case studies</i></li>
+          <li><b>6</b><i>Companies</i></li>
+          <li><b>1</b><i>MFA in video</i></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Facts row</h3><p>The case study header: four labelled facts on the same grid as the lead.</p></header>
+      <div class="sg-demo">
+        <div class="facts">
+          <div><h4>Client</h4><p>Seismic</p></div>
+          <div><h4>Year</h4><p>2026</p></div>
+          <div><h4>Role</h4><p>Principal designer</p></div>
+          <div><h4>Focus</h4><p>AI, Mobile</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>KPIs</h3><p>Outcome numbers in a hairline grid. Only figures from source material, never invented.</p></header>
+      <div class="sg-demo">
+        <div class="sg-blk blk">
+          <div class="kpis">
+            <div class="kpi"><b>+25%</b><i>Weekly active sellers</i></div>
+            <div class="kpi"><b>3×</b><i>Content shared from mobile</i></div>
+            <div class="kpi"><b>4.6</b><i>App store rating</i></div>
+            <div class="kpi"><b>−40%</b><i>Support tickets</i></div>
+          </div>
+        </div>
+        <span class="sg-meta">Specimen values</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Scoreboard</h3><p>A grouped metric panel for case studies with several related numbers. The lead row is larger and orange.</p></header>
+      <div class="sg-demo">
+        <div class="score">
+          <div class="score-head"><h3>Engagement after launch</h3><span>First 90 days</span></div>
+          <div class="score-row score-lead">
+            <div class="score-cell"><b>+25%</b><i>Weekly active sellers</i></div>
+            <div class="score-cell"><b>2.1×</b><i>Sessions per seller</i></div>
+          </div>
+          <p class="score-band">Adoption</p>
+          <div class="score-row">
+            <div class="score-cell"><b>68%</b><i>Used AI search</i><u>↑ 12 pts</u></div>
+            <div class="score-cell"><b>41%</b><i>Returned in week two</i></div>
+            <div class="score-cell"><b>9s</b><i>Median time to answer</i></div>
+          </div>
+          <p class="score-foot">Specimen values.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Credentials</h3><p>A label column and a two line entry, used in About and on the résumé.</p></header>
+      <div class="sg-demo">
+        <div class="creds">
+          <div class="cred"><b>MFA</b><span>Video<i>Savannah College of Art and Design · Savannah, GA</i></span></div>
+          <div class="cred"><b>Based in</b><span>Portland, Oregon<i>Working with teams anywhere</i></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Prose blocks</h3><p>The case study vocabulary: heading, paragraph, bullets, pull quote and editor's note, all on a 74ch measure.</p></header>
+      <div class="sg-demo">
+        <div class="sg-blk blk">
+          <h2>The problem</h2>
+          <p>People managing diabetes make dozens of small decisions a day. The app had to support each one without becoming another thing to manage.</p>
+          <ul class="bul">
+            <li><b>Glanceable.</b> The current reading in under a second.</li>
+            <li><b>Calm.</b> Alerts that escalate only when they need to.</li>
+          </ul>
+          <blockquote class="pull">When the thing in front of a stakeholder is running rather than rendered, the feedback starts being about the product.</blockquote>
+          <aside class="note"><b>Editor's note</b><p>Use the note for context a reader needs but the story doesn't.</p></aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Figure</h3><p>A framed image with a caption bar. Wide figures break out to the full page and open in a lightbox.</p></header>
+      <div class="sg-demo">
+        <figure class="fig" style="margin:0;max-width:640px">
+          <img src="assets/img/case/dexcom-g6-cgm/concept-meal-tracker.png" alt="Meal tracker concept screens" loading="lazy" decoding="async">
+          <figcaption>Concept: meal tracker. Caption sits on white under a hairline.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Disclosure</h3><p>Native <code>&lt;details&gt;</code> with a two border chevron. The title turns orange on hover; the body eases in on open.</p></header>
+      <div class="sg-demo">
+        <details class="certs" open>
+          <summary>
+            <span class="certs-head">
+              <h3>Certifications</h3>
+              <p>Recent coursework, mostly in AI assisted design and development.</p>
+            </span>
+            <span class="pchev" aria-hidden="true"></span>
+          </summary>
+          <ul class="certlist">
+            <li><a href="https://maven.com/wrap-up/245b5e8e" target="_blank" rel="noopener"><span class="ct">Claude Code for Designers</span><span class="co">Maven</span><span class="cd">Jul 2026</span><span class="ca" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://verify.skilljar.com/c/bfwahyhkw5ch" target="_blank" rel="noopener"><span class="ct">Introduction to Claude Cowork</span><span class="co">Anthropic</span><span class="cd">Jul 2026</span><span class="ca" aria-hidden="true">↗</span></a></li>
+          </ul>
+        </details>
+        <div class="pgrid" style="margin-top:22px">
+          <details class="pset">
+            <summary>
+              <span><h3>Ten principles for good design</h3><p class="pby">Dieter Rams</p></span>
+              <span class="pchev" aria-hidden="true"></span>
+            </summary>
+            <div class="pbody">
+              <ol class="plist" style="padding:0;margin-top:18px">
+                <li><span class="n">01</span>Good design is innovative</li>
+                <li><span class="n">02</span>Good design makes a product useful</li>
+                <li><span class="n">03</span>Good design is aesthetic</li>
+              </ol>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Pager</h3><p>Previous and next at the foot of every case study.</p></header>
+      <div class="sg-demo">
+        <nav class="pager" aria-label="Example pager">
+          <div class="pager-in">
+            <a href="#components"><span>← Previous</span><strong>Vista Search</strong></a>
+            <a class="nx" href="#components"><span>Next →</span><strong>WebMD Device Integration</strong></a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== ANIMATION -->
+<section class="sg-sec" id="animation">
+  <div class="wrap">
+    <p class="eyebrow" data-rv="left">04 Animation</p>
+    <h2 class="h2" data-rv>Motion that explains</h2>
+
+    <div class="sg-row">
+      <header><h3>Principles</h3><p>Motion carries meaning or it doesn't ship. Every demo below runs the site's own code; press Replay to run it again.</p></header>
+      <div class="sg-demo">
+        <ul class="sg-rules">
+          <li><b>Arrive, don't perform.</b> Things ease out and settle; nothing bounces or loops for attention.</li>
+          <li><b>Content is never held hostage.</b> Hidden states only apply once <code>html.js</code> is set, and every reveal has a one second fallback.</li>
+          <li><b>Reduced motion wins.</b> Under <code>prefers-reduced-motion</code> every transition collapses to an instant and decorative canvases draw one still frame.</li>
+          <li><b>Off screen, off.</b> Canvases and loops stop ticking when they leave the viewport or the tab is hidden.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Headline split</h3><p>The hero headline breaks into characters that rise in on a 28ms stagger. Words stay whole so lines never break mid word.</p></header>
+      <div class="sg-demo">
+        <div class="sg-stage">
+          <p class="h2 sg-split"><span class="line" data-split>Then I build it.</span></p>
+        </div>
+        <div class="sg-ctl"><button class="btn ghost" type="button" data-sg-replay="split">Replay <span class="arw" aria-hidden="true">↻</span></button><span class="sg-meta">[data-split] · .ch · translateY(105%) rotate(4deg) → none · .82s --ease-out · 28ms per char</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Rotating word</h3><p>The discipline line swaps every 2.6s: the old word exits up, the new one rises from below. The box is locked to the widest word so nothing reflows.</p></header>
+      <div class="sg-demo">
+        <div class="sg-stage">
+          <p class="disciplines" style="margin:0">
+            <span class="label">Depth in</span>
+            <span class="roles">
+              <span>UX Strategy</span>
+              <span>Motion Graphics</span>
+              <span>Rich Media</span>
+              <span>Design Systems</span>
+              <span>Product Design</span>
+            </span>
+          </p>
+        </div>
+        <span class="sg-meta">.roles span.in / .out · translateY(±100%) · .62s --ease-out · every 2600ms</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Scroll reveal</h3><p>Elements fade up as they enter the viewport. Four variants, staggered by <code>data-rv-delay</code> so groups arrive in reading order.</p></header>
+      <div class="sg-demo">
+        <div class="sg-reveals" data-sg-reveals>
+          <div class="sg-tile" data-rv>Rise<span class="sg-meta">data-rv</span></div>
+          <div class="sg-tile" data-rv="fade" data-rv-delay="0.08">Fade<span class="sg-meta">data-rv="fade"</span></div>
+          <div class="sg-tile" data-rv="left" data-rv-delay="0.16">Slide<span class="sg-meta">data-rv="left"</span></div>
+          <div class="sg-tile" data-rv="scale" data-rv-delay="0.24">Scale<span class="sg-meta">data-rv="scale"</span></div>
+        </div>
+        <div class="sg-ctl"><button class="btn ghost" type="button" data-sg-replay="reveal">Replay <span class="arw" aria-hidden="true">↻</span></button><span class="sg-meta">opacity 0 + 28px → .seen · .78s --ease-out · rootMargin −9% · threshold .06</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Count up</h3><p>Stat figures count from zero once they're half on screen, on a cubic ease out. The suffix lands with the final number.</p></header>
+      <div class="sg-demo">
+        <ul class="stats" data-sg-count>
+          <li><b data-to="20" data-sfx="+">20+</b><i>Years in product</i></li>
+          <li><b data-to="14">14</b><i>Case studies</i></li>
+          <li><b data-to="6">6</b><i>Companies</i></li>
+          <li><b data-to="12">12</b><i>Client logos</i></li>
+        </ul>
+        <div class="sg-ctl"><button class="btn ghost" type="button" data-sg-replay="count">Replay <span class="arw" aria-hidden="true">↻</span></button><span class="sg-meta">[data-count] · 1250ms · 1 − (1 − t)³</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Hover feedback</h3><p>Hover is a colour change or a line drawing in, never movement of the layout. Hover each one.</p></header>
+      <div class="sg-demo sg-inline">
+        <div><span class="nav" style="display:flex"><a href="#animation" style="padding-left:0">Nav underline</a></span><span class="sg-meta">.nav a::after · 1px rule</span></div>
+        <div><a class="btn" href="#animation">Button <span class="arw" aria-hidden="true">→</span></a><span class="sg-meta">.btn · colour .18s</span></div>
+        <div class="card" style="max-width:none"><a href="#animation"><div class="meta" style="padding:0"><h3 style="margin:0">Card title sweep</h3></div></a><span class="sg-meta">.card h3 · background-size 0 → 100%</span></div>
+        <div style="flex-basis:100%">
+          <ul class="certlist" style="margin:0"><li><a href="#animation"><span class="ct">Certification row</span><span class="co">Slides + sweeps</span><span class="cd">.42s</span><span class="ca" aria-hidden="true">↗</span></a></li></ul>
+          <span class="sg-meta">.certlist a · padding-left 4 → 14px · title underline sweeps in</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Thumbnail parallax</h3><p>Card images drift a few pixels against the frame as you scroll, driven per frame rather than by a transition. Scroll past this card to see it.</p></header>
+      <div class="sg-demo">
+        <div class="card" style="max-width:360px"><div class="shot"><div class="pll"><img src="assets/img/thumbs/seismic-workflow-approval.jpg" alt="Workflow approval case study thumbnail" loading="lazy" decoding="async"></div></div></div>
+        <span class="sg-meta">.pll · ±6px · requestAnimationFrame on scroll</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Drifting lines</h3><p>The craft panel: twenty strips on independent slow waves, so nothing moves in step. Hover to speed up and swell the strips under the cursor.</p></header>
+      <div class="sg-demo">
+        <div class="craft-lines sg-lines" aria-hidden="true"></div>
+        <span class="sg-meta">craft-lines.js · plain DOM strips, no canvas · pauses off screen</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Dot portrait</h3><p>The About headshot is drawn from the same dot field as the home page intro. It spirals in as it scrolls up, then stops on the settled frame. Click it to gather again.</p></header>
+      <div class="sg-demo">
+        <div class="about sg-about">
+          <div class="portrait">
+            <img src="assets/img/thumbs/lpl_headshot.jpg" alt="Halftone dot portrait of Luis Ponce de León" width="825" height="1100" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <span class="sg-meta">portrait-about.js · the &lt;img&gt; stays as alt text, print and reduced motion fallback</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Mobile drawer</h3><p>Under 860px the menu opens as a circle growing from the burger, and its links rise in one by one 60ms apart.</p></header>
+      <div class="sg-demo">
+        <div class="sg-stage sg-drawer" data-sg-drawer>
+          <div class="sg-drawer-fill"><span>Work</span><span>Craft</span><span>About</span><span>Contact</span></div>
+        </div>
+        <div class="sg-ctl"><button class="btn ghost" type="button" data-sg-replay="drawer">Open <span class="arw" aria-hidden="true">↻</span></button><span class="sg-meta">clip-path circle(0% → 150%) · .62s --ease-in-out · links +.18s, 60ms apart</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Page transition</h3><p>Leaving for another page on the site, an orange curtain rises from the bottom; the next page uncovers top down. The uncover is pure CSS, so it always clears even if a script fails.</p></header>
+      <div class="sg-demo">
+        <div class="sg-ctl" style="margin-top:0"><button class="btn ghost" type="button" data-sg-replay="curtain">Play curtain <span class="arw" aria-hidden="true">↻</span></button><span class="sg-meta">#curtain · scaleY .46s out / .52s in · --ease-in-out</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Scroll progress &amp; header</h3><p>The orange bar at the very top of this page tracks how far you've read. The header condenses past 24px, hides when you scroll down past 420px and returns as soon as you scroll up.</p></header>
+      <div class="sg-demo">
+        <div class="sg-progress"><i data-sg-progress></i></div>
+        <span class="sg-meta">#progress · width = scroll × 100% · .hdr.stuck / .hdr.hide · .42s --ease</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== FORMS -->
+<section class="sg-sec" id="forms">
+  <div class="wrap">
+    <p class="eyebrow" data-rv="left">05 Forms</p>
+    <h2 class="h2" data-rv>Fields &amp; feedback</h2>
+
+    <div class="sg-row">
+      <header><h3>Text fields</h3><p>From the contact dialog. Tinted at rest, white with an orange ring on focus, red with a message when invalid. 16px input text so iOS never zooms.</p></header>
+      <div class="sg-demo sg-form">
+        <div class="cfield">
+          <label for="sg-name">Name</label>
+          <input id="sg-name" type="text" placeholder="Your name" autocomplete="off">
+        </div>
+        <div class="cfield">
+          <label for="sg-email">Email <span class="opt">(focused)</span></label>
+          <input id="sg-email" class="is-focus" type="email" value="luis@" autocomplete="off">
+        </div>
+        <div class="cfield invalid">
+          <label for="sg-msg">Message</label>
+          <textarea id="sg-msg" aria-invalid="true" aria-describedby="sg-msg-err" placeholder="What are you working on?"></textarea>
+          <p class="cerr" id="sg-msg-err">Please add a short message.</p>
+        </div>
+        <div class="cfield">
+          <label for="sg-co">Company <span class="opt">(optional)</span></label>
+          <input id="sg-co" type="text" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Form feedback</h3><p>A request level error above the fields, and the action row with its privacy note.</p></header>
+      <div class="sg-demo sg-form">
+        <p class="cstatus" role="status">Something went wrong sending that. Try again, or email me directly.</p>
+        <div class="cdlg-actions" style="margin-top:0">
+          <button class="btn" type="button">Send message <span class="arw" aria-hidden="true">→</span></button>
+          <p class="cdlg-note">Your details are only used to reply. <a href="mailto:luisponcedesign@gmail.com">Email instead</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sg-sec">
+  <div class="wrap">
+    <div class="sg-row">
+      <header><h3>Footer</h3><p>Tracked caps on a hairline. The real one closes this page.</p></header>
+      <div class="sg-demo sg-frame">
+        <div class="ftr"><div class="wrap ftr-in"><span>© 2026 Luis Ponce de León</span><span>luisponcedesign@gmail.com</span><span>Back to top ↑</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr" style="margin-top:clamp(56px,8vw,110px)">
+  <div class="wrap ftr-in">
+    <span>© <span data-year>2026</span> Luis Ponce de León</span>
+    <a href="mailto:luisponcedesign@gmail.com">luisponcedesign@gmail.com</a>
+    <a class="to-top" href="#">Back to top <span class="arw" aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+<script>
+  // The filter specimen toggles on its own; main.js only wires the real grid.
+  document.querySelectorAll('[data-sg-filters]').forEach(function (bar) {
+    bar.addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      bar.querySelectorAll('.chip').forEach(function (c) {
+        c.setAttribute('aria-pressed', String(c === chip));
+      });
+    });
+  });
+</script>
+<script>
+  // Replay controls for the animation demos. Each one re-runs the site's
+  // own classes (.ready .ch, [data-rv].seen, #curtain.leaving) rather than
+  // a copy, so the demo can't drift from the real thing.
+  (function () {
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function countUp(root) {
+      root.querySelectorAll('[data-to]').forEach(function (el) {
+        var to = +el.dataset.to, sfx = el.dataset.sfx || '', t0 = performance.now();
+        if (reduced) { el.textContent = to + sfx; return; }
+        (function step(now) {
+          var k = Math.min(1, (now - t0) / 1250);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + (k === 1 ? sfx : '');
+          if (k < 1) requestAnimationFrame(step);
+        })(t0);
+      });
+    }
+
+    var stats = document.querySelector('[data-sg-count]');
+    if (stats && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting) { io.disconnect(); countUp(stats); }
+      }, { threshold: 0.5 });
+      io.observe(stats);
+    }
+
+    var replay = {
+      split: function () {
+        document.body.classList.remove('ready');
+        void document.body.offsetWidth;
+        document.body.classList.add('ready');
+      },
+      reveal: function () {
+        var tiles = document.querySelectorAll('[data-sg-reveals] [data-rv]');
+        tiles.forEach(function (t) { t.style.transitionDelay = '0s'; t.classList.remove('seen'); });
+        void document.body.offsetWidth;
+        setTimeout(function () {
+          tiles.forEach(function (t) {
+            t.style.transitionDelay = (parseFloat(t.dataset.rvDelay || 0)) + 's';
+            t.classList.add('seen');
+          });
+        }, 350);
+      },
+      count: function () { countUp(stats); },
+      drawer: function (btn) {
+        var box = document.querySelector('[data-sg-drawer]');
+        var open = box.classList.toggle('open');
+        btn.firstChild.textContent = open ? 'Close ' : 'Open ';
+      },
+      curtain: function () {
+        var c = document.getElementById('curtain');
+        if (!c || reduced) return;
+        c.classList.add('leaving');
+        setTimeout(function () { c.classList.remove('leaving'); }, 700);
+      }
+    };
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-sg-replay]');
+      if (b) replay[b.dataset.sgReplay](b);
+    });
+
+    var bar = document.querySelector('[data-sg-progress]');
+    if (bar) {
+      var draw = function () {
+        var max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.width = (max > 0 ? scrollY / max * 100 : 0) + '%';
+      };
+      addEventListener('scroll', draw, { passive: true });
+      draw();
+    }
+  })();
+</script>
+<script src="assets/js/main.js?v=4f9ee627"></script>
+<script src="assets/js/craft-lines.js?v=a10bc109" defer></script>
+<script src="assets/js/portrait-dots.js?v=2ac58e4b" defer></script>
+<script src="assets/js/portrait-about.js?v=ec416ab7" defer></script>
+</body>
+</html>

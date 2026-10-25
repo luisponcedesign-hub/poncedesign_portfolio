@@ -266,6 +266,10 @@ def build_craft(c):
     blocks = ''
     for i, b in enumerate(c['blocks']):
         extra = ('<p>%s</p>' % b['p2']) if b.get('p2') else ''
+        if b.get('cta'):
+            extra += ('<p class="cblk-cta"><a class="btn ghost" href="%s">%s '
+                      '<span class="arw" aria-hidden="true">→</span></a></p>'
+                      % (esc(b['cta']['u']), esc(b['cta']['t'])))
         blocks += ('        <div class="cblk" data-rv data-rv-delay="%s">\n'
                    '          <h3>%s</h3>\n          %s\n'
                    '          <p>%s</p>\n          %s\n        </div>\n'
@@ -618,7 +622,7 @@ def stamp_assets():
                 digests[real] = hashlib.sha1(f.read()).hexdigest()[:8]
         return digests[real]
 
-    pages = [os.path.join(ROOT, n) for n in ('index.html', 'resume.html')
+    pages = [os.path.join(ROOT, n) for n in ('index.html', 'resume.html', 'styleguide.html')
              if os.path.exists(os.path.join(ROOT, n))] + [
         os.path.join(ROOT, 'work', n)
         for n in sorted(os.listdir(os.path.join(ROOT, 'work')))
@@ -683,7 +687,7 @@ def main():
         f.write(idx)
 
     # 3. sitemap
-    urls = (['%s/' % SITE, '%s/resume.html' % SITE]
+    urls = (['%s/' % SITE, '%s/resume.html' % SITE, '%s/styleguide.html' % SITE]
             + ['%s/work/%s.html' % (SITE, p['slug']) for p in projects])
     sm = ('<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

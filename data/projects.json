@@ -589,7 +589,8 @@
           "CSS3",
           "JavaScript"
         ],
-        "p": "I've written front end code for as long as I've designed interfaces, and it changes what I hand engineering. I know what a layout costs before I propose it, I can prototype in the real medium instead of faking it in a design tool, and when I spec an interaction I've usually already built it once. <b>This site is the example</b>: handwritten HTML, CSS and JavaScript, no framework, no build step beyond a small generator."
+        "p": "I've written front end code for as long as I've designed interfaces, and it changes what I hand engineering. I know what a layout costs before I propose it, I can prototype in the real medium instead of faking it in a design tool, and when I spec an interaction I've usually already built it once. <b>This site is the example</b>: handwritten HTML, CSS and JavaScript, no framework, no build step beyond a small generator.",
+        "cta": { "t": "View style guide", "u": "styleguide.html" }
       },
       {
         "h": "AI assisted design & development",

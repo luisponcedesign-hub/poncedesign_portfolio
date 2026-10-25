@@ -1255,6 +1255,8 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .cblk p{ margin:0 0 .9em; color:var(--ink-2); font-size:.98rem; }
 .cblk p:last-child{ margin-bottom:0; }
 .cblk p b{ color:var(--ink); font-weight:500; }
+/* a block's optional link out (Front end → style guide) sits clear of the prose */
+.cblk p.cblk-cta{ margin:28px 0 0; }
 
 .ttags{ display:flex; flex-wrap:wrap; gap:7px; margin:14px 0 16px; }
 .ttags li{
