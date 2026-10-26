@@ -759,9 +759,22 @@ section{ position:relative; }
 .au-world{ display:block; width:0; min-width:100%; height:auto; margin-top:10px; overflow:visible; }
 .au-world circle{ fill:var(--line-strong); }
 .au-world circle.on{ fill:var(--orange); }
+/* Third card: where the numbers come from. Grey text, ink icons. */
+.au-src-row{
+  display:flex; align-items:center; gap:7px; margin-top:12px !important;
+  font-size:.8rem; color:var(--muted); white-space:nowrap;
+}
+.au-src-row + .au-src-row{ margin-top:9px !important; }
+.au-src-row svg{ flex:none; color:var(--ink); }
+/* Three across doesn't fit a phone or a tablet beside the logos: the
+   source card drops to a full-width row under the other two. */
+@media (max-width:1000px){
+  .au-pair{ grid-auto-flow:row; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .au-src{ grid-column:1 / -1; }
+}
 /* Tablet and up: the card sits to the right of the logos, tops aligned. */
 @media (min-width:621px){
-  .contact-row{ display:flex; align-items:flex-start; gap:80px; margin-top:36px; }
+  .contact-row{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:48px 80px; margin-top:36px; }
   .contact-row .socials, .contact-row .au-pair{ margin-top:0; }
 }
 
