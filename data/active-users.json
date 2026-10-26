@@ -1,12 +1,12 @@
 {
-  "value": 206,
-  "change": 126.4,
+  "value": 204,
+  "change": 117.0,
   "countries": {
-    "US": 168,
+    "US": 167,
     "IN": 8,
     "ES": 6,
-    "CN": 5,
-    "CA": 3,
+    "CA": 4,
+    "CN": 4,
     "GB": 3,
     "DE": 2,
     "KR": 2,
@@ -17,9 +17,8 @@
     "PH": 1,
     "PK": 1,
     "SG": 1,
-    "TW": 1,
     "UY": 1
   },
   "period": "last 30 days",
-  "updated": "2026-10-25T11:19Z"
+  "updated": "2026-10-26T12:54Z"
 }
