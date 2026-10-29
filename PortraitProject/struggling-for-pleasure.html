@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WZB2EXJCT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1WZB2EXJCT');
+</script>
+<title>Struggling for pleasure</title>
+<style>
+  :root {
+    --page-pad: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+
+  /* Labs nav, styled as tabs: one page per tab. */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;   /* ten tabs, and Rain on grass is long on a phone */
+    gap: 1.5rem;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
+  }
+
+  .tabs a {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid transparent;
+    color: #8a8a8a;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .tabs a:hover { color: #f2efe9; }
+
+  .tabs a[aria-current="page"] {
+    color: #f2efe9;
+    border-bottom-color: #f2efe9;
+  }
+
+  .tabs a:focus-visible {
+    outline: 2px solid #f2efe9;
+    outline-offset: 4px;
+  }
+
+
+  /* 16:9, filling the window less the gutter, capped at 78% of its height. */
+  .frame {
+    width: min(calc(100vw - 2 * var(--page-pad)), calc(78vh * 16 / 9));
+    margin: 1.75rem auto 0;   /* no title: the credit and stage sit under the tabs */
+  }
+
+  .stage {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #1e1e1e;
+  }
+
+  .stage svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
+  }
+
+  /* A cactus under the pointer fills white at once, and empties at once. */
+  .cactus.lit > g > g:first-child { fill: #fff; }
+
+  .stage-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+    padding: 1rem 0 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+
+  /* YouTube asks for a visible player at least 200px in each direction. */
+  .player {
+    width: min(100%, 356px);
+    aspect-ratio: 356 / 200;
+    min-height: 200px;
+    background: #111;
+  }
+
+  /* The music credit, over the stage's right edge. */
+  .credit {
+    margin: 0 0 0.75rem;
+    text-align: right;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  .player iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .tap button {
+    margin-left: 0.5rem;
+    border: 1px solid #3a3a3a;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .tap {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.5rem 0.75rem;
+    background: #111;
+    border: 1px solid #3a3a3a;
+    font: 0.75rem ui-monospace, Menlo, monospace;
+    color: #f2efe9;
+  }
+
+  footer {
+    padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+  }
+</style>
+<script src="embed.js"></script>
+</head>
+<body>
+
+<nav class="tabs" aria-label="PonceDesign Labs">
+  <a href="../">PonceDesign</a>
+  <a href="./">Portraits</a>
+  <a href="movements.html">Overcast</a>
+  <a href="movements-rain.html">Rain on grass</a>
+  <a href="caterpillar.html">Caterpillar</a>
+  <a href="michigan-ave.html">Michigan Ave</a>
+  <a href="web-page-funeral.html">A Web Page Funeral</a>
+  <a href="airplane.html">Airplane</a>
+  <a href="holocene.html">Holocene</a>
+  <a href="struggling-for-pleasure.html" aria-current="page">Struggling for pleasure</a>
+</nav>
+
+<main>
+<section id="struggling-for-pleasure">
+
+<div class="frame">
+  <p class="credit">Music: Wim Mertens</p>
+  <div class="stage"></div>
+  <div class="stage-bar">
+    <div class="player"><div id="yt"></div></div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>PDL 2026</footer>
+
+<script>
+/* Struggling for pleasure: a field of hand-drawn cacti, each stretching up
+   from its base by its own 25–40%. When Wim Mertens' official upload is
+   played in the YouTube player, its own controls being the page's, the
+   cacti rise with it: a random
+   handful on each beat, in a random order, and a wave across the field on
+   each strong beat, then they sink back. Silent, they breathe at random.
+   Under the pointer a cactus fills white and the ones around it bend away
+   and sway back, like grass parting, and new cacti multiply around the
+   pointer, sinking back as it moves away. With reduced motion they stay still
+   until the music plays, and do not bend.
+
+   As the music runs, new cacti sprout on the beat at random spots, and
+   the field fills with them where the music is fast and thins out where
+   it slows: the busyness follows how close together the beats fall in
+   the beat map. As the tempo speeds up they multiply faster: more per
+   beat, budding off the cacti already there, and growing in quicker.
+   Without a map it builds over the length of the piece.
+
+   The beat clock follows the player's time. BEATS lists the recording's
+   beats as [seconds, strength] with strength 2 for a strong beat; while
+   it is empty the beat falls every 60 / BPM seconds from OFFSET, with
+   every fourth beat strong (?bpm=&offset= override them). ?tap records a
+   beat map: click the drawing or press T on each beat while the music
+   plays (Shift for a strong one); the map is kept in this browser and used here at once,
+   and Copy beat map copies it to paste into BEATS. */
+(function () {
+  "use strict";
+
+  var VIDEO_ID = "pybqjwf8w8s";
+  /* Tapped along to the recording, Oct 2026: 900 beats, Shift held through
+     the intense passages. */
+  var BEATS = [
+    [0.701,1], [1.418,1], [2.219,1], [3.185,1], [4.201,1], [5.185,1], [6.235,1], [7.268,1],
+    [8.252,1], [9.236,1], [10.186,1], [11.152,1], [12.101,1], [13.019,1], [13.985,1], [14.969,1],
+    [16.519,1], [18.236,1], [20.004,1], [21.802,1], [22.334,1], [22.786,1], [23.202,1], [23.668,1],
+    [24.103,1], [24.568,1], [25.003,1], [25.469,1], [25.902,1], [26.386,1], [26.853,1], [27.319,1],
+    [27.819,1], [28.269,1], [28.752,1], [29.219,1], [29.719,1], [30.152,1], [30.619,1], [31.069,1],
+    [31.486,1], [31.952,1], [32.435,1], [32.853,1], [33.302,1], [33.803,1], [34.22,1], [34.669,1],
+    [35.153,1], [35.602,1], [36.102,1], [36.501,1], [36.952,1], [37.437,1], [37.902,1], [38.369,1],
+    [38.819,1], [39.285,1], [39.769,1], [42.002,1], [42.535,1], [42.969,1], [43.486,1], [43.951,1],
+    [44.352,1], [44.842,1], [45.285,1], [45.718,1], [46.185,1], [46.67,1], [47.135,1], [47.619,1],
+    [48.074,1], [48.535,1], [49.036,1], [49.435,1], [49.918,1], [50.352,1], [50.852,1], [51.304,1],
+    [51.803,2], [52.268,2], [52.668,2], [53.135,2], [53.585,2], [54.036,2], [54.486,2], [54.903,2],
+    [55.352,2], [55.835,2], [56.252,2], [56.703,2], [57.102,2], [57.552,2], [58.002,2], [58.436,2],
+    [58.77,2], [59.103,2], [59.436,2], [59.77,2], [60.035,2], [60.369,2], [60.703,2], [60.986,2],
+    [61.286,2], [61.57,2], [61.803,2], [62.12,2], [62.369,2], [62.685,2], [63.053,2], [63.385,2],
+    [63.652,2], [64.053,2], [64.469,2], [64.952,2], [65.386,2], [65.837,2], [66.303,2], [66.786,2],
+    [67.218,2], [67.668,2], [68.102,2], [68.552,2], [68.969,2], [69.418,2], [69.869,2], [70.319,2],
+    [70.753,2], [71.169,2], [71.618,2], [72.052,2], [72.536,2], [73.018,2], [73.419,2], [73.803,2],
+    [74.086,2], [75.086,2], [75.319,2], [75.552,2], [75.786,2], [76.219,2], [76.452,2], [77.002,2],
+    [77.236,2], [77.486,2], [77.686,2], [78.119,1], [78.552,1], [78.986,1], [79.486,1], [79.901,1],
+    [80.436,2], [80.752,2], [81.152,2], [81.585,2], [82.053,2], [82.468,2], [82.969,2], [83.386,2],
+    [83.886,2], [84.336,2], [84.786,2], [85.252,1], [85.718,1], [86.136,1], [86.568,1], [87.002,1],
+    [87.469,1], [87.918,1], [88.452,2], [88.902,2], [89.319,2], [89.752,2], [90.22,2], [90.619,2],
+    [91.069,2], [91.486,2], [91.936,1], [92.402,1], [92.836,1], [93.269,1], [93.702,1], [94.136,1],
+    [94.569,1], [94.936,1], [95.202,2], [95.403,2], [95.585,2], [96.469,2], [96.702,2], [96.953,2],
+    [97.77,2], [97.985,2], [98.235,2], [99.003,2], [99.419,2], [99.636,2], [100.103,2], [100.553,2],
+    [100.953,2], [101.336,2], [101.786,2], [102.252,2], [102.553,2], [102.77,2], [102.969,2], [103.169,2],
+    [103.369,2], [103.586,2], [103.769,2], [103.986,2], [104.188,2], [104.386,2], [104.619,2], [104.819,2],
+    [105.019,2], [105.254,2], [105.42,2], [105.653,2], [105.853,2], [106.053,2], [106.27,2], [106.502,2],
+    [106.703,2], [106.936,2], [107.136,2], [107.353,2], [107.57,2], [107.803,2], [108.02,2], [108.236,2],
+    [108.493,2], [108.67,2], [108.887,2], [109.103,2], [109.335,2], [109.569,2], [109.753,2], [109.986,2],
+    [110.203,2], [110.403,2], [110.636,2], [110.852,2], [111.07,2], [111.286,2], [111.503,2], [111.72,2],
+    [111.935,2], [112.169,2], [112.403,2], [112.619,2], [112.836,2], [113.053,2], [113.286,2], [113.486,2],
+    [113.719,2], [113.953,2], [114.169,2], [114.403,2], [114.62,2], [114.836,2], [115.053,2], [115.269,2],
+    [115.486,2], [115.719,2], [115.936,2], [116.153,2], [116.37,2], [116.587,2], [116.819,2], [117.087,2],
+    [117.302,2], [117.536,2], [117.802,2], [118.036,1], [118.836,1], [119.686,1], [121.518,1], [123.286,1],
+    [124.919,1], [125.968,1], [126.836,1], [127.852,1], [128.369,1], [128.769,1], [129.151,1], [129.536,1],
+    [129.952,1], [130.403,1], [130.786,1], [131.303,1], [131.769,1], [132.222,1], [132.636,1], [133.086,1],
+    [133.503,1], [133.936,1], [134.403,1], [134.803,1], [135.286,1], [135.702,1], [136.136,1], [136.586,1],
+    [137.036,1], [137.503,2], [137.919,2], [138.302,2], [138.722,2], [139.003,2], [139.252,2], [139.502,2],
+    [139.736,2], [139.969,2], [140.219,2], [140.469,2], [140.702,2], [140.952,2], [141.169,2], [141.402,2],
+    [141.619,2], [141.869,2], [142.103,2], [142.353,2], [142.586,2], [142.836,2], [143.069,2], [143.336,2],
+    [143.586,2], [143.836,2], [144.103,2], [144.352,2], [144.602,2], [144.852,2], [145.086,2], [145.303,2],
+    [145.552,2], [145.802,2], [146.052,2], [146.319,2], [146.569,2], [146.803,2], [147.053,2], [147.319,2],
+    [147.586,2], [147.853,2], [148.119,2], [148.37,2], [148.619,2], [148.869,2], [149.137,2], [149.436,2],
+    [149.653,2], [149.952,2], [150.253,2], [150.536,2], [150.82,2], [151.119,2], [151.436,2], [151.802,2],
+    [152.185,2], [152.57,2], [152.853,2], [153.136,2], [153.419,2], [153.686,2], [153.936,2], [154.186,2],
+    [154.435,2], [154.719,2], [154.969,2], [155.203,2], [155.453,2], [155.753,2], [156.019,2], [156.286,2],
+    [156.569,2], [156.835,2], [157.102,2], [157.369,2], [157.636,2], [157.885,2], [158.136,2], [158.403,2],
+    [158.636,2], [158.953,2], [159.242,2], [159.51,2], [159.76,2], [160.01,2], [160.277,2], [160.526,2],
+    [160.76,2], [161.043,2], [161.286,2], [161.56,2], [161.843,2], [162.076,2], [162.369,2], [162.62,2],
+    [162.909,2], [163.161,2], [163.436,2], [163.709,2], [163.969,2], [164.225,2], [164.519,2], [164.775,2],
+    [165.027,2], [165.31,2], [165.585,2], [165.892,2], [166.153,2], [166.436,1], [166.736,1], [167.036,1],
+    [167.303,1], [167.569,1], [167.869,1], [168.169,1], [168.453,1], [168.786,1], [169.102,1], [169.436,1],
+    [169.736,1], [170.069,1], [170.386,1], [170.669,1], [170.969,1], [171.253,1], [171.519,1], [171.803,1],
+    [172.069,1], [172.336,1], [172.653,1], [172.936,1], [173.219,1], [173.503,1], [173.803,1], [174.069,1],
+    [174.369,1], [174.676,1], [174.959,1], [175.253,1], [175.476,1], [175.926,1], [176.175,1], [176.76,1],
+    [177.077,1], [177.309,1], [177.592,1], [177.852,1], [178.075,1], [178.359,1], [178.627,1], [178.909,1],
+    [179.192,1], [179.459,1], [179.775,1], [180.035,1], [180.359,1], [180.687,1], [180.995,1], [181.292,1],
+    [181.577,1], [181.861,1], [182.126,1], [182.577,1], [182.836,1], [183.093,2], [183.343,2], [183.592,2],
+    [183.905,2], [184.109,2], [184.343,2], [184.627,2], [184.886,2], [185.144,2], [185.626,2], [185.843,2],
+    [186.086,2], [186.327,2], [186.559,2], [186.809,2], [187.059,2], [187.359,2], [187.642,2], [187.903,2],
+    [188.204,2], [188.409,2], [188.676,2], [188.962,2], [189.22,2], [189.476,2], [189.737,2], [189.994,2],
+    [190.277,2], [190.503,2], [190.793,2], [191.02,2], [191.309,2], [191.532,2], [191.793,2], [192.009,2],
+    [192.276,2], [192.536,2], [192.776,2], [193.043,2], [193.326,2], [193.608,2], [193.876,2], [194.126,2],
+    [194.427,2], [194.686,2], [194.96,2], [195.227,2], [195.477,2], [195.786,2], [196.025,2], [196.309,2],
+    [196.577,2], [196.893,2], [197.153,2], [197.411,2], [197.693,2], [197.986,2], [198.309,2], [198.56,2],
+    [198.875,2], [199.175,2], [199.426,2], [199.753,2], [200.01,2], [200.259,2], [200.592,2], [200.842,2],
+    [201.093,2], [201.391,2], [201.61,2], [201.876,2], [202.127,2], [202.376,2], [202.609,2], [202.86,2],
+    [203.126,2], [203.41,2], [203.893,2], [204.159,2], [204.652,2], [204.82,2], [205.703,2], [206.403,2],
+    [207.118,2], [207.804,2], [208.036,2], [208.286,2], [208.502,2], [208.753,2], [209.003,2], [209.269,2],
+    [209.52,2], [209.772,2], [210.003,2], [210.253,2], [210.486,2], [210.753,2], [211.003,2], [211.269,2],
+    [211.536,2], [211.803,2], [212.053,2], [212.319,2], [212.586,2], [212.853,2], [213.103,2], [213.369,2],
+    [213.636,2], [213.903,2], [214.137,2], [214.403,2], [214.686,2], [214.953,2], [215.203,2], [215.486,2],
+    [215.719,2], [215.986,2], [216.236,2], [216.519,2], [216.769,2], [217.037,2], [217.336,2], [217.619,2],
+    [217.869,2], [218.119,2], [218.387,2], [218.637,2], [218.887,2], [219.153,2], [219.402,2], [219.686,2],
+    [219.936,2], [220.202,2], [220.454,2], [220.686,2], [220.97,2], [221.202,2], [221.486,2], [221.769,2],
+    [222.036,2], [222.303,2], [222.552,2], [222.786,2], [223.037,2], [223.319,2], [223.603,1], [223.852,1],
+    [224.969,1], [225.219,1], [225.452,1], [225.652,1], [226.003,1], [226.252,1], [226.769,1], [227.026,1],
+    [227.219,1], [227.437,1], [228.669,1], [228.918,1], [229.188,1], [230.486,1], [230.718,1], [230.935,1],
+    [231.887,1], [232.136,1], [232.37,1], [233.02,1], [233.252,1], [233.469,1], [234.036,1], [234.269,1],
+    [234.502,1], [234.719,1], [235.853,1], [236.086,1], [236.303,1], [236.536,1], [237.635,1], [237.903,1],
+    [238.119,1], [238.353,1], [239.203,1], [239.969,1], [240.803,1], [241.786,1], [242.603,1], [243.419,1],
+    [244.358,1], [245.336,1], [246.236,1], [247.102,1], [247.952,1], [249.783,1], [251.452,1], [252.387,1],
+    [253.336,1], [254.87,1], [256.485,1], [257.102,1], [257.485,1], [257.869,1], [258.269,1], [258.736,1],
+    [260.519,1], [262.22,1], [265.869,1], [267.77,1], [269.553,1], [270.364,1], [270.885,1], [271.669,1],
+    [274.968,1], [276.485,1], [277.086,1], [277.553,1], [278.403,1], [278.736,1], [279.036,1], [281.686,1],
+    [281.986,1], [282.209,1], [282.42,1], [283.17,1], [283.418,1], [283.653,1], [283.836,1], [284.053,1],
+    [284.338,1], [284.654,1], [284.97,2], [285.253,2], [285.503,2], [285.703,2], [285.921,2], [286.153,2],
+    [286.37,2], [286.587,2], [286.82,2], [287.07,2], [287.286,2], [287.503,2], [287.736,2], [287.953,2],
+    [288.236,2], [288.628,1], [288.986,1], [289.419,1], [290.286,1], [291.119,2], [291.502,2], [291.753,2],
+    [291.97,2], [292.22,2], [292.419,2], [292.922,2], [293.353,2], [293.604,2], [293.837,2], [294.036,2],
+    [294.37,2], [294.637,2], [294.886,2], [295.721,1], [296.486,1], [297.437,1], [298.303,2], [299.087,2],
+    [299.602,2], [299.835,2], [300.069,2], [300.269,2], [300.502,2], [300.902,2], [301.186,2], [301.489,2],
+    [301.802,2], [302.236,2], [302.719,2], [303.169,2], [303.622,2], [304.054,2], [304.57,2], [304.97,2],
+    [305.403,2], [305.755,2], [305.969,2], [306.186,2], [306.403,2], [306.637,2], [306.853,2], [307.053,2],
+    [307.304,2], [307.503,2], [307.753,2], [307.97,2], [308.22,1], [309.753,1], [310.82,1], [312.02,1],
+    [312.935,1], [313.952,1], [315.153,1], [316.202,1], [317.719,1], [318.802,1], [319.67,1], [319.985,1],
+    [320.17,1], [321.07,1], [321.319,1], [321.502,1], [321.703,1], [321.937,1], [322.187,1], [322.387,1],
+    [322.603,1], [322.85,1], [323.037,1], [323.27,1], [323.47,1], [323.67,1], [323.918,1], [324.12,1],
+    [324.337,1], [324.537,1], [324.821,2], [325.07,2], [325.305,2], [325.57,2], [325.804,2], [326.052,2],
+    [326.255,2], [326.52,2], [326.738,2], [326.97,2], [327.22,2], [327.47,2], [327.721,2], [327.97,2],
+    [328.184,2], [328.42,2], [328.638,2], [328.903,2], [329.137,2], [329.387,2], [329.637,2], [331.104,2],
+    [331.321,2], [331.603,2], [331.803,2], [332.036,2], [332.236,2], [332.471,2], [332.703,2], [333.07,2],
+    [333.32,2], [333.553,2], [333.786,2], [334.02,2], [334.253,2], [334.471,2], [334.72,2], [334.97,2],
+    [335.204,2], [335.436,2], [335.671,2], [335.904,2], [336.104,2], [336.353,2], [336.587,2], [336.822,2],
+    [337.07,2], [337.303,2], [337.52,2], [337.804,2], [338.036,2], [338.287,2], [338.504,2], [338.754,2],
+    [339.004,2], [339.236,2], [339.504,2], [339.737,2], [339.97,2], [340.22,2], [340.454,2], [340.686,2],
+    [340.984,2], [341.153,2], [341.404,2], [341.636,2], [341.886,2], [342.136,2], [342.353,2], [342.603,2],
+    [342.854,2], [343.119,2], [343.353,2], [343.603,2], [343.854,2], [344.12,2], [344.387,2], [344.621,2],
+    [344.871,2], [345.153,2], [345.388,2], [345.654,2], [345.936,2], [346.187,2], [346.454,2], [346.704,2],
+    [346.937,2], [347.186,2], [347.436,2], [347.704,2], [347.969,2], [348.221,2], [348.451,2], [348.704,2],
+    [348.97,2], [349.236,2], [349.527,2], [349.77,2], [350.037,2], [350.304,2], [350.583,2], [350.854,2],
+    [351.12,2], [351.354,2], [351.651,2], [351.837,2]
+  ];
+  var params = new URLSearchParams(location.search);
+  var BPM = parseFloat(params.get("bpm")) || 76;
+  var OFFSET = parseFloat(params.get("offset")) || 0;
+  var MAP_KEY = "sfp-beat-map";
+
+  var stage = document.querySelector(".stage");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var embed = document.documentElement.classList.contains("embed");
+  var tapping = !embed && params.has("tap");
+
+  if (tapping) {
+    try { BEATS = JSON.parse(localStorage.getItem(MAP_KEY)) || BEATS; } catch (e) {}
+  }
+
+  var svg = null, cacti = [], originals = 0, sprouts = null;
+  var MAX_SPROUTS = 300, busy = 0, rush = 0, rateLo = 1, rateHi = 3;
+  var player = null, playing = false;
+  var onPlayState = function () {};
+  var clock = { t: 0, at: 0, reported: null };
+  var lastBeat = -1, lastT = 0, lastWave = 0, nextIdle = 0, onScreen = true, raf = 0, last = 0;
+  var pointer = null;   // {x, y} in the drawing's units while over the stage
+
+  fetch("../assets/img/struggling-for-pleasure.svg")
+    .then(function (r) { return r.text(); })
+    .then(function (text) {
+      stage.innerHTML = text;
+      svg = stage.querySelector("svg");
+      cacti = Array.prototype.map.call(svg.querySelectorAll(".cactus"), function (el) {
+        var at = el.parentNode.getAttribute("transform").match(/[-\d.]+/g).map(Number);
+        var box = el.getBBox();
+        /* The drawing stores 10–20%; this page stretches them to 25–40%. */
+        var s = parseFloat(el.getAttribute("data-s")) || 1.15;
+        return { el: el, x: at[0], y: at[1], x0: box.x, x1: box.x + box.width, h: -box.y,
+                 s: 1.25 + (s - 1.1) * 1.5, size: 1, flip: 1, g: 1, born: 0, dying: false,
+                 v: 0, rising: false, kickAt: 0, att: 6, rel: 0.6,
+                 bend: 0, bendV: 0, lit: false, shown: "" };
+      });
+      originals = cacti.length;
+      sprouts = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      svg.querySelector("g[clip-path]").appendChild(sprouts);
+      mapChanged();
+      run();
+    });
+
+  /* The beats per second around each beat of the map, and the slow and
+     fast ends of that range, so busyness runs from 0 to 1 within the piece. */
+  function rateAt(t) {
+    var n = 0;
+    for (var i = 0; i < BEATS.length; i++) {
+      if (BEATS[i][0] > t - 3 && BEATS[i][0] <= t + 1) n++;
+    }
+    return n / 4;
+  }
+
+  function mapChanged() {
+    if (BEATS.length < 8) return;
+    var rates = BEATS.map(function (b) { return rateAt(b[0]); }).sort(function (a, b) { return a - b; });
+    rateLo = rates[Math.floor(rates.length * 0.1)];
+    rateHi = Math.max(rateLo + 0.25, rates[Math.floor(rates.length * 0.9)]);
+  }
+
+  /* How fast the tempo is rising, 0 to 1: the beat rate now against four
+     seconds ago, over the piece's range. */
+  function rushAt(t) {
+    if (BEATS.length < 8) return 0;
+    return Math.max(0, Math.min(1, (rateAt(t) - rateAt(t - 4)) / (rateHi - rateLo)));
+  }
+
+  function busyAt(t) {
+    if (BEATS.length >= 8) {
+      /* A sparse few even at the slowest. */
+      return 0.12 + 0.88 * Math.max(0, Math.min(1, (rateAt(t) - rateLo) / (rateHi - rateLo)));
+    }
+    var length = (player && player.getDuration && player.getDuration()) || 240;
+    var p = Math.max(0, Math.min(1, t / length));
+    return 0.15 + 0.7 * p + 0.15 * Math.sin(p * Math.PI * 6);
+  }
+
+  /* A new cactus: a copy of one in the drawing, at a random size and
+     facing, drawn among the other new ones by depth. It buds beside the
+     cactus "near" when given, else at a random spot, and grows up out of
+     the ground after delay. */
+  function sprout(now, delay, near, atX, atY) {
+    var src = cacti[Math.floor(Math.random() * originals)];
+    var host = src.el.parentNode.cloneNode(true);
+    var el = host.querySelector(".cactus");
+    var size = 0.55 + Math.random() * 0.6, flip = Math.random() < 0.5 ? -1 : 1;
+    var x = Math.random() * 3024, y = 120 + Math.random() * 1640;
+    if (near) {
+      x = Math.max(0, Math.min(3024, near.x + (Math.random() - 0.5) * 260));
+      y = Math.max(120, Math.min(1760, near.y + (Math.random() - 0.3) * 140));
+    }
+    if (atX !== undefined) {
+      x = Math.max(0, Math.min(3024, atX));
+      y = Math.max(40, Math.min(1760, atY));
+      size *= 0.75;
+    }
+    el.classList.remove("lit");
+    el.setAttribute("transform", "scale(0 0)");
+    host.setAttribute("transform", "translate(" + x.toFixed(1) + " " + y.toFixed(1) + ")");
+    host.setAttribute("data-y", y);
+    var before = null;
+    for (var n = sprouts.firstChild; n; n = n.nextSibling) {
+      if (+n.getAttribute("data-y") > y) { before = n; break; }
+    }
+    sprouts.insertBefore(host, before);
+    var c = { el: el, host: host, x: x, y: y,
+                 x0: flip > 0 ? src.x0 * size : -src.x1 * size,
+                 x1: flip > 0 ? src.x1 * size : -src.x0 * size,
+                 h: src.h * size, s: src.s, size: size, flip: flip,
+                 g: 0, born: now + delay, dying: false, grow: 4 + 10 * busy + 12 * rush,
+                 v: 0, rising: false, kickAt: 0, att: 6, rel: 0.6,
+                 bend: 0, bendV: 0, lit: false, shown: "" };
+    cacti.push(c);
+    return c;
+  }
+
+  /* The music's new cacti still standing (not the pointer's). */
+  function living() {
+    var list = [];
+    for (var i = originals; i < cacti.length; i++) {
+      if (!cacti[i].dying && !cacti[i].byPointer) list.push(cacti[i]);
+    }
+    return list;
+  }
+
+  /* Around the pointer: keep about 28 new cacti within REACH of it, budding
+     one every 30ms or so, quick to grow. Those it leaves behind past 1.3
+     REACH sink back, and all of them when it leaves the drawing. */
+  var REACH = 230, budAt = 0;
+  function multiply(now) {
+    var close = 0;
+    for (var i = originals; i < cacti.length; i++) {
+      var c = cacti[i];
+      if (!c.byPointer || c.dying) continue;
+      var d = pointer ? Math.hypot(c.x - pointer.x, c.y - 60 - pointer.y) : Infinity;
+      if (d > REACH * 1.3) c.dying = true;
+      else close++;
+    }
+    if (!pointer || reduced || close >= 28 || now < budAt) return;
+    budAt = now + 30;
+    var a = Math.random() * Math.PI * 2, r = REACH * Math.sqrt(Math.random());
+    var c = sprout(now, 0, null, pointer.x + Math.cos(a) * r, pointer.y + 60 + Math.sin(a) * r * 0.6);
+    c.byPointer = true;
+    c.grow = 16;
+    c.fade = 4;
+  }
+
+  function kick(c, now, delay, att, rel) {
+    if (c.rising || c.kickAt) return;
+    c.kickAt = now + delay;
+    c.att = att;
+    c.rel = rel;
+  }
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)), x = a[i];
+      a[i] = a[j]; a[j] = x;
+    }
+    return a;
+  }
+
+  function onBeat(strength, gap, now) {
+    var gapMs = Math.max(250, Math.min(1500, gap * 1000));
+
+    /* Sprout toward the busyness, a few per beat, more on a strong one and
+       many more while the tempo is rising, mostly budding off cacti already
+       there; past it, the oldest new cacti sink back into the ground. */
+    var alive = living();
+    var want = Math.round(MAX_SPROUTS * Math.min(1, Math.pow(busy, 1.4) * (1 + rush)));
+    if (alive.length < want) {
+      var add = Math.min(want - alive.length,
+                         Math.ceil((1 + busy * 7) * (strength > 1 ? 2 : 1) * (1 + rush * 4)));
+      for (var a = 0; a < add; a++) {
+        var parent = Math.random() < 0.4 + 0.5 * rush
+          ? (alive.length && Math.random() < 0.7 ? alive[Math.floor(Math.random() * alive.length)]
+                                                 : cacti[Math.floor(Math.random() * originals)])
+          : null;
+        sprout(now, Math.random() * gapMs * (0.5 - 0.3 * rush), parent);
+      }
+    } else if (alive.length > want) {
+      alive.slice(0, Math.ceil((alive.length - want) / 3)).forEach(function (c) { c.dying = true; });
+    }
+
+    var picks = shuffle(cacti.slice()).slice(0, Math.round(cacti.length * (strength > 1 ? 0.3 : 0.14)));
+    picks.forEach(function (c, i) {
+      /* Shuffled order, spread over the first third of the beat. */
+      kick(c, now, (i / picks.length) * gapMs * 0.33,
+           1000 / (gapMs * 0.06), 1000 / (gapMs * (0.8 + Math.random())));
+    });
+    if (strength > 1 && now - lastWave > 1200) {
+      /* A strong beat also sends a wave across the field from a random side,
+         at most one wave every 1.2s. */
+      lastWave = now;
+      var left = Math.random() < 0.5;
+      cacti.forEach(function (c) {
+        if (Math.random() < 0.55) return;
+        var across = left ? c.x / 3024 : 1 - c.x / 3024;
+        kick(c, now, across * gapMs * 0.9, 1000 / (gapMs * 0.1), 1000 / (gapMs * 1.6));
+      });
+    }
+  }
+
+  /* Beats between the last frame's time and this one's, from the map or
+     from the tempo. A jump (a seek, or a stall) skips straight past. */
+  function beatsBetween(t0, t1, now) {
+    if (t1 < t0 || t1 - t0 > 1) return;
+    if (BEATS.length) {
+      for (var i = 0; i < BEATS.length; i++) {
+        var b = BEATS[i];
+        if (b[0] > t0 && b[0] <= t1) {
+          var next = BEATS[i + 1];
+          onBeat(b[1] || 1, next ? next[0] - b[0] : 60 / BPM, now);
+        }
+      }
+      return;
+    }
+    var beat = Math.floor((t1 - OFFSET) * BPM / 60);
+    if (beat !== lastBeat && beat >= 0) onBeat(beat % 4 === 0 ? 2 : 1, 60 / BPM, now);
+    lastBeat = beat;
+  }
+
+  function playerTime(now) {
+    return clock.t + (now - clock.at) / 1000;
+  }
+
+  function frame(now) {
+    raf = 0;
+    var dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+    last = now;
+    var t = 0;
+
+    if (playing && player && player.getCurrentTime) {
+      var reported = player.getCurrentTime();
+      if (reported !== clock.reported) {
+        clock.reported = reported;
+        clock.t = reported;
+        clock.at = now;
+      }
+      t = playerTime(now);
+      busy = busyAt(t);
+      rush = rushAt(t);
+      beatsBetween(lastT, t, now);
+      lastT = t;
+    } else if (!reduced && now >= nextIdle) {
+      /* Silent: one cactus at a time, slowly. */
+      var c = cacti[Math.floor(Math.random() * cacti.length)];
+      if (c) kick(c, now, 0, 0.8 + Math.random() * 0.6, 0.25 + Math.random() * 0.2);
+      /* And the new cacti sink back, one at a time. */
+      var alive = living();
+      if (alive.length) alive[Math.floor(Math.random() * alive.length)].dying = true;
+      nextIdle = now + 60 + Math.random() * 120;
+    }
+
+    /* Under the beats, the whole field swells and settles over eight beats. */
+    var swell = playing ? 0.18 * (0.5 - 0.5 * Math.cos(t * BPM / 60 * Math.PI / 4)) : 0;
+    var front = -1;   // the cactus under the pointer that is drawn on top
+    multiply(now);
+
+    for (var i = cacti.length - 1; i >= originals; i--) {
+      var n = cacti[i];
+      if (n.dying) n.g -= Math.min(n.g, (n.fade || 2.5) * dt);
+      else if (now >= n.born) n.g += (1 - n.g) * Math.min(1, n.grow * dt);
+      if (n.dying && n.g <= 0) {
+        n.host.remove();
+        cacti.splice(i, 1);
+      }
+    }
+
+    for (var i = 0; i < cacti.length; i++) {
+      var k = cacti[i];
+      if (k.kickAt && now >= k.kickAt) { k.kickAt = 0; k.rising = true; }
+      if (k.rising) {
+        k.v += (1 - k.v) * Math.min(1, k.att * dt);
+        if (k.v > 0.97) k.rising = false;
+      } else {
+        k.v -= k.v * Math.min(1, k.rel * dt);
+      }
+      var sy = 1 + (k.s - 1) * Math.max(k.v, swell);
+
+      /* Grass: bend away from the pointer, on a spring so it sways back. */
+      var target = 0, over = false;
+      if (pointer) {
+        var top = k.y - k.h * sy * k.g, dx = pointer.x - k.x;
+        over = pointer.x >= k.x + k.x0 && pointer.x <= k.x + k.x1 && pointer.y >= top && pointer.y <= k.y;
+        var reach = 220, near = 1 - Math.abs(dx) / reach;
+        var tall = pointer.y >= top - 80 && pointer.y <= k.y + 40;
+        if (!reduced && near > 0 && tall) target = (dx > 0 ? 1 : -1) * 32 * near * near;
+      }
+      /* Snap away from the pointer; sway back on the spring. */
+      if (Math.abs(target) > Math.abs(k.bend) && target * k.bend >= 0) {
+        k.bend = target;
+        k.bendV = 0;
+      } else {
+        k.bendV += (180 * (target - k.bend) - 14 * k.bendV) * dt;
+        k.bend += k.bendV * dt;
+      }
+      if (over) front = i;
+
+      var sx = k.size * k.flip * (0.5 + 0.5 * k.g);
+      var shown = (Math.abs(k.bend) > 0.05 ? "skewX(" + k.bend.toFixed(2) + ") " : "") +
+                  "scale(" + sx.toFixed(3) + " " + (sy * k.size * k.g).toFixed(4) + ")";
+      if (shown !== k.shown) {
+        k.shown = shown;
+        k.el.setAttribute("transform", shown);
+      }
+    }
+    for (var j = 0; j < cacti.length; j++) {
+      if ((j === front) !== cacti[j].lit) {
+        cacti[j].lit = j === front;
+        cacti[j].el.classList.toggle("lit", cacti[j].lit);
+      }
+    }
+    run();
+  }
+
+  function active() {
+    return onScreen && !document.hidden && (playing || pointer || !reduced || cacti.length > originals);
+  }
+
+  function run() {
+    if (raf || !cacti.length) return;
+    if (!active()) { last = 0; return; }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function track(e) {
+    if (!svg) return;
+    var m = svg.getScreenCTM();
+    if (!m) return;
+    var p = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse());
+    pointer = { x: p.x, y: p.y };
+    run();
+  }
+
+  stage.addEventListener("pointermove", track);
+  stage.addEventListener("pointerdown", track);
+  stage.addEventListener("pointerleave", function () { pointer = null; });
+  stage.addEventListener("pointercancel", function () { pointer = null; });
+
+  function buildPlayer() {
+    window.onYouTubeIframeAPIReady = function () {
+      player = new YT.Player("yt", {
+        host: "https://www.youtube-nocookie.com",
+        videoId: VIDEO_ID,
+        playerVars: { playsinline: 1, rel: 0 },
+        events: {
+          onStateChange: function (e) {
+            playing = e.data === YT.PlayerState.PLAYING;
+            if (playing) {
+              clock.reported = null;
+              lastBeat = -1;
+              lastT = player.getCurrentTime();
+            }
+            onPlayState();
+            run();
+          }
+        }
+      });
+    };
+    var s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(s);
+  }
+
+  if (!embed) buildPlayer();
+
+  if (tapping) {
+    var taps = BEATS.slice(), box = document.createElement("div");
+    box.className = "tap";
+    box.innerHTML = '<span></span> <button type="button" data-act="copy">Copy beat map</button>' +
+                    ' <button type="button" data-act="clear">Clear</button>';
+    var label = box.querySelector("span");
+    function showTaps() {
+      label.textContent = taps.length ? taps.length + " beats, last at " + taps[taps.length - 1][0].toFixed(2) + "s"
+                                      : (playing ? "Click the drawing or press T on each beat, Shift for a strong one"
+                                                : "Play the video, then click the drawing on each beat");
+    }
+    function save() {
+      taps.sort(function (a, b) { return a[0] - b[0]; });
+      BEATS = taps.slice();
+      mapChanged();
+      try { localStorage.setItem(MAP_KEY, JSON.stringify(taps)); } catch (e) {}
+      showTaps();
+    }
+    document.body.appendChild(box);
+    showTaps();
+    onPlayState = showTaps;
+    function tap(strong) {
+      if (!playing) { showTaps(); return; }
+      var at = Math.round(playerTime(performance.now()) * 1000) / 1000;
+      /* A new pass over beats already tapped replaces them from here on. */
+      taps = taps.filter(function (b) { return b[0] < at - 0.15; });
+      taps.push([at, strong ? 2 : 1]);
+      save();
+    }
+    document.addEventListener("keydown", function (e) {
+      if ((e.key === "t" || e.key === "T") && !e.repeat) tap(e.shiftKey);
+    });
+    stage.addEventListener("pointerdown", function (e) { tap(e.shiftKey); });
+    box.addEventListener("click", function (e) {
+      var act = e.target.getAttribute("data-act");
+      if (act === "clear") { taps = []; save(); }
+      if (act === "copy" && navigator.clipboard) {
+        navigator.clipboard.writeText(JSON.stringify(taps)).then(function () { label.textContent = "Copied " + taps.length + " beats"; });
+      }
+    });
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      onScreen = entries[0].isIntersecting;
+      run();
+    }).observe(stage);
+  }
+  document.addEventListener("visibilitychange", run);
+})();
+</script>
+
+</body>
+</html>
