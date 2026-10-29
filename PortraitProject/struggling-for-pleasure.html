@@ -65,6 +65,7 @@
   .frame {
     width: min(calc(100vw - 2 * var(--page-pad)), calc(78vh * 16 / 9));
     margin: 1.75rem auto 0;   /* no title: the credit and stage sit under the tabs */
+    position: relative;
   }
 
   .stage {
@@ -83,25 +84,31 @@
   /* A cactus under the pointer fills white at once, and empties at once. */
   .cactus.lit > g > g:first-child { fill: #fff; }
 
-  .stage-bar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 1rem;
-    padding: 1rem 0 0;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #6a6a6a;
-  }
-
-  /* YouTube asks for a visible player at least 200px in each direction. */
+  /* The YouTube player sits over the stage's bottom-left corner. YouTube
+     asks for a visible player at least 200px in each direction. On a phone,
+     where it would cover most of the stage, it drops below instead. */
   .player {
-    width: min(100%, 356px);
-    aspect-ratio: 356 / 200;
-    min-height: 200px;
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 1;
+    width: 356px;
+    height: 200px;
     background: #111;
   }
+
+  @media (max-width: 700px) {
+    .player {
+      position: static;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      min-height: 200px;
+      margin-top: 1rem;
+    }
+  }
+
+  html.embed .player { display: none; }
 
   /* The music credit, over the stage's right edge. */
   .credit {
@@ -171,9 +178,7 @@
 <div class="frame">
   <p class="credit">Music: Wim Mertens</p>
   <div class="stage"></div>
-  <div class="stage-bar">
-    <div class="player"><div id="yt"></div></div>
-  </div>
+  <div class="player"><div id="yt"></div></div>
 </div>
 </section>
 </main>
@@ -673,7 +678,8 @@
       player = new YT.Player("yt", {
         host: "https://www.youtube-nocookie.com",
         videoId: VIDEO_ID,
-        playerVars: { playsinline: 1, rel: 0 },
+        /* No control bar: a click on the video plays and pauses it. */
+        playerVars: { playsinline: 1, rel: 0, controls: 0 },
         events: {
           onStateChange: function (e) {
             playing = e.data === YT.PlayerState.PLAYING;
