@@ -1,8 +1,8 @@
 {
-  "value": 212,
-  "change": 81.2,
+  "value": 195,
+  "change": 43.4,
   "countries": {
-    "US": 174,
+    "US": 157,
     "IN": 10,
     "ES": 7,
     "CA": 4,
@@ -19,5 +19,5 @@
     "UY": 1
   },
   "period": "last 30 days",
-  "updated": "2026-10-31T12:19Z"
+  "updated": "2026-11-01T13:15Z"
 }
