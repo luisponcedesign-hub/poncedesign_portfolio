@@ -674,7 +674,12 @@ document.querySelectorAll('.draw').forEach(svg => {
     lines.push({ x: X0 + XW * Math.pow(rand(), 1.5), y: rand() * H, len: 30 + rand() * 200,
       w: .4 + rand() * 1.6, c: warm ? '#DE9E17' : colors[(rand() * colors.length) | 0], o: .3 + rand() * .65 });
   }
-  const frag = document.createDocumentFragment();
+  // lines are spread over several groups so each can run at its own speed on hover
+  const G = 8;
+  const groups = [flow];
+  for (let g = 1; g < G; g++) groups.push(flow.parentNode.appendChild(flow.cloneNode()));
+  const frags = groups.map(() => document.createDocumentFragment());
+  for (const l of lines) l.g = (rand() * G) | 0;
   for (const off of [-H, 0, H]) {
     for (const l of lines) {
       const el = document.createElementNS(NS, 'line');
@@ -682,10 +687,32 @@ document.querySelectorAll('.draw').forEach(svg => {
       el.setAttribute('y1', (l.y + off).toFixed(1)); el.setAttribute('y2', (l.y + off + l.len).toFixed(1));
       el.setAttribute('stroke', l.c); el.setAttribute('stroke-width', l.w.toFixed(2));
       el.setAttribute('stroke-opacity', l.o.toFixed(2)); el.setAttribute('stroke-linecap', 'round');
-      frag.appendChild(el);
+      frags[l.g].appendChild(el);
     }
   }
-  flow.appendChild(frag);
+  groups.forEach((g, i) => g.appendChild(frags[i]));
+
+  // on hover each group speeds up to its own random pace, easing in and out so nothing jumps
+  // at rest each group drifts at a slightly different pace (±12%)
+  const base = groups.map((_, i) => .88 + .24 * i / (G - 1));
+  const rates = base.slice(), targets = base.slice();
+  groups.forEach((g, i) => { const a = g.getAnimations()[0]; if (a) a.playbackRate = base[i]; });
+  let raf = 0;
+  const step = () => {
+    let moving = false;
+    groups.forEach((g, i) => {
+      const anim = g.getAnimations()[0];
+      if (!anim) return;
+      rates[i] += (targets[i] - rates[i]) * .06;
+      if (Math.abs(targets[i] - rates[i]) < .01) rates[i] = targets[i]; else moving = true;
+      anim.playbackRate = rates[i];
+    });
+    raf = moving ? requestAnimationFrame(step) : 0;
+  };
+  const speed = pick => { groups.forEach((_, i) => targets[i] = pick(i)); if (!raf) raf = requestAnimationFrame(step); };
+  const pill = flow.closest('.hero-art');
+  pill.addEventListener('mouseenter', () => speed(() => 3 + Math.random() * 13));
+  pill.addEventListener('mouseleave', () => speed(i => base[i]));
 })();
 
 // Footer waves: three lines that slowly swell and drift against each other
