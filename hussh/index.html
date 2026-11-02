@@ -118,7 +118,8 @@ ul,ol{margin:0;padding:0;list-style:none}
 .trust li{display:flex;align-items:center;gap:.5rem}
 .trust svg{width:16px;height:16px;color:var(--moss)}
 
-.hero-art{position:relative;aspect-ratio:1/2;width:100%;max-width:240px;justify-self:center;align-self:start;margin-top:calc(clamp(2.75rem,7vw,5.75rem) * .182)}
+/* pill starts just above the "P" and its shadow settles on the trust row separator; JS sets --art-bottom */
+.hero-art{position:relative;width:100%;max-width:240px;justify-self:center;align-self:stretch;margin-top:calc(clamp(2.75rem,7vw,5.75rem) * .182 - 12px);margin-bottom:var(--art-bottom,4.5rem)}
 .hero-art .photo{position:absolute;inset:0;border-radius:999px;overflow:hidden;background:var(--ink);box-shadow:0 20px 38px -19px rgba(30,42,35,.26)}
 .hero-art .streaks{width:100%;height:100%}
 .streaks-flow{animation:streak-rise 70s linear infinite;will-change:transform}
@@ -281,7 +282,7 @@ section{position:relative}
 @media (max-width:960px){
   .eco-list{grid-template-columns:repeat(4,1fr)}
   .hero .wrap{grid-template-columns:1fr}
-  .hero-art{max-width:192px;margin-inline:auto;margin-top:0}
+  .hero-art{display:none}
   .section-head{grid-template-columns:1fr}
   .section-head p{justify-self:start}
   .products{grid-template-columns:1fr}
@@ -643,6 +644,16 @@ document.querySelectorAll('.draw').forEach(svg => {
 
 // Hero light streaks: a 700-unit tile drawn three times so the upward drift loops seamlessly
 (function () {
+  // end the pill so its shadow meets the trust row separator
+  const art = document.querySelector('.hero-art'), trust = document.querySelector('.trust');
+  const alignArt = () => {
+    const col = trust.parentElement.getBoundingClientRect().bottom;
+    art.style.setProperty('--art-bottom', (col - trust.getBoundingClientRect().top + 18) + 'px');   // +18: its drop shadow lands on the line
+  };
+  alignArt();
+  addEventListener('resize', alignArt);
+  document.fonts && document.fonts.ready.then(alignArt);
+
   const flow = document.querySelector('.streaks-flow');
   if (!flow) return;
   const NS = "http://www.w3.org/2000/svg", H = 700;
