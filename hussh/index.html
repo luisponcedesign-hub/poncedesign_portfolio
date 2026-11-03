@@ -177,11 +177,13 @@ section{position:relative}
 @keyframes cloud-drift{from{transform:translate3d(-1.5%,.4%,0) scale(1.04)}to{transform:translate3d(var(--x,2%),var(--y,-.8%),0) scale(var(--s,1.1))}}
 .band figcaption{
   position:absolute;inset:auto var(--gutter) clamp(24px,4vw,48px) var(--gutter);
-  color:var(--paper);display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;
+  color:var(--paper);display:flex;justify-content:space-between;align-items:flex-end;align-items:last baseline;gap:2rem;
   max-width:var(--max);margin-inline:auto;
 }
 .band blockquote{margin:0;font-size:clamp(1.5rem,3.4vw,2.75rem);font-weight:300;letter-spacing:-.02em;line-height:1.15;max-width:20ch}
 .band small{font-size:.8rem;color:var(--paper);letter-spacing:.08em;text-transform:uppercase}
+/* caps sit on the quote's last baseline, then drop to the bottom of its "y" descender (.21em of the quote size) */
+.band small{transform:translateY(calc(clamp(1.5rem,3.4vw,2.75rem) * .21))}
 .band::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,28,23,.55),rgba(20,28,23,.15) 45%,rgba(20,28,23,0) 75%);pointer-events:none}
 .band figcaption{z-index:1;text-shadow:0 1px 12px rgba(20,28,23,.7)}
 
@@ -318,6 +320,7 @@ section{position:relative}
   .footer-cols{grid-template-columns:1fr 1fr}
   .brief li{grid-template-columns:1fr;gap:.25rem}
   .band figcaption{flex-direction:column;align-items:flex-start;gap:1rem}
+  .band small{transform:none}
   .hero .actions .btn{flex:1 1 100%;justify-content:center}
 }
 </style>
