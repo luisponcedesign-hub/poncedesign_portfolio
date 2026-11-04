@@ -1,0 +1,14 @@
+<svg width="36" height="36" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs>
+<mask id="gr-g">
+<rect width="1024" height="1024" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="490" cy="420" rx="128" ry="158" transform="rotate(22 490 420)" stroke-width="80"/>
+<path d="M606 270 L676 186" stroke-width="56"/>
+<path d="M378 560 C340 608 300 652 336 684 C364 708 440 700 520 702 C602 704 640 730 640 772 C640 830 566 846 486 846 L330 846" stroke-width="72"/>
+</g>
+<circle cx="686" cy="186" r="46" fill="#000"/>
+</mask>
+</defs>
+<circle cx="512" cy="512" r="512" fill="#6B6871" mask="url(#gr-g)"/>
+</svg>
