@@ -582,7 +582,7 @@ section{ position:relative; }
   /* Circular frame echoes the dots the portrait is built from. Background
      matches the section so the 3:4 source's white margins stay invisible. */
   aspect-ratio:1;
-  max-width:400px; margin-inline:auto;
+  max-width:335px; margin-inline:auto;
 }
 /* `contain` keeps the whole head-and-shoulders composition — `cover` would
    crop the shoulders off and press the head against the ring. The scale
