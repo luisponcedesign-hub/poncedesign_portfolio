@@ -286,6 +286,14 @@ def build_craft(c):
         % (round(0.04 * i, 2), esc(x['u']), esc(x['t']), esc(x['org']), esc(x['date']))
         for i, x in enumerate(c['certs']))
 
+    # the style guide link sits under the drifting-lines panel, in the same column
+    cta = ''
+    if c.get('cta'):
+        cta = ('        <p class="craft-cta" data-rv data-rv-delay="0.12">'
+               '<a class="btn ghost" href="%s">%s '
+               '<span class="arw" aria-hidden="true">→</span></a></p>\n'
+               % (esc(c['cta']['u']), esc(c['cta']['t'])))
+
     m = c['motion']
     return (
         '<section class="sec craft" id="craft">\n'
@@ -296,7 +304,10 @@ def build_craft(c):
         '        <h2 class="h2" data-rv>%s</h2>\n'
         '        <p class="lead" data-rv data-rv-delay="0.08">%s</p>\n'
         '      </div>\n'
-        '      <div class="craft-lines" aria-hidden="true" data-rv="fade"></div>\n'
+        '      <div class="craft-side">\n'
+        '        <div class="craft-lines" aria-hidden="true" data-rv="fade"></div>\n'
+        '%s'
+        '      </div>\n'
         '    </div>\n\n'
         '    <div class="cgrid">\n%s    </div>\n\n'
         '    <details class="certs" data-rv="fade">\n'
@@ -316,7 +327,7 @@ def build_craft(c):
         '        <p>%s</p>\n        <p>%s</p>\n'
         '      </div>\n      %s\n    </div>\n\n'
         '%s  </div>\n</section>\n'
-        % (esc(c['eyebrow']), head, esc(c['lead']), blocks,
+        % (esc(c['eyebrow']), head, esc(c['lead']), cta, blocks,
            esc(c['certs_title']), esc(c['certs_note']), certs,
            _motion_bg(m.get('bg')), esc(m['h']), _tags(m['tags']), m['p'], m['p2'],
            _reel_player(c.get('reel')), build_principles(c['principles'])))

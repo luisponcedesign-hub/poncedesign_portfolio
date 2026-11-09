@@ -1255,6 +1255,10 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .craft-head h2 .line{ display:block; }
 .craft-head h2 .line:last-child{ color:var(--ink-3); }
 .craft-head .lead{ margin:0; }
+/* right column: drifting-lines panel on top, style guide link under it */
+.craft-side{ display:flex; flex-direction:column; min-width:0; }
+.craft-side .craft-lines{ flex:1 1 auto; }
+.craft-cta{ margin:22px 0 0; }
 
 /* ---- capability blocks ------------------------------------- */
 .cgrid{
@@ -1268,8 +1272,6 @@ body.intro-running .mq-track{ animation-play-state:paused; }
 .cblk p{ margin:0 0 .9em; color:var(--ink-2); font-size:.98rem; }
 .cblk p:last-child{ margin-bottom:0; }
 .cblk p b{ color:var(--ink); font-weight:500; }
-/* a block's optional link out (Front end → style guide) sits clear of the prose */
-.cblk p.cblk-cta{ margin:28px 0 0; }
 
 .ttags{ display:flex; flex-wrap:wrap; gap:7px; margin:14px 0 16px; }
 .ttags li{
