@@ -30,6 +30,7 @@
   // portrait-about.js constants, kept identical
   const GATHER = 3.4, SPIN = 0.55;
   const MOUSE_R = 253, MOUSE_PUSH = 56;      // composition units
+  const SUN_R = 34, SUN_PUSH = 12;           // design units: the sunburst's own, gentler bubble
   const FIT_SCALE = 1.12, FIT_SHIFT = 0.02;
 
   const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
@@ -273,16 +274,21 @@
       const cs = Math.cos(SPIN * k), sn = Math.sin(SPIN * k);
       const { cx, cy } = this.face;
 
-      // cursor in design space; it only moves the portrait, fading out as it morphs
-      let mR2 = 0, mpx = 0, mpy = 0, push = 0;
+      // cursor in design space. The portrait and the sunburst each have their
+      // own bubble; one fades out and the other in as the morph runs.
+      let mR2 = 0, mpx = 0, mpy = 0, push = 0, sunPush = 0;
       const faceW = 1 - clamp(m * 3);
-      if (this.mouse.s > 0.002 && faceW > 0) {
+      const sunW = clamp((m - 1.5) * 2);
+      if (this.mouse.s > 0.002 && (faceW > 0 || sunW > 0)) {
         const box = this.canvas.getBoundingClientRect();
         const ratio = (this.css / this.scale) / box.width;   // survives CSS transforms
         mpx = (this.mouse.ex - box.left) * ratio - half;
         mpy = (this.mouse.ey - box.top) * ratio - half;
-        mR2 = this.mouseR * this.mouseR;
-        push = this.mousePush * this.mouse.s * faceW;
+        if (faceW > 0) {
+          mR2 = this.mouseR * this.mouseR;
+          push = this.mousePush * this.mouse.s * faceW;
+        }
+        sunPush = SUN_PUSH * this.mouse.s * sunW;
       }
       const facePos = (f, out) => {
         let x = f.x, y = f.y, rs = 1;
@@ -349,6 +355,8 @@
       const rot = this.reduced ? 0 : this.turn;
       const cR = Math.cos(rot), sR = Math.sin(rot);
       const span = 0.74;
+      // the whole sunburst breathes as it turns: a slow swell and settle (~5s a breath)
+      const breath = this.reduced ? 1 : 1 + 0.04 * Math.sin(t * 1.25) * alive;
       const list = m === 2 ? this.sunOnly : this.particles;
 
       const u = m / 2;          // single continuous phase
@@ -356,10 +364,10 @@
         // the sunburst target, alive: slow turn, breathing, thinking ripple
         const wave = Math.sin(t * 5 - p.sd * 6);
         const breathe = this.reduced ? 0 : 0.04 * Math.sin(t * 1.4 + p.sd * 3) * alive;
-        const pushOut = 1 + e * 0.05 * wave;
+        const pushOut = (1 + e * 0.05 * wave) * breath;
         const sx = (p.sx * cR - p.sy * sR) * pushOut;
         const sy = (p.sx * sR + p.sy * cR) * pushOut;
-        const sr = p.sr * (1 + breathe + e * 0.2 * wave);
+        const sr = p.sr * (1 + breathe + e * 0.2 * wave) * (1 + (breath - 1) * 0.5);
 
         let x, y, r, bucket;
         if (m === 2) {
@@ -380,6 +388,17 @@
           r = Math.max(0, lerp(tmp.r, sr, grow) * (1 + land));
           const mix = clamp(ta * 1.8 - 0.15);   // warms to orange early, while still small
           bucket = tmp.accent && mix === 0 ? BUCKETS + 1 : Math.round(mix * BUCKETS);
+        }
+        // sunburst dots step aside from the cursor; the eased strength
+        // brings them home once the pointer leaves
+        if (sunPush > 0) {
+          const dx = x - mpx, dy = y - mpy, d2 = dx * dx + dy * dy;
+          if (d2 < SUN_R * SUN_R) {
+            const d = Math.sqrt(d2);
+            let fz = 1 - d / SUN_R; fz *= fz;
+            const sh = (sunPush * fz) / (d || 1);
+            x += dx * sh; y += dy * sh;
+          }
         }
         if (r < this.minR) continue;
         paths[bucket].moveTo(x + r, y);
