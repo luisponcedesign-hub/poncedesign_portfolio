@@ -613,6 +613,17 @@ section{ position:relative; }
    what sticks now, so the field travels with the face. */
 .about .assistant{ position:sticky; top:104px; max-width:420px; margin-inline:auto; width:100%; }
 .about .assistant .portrait{ position:relative; top:auto; }
+/* In a session the sunburst steps down to 70% so the conversation gets the
+   room. `scale` (not `transform`) leaves the page reveal's transform alone,
+   and the negative margin gives back the height the shrink frees up. The
+   circle is min(column, 335px) wide, measured against the column (cqw). */
+.about .assistant{ container-type:inline-size; }
+.js .about .assistant .portrait.orb{
+  transform-origin:50% 0;
+  transition:opacity .78s var(--ease-out), transform .78s var(--ease-out),
+             scale .95s var(--ease-in-out), margin-bottom .95s var(--ease-in-out);
+}
+.about .assistant[data-state="open"] .portrait.orb{ scale:.7; margin-bottom:calc(min(100cqw, 335px) * -.3); }
 /* The canvas draws its own rim and is 1.4× the circle so the sunburst can
    breathe past it, so the frame stops clipping once the dots have taken over. */
 .portrait.orb.has-dots{ overflow:visible; border-color:transparent; background:transparent; }
@@ -668,7 +679,7 @@ section{ position:relative; }
 
 .thread{
   display:flex; flex-direction:column; gap:12px;
-  max-height:clamp(140px, calc(100vh - 640px), 360px); overflow-y:auto;
+  max-height:clamp(160px, calc(100vh - 540px), 460px); overflow-y:auto;
   padding:0 2px; font-size:.94rem; line-height:1.55; color:var(--ink);
 }
 .thread:empty{ display:none; }
@@ -1261,6 +1272,7 @@ body.intro-running .mq-track{ animation-play-state:paused; }
      but it still has to be the canvas's containing block */
   .portrait{ position:relative; top:auto; max-width:300px; }
   .about .assistant{ position:relative; top:auto; }
+  .about .assistant[data-state="open"] .portrait.orb{ margin-bottom:calc(min(100cqw, 300px) * -.3); }
   .thread{ max-height:min(52vh, 360px); }
   .mq-track img{ width:88px; }
   .stats{ grid-template-columns:repeat(2,1fr); column-gap:18px; }
