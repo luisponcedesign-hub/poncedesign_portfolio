@@ -5,9 +5,9 @@
    view, dots shoulder away from the cursor, a click replays the
    gather), drawn by DotOrb (chat-orb.js).
 
-   The sparkle on the circle's edge starts a session: the face cuts
-   to the orange sunburst and the text field opens left to right
-   underneath. The × in the field, or Esc, ends it.
+   "Talk to my AI" under the portrait starts a session: the face
+   turns into the orange sunburst and the text field opens left to
+   right underneath. The × in the field, or Esc, ends it.
 
    The <img> stays as the source of truth: alt text, print, and what
    shows if the canvas cannot start.
@@ -19,7 +19,7 @@
   if (!root) return;
   var orbEl    = root.querySelector('.orb');
   var canvas   = root.querySelector('.orb-canvas');
-  var toggle   = root.querySelector('.orb-toggle');
+  var toggle   = root.querySelector('.chat-cta');
   var closeBtn = root.querySelector('.composer-close');
   var panel    = root.querySelector('.chat-panel');
   var thread   = root.querySelector('.thread');

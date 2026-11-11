@@ -626,7 +626,8 @@ section{ position:relative; }
 .about .assistant[data-state="open"] .portrait.orb{ scale:.3; margin-bottom:calc(min(100cqw, 335px) * -.7); }
 /* The canvas draws its own rim and is 1.4× the circle so the sunburst can
    breathe past it, so the frame stops clipping once the dots have taken over. */
-.portrait.orb.has-dots{ overflow:visible; border-color:transparent; background:transparent; }
+.portrait.orb{ border-color:transparent; }   /* no outline: the circle is only the crop */
+.portrait.orb.has-dots{ overflow:visible; background:transparent; }
 .orb-canvas{
   position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
   display:block; pointer-events:none;   /* sized by chat-orb.js */
@@ -634,24 +635,29 @@ section{ position:relative; }
 .portrait.orb:not(.has-dots) .orb-canvas{ display:none; }
 .assistant[data-state="open"] .portrait.has-dots{ cursor:default; }
 
-.orb-toggle{
-  position:absolute; top:50%; left:100%; z-index:2;
-  width:30px; height:30px; margin:-15px 0 0 -15px; padding:0;
-  border-radius:50%; border:1px solid var(--line); background:var(--surface);
-  color:var(--orange); cursor:pointer; display:grid; place-items:center;
-  box-shadow:var(--shadow-sm);
-  transition:transform .4s var(--ease-out), opacity .35s ease, border-color .2s ease, box-shadow .2s ease;
+/* "Talk to my AI": a text call to action under the portrait. It folds
+   away while a session is open; closing lives in the field. */
+.chat-cta-row{
+  display:grid; grid-template-rows:1fr;
+  transition:grid-template-rows .95s var(--ease-in-out), opacity .4s ease;
 }
-.orb-toggle::before{ content:''; position:absolute; inset:-8px; border-radius:50%; }   /* bigger hit area */
-.orb-toggle:hover{ transform:scale(1.12); border-color:#F6CFAE; }
-.orb-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(232,99,11,.3); }
-.orb-toggle svg{ width:14px; height:14px; fill:currentColor; transition:transform .5s var(--ease-out); }
-.assistant[data-state="closed"] .orb:hover .orb-toggle svg{ animation:orb-twinkle 1.4s var(--ease-in-out) infinite; }
+/* overflow:hidden keeps the button's margins inside, so the row can fold to 0 */
+.chat-cta-fold{ min-height:0; overflow:hidden; display:flex; justify-content:center; }
+.chat-cta{
+  margin:22px 0 8px; padding:0 2px 9px; border:0; border-bottom:1.5px solid var(--ink);   /* bottom margin keeps the focus ring inside the folding row */
+  background:none; color:var(--ink); cursor:pointer;
+  display:inline-flex; align-items:center; gap:8px;
+  font:inherit; font-size:.95rem; font-weight:400; letter-spacing:.03em; text-transform:uppercase;
+  transition:color .2s ease, border-color .2s ease;
+}
+.chat-cta:hover{ color:var(--orange-deep); border-color:var(--orange); }
+.chat-cta:focus-visible{ outline:2px solid rgba(232,99,11,.6); outline-offset:4px; }
+.chat-cta svg{ width:18px; height:18px; fill:#F2AE3C; flex:none; }
+.chat-cta:hover svg,.assistant[data-state="closed"] .orb:hover ~ .chat-cta-row svg{ animation:orb-twinkle 1.4s var(--ease-in-out) infinite; }
 @keyframes orb-twinkle{ 50%{ transform:rotate(45deg) scale(1.2); } }
-/* while a session is open the sparkle steps away; closing lives in the field */
-.assistant[data-state="open"] .orb-toggle{
-  opacity:0; visibility:hidden; pointer-events:none; transform:scale(.4) rotate(90deg);
-  transition:transform .4s var(--ease-out), opacity .3s ease, visibility 0s linear .4s;
+.assistant[data-state="open"] .chat-cta-row{
+  grid-template-rows:0fr; opacity:0; visibility:hidden;
+  transition:grid-template-rows .95s var(--ease-in-out), opacity .3s ease, visibility 0s linear .95s;
 }
 
 /* The panel takes no room while closed: its row grows open as the field
@@ -1332,8 +1338,8 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .js [data-rv]{ opacity:1 !important; transform:none !important; }
   .portrait-canvas{ display:none; }
   .portrait.has-dots img{ opacity:1; }
-  .orb-canvas,.orb-toggle,.chat-panel{ display:none !important; }
-  .portrait.orb.has-dots{ overflow:hidden; border-color:var(--line); }
+  .orb-canvas,.chat-cta-row,.chat-panel{ display:none !important; }
+  .portrait.orb.has-dots{ overflow:hidden; }
 }
 
 

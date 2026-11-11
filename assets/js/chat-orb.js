@@ -321,14 +321,7 @@
         ctx.arc(0, 0, R + 0.5 + clamp(m / 2) * 8, 0, TAU);
         ctx.clip();
       }
-      const ring = 1 - clamp(m * 2.2);
-      if (ring > 0) {
-        ctx.beginPath();
-        ctx.arc(0, 0, R, 0, TAU);
-        ctx.strokeStyle = `rgba(0,0,0,${0.1 * ring})`;
-        ctx.lineWidth = 1 / this.scale;
-        ctx.stroke();
-      }
+      // no drawn outline: the circle is only the crop
 
       const tmp = {};
       if (m === 0) {
