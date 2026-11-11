@@ -606,6 +606,116 @@ section{ position:relative; }
    gather, so the circle reads as something to put the pointer on */
 .portrait.has-dots{ cursor:pointer; }
 
+/* ---- About chat (chat.js, chat-orb.js, chat-ai.js) ----------
+   The portrait doubles as the chat: a sparkle on its rim starts a
+   session, the face cuts to an orange sunburst and the text field
+   opens left to right underneath. The column, not the circle, is
+   what sticks now, so the field travels with the face. */
+.about .assistant{ position:sticky; top:104px; max-width:420px; margin-inline:auto; width:100%; }
+.about .assistant .portrait{ position:relative; top:auto; }
+/* The canvas draws its own rim and is 1.4× the circle so the sunburst can
+   breathe past it, so the frame stops clipping once the dots have taken over. */
+.portrait.orb.has-dots{ overflow:visible; border-color:transparent; background:transparent; }
+.orb-canvas{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  display:block; pointer-events:none;   /* sized by chat-orb.js */
+}
+.portrait.orb:not(.has-dots) .orb-canvas{ display:none; }
+.assistant[data-state="open"] .portrait.has-dots{ cursor:default; }
+
+.orb-toggle{
+  position:absolute; top:50%; left:100%; z-index:2;
+  width:30px; height:30px; margin:-15px 0 0 -15px; padding:0;
+  border-radius:50%; border:1px solid var(--line); background:var(--surface);
+  color:var(--orange); cursor:pointer; display:grid; place-items:center;
+  box-shadow:var(--shadow-sm);
+  transition:transform .4s var(--ease-out), opacity .35s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.orb-toggle::before{ content:''; position:absolute; inset:-8px; border-radius:50%; }   /* bigger hit area */
+.orb-toggle:hover{ transform:scale(1.12); border-color:#F6CFAE; }
+.orb-toggle:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(232,99,11,.3); }
+.orb-toggle svg{ width:14px; height:14px; fill:currentColor; transition:transform .5s var(--ease-out); }
+.assistant[data-state="closed"] .orb:hover .orb-toggle svg{ animation:orb-twinkle 1.4s var(--ease-in-out) infinite; }
+@keyframes orb-twinkle{ 50%{ transform:rotate(45deg) scale(1.2); } }
+/* while a session is open the sparkle steps away; closing lives in the field */
+.assistant[data-state="open"] .orb-toggle{
+  opacity:0; visibility:hidden; pointer-events:none; transform:scale(.4) rotate(90deg);
+  transition:transform .4s var(--ease-out), opacity .3s ease, visibility 0s linear .4s;
+}
+
+/* The panel takes no room while closed: its row grows open as the field
+   is revealed left to right, both on the same clock. */
+.chat-panel{
+  --field-ms:.95s;
+  display:grid; grid-template-rows:0fr;
+  transition:grid-template-rows var(--field-ms) var(--ease-in-out);
+}
+.assistant[data-state="open"] .chat-panel{ grid-template-rows:1fr; }
+.chat-inner{
+  min-height:0; overflow:hidden;
+  display:flex; flex-direction:column; gap:14px;
+  padding:0 2px;   /* padding would hold the closed row open; the spacer below is clipped away */
+  clip-path:inset(0 100% 0 0 round 14px);
+  transition:clip-path var(--field-ms) var(--ease-in-out);
+}
+.assistant[data-state="open"] .chat-inner{ clip-path:inset(0 0 0 0 round 14px); }
+.chat-inner::before{ content:''; flex:none; height:14px; }   /* + the gap: 28px below the circle */
+.chat-inner > *{
+  opacity:0; transform:translateX(-12px);
+  transition:opacity calc(var(--field-ms) * .4) ease, transform var(--field-ms) var(--ease-in-out);
+}
+.assistant[data-state="open"] .chat-inner > *{ opacity:1; transform:none; }
+
+.thread{
+  display:flex; flex-direction:column; gap:12px;
+  max-height:clamp(140px, calc(100vh - 640px), 360px); overflow-y:auto;
+  padding:0 2px; font-size:.94rem; line-height:1.55; color:var(--ink);
+}
+.thread:empty{ display:none; }
+.msg{ max-width:88%; white-space:pre-wrap; animation:msg-in .45s var(--ease-out) both; }
+.msg-user{ align-self:flex-end; background:var(--bg-tint); border-radius:14px 14px 4px 14px; padding:8px 13px; }
+.msg-ai{ align-self:flex-start; }
+.msg-ai[data-pending]::after{
+  content:''; display:inline-block; width:6px; height:6px; margin-left:4px; border-radius:50%;
+  background:var(--orange); vertical-align:middle; animation:msg-blink 1s ease-in-out infinite;
+}
+.msg-ai a{ color:inherit; text-decoration:underline; text-decoration-color:var(--orange); text-underline-offset:3px; word-break:break-word; }
+.msg-ai a:hover{ color:var(--orange); }
+.msg-error{ color:var(--ink-3); }
+@keyframes msg-in{ from{ opacity:0; transform:translateY(6px); } }
+@keyframes msg-blink{ 50%{ opacity:.2; } }
+
+.composer{
+  position:relative; min-height:88px;
+  border:1px solid var(--line-strong); border-radius:12px; background:var(--surface);
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:12px 12px 12px 16px; transition:border-color .2s ease;
+}
+.composer:focus-within{ border-color:var(--muted); }
+.composer-close{
+  position:absolute; top:10px; left:10px; width:18px; height:18px; padding:0;
+  border:1px solid #C4C4C4; border-radius:50%; background:transparent; color:#A8A8A8; cursor:pointer;
+  display:grid; place-items:center; transition:border-color .15s ease, color .15s ease;
+}
+.composer-close::before{ content:''; position:absolute; inset:-8px; border-radius:50%; }   /* bigger hit area */
+.composer-close:hover{ border-color:var(--ink-3); color:var(--ink); }
+.composer-close svg{ width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; }
+.composer-row{ display:flex; align-items:flex-end; gap:12px; }
+.composer textarea{
+  flex:1; min-width:0; max-height:160px; border:0; outline:0; resize:none; background:transparent;
+  font:inherit; font-size:.94rem; line-height:20px; color:var(--ink); padding:4px 0;
+}
+.composer textarea::placeholder{ color:var(--ink-3); }
+.composer-send{
+  flex:none; width:30px; height:30px; padding:0; border:0; border-radius:50%;
+  background:var(--ink); color:#fff; cursor:pointer; display:grid; place-items:center;
+  opacity:.25; transition:opacity .2s ease, background .15s ease;
+}
+.composer[data-has-text] .composer-send{ opacity:1; }
+.composer-send:hover{ background:var(--ink-2); }
+.composer-send svg{ width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.composer-close:focus-visible,.composer-send:focus-visible{ outline:2px solid rgba(232,99,11,.6); outline-offset:1px; }
+
 .about .lead{ margin-bottom:1.15em; }
 .about p{ color:var(--ink-2); }
 .about p strong{ color:var(--ink); font-weight:500; }
@@ -1150,6 +1260,8 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   /* relative, not static: the circle drops out of the sticky column here,
      but it still has to be the canvas's containing block */
   .portrait{ position:relative; top:auto; max-width:300px; }
+  .about .assistant{ position:relative; top:auto; }
+  .thread{ max-height:min(52vh, 360px); }
   .mq-track img{ width:88px; }
   .stats{ grid-template-columns:repeat(2,1fr); column-gap:18px; }
   .stats li{ padding:22px 0; }
@@ -1208,6 +1320,8 @@ body.intro-running .mq-track{ animation-play-state:paused; }
   .js [data-rv]{ opacity:1 !important; transform:none !important; }
   .portrait-canvas{ display:none; }
   .portrait.has-dots img{ opacity:1; }
+  .orb-canvas,.orb-toggle,.chat-panel{ display:none !important; }
+  .portrait.orb.has-dots{ overflow:hidden; border-color:var(--line); }
 }
 
 

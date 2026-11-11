@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://poncedesign-chat.poncedesign.workers.dev https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <!-- connect-src carries api.web3forms.com so the contact modal can POST to it;
      default-src 'self' would otherwise block the request with no visible error.
      The access key lives in ACCESS_KEY in assets/js/main.js. -->
@@ -40,7 +40,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=6079e9d3">
+<link rel="stylesheet" href="assets/css/style.css?v=1a4d1e78">
 <link rel="stylesheet" href="assets/css/swiss.css?v=355cb10b">
 
 <script type="application/ld+json">
@@ -608,9 +608,33 @@
     </div>
 
     <div class="about-grid">
-      <div class="portrait" data-rv="scale">
-        <img src="assets/img/thumbs/lpl_headshot.jpg" alt="Halftone dot portrait of Luis Ponce de León" width="825" height="1100" loading="lazy" decoding="async">
-      </div>
+      <section class="assistant" data-state="closed" aria-label="Ask me about my work">
+        <div class="portrait orb" data-rv="scale">
+          <img src="assets/img/thumbs/lpl_headshot.jpg" alt="Halftone dot portrait of Luis Ponce de León" width="825" height="1100" loading="lazy" decoding="async">
+          <canvas class="orb-canvas" aria-hidden="true"></canvas>
+          <button class="orb-toggle" type="button" aria-label="Ask me about my work" aria-expanded="false" aria-controls="about-chat">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C12.6 7.6 16.4 11.4 22 12 16.4 12.6 12.6 16.4 12 22 11.4 16.4 7.6 12.6 2 12 7.6 11.4 11.4 7.6 12 2Z"/></svg>
+          </button>
+        </div>
+
+        <div class="chat-panel" id="about-chat" inert>
+          <div class="chat-inner">
+            <div class="thread" role="log" aria-live="polite"></div>
+            <form class="composer" autocomplete="off">
+              <button type="button" class="composer-close" aria-label="End conversation">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>
+              </button>
+              <label class="sr-only" for="about-prompt">Message</label>
+              <div class="composer-row">
+                <textarea id="about-prompt" rows="1" placeholder="Ask me anything about my work" maxlength="2000"></textarea>
+                <button type="submit" class="composer-send" aria-label="Send message">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18V6M6.5 11.5 12 6l5.5 5.5"/></svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
 
       <div>
         <p data-rv data-rv-delay="0.1">
@@ -810,7 +834,9 @@
 </dialog>
 
 <script src="assets/js/portrait-dots.js?v=2ac58e4b" defer></script>
-<script src="assets/js/portrait-about.js?v=ec416ab7" defer></script>
+<script src="assets/js/chat-orb.js?v=e9ac20be" defer></script>
+<script src="assets/js/chat-ai.js?v=5ea991b7" defer></script>
+<script src="assets/js/chat.js?v=23c51e64" defer></script>
 <script src="assets/js/craft-lines.js?v=a10bc109" defer></script>
 <script src="assets/js/main.js?v=4f9ee627"></script>
 </body>
