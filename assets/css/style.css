@@ -643,16 +643,13 @@ section{ position:relative; }
 }
 /* overflow:hidden keeps the button's margins inside, so the row can fold to 0 */
 .chat-cta-fold{ min-height:0; overflow:hidden; display:flex; justify-content:center; }
+/* Typography and border come from .btn.ghost, like "View résumé" */
 .chat-cta{
-  margin:22px 0 8px; padding:0 2px 9px; border:0; border-bottom:1.5px solid var(--ink);   /* bottom margin keeps the focus ring inside the folding row */
-  background:none; color:var(--ink); cursor:pointer;
-  display:inline-flex; align-items:center; gap:8px;
-  font:inherit; font-size:.95rem; font-weight:400; letter-spacing:.03em; text-transform:uppercase;
-  transition:color .2s ease, border-color .2s ease;
+  margin:22px 0 8px;   /* bottom margin keeps the focus ring inside the folding row */
+  font-family:inherit; cursor:pointer;
 }
-.chat-cta:hover{ color:var(--orange-deep); border-color:var(--orange); }
 .chat-cta:focus-visible{ outline:2px solid rgba(232,99,11,.6); outline-offset:4px; }
-.chat-cta svg{ width:18px; height:18px; fill:#F2AE3C; flex:none; }
+.chat-cta svg{ width:1em; height:1em; fill:#F2AE3C; flex:none; }   /* text-sized, so the button is as tall as "View résumé" */
 .chat-cta:hover svg,.assistant[data-state="closed"] .orb:hover ~ .chat-cta-row svg{ animation:orb-twinkle 1.4s var(--ease-in-out) infinite; }
 @keyframes orb-twinkle{ 50%{ transform:rotate(45deg) scale(1.2); } }
 .assistant[data-state="open"] .chat-cta-row{
