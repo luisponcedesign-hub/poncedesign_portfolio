@@ -708,7 +708,7 @@ section{ position:relative; }
 .composer:focus-within{ border-color:var(--muted); }
 .composer-close{
   position:absolute; top:10px; left:10px; width:18px; height:18px; padding:0;
-  border:1px solid #C4C4C4; border-radius:50%; background:transparent; color:#A8A8A8; cursor:pointer;
+  border:1px solid var(--muted); border-radius:50%; background:transparent; color:var(--muted); cursor:pointer;   /* --muted: 3.43:1, the 3:1 non text minimum */
   display:grid; place-items:center; transition:border-color .15s ease, color .15s ease;
 }
 .composer-close::before{ content:''; position:absolute; inset:-8px; border-radius:50%; }   /* bigger hit area */

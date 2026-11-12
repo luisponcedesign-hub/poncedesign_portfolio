@@ -37,7 +37,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=1d187dd4">
+<link rel="stylesheet" href="assets/css/style.css?v=a4e1fab7">
 <link rel="stylesheet" href="assets/css/swiss.css?v=355cb10b">
 <style>
   /* Guide scaffolding only. Every specimen below uses the site's own
@@ -172,6 +172,14 @@
   .sg-lines{ min-height:220px; }
   .sg-about{ background:transparent; }
   .sg-about .portrait{ position:relative; top:auto; max-width:260px; margin:0; }
+  /* the live chat specimen: same markup and scripts as About, minus the sticky column */
+  .sg-about .assistant{ position:relative; top:auto; max-width:300px; margin-inline:0; }   /* 300px: at or under both sizes the 30% shrink is measured against (335px, 300px on narrow screens) */
+  .sg-about .assistant .portrait{ max-width:none; }
+  .sg-chat{ max-width:420px; }
+  .sg-chat .thread{ max-height:none; overflow:visible; }
+  .sg-chat .msg{ animation:none; }
+  .sg-chat + .sg-meta{ margin-top:14px; }
+  .sg-chat .composer + .sg-meta{ margin:10px 0 22px; }
   .sg-drawer{ height:220px; padding:0; background:var(--bg-tint); }
   .sg-drawer-fill{
     position:absolute; inset:0; padding:22px 26px; background:var(--bg);
@@ -270,7 +278,7 @@
           <li data-fg="--orange-deep" data-bg="--bg" data-need="4.5"><span class="a11y-aa" style="color:var(--orange-deep);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Orange deep on white</b><i>Small orange labels, counts, hover states</i></span><span class="a11y-ratio">4.78:1</span><b class="a11y-pass">Pass</b></li>
           <li data-fg="--danger" data-bg="--danger-soft" data-need="4.5"><span class="a11y-aa" style="color:var(--danger);background:var(--danger-soft)">Aa</span><span class="a11y-pair"><b>Danger on danger soft</b><i>Form errors</i></span><span class="a11y-ratio">5.71:1</span><b class="a11y-pass">Pass</b></li>
           <li data-fg="--ok" data-bg="--bg" data-need="4.5"><span class="a11y-aa" style="color:var(--ok);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Positive on white</b><i>Upward trends</i></span><span class="a11y-ratio">5.32:1</span><b class="a11y-pass">Pass</b></li>
-          <li data-fg="--muted" data-bg="--bg" data-need="3"><span class="a11y-aa" style="color:var(--muted);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Muted on white</b><i>Chevrons and the wordmark only</i><span class="a11y-note">No longer used for text. Small labels moved to --ink-3.</span></span><span class="a11y-ratio">3.43:1</span><b class="a11y-pass">Pass</b></li>
+          <li data-fg="--muted" data-bg="--bg" data-need="3"><span class="a11y-aa" style="color:var(--muted);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Muted on white</b><i>Chevrons, the wordmark and the chat's close icon only</i><span class="a11y-note">No longer used for text. Small labels moved to --ink-3.</span></span><span class="a11y-ratio">3.43:1</span><b class="a11y-pass">Pass</b></li>
           <li data-fg="--orange" data-bg="--bg" data-need="3"><span class="a11y-aa" style="color:var(--orange);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Orange on white</b><i>Contact headline, menu hover: large type only</i><span class="a11y-note">Large text needs 3:1. Small labels moved to --orange-deep.</span></span><span class="a11y-ratio">3.37:1</span><b class="a11y-pass">Pass</b></li>
           <li data-fg="--orange" data-bg="--bg" data-need="3"><span class="a11y-aa" style="color:var(--orange);background:var(--bg)">Aa</span><span class="a11y-pair"><b>Focus ring on white</b><i>Keyboard focus outline</i><span class="a11y-note">Non text contrast needs 3:1.</span></span><span class="a11y-ratio">3.37:1</span><b class="a11y-pass">Pass</b></li>
         </ul>
@@ -288,7 +296,7 @@
         </ul>
       </section>
 
-      <p class="a11y-foot">Built in across the site: visible focus rings, <code>prefers-reduced-motion</code> support, <code>aria-pressed</code> filters with a live result count, an Escape to close menu, a native dialog for contact, and every page readable without JavaScript.</p>
+      <p class="a11y-foot">Built in across the site: visible focus rings, <code>prefers-reduced-motion</code> support, <code>aria-pressed</code> filters with a live result count, an Escape to close menu, a native dialog for contact, an AI chat announced through a polite live region, and every page readable without JavaScript.</p>
       </div>
     </details>
   </div>
@@ -325,6 +333,15 @@
         <div class="sg-sw"><i style="background:var(--ok)"></i><b>Positive</b><span class="sg-meta">--ok #1D7A4C</span></div>
         <div class="sg-sw"><i style="background:var(--danger)"></i><b>Danger</b><span class="sg-meta">--danger #B3261E</span></div>
         <div class="sg-sw"><i style="background:var(--danger-soft)"></i><b>Danger soft</b><span class="sg-meta">--danger-soft #FDECEA</span></div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>AI warmth</h3><p>The About chat warms the accent rather than adding a colour: the sparkle and the sunburst sit between Orange and Yellow. Both are fills only, never text.</p></header>
+      <div class="sg-demo sg-swatches">
+        <div class="sg-sw"><i style="background:#F2AE3C"></i><b>Sparkle</b><span class="sg-meta">.chat-cta svg #F2AE3C</span></div>
+        <div class="sg-sw"><i style="background:#F2994A"></i><b>Sunburst</b><span class="sg-meta">chat-orb.js ORANGE #F2994A</span></div>
+        <div class="sg-sw"><i style="background:linear-gradient(90deg,#16151A,#F2994A)"></i><b>Ink → sunburst</b><span class="sg-meta">portrait dots warm as they morph</span></div>
       </div>
     </div>
 
@@ -390,11 +407,12 @@
     <h2 class="h2" data-rv>Buttons, links &amp; navigation</h2>
 
     <div class="sg-row">
-      <header><h3>Buttons</h3><p>Tabs, not pills: tracked capitals on a 1px rule. Primary for the one action that matters, ghost for the alternative, quiet for a tertiary exit.</p></header>
+      <header><h3>Buttons</h3><p>Tabs, not pills: tracked capitals on a 1px rule. Primary for the one action that matters, ghost for the alternative, quiet for a tertiary exit. The AI ghost swaps the arrow for a text sized sparkle, so it stands as tall as its neighbours; the sparkle twinkles on hover.</p></header>
       <div class="sg-demo sg-inline">
         <div><a class="btn" href="#controls">Let's talk <span class="arw" aria-hidden="true">→</span></a><span class="sg-meta">.btn</span></div>
         <div><a class="btn ghost" href="#controls">See selected work <span class="arw" aria-hidden="true">→</span></a><span class="sg-meta">.btn.ghost</span></div>
         <div><a class="btn ghost quiet" href="#controls">PonceDesign Labs <span class="arw" aria-hidden="true">↗</span></a><span class="sg-meta">.btn.ghost.quiet</span></div>
+        <div><button class="btn ghost chat-cta" type="button" style="margin:0">Talk to my AI <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C12.6 7.6 16.4 11.4 22 12 16.4 12.6 12.6 16.4 12 22 11.4 16.4 7.6 12.6 2 12 7.6 11.4 11.4 7.6 12 2Z"/></svg></button><span class="sg-meta">.btn.ghost.chat-cta</span></div>
         <div><a class="btn lg" href="#controls">Download PDF <span class="arw" aria-hidden="true">↓</span></a><span class="sg-meta">.btn.lg</span></div>
         <div><button class="btn" type="button" disabled style="opacity:.55;pointer-events:none">Sending</button><span class="sg-meta">disabled</span></div>
       </div>
@@ -627,6 +645,20 @@
     </div>
 
     <div class="sg-row">
+      <header><h3>Chat thread</h3><p>The About conversation. Your messages sit right on a tint with one tucked corner; replies run left as plain text with no bubble, so the answer reads like the rest of the page. Links in a reply take an orange underline. A pulsing orange dot holds the place while a reply is on its way, and errors drop to Ink 3.</p></header>
+      <div class="sg-demo sg-chat">
+        <div class="thread" role="log" aria-label="Example conversation">
+          <div class="msg msg-user">What did you design for Seismic's AI?</div>
+          <div class="msg msg-ai">Ask Aura, a chat room for generative analytics. Users ask a question in plain language and the answer shows how it was reached. The case study is at <a href="work/aura-chat-room.html">poncedesign.com/work/aura-chat-room.html</a></div>
+          <div class="msg msg-user">And the voice version?</div>
+          <div class="msg msg-ai" data-pending>Aura Voice took the same answers to mobile</div>
+          <div class="msg msg-ai msg-error">Something went wrong. Please try again.</div>
+        </div>
+        <span class="sg-meta">.thread[role=log][aria-live=polite] · .msg-user 14px 14px 4px 14px on --bg-tint · .msg-ai · [data-pending] dot · .msg-error --ink-3 · links built as DOM nodes, never innerHTML</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
       <header><h3>Pager</h3><p>Previous and next at the foot of every case study.</p></header>
       <div class="sg-demo">
         <nav class="pager" aria-label="Example pager">
@@ -743,14 +775,55 @@
     </div>
 
     <div class="sg-row">
-      <header><h3>Dot portrait</h3><p>The About headshot is drawn from the same dot field as the home page intro. It spirals in as it scrolls up, then stops on the settled frame. Click it to gather again.</p></header>
+      <header><h3>Dot portrait</h3><p>The About headshot is drawn from the same dot field as the home page intro. It spirals in as it scrolls up, then stops on the settled frame. Dots step out of the cursor's way, and a click gathers it again.</p></header>
       <div class="sg-demo">
         <div class="about sg-about">
-          <div class="portrait">
-            <img src="assets/img/thumbs/lpl_headshot.jpg" alt="Halftone dot portrait of Luis Ponce de León" width="825" height="1100" loading="lazy" decoding="async">
-          </div>
+          <section class="assistant" data-state="closed" aria-label="Talk to my AI demo">
+            <div class="portrait orb">
+              <img src="assets/img/thumbs/lpl_headshot.jpg" alt="Halftone dot portrait of Luis Ponce de León" width="825" height="1100" loading="lazy" decoding="async">
+              <canvas class="orb-canvas" aria-hidden="true"></canvas>
+            </div>
+
+            <div class="chat-cta-row"><div class="chat-cta-fold">
+              <button class="btn ghost chat-cta" type="button" aria-expanded="false" aria-controls="sg-chat">
+                <span>Talk to my AI</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C12.6 7.6 16.4 11.4 22 12 16.4 12.6 12.6 16.4 12 22 11.4 16.4 7.6 12.6 2 12 7.6 11.4 11.4 7.6 12 2Z"/></svg>
+              </button>
+            </div></div>
+
+            <div class="chat-panel" id="sg-chat" inert>
+              <div class="chat-inner">
+                <div class="thread" role="log" aria-live="polite"></div>
+                <form class="composer" autocomplete="off">
+                  <button type="button" class="composer-close" aria-label="End conversation">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>
+                  </button>
+                  <label class="sr-only" for="sg-prompt">Message</label>
+                  <div class="composer-row">
+                    <textarea id="sg-prompt" rows="1" placeholder="Ask me anything about my work" maxlength="2000"></textarea>
+                    <button type="submit" class="composer-send" aria-label="Send message">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18V6M6.5 11.5 12 6l5.5 5.5"/></svg>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
         </div>
-        <span class="sg-meta">portrait-about.js · the &lt;img&gt; stays as alt text, print and reduced motion fallback</span>
+        <span class="sg-meta">chat-orb.js (DotOrb) · gather 3.4s · the &lt;img&gt; stays as alt text, print and no canvas fallback</span>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Talk to my AI</h3><p>The portrait above is the chat. Press Talk to my AI: every dot heads for its nearest sunburst dot, swelling and warming to orange, while the circle steps down to 30% and the field opens left to right beneath it. The sunburst turns slowly and breathes about every five seconds, ripples while it thinks, settles as the reply streams in, and still steps aside from the cursor. The × or Esc plays it all backwards and hands focus back to the button.</p></header>
+      <div class="sg-demo">
+        <ul class="sg-rules">
+          <li><b>One move, two directions.</b> Opening and closing share a .95s <code>--ease-in-out</code> clock: the morph, the 30% shrink, the button folding away and the field's clip-path reveal all land together, and closing runs the same path in reverse.</li>
+          <li><b>Activity, not decoration.</b> The sunburst's energy is 1 while thinking, .45 while speaking and 0 at rest, so its ripple tracks what the AI is actually doing.</li>
+          <li><b>Reduced motion.</b> The morph shortens to 500ms, the turn, breathing and gather stop, and messages appear without rising. The cursor push stays, because it answers the visitor.</li>
+          <li><b>This demo is offline.</b> The guide runs the site's real chat.js and chat-orb.js, but replies come from a canned stand-in for chat-ai.js, so nothing is sent to the chat Worker.</li>
+        </ul>
+        <span class="sg-meta">[data-state="open"] · morphTo(2) · scale .3 · .chat-cta-row 1fr → 0fr · .chat-inner clip-path inset(0 100% 0 0) → 0 · setActivity('thinking' | 'speaking' | 'idle')</span>
       </div>
     </div>
 
@@ -807,6 +880,30 @@
           <label for="sg-co">Company <span class="opt">(optional)</span></label>
           <input id="sg-co" type="text" autocomplete="off">
         </div>
+      </div>
+    </div>
+
+    <div class="sg-row">
+      <header><h3>Chat composer</h3><p>The field that opens under the About sunburst. A hairline box that darkens on focus, an × in the corner to end the conversation, and a round ink send button that stays faint until there's something to send. It grows with the text up to 160px. Enter sends, Shift+Enter adds a line, Esc closes.</p></header>
+      <div class="sg-demo sg-chat">
+        <div class="composer">
+          <button type="button" class="composer-close" aria-label="End conversation" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button>
+          <label class="sr-only" for="sg-prompt-empty">Message</label>
+          <div class="composer-row">
+            <textarea id="sg-prompt-empty" rows="1" placeholder="Ask me anything about my work" tabindex="-1"></textarea>
+            <button type="button" class="composer-send" aria-label="Send message" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18V6M6.5 11.5 12 6l5.5 5.5"/></svg></button>
+          </div>
+        </div>
+        <span class="sg-meta">.composer · empty: send at 25% opacity</span>
+        <div class="composer" data-has-text style="border-color:var(--muted)">
+          <button type="button" class="composer-close" aria-label="End conversation" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button>
+          <label class="sr-only" for="sg-prompt-text">Message</label>
+          <div class="composer-row">
+            <textarea id="sg-prompt-text" rows="1" tabindex="-1">How do you work with engineers?</textarea>
+            <button type="button" class="composer-send" aria-label="Send message" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18V6M6.5 11.5 12 6l5.5 5.5"/></svg></button>
+          </div>
+        </div>
+        <span class="sg-meta" style="margin-bottom:0">.composer[data-has-text] · focused: border --muted · 30px send on --ink · min-height 88px · radius 12px</span>
       </div>
     </div>
 
@@ -1004,6 +1101,30 @@
 <script src="assets/js/main.js?v=4f9ee627"></script>
 <script src="assets/js/craft-lines.js?v=a10bc109" defer></script>
 <script src="assets/js/portrait-dots.js?v=2ac58e4b" defer></script>
-<script src="assets/js/portrait-about.js?v=ec416ab7" defer></script>
+<script>
+  // Stand-in for chat-ai.js: the guide demos the real chat.js and DotOrb
+  // without calling the chat Worker. Same contract, AI.respond(messages,
+  // { onToken, signal }), streaming a canned reply word by word.
+  window.AI = {
+    respond: function (messages, opts) {
+      var reply = "This is the style guide's offline demo, so this reply is canned. " +
+        "On the live site the same field asks Claude, which answers only from what's on poncedesign.com. " +
+        "Try it in the About section: https://www.poncedesign.com/#about";
+      var words = reply.split(/(\s+)/), i = 0;
+      return new Promise(function (resolve, reject) {
+        var t;
+        function abort() { clearTimeout(t); var e = new Error('Aborted'); e.name = 'AbortError'; reject(e); }
+        if (opts.signal) opts.signal.addEventListener('abort', abort);
+        t = setTimeout(function step() {
+          if (i >= words.length) return resolve();
+          opts.onToken(words[i++] + (words[i] || '')); i++;
+          t = setTimeout(step, 45);
+        }, 1400);   // long enough to see the "thinking" ripple
+      });
+    }
+  };
+</script>
+<script src="assets/js/chat-orb.js?v=8b424e80" defer></script>
+<script src="assets/js/chat.js?v=088a4fba" defer></script>
 </body>
 </html>
