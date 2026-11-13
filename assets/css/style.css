@@ -628,6 +628,7 @@ section{ position:relative; }
   scale:var(--dock-s, .2);
   translate:var(--dock-x, 0px) var(--dock-y, 0px);
   margin-bottom:var(--dock-mb, 0px);
+  z-index:1;   /* above .chat-inner, which spans the column and would swallow the cursor */
 }
 .about .assistant .composer{ transition:border-color .2s ease, margin-left .95s var(--ease-in-out); }
 .about .assistant[data-state="open"] .composer{ margin-left:var(--dock-gap, 76px); }
