@@ -337,11 +337,12 @@
     </div>
 
     <div class="sg-row">
-      <header><h3>AI warmth</h3><p>The About chat warms the accent rather than adding a colour: the sparkle and the sunburst sit between Orange and Yellow. Both are fills only, never text.</p></header>
+      <header><h3>AI warmth</h3><p>The About chat adds no colour of its own. At rest the sunburst is Line strong grey, so it sits quietly beside the field; the only warmth is the sparkle, which sits between Orange and Yellow and lights the dots under the cursor. Both are fills only, never text.</p></header>
       <div class="sg-demo sg-swatches">
-        <div class="sg-sw"><i style="background:#F2AE3C"></i><b>Sparkle</b><span class="sg-meta">.chat-cta svg #F2AE3C</span></div>
-        <div class="sg-sw"><i style="background:#F2994A"></i><b>Sunburst</b><span class="sg-meta">chat-orb.js ORANGE #F2994A</span></div>
-        <div class="sg-sw"><i style="background:linear-gradient(90deg,#16151A,#F2994A)"></i><b>Ink → sunburst</b><span class="sg-meta">portrait dots warm as they morph</span></div>
+        <div class="sg-sw"><i style="background:#F2AE3C"></i><b>Sparkle</b><span class="sg-meta">.chat-cta svg · chat-orb.js SPARKLE #F2AE3C</span></div>
+        <div class="sg-sw"><i style="background:#CFCFD2"></i><b>Sunburst</b><span class="sg-meta">chat-orb.js ORANGE #CFCFD2 (Line strong)</span></div>
+        <div class="sg-sw"><i style="background:linear-gradient(90deg,#16151A,#CFCFD2)"></i><b>Ink → sunburst</b><span class="sg-meta">portrait dots fade to grey as they morph</span></div>
+        <div class="sg-sw"><i style="background:radial-gradient(circle,#F2AE3C 0,#F2AE3C 18%,#CFCFD2 72%)"></i><b>Sunburst → sparkle</b><span class="sg-meta">dots under the cursor, strongest at its centre</span></div>
       </div>
     </div>
 
@@ -815,15 +816,17 @@
     </div>
 
     <div class="sg-row">
-      <header><h3>Talk to my AI</h3><p>The portrait above is the chat. Press Talk to my AI: every dot heads for its nearest sunburst dot, swelling and warming to orange, while the circle steps down to 30% and the field opens left to right beneath it. The sunburst turns slowly and breathes about every five seconds, ripples while it thinks, settles as the reply streams in, and still steps aside from the cursor. The × or Esc plays it all backwards and hands focus back to the button.</p></header>
+      <header><h3>Talk to my AI</h3><p>The portrait above is the chat. Press Talk to my AI: every dot heads for its nearest sunburst dot, swelling and fading to grey, while the circle shrinks to a 56px sphere and docks inline, to the left of the field that opens left to right. The sphere aligns with the column's left edge, where the text below starts, and stays centred on the field as the thread grows. It turns slowly and breathes about every five seconds, ripples while it thinks, and settles as the reply streams in. Under the cursor its dots step aside and light up in the sparkle colour, easing back to grey when the pointer leaves. The × or Esc plays it all backwards and hands focus back to the button.</p></header>
       <div class="sg-demo">
         <ul class="sg-rules">
-          <li><b>One move, two directions.</b> Opening and closing share a .95s <code>--ease-in-out</code> clock: the morph, the 30% shrink, the button folding away and the field's clip-path reveal all land together, and closing runs the same path in reverse.</li>
+          <li><b>One move, two directions.</b> Opening and closing share a .95s <code>--ease-in-out</code> clock: the morph, the shrink and slide into the dock, the button folding away, the field's clip-path reveal and its step to the right all land together, and closing runs the same path in reverse.</li>
+          <li><b>Docked, not stacked.</b> The sphere stays in flow but gives back all its height, so it takes no room in the column. chat.js measures the dock (<code>--dock-x</code>, <code>--dock-y</code>, <code>--dock-s</code>, <code>--dock-mb</code>) and the field only steps aside (<code>--dock-gap</code>) when the column is too narrow to leave 24px between them.</li>
+          <li><b>Grey until touched.</b> The sunburst is a quiet Line strong grey so the conversation leads. The sparkle colour appears only where the cursor is, fading out over a 40 unit radius (the circle is 112), and only once the sphere has fully bloomed.</li>
           <li><b>Activity, not decoration.</b> The sunburst's energy is 1 while thinking, .45 while speaking and 0 at rest, so its ripple tracks what the AI is actually doing.</li>
           <li><b>Reduced motion.</b> The morph shortens to 500ms, the turn, breathing and gather stop, and messages appear without rising. The cursor push stays, because it answers the visitor.</li>
           <li><b>This demo is offline.</b> The guide runs the site's real chat.js and chat-orb.js, but replies come from a canned stand-in for chat-ai.js, so nothing is sent to the chat Worker.</li>
         </ul>
-        <span class="sg-meta">[data-state="open"] · morphTo(2) · scale .3 · .chat-cta-row 1fr → 0fr · .chat-inner clip-path inset(0 100% 0 0) → 0 · setActivity('thinking' | 'speaking' | 'idle')</span>
+        <span class="sg-meta">[data-state="open"] · morphTo(2) · dock 56px, MIN_GAP 24px · HEAT_R 40 · .chat-cta-row 1fr → 0fr · .chat-inner clip-path inset(0 100% 0 0) → 0 · setActivity('thinking' | 'speaking' | 'idle')</span>
       </div>
     </div>
 
@@ -884,7 +887,7 @@
     </div>
 
     <div class="sg-row">
-      <header><h3>Chat composer</h3><p>The field that opens under the About sunburst. A hairline box that darkens on focus, an × in the corner to end the conversation, and a round ink send button that stays faint until there's something to send. It grows with the text up to 160px. Enter sends, Shift+Enter adds a line, Esc closes.</p></header>
+      <header><h3>Chat composer</h3><p>The field that opens beside the docked About sphere. A hairline box that darkens on focus, an × in the corner to end the conversation, and a round ink send button that stays faint until there's something to send. It grows with the text up to 160px. Enter sends, Shift+Enter adds a line, Esc closes.</p></header>
       <div class="sg-demo sg-chat">
         <div class="composer">
           <button type="button" class="composer-close" aria-label="End conversation" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button>
