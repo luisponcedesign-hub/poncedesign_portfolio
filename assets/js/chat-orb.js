@@ -25,12 +25,14 @@
 
   const INK = [22, 21, 26];           // #16151A — the site's ink
   const ACCENT = [232, 99, 11];       // #E8630B — the site's in-flight accent
-  const ORANGE = [242, 153, 74];      // sunburst
+  const ORANGE = [207, 207, 210];     // sunburst — #CFCFD2 (--line-strong grey)
+  const SPARKLE = [242, 174, 60];     // #F2AE3C — the "Talk to my AI" sparkle; dots under the cursor
 
   // portrait-about.js constants, kept identical
   const GATHER = 3.4, SPIN = 0.55;
   const MOUSE_R = 253, MOUSE_PUSH = 56;      // composition units
   const SUN_R = 34, SUN_PUSH = 12;           // design units: the sunburst's own, gentler bubble
+  const HEAT_R = 40, HEAT_STEPS = 8;         // design units: the sparkle glow around the cursor
   const FIT_SCALE = 1.12, FIT_SHIFT = 0.02;
 
   const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
@@ -344,6 +346,9 @@
       // morphing: colours are bucketed so thousands of dots cost a handful of fills
       const BUCKETS = 12;
       const paths = Array.from({ length: BUCKETS + 2 }, () => new Path2D());
+      // dots near the cursor warm to the sparkle colour, bucketed the same way
+      const hot = Array.from({ length: HEAT_STEPS + 1 }, () => new Path2D());
+      const heatW = sunPush > 0 ? this.mouse.s * sunW : 0;
       const alive = clamp(m - 1);   // idle motion eases in over the second half
       const rot = this.reduced ? 0 : this.turn;
       const cR = Math.cos(rot), sR = Math.sin(rot);
@@ -382,10 +387,15 @@
           const mix = clamp(ta * 1.8 - 0.15);   // warms to orange early, while still small
           bucket = tmp.accent && mix === 0 ? BUCKETS + 1 : Math.round(mix * BUCKETS);
         }
-        // sunburst dots step aside from the cursor; the eased strength
-        // brings them home once the pointer leaves
+        // sunburst dots step aside from the cursor and light up in the
+        // sparkle colour; the eased strength brings them home once it leaves
+        let heat = 0;
         if (sunPush > 0) {
           const dx = x - mpx, dy = y - mpy, d2 = dx * dx + dy * dy;
+          if (d2 < HEAT_R * HEAT_R) {
+            const hz = 1 - Math.sqrt(d2) / HEAT_R;
+            heat = hz * hz * (3 - 2 * hz) * heatW * clamp((bucket === BUCKETS + 1 ? 0 : bucket) / BUCKETS);
+          }
           if (d2 < SUN_R * SUN_R) {
             const d = Math.sqrt(d2);
             let fz = 1 - d / SUN_R; fz *= fz;
@@ -394,8 +404,10 @@
           }
         }
         if (r < this.minR) continue;
-        paths[bucket].moveTo(x + r, y);
-        paths[bucket].arc(x, y, r, 0, TAU);
+        const h = Math.round(heat * HEAT_STEPS);
+        const path = h > 0 ? hot[h] : paths[bucket];
+        path.moveTo(x + r, y);
+        path.arc(x, y, r, 0, TAU);
       }
 
       for (let b = 0; b <= BUCKETS; b++) {
@@ -405,6 +417,11 @@
       }
       ctx.fillStyle = `rgb(${ACCENT})`;
       ctx.fill(paths[BUCKETS + 1]);
+      for (let h = 1; h <= HEAT_STEPS; h++) {
+        const c = h / HEAT_STEPS;
+        ctx.fillStyle = `rgb(${lerp(ORANGE[0], SPARKLE[0], c) | 0},${lerp(ORANGE[1], SPARKLE[1], c) | 0},${lerp(ORANGE[2], SPARKLE[2], c) | 0})`;
+        ctx.fill(hot[h]);
+      }
       ctx.restore();
     }
   }

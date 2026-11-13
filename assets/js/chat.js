@@ -59,6 +59,33 @@
   }
   root.classList.add('is-ready');
 
+  // ---------- Dock ----------
+  // In a session the sphere sits inline, left of the field. Its box stays in
+  // flow (margin gives the height back), so the offsets are measured here:
+  // shrink to DOCK px, slide out to the column's left edge (where the text
+  // below starts), centre on the field. The field only steps aside when the
+  // column is too narrow to leave MIN_GAP between them.
+  var DOCK = 56, MIN_GAP = 24;
+  function dock() {
+    var w = orbEl.offsetWidth;
+    if (!w) return;
+    var col = root.parentElement;
+    var colLeft = col.getBoundingClientRect().left + (parseFloat(getComputedStyle(col).paddingLeft) || 0);
+    var inset = Math.max(0, root.getBoundingClientRect().left - colLeft);   // column edge → assistant
+    var fieldTop = form.offsetTop - panel.offsetTop;   // where the field sits once the panel is open
+    root.style.setProperty('--dock-s', (DOCK / w).toFixed(4));
+    root.style.setProperty('--dock-x', -(inset + orbEl.offsetLeft) + 'px');
+    root.style.setProperty('--dock-y', (fieldTop + form.offsetHeight / 2 - DOCK / 2) + 'px');
+    root.style.setProperty('--dock-mb', -orbEl.offsetHeight + 'px');
+    root.style.setProperty('--dock-gap', Math.max(0, DOCK + MIN_GAP - inset) + 'px');
+  }
+  dock();
+  window.addEventListener('resize', dock);
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(dock);
+    ro.observe(root); ro.observe(thread); ro.observe(form);
+  }
+
   // ---------- Session ----------
   function setOpen(next) {
     if (next === open) return;
@@ -68,6 +95,7 @@
     panel.inert = !open;
 
     if (open) {
+      dock();
       if (orb) orb.morphTo(2);
       setTimeout(function () { if (open) input.focus({ preventScroll: true }); }, 420);
     } else {

@@ -613,17 +613,24 @@ section{ position:relative; }
    what sticks now, so the field travels with the face. */
 .about .assistant{ position:sticky; top:104px; max-width:420px; margin-inline:auto; width:100%; }
 .about .assistant .portrait{ position:relative; top:auto; }
-/* In a session the sunburst steps down to 30% so the conversation gets the
-   room. `scale` (not `transform`) leaves the page reveal's transform alone,
-   and the negative margin gives back the height the shrink frees up. The
-   circle is min(column, 335px) wide, measured against the column (cqw). */
 .about .assistant{ container-type:inline-size; }
+/* In a session the sunburst shrinks and docks inline, to the left of the
+   text field. chat.js measures the dock (--dock-x/-y/-s/-mb) so the sphere
+   follows the field as the thread grows; the negative margin gives back
+   all the height the circle had, so it takes no room in the column. */
 .js .about .assistant .portrait.orb{
-  transform-origin:50% 0;
+  transform-origin:0 0;
   transition:opacity .78s var(--ease-out), transform .78s var(--ease-out),
-             scale .95s var(--ease-in-out), margin-bottom .95s var(--ease-in-out);
+             scale .95s var(--ease-in-out), translate .95s var(--ease-in-out),
+             margin-bottom .95s var(--ease-in-out);
 }
-.about .assistant[data-state="open"] .portrait.orb{ scale:.3; margin-bottom:calc(min(100cqw, 335px) * -.7); }
+.about .assistant[data-state="open"] .portrait.orb{
+  scale:var(--dock-s, .2);
+  translate:var(--dock-x, 0px) var(--dock-y, 0px);
+  margin-bottom:var(--dock-mb, 0px);
+}
+.about .assistant .composer{ transition:border-color .2s ease, margin-left .95s var(--ease-in-out); }
+.about .assistant[data-state="open"] .composer{ margin-left:var(--dock-gap, 76px); }
 /* The canvas draws its own rim and is 1.4× the circle so the sunburst can
    breathe past it, so the frame stops clipping once the dots have taken over. */
 .portrait.orb{ border-color:transparent; }   /* no outline: the circle is only the crop */
@@ -1275,7 +1282,6 @@ body.intro-running .mq-track{ animation-play-state:paused; }
      but it still has to be the canvas's containing block */
   .portrait{ position:relative; top:auto; max-width:300px; }
   .about .assistant{ position:relative; top:auto; }
-  .about .assistant[data-state="open"] .portrait.orb{ margin-bottom:calc(min(100cqw, 300px) * -.7); }
   .thread{ max-height:min(52vh, 360px); }
   .mq-track img{ width:88px; }
   .stats{ grid-template-columns:repeat(2,1fr); column-gap:18px; }
