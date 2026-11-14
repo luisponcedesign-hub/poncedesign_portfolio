@@ -659,6 +659,9 @@ section{ position:relative; }
 .chat-cta:focus-visible{ outline:2px solid rgba(232,99,11,.6); outline-offset:4px; }
 .chat-cta svg{ width:1em; height:1em; fill:#F2AE3C; flex:none; }   /* text-sized, so the button is as tall as "View résumé" */
 .chat-cta:hover svg,.assistant[data-state="closed"] .orb:hover ~ .chat-cta-row svg{ animation:orb-twinkle 1.4s var(--ease-in-out) infinite; }
+/* The AI sparkle on any other button: text sized, twinkles on hover */
+.btn .spark{ width:1em; height:1em; fill:#F2AE3C; flex:none; }
+.btn:hover .spark{ animation:orb-twinkle 1.4s var(--ease-in-out) infinite; }
 @keyframes orb-twinkle{ 50%{ transform:rotate(45deg) scale(1.2); } }
 .assistant[data-state="open"] .chat-cta-row{
   grid-template-rows:0fr; opacity:0; visibility:hidden;
