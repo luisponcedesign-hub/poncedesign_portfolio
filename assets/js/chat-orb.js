@@ -33,6 +33,7 @@
   const MOUSE_R = 253, MOUSE_PUSH = 56;      // composition units
   const SUN_R = 34, SUN_PUSH = 12;           // design units: the sunburst's own, gentler bubble
   const HEAT_R = 40, HEAT_STEPS = 8;         // design units: the sparkle glow around the cursor
+  const TWIST = 0.5;                         // radians: how far the dots turn round the centre mid morph
   const FIT_SCALE = 1.12, FIT_SHIFT = 0.02;
 
   const clamp = (v, a = 0, b = 1) => (v < a ? a : v > b ? b : v);
@@ -374,7 +375,9 @@
           facePos(p.f, tmp);
           const raw = clamp((u - p.d) / span);
           const ta = easeInOutSine(raw);
-          const sw = Math.sin(Math.PI * ta) * 0.12 * p.spin;   // a slight drift, not a spin
+          // a gentle turn round the centre that peaks mid flight and unwinds
+          // as the dots land, so the face turns into the sphere
+          const sw = this.reduced ? 0 : Math.sin(Math.PI * ta) * TWIST * p.spin;
           const bx = lerp(tmp.x, sx, ta), by = lerp(tmp.y, sy, ta);
           const c = Math.cos(sw), s = Math.sin(sw);
           x = bx * c - by * s;
@@ -392,7 +395,7 @@
         let heat = 0;
         if (sunPush > 0) {
           const dx = x - mpx, dy = y - mpy, d2 = dx * dx + dy * dy;
-          if (d2 < HEAT_R * HEAT_R) {
+          if (m === 2 && d2 < HEAT_R * HEAT_R) {   // the sparkle is a hover on the settled sphere only, never part of the morph
             const hz = 1 - Math.sqrt(d2) / HEAT_R;
             heat = hz * hz * (3 - 2 * hz) * heatW * clamp((bucket === BUCKETS + 1 ? 0 : bucket) / BUCKETS);
           }

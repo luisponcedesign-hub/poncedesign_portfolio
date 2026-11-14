@@ -62,22 +62,26 @@
   // ---------- Dock ----------
   // In a session the sphere sits inline, left of the field. Its box stays in
   // flow (margin gives the height back), so the offsets are measured here:
-  // shrink to DOCK px, slide out to the column's left edge (where the text
-  // below starts), centre on the field. The field only steps aside when the
-  // column is too narrow to leave MIN_GAP between them.
-  var DOCK = 56, MIN_GAP = 24;
+  // shrink to DOCK px and centre it, both ways, in the space between the
+  // page's left edge and the field. The field only steps right when that
+  // space is too narrow to leave EDGE px either side of the sphere.
+  var DOCK = 56, EDGE = 16;
   function dock() {
     var w = orbEl.offsetWidth;
     if (!w) return;
-    var col = root.parentElement;
-    var colLeft = col.getBoundingClientRect().left + (parseFloat(getComputedStyle(col).paddingLeft) || 0);
-    var inset = Math.max(0, root.getBoundingClientRect().left - colLeft);   // column edge → assistant
+    var rootLeft = root.getBoundingClientRect().left;
+    // the field's resting left edge in the viewport, read from its container
+    // (not the field itself, whose margin is what this sets)
+    var inner = form.parentElement;
+    var fieldLeft = rootLeft + inner.offsetLeft + (parseFloat(getComputedStyle(inner).paddingLeft) || 0);
+    var gap = Math.round(Math.max(0, DOCK + 2 * EDGE - fieldLeft));
+    var sphereLeft = (fieldLeft + gap - DOCK) / 2;
     var fieldTop = form.offsetTop - panel.offsetTop;   // where the field sits once the panel is open
     root.style.setProperty('--dock-s', (DOCK / w).toFixed(4));
-    root.style.setProperty('--dock-x', -(inset + orbEl.offsetLeft) + 'px');
+    root.style.setProperty('--dock-x', Math.round(sphereLeft - rootLeft - orbEl.offsetLeft) + 'px');
     root.style.setProperty('--dock-y', (fieldTop + form.offsetHeight / 2 - DOCK / 2) + 'px');
     root.style.setProperty('--dock-mb', -orbEl.offsetHeight + 'px');
-    root.style.setProperty('--dock-gap', Math.max(0, DOCK + MIN_GAP - inset) + 'px');
+    root.style.setProperty('--dock-gap', gap + 'px');
   }
   dock();
   window.addEventListener('resize', dock);
