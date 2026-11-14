@@ -97,12 +97,17 @@
     object-fit: cover;
   }
 
+  /* The controls sit above the stage, at its right edge, where they are
+     seen first. They are outside the stage, so pressing them never reaches
+     the stage's own pointer handlers. */
+  .stage-wrap { position: relative; }
+
   .stage-bar {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 0.5rem;
-    padding: 1rem 0 0;
+    padding: 0 0 0.75rem;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -111,16 +116,18 @@
 
   .stage-bar button {
     padding: 0.4rem 0.9rem;
-    border: 1px solid #3a3a3a;
+    border: 1px solid rgba(242, 239, 233, 0.35);
     border-radius: 999px;
-    background: none;
+    background: rgba(0, 0, 0, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     color: #f2efe9;
     font: inherit;
     letter-spacing: inherit;
     cursor: pointer;
   }
 
-  .stage-bar button:hover { border-color: #8a8a8a; }
+  .stage-bar button:hover { border-color: #f2efe9; background: rgba(0, 0, 0, 0.75); }
 
   .stage-bar button:focus-visible {
     outline: 2px solid #f2efe9;
@@ -159,14 +166,14 @@
   <p>Movements</p>
 </header>
 
-<div class="frame">
+<div class="frame stage-wrap">
+  <div class="stage-bar">
+    <button type="button" class="stage-sound">Sound on</button>
+  </div>
   <div class="stage">
     <video src="../assets/video/holocene.mp4" poster="../assets/video/holocene.jpg"
            muted loop playsinline preload="auto" disablepictureinpicture
            aria-label="Holocene: a sped-up, looping montage of handheld footage."></video>
-  </div>
-  <div class="stage-bar">
-    <button type="button" class="stage-sound">Sound on</button>
   </div>
 </div>
 </section>
