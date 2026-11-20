@@ -458,6 +458,7 @@ def case_page(p, prev_p, next_p):
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="../index.html#work">Work</a>
+      <a href="../services.html">Services</a>
       <a href="../index.html#craft">Craft</a>
       <a href="../index.html#about">About</a>
       <a href="../index.html#contact">Contact</a>
@@ -473,6 +474,7 @@ def case_page(p, prev_p, next_p):
 
 <div class="drawer" id="drawer" aria-hidden="true">
   <a href="../index.html#work">Work</a>
+  <a href="../services.html">Services</a>
   <a href="../index.html#craft">Craft</a>
   <a href="../index.html#about">About</a>
   <a href="../index.html#contact">Contact</a>
@@ -633,7 +635,7 @@ def stamp_assets():
                 digests[real] = hashlib.sha1(f.read()).hexdigest()[:8]
         return digests[real]
 
-    pages = [os.path.join(ROOT, n) for n in ('index.html', 'resume.html', 'styleguide.html')
+    pages = [os.path.join(ROOT, n) for n in ('index.html', 'services.html', 'resume.html', 'styleguide.html')
              if os.path.exists(os.path.join(ROOT, n))] + [
         os.path.join(ROOT, 'work', n)
         for n in sorted(os.listdir(os.path.join(ROOT, 'work')))
@@ -698,7 +700,7 @@ def main():
         f.write(idx)
 
     # 3. sitemap
-    urls = (['%s/' % SITE, '%s/resume.html' % SITE, '%s/styleguide.html' % SITE]
+    urls = (['%s/' % SITE, '%s/services.html' % SITE, '%s/resume.html' % SITE, '%s/styleguide.html' % SITE]
             + ['%s/work/%s.html' % (SITE, p['slug']) for p in projects])
     sm = ('<?xml version="1.0" encoding="UTF-8"?>\n'
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
