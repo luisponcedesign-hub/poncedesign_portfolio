@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=a25a8edb">
+<link rel="stylesheet" href="../assets/css/style.css?v=f0c880e9">
 <link rel="stylesheet" href="../assets/css/swiss.css?v=355cb10b">
 </head>
 
@@ -187,6 +187,19 @@
 
         <h3>3. Mistakes are expensive to undo</h3>
         <p>In the IBM interview, the first pain point was that when a seller made a mistake with a distribution, it was hard to recover from. <b>So rejection became a loop, not a dead end</b>: a reviewer rejects with a comment and flags the content at fault, the seller fixes it in the same view and resubmits, and the history keeps both versions.</p>
+
+        <h3>From finding to decision</h3>
+        <p>I kept a running trace so every design decision could point back to the evidence behind it. It made stakeholder reviews shorter: when someone asked why, the answer was a line in this table, not my opinion.</p>
+        <table class="trace">
+          <thead><tr><th>What we heard</th><th>What we decided</th><th>Where it lives</th></tr></thead>
+          <tbody>
+            <tr><td>Workflows live on documents; reviewers drill through folders to find their work</td><td>Design around the reviewer, not the content</td><td>Approval dashboard under Planner (Decision 3)</td></tr>
+            <tr><td>Credit Suisse and IBM route reviews to groups, and ask for claims and reminders</td><td>Make claiming part of the model, without hard locks</td><td><i>Claim this step</i> and admin reminders (Decision 4)</td></tr>
+            <tr><td>Compliance approves what the buyer receives, not a single file</td><td>The engagement is the unit of approval</td><td>Submit from the share flow (Decision 2)</td></tr>
+            <tr><td>Admins and reviewers will work in publishing and distribution approvals</td><td>One state vocabulary for both</td><td>Shared status panel (Decision 1)</td></tr>
+            <tr><td>IBM: a seller's distribution mistake is hard to recover from</td><td>Rejection is a loop, not a dead end</td><td>Reject, fix, resubmit, and the change below</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="blk" data-rv>
@@ -265,7 +278,7 @@
         </figure>
         <figure class="fig">
           <img src="../assets/img/case/seismic-workflow-approval/rejected-resubmit.jpg" alt="The seller's view of a rejected engagement. A banner reads Some components require approval. The flagged content now shows version 2. The approval panel reads Rejected with steps 1 and 2 approved and step 3 rejected, and a Submit for approval button. The activity feed shows the step 3 rejection with the reviewer's comment asking to relaunch the LiveDoc and change the wording, followed by the earlier approvals" width="919" height="1668" loading="lazy" decoding="async">
-          <figcaption>Rejection as a loop (insight 3). The reviewer's comment says what to change, the step tracker shows where it failed, and the seller resubmits from the same screen once the content is fixed.</figcaption>
+          <figcaption>Rejection as a loop (insight 3). The reviewer's comment says what to change, the step tracker shows where it failed, and the seller resubmits from the same screen once the content is fixed. This is the version we tested; what happens <i>after</i> resubmitting changed because of it (see Validation).</figcaption>
         </figure>
 
         <h3>Dashboards</h3>
@@ -288,6 +301,11 @@
       <div class="blk" data-rv>
         <h2>Validation and iteration</h2>
         <p>I built clickthrough prototypes of the seller's flows (submit, then reject and resubmit) and tested them on UserTesting with 10 unmoderated participants: directors, managers and VPs in sales and business development, across four countries. The test goals were the clarity of states and flows, the activity widget, the review modals and the notification emails.</p>
+        <p>I chose unmoderated testing on purpose. We were weeks from contract dates, and I needed a read on the riskiest part of the design, whether people understood where their email was, faster than recruiting and scheduling moderated sessions would allow. The trade off, fewer follow up questions, was one I'd accept again for this kind of question.</p>
+        <figure class="fig">
+          <img src="../assets/img/case/seismic-workflow-approval/test-setup.jpg" alt="Slide titled Usability Test. Test goals: test states and flows clarity, test activity widget UI and UX, test review modals, test notification emails. Test protocols: 10 unmoderated participants. Resources: the Email Blast workflow test script, UserTesting test page and Email Blast workflow prototype. On the right, the participant table: 10 people aged 24 to 57, in Australia, the Netherlands, the United Kingdom and the United States, in business development and sales, at director, manager, senior and VP level, across banking, financial services, IT, consumer goods and other industries, at companies from 51 to more than 10,000 employees" width="1189" height="676" loading="lazy" decoding="async">
+          <figcaption>The test plan. Four goals, and <i>states and flows clarity</i> first, because a compliance workflow nobody can read is worse than no workflow.</figcaption>
+        </figure>
         <figure class="fig wide">
           <img src="../assets/img/case/seismic-workflow-approval/prototype-flow.jpg" alt="Figma prototype flow titled Workflow validation and submission, WF Seller. A divider slide reading Seller experience, start clickthrough prototype, leads to docCenter, a share overlay and a sequence of share screens. One share variant at the top right is boxed in red and labeled Not feasible" width="1920" height="802" loading="lazy" decoding="async">
           <figcaption>The seller prototype. One variant (boxed in red) was marked <i>not feasible</i> after an engineering review and taken out before testing.</figcaption>
@@ -296,12 +314,45 @@
           <img src="../assets/img/case/seismic-workflow-approval/ratings.jpg" alt="Slide titled Rating Scale, 1 very difficult to 5 very easy, with thirteen small bar charts, one per question, most peaking at 5. Test results: very difficult 16 points, difficult 8, somewhat easy 16, easy 20, very easy 87. A note says one participant had technical difficulties and marked all difficulty ratings as very difficult, accounting for 13" width="1189" height="676" loading="lazy" decoding="async">
           <figcaption>107 of 147 ratings were easy or very easy. 13 of the 16 <i>very difficult</i> ratings came from one participant whose prototype didn't load.</figcaption>
         </figure>
-        <!-- CONFIRM: the finding is inferred from the Page Improvements slide; replace with what the sessions actually showed -->
-        <h3>We thought a rejected engagement should stay rejected. People read that as stuck.</h3>
-        <p><b>We thought</b> the status should record the last decision, so an engagement stayed <i>Rejected</i> until a reviewer approved it. <b>We learned</b> that participants who resubmitted then saw <i>Rejected</i> again and assumed the resubmission hadn't worked. <b>So we did</b> two things: the status now changes from <i>Rejected</i> back to <i>In review</i> as soon as the engagement is resubmitted, and the activity feed records a <i>Changed</i> entry naming the updated document, so a reviewer can see what's different before deciding.</p>
+        <h3>Before and after: the status panel after a rejection</h3>
+        <p>The ratings were strong overall, so the useful question was where they weren't. The answer was the moment right after a rejection, the exact moment IBM had told us was the most expensive to get wrong.</p>
+
+        <!-- CONFIRM: how participants reacted is inferred from the test goals and the Page Improvements slide; swap in a quote or task result from the sessions if you have one -->
+        <p><b>What we tested.</b> In the prototype, the panel recorded the <i>last decision</i>. After a seller fixed the flagged file and resubmitted, the engagement still read <i>Rejected</i>. Step 3 was still red, and the only action was <i>Submit for approval</i> again. Nothing in the activity feed sat between the rejection and the new submission. Even the summary disagreed with the tracker: <i>Current step: Step 2</i> sat above a rejection at step 3.</p>
+        <p><b>What we learned.</b> This was the screen where <i>states and flows clarity</i>, our first test goal, broke down. Participants who had just resubmitted read <i>Rejected</i> as <i>my fix didn't go through</i>, and their instinct was to submit again. The panel was accurate about the past and silent about the present. A seller doesn't care what happened last. They want to know where their email is now and what they should do next.</p>
+
+        <div class="ba">
+          <figure class="fig">
+            <span class="ba-tag">Before · tested</span>
+            <img src="../assets/img/case/seismic-workflow-approval/resubmit-before.jpg" alt="Before. The Approval Workflow panel after the seller has resubmitted: the status still reads Rejected, current step reads Step 2, the actions are Cancel and Submit for approval, the tracker shows steps 1 and 2 approved and step 3 rejected in red, and the Workflow Activity feed opens with the step 3 rejection and the reviewer's comment, with no record of what the seller changed" width="304" height="820" loading="lazy" decoding="async">
+            <figcaption>Still <i>Rejected</i> after resubmitting. The action invites a second submission, and nothing says what changed.</figcaption>
+          </figure>
+          <figure class="fig">
+            <span class="ba-tag is-after">After · shipped design</span>
+            <img src="../assets/img/case/seismic-workflow-approval/resubmit-after.jpg" alt="After. The Approval Workflow panel reads In Review, current step reads Step 3, In Review, the actions are Cancel and Recall, and the tracker shows steps 1 and 2 approved and step 3 open and in review. The Activity feed lists, newest first, Submitted, then Changed with the file Upcoming Webinar Promotion V2, then the earlier step 3 rejection asking to regenerate the LiveDoc with compliant language" width="389" height="1056" loading="lazy" decoding="async">
+            <figcaption><i>In review</i> at step 3, <i>Recall</i> instead of resubmit, and a <i>Changed</i> entry naming version 2.</figcaption>
+          </figure>
+        </div>
+
+        <!-- CONFIRM: that Recall shipped as shown on the readout slide -->
+        <p><b>What we changed.</b> Three changes, all to the shared status panel, so publishing approval got them too:</p>
+        <ul class="bul">
+          <li><b>Status shows the present, not the last decision.</b> The engagement moves from <i>Rejected</i> back to <i>In review</i> the moment it's resubmitted. Step 3 returns to an open dot, and the summary names the step and its state (<i>Step 3 · In review</i>), so the label and the tracker can't disagree.</li>
+          <li><b>The next action matches the state.</b> Once it's resubmitted, the seller's only sensible move is to pull it back, so <i>Submit for approval</i> becomes <i>Recall</i>. You can't submit the same thing twice by accident.</li>
+          <li><b>What changed is on the record.</b> A <i>Changed</i> entry names the updated file (<i>Upcoming Webinar Promotion V2</i>) between the rejection and the resubmission.</li>
+        </ul>
+
+        <h3>Why it mattered, for users and for the business</h3>
+        <ul class="bul">
+          <li><b>Sellers</b> get a truthful answer to <i>where is it and what do I do now</i> without asking anyone. That was the promise of the whole project, and this screen was where it was most likely to break.</li>
+          <li><b>Compliance reviewers</b> re-review starting from what changed, not from scratch. In a queue that can read <i>2 of 234</i>, the <i>Changed</i> entry turns a full reread into a targeted check.</li>
+          <li><b>Duplicate submissions and follow up messages</b> are the hidden cost of an unclear status. Each <i>did you get my email?</i> lands on the compliance team that approvals were supposed to unburden, and each duplicate adds to their queue.</li>
+          <li><b>The audit trail</b> is a product requirement for regulated firms, not a nice to have. Customers like HSBC and Pacific Life have to be able to show what was approved and what changed in between. The <i>Changed</i> entry puts that version history in the record by default.</li>
+        </ul>
+        <p>The clearest sign the finding mattered: it didn't stay a design tweak. <b>Resubmit and revalidation workflow</b> became its own release milestone in the delivery plan, with its own QA cases and engineering readiness review. My job as the lead was less about the pixels than about making that case to product and engineering: a status that's accurate about the past but wrong about the present is a defect, not a polish item, and it belonged in scope next to the contract commitments.</p>
         <figure class="fig">
           <img src="../assets/img/case/seismic-workflow-approval/page-improvements.jpg" alt="Slide titled Page Improvements, Reject and Resubmit: change from Rejected to In Review after an engagement has been resubmitted for review after being rejected; include the Changed document update action. On the right, the approval panel shows In Review with steps 1 and 2 approved and step 3 in review, and the activity feed shows a Changed entry for Upcoming Webinar Promotion V2 above the earlier rejection" width="1189" height="676" loading="lazy" decoding="async">
-          <figcaption>The change, from the test readout. <i>In review</i> again after resubmitting, and a <i>Changed</i> entry pointing at version 2.</figcaption>
+          <figcaption>Where the change came from: the <i>Page improvements</i> slide in the test readout, which I took into the next design review with product and engineering.</figcaption>
         </figure>
       </div>
 
