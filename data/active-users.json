@@ -1,15 +1,15 @@
 {
-  "value": 220,
-  "change": 0.0,
+  "value": 212,
+  "change": -4.5,
   "countries": {
-    "US": 172,
-    "IN": 8,
+    "US": 165,
+    "IN": 7,
     "GB": 5,
     "NL": 5,
     "SG": 4,
     "DE": 3,
+    "ES": 3,
     "CA": 2,
-    "ES": 2,
     "IR": 2,
     "KR": 2,
     "SE": 2,
@@ -26,5 +26,5 @@
     "UY": 1
   },
   "period": "last 30 days",
-  "updated": "2026-11-19T20:29Z"
+  "updated": "2026-11-20T20:07Z"
 }
