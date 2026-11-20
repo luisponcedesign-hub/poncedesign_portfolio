@@ -11,12 +11,17 @@
 
    The <img> stays as the source of truth: alt text, print, and what
    shows if the canvas cannot start.
+
+   Any other .assistant on a page (the services hero) works the same way
+   without a portrait: the button folds away and the field opens below.
    ============================================================ */
 (function () {
   'use strict';
 
-  var root = document.querySelector('.about .assistant');
-  if (!root) return;
+  if (!window.AI) return;
+  Array.prototype.forEach.call(document.querySelectorAll('.assistant'), init);
+
+  function init(root) {
   var orbEl    = root.querySelector('.orb');
   var canvas   = root.querySelector('.orb-canvas');
   var toggle   = root.querySelector('.chat-cta');
@@ -25,7 +30,6 @@
   var thread   = root.querySelector('.thread');
   var form     = root.querySelector('.composer');
   var input    = form.querySelector('textarea');
-  if (!window.AI) return;
 
   var orb = null;
   var open = false;
@@ -35,7 +39,7 @@
 
   // ---------- Orb ----------
   var D = window.PORTRAIT_DOTS;
-  if (window.DotOrb && D && D.dots && D.dots.length && canvas.getContext && canvas.getContext('2d')) {
+  if (orbEl && canvas && window.DotOrb && D && D.dots && D.dots.length && canvas.getContext && canvas.getContext('2d')) {
     try {
       orb = new DotOrb(orbEl, canvas, D);
       // as before: start dispersed and gather in once the circle is well in view
@@ -67,6 +71,7 @@
   // space is too narrow to leave EDGE px either side of the sphere.
   var DOCK = 56, EDGE = 16;
   function dock() {
+    if (!orbEl) return;
     var w = orbEl.offsetWidth;
     if (!w) return;
     var rootLeft = root.getBoundingClientRect().left;
@@ -116,7 +121,7 @@
   closeBtn.addEventListener('click', function () { setOpen(false); });
 
   // clicking the portrait replays the gather, as it always has
-  orbEl.addEventListener('click', function (e) {
+  if (orbEl) orbEl.addEventListener('click', function (e) {
     if (!open && orb && e.target !== toggle && !toggle.contains(e.target)) orb.gather();
   });
 
@@ -214,5 +219,6 @@
     thread.appendChild(el);
     thread.scrollTop = thread.scrollHeight;
     return el;
+  }
   }
 })();

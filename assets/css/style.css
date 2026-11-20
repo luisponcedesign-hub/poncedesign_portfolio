@@ -2069,6 +2069,13 @@ body.cmodal-open{ overflow:hidden; }
    ============================================================ */
 .svc-hero{ padding-bottom:clamp(56px,7vw,96px); }
 .svc-hero h1{ max-width:15ch; }
+.svc-hero .lead{ text-wrap:pretty; }
+/* "Ask my AI about my services": the same chat as About, without the
+   portrait. The button folds away and the field opens under the lead. */
+.svc-assistant{ max-width:60ch; margin-top:28px; }
+.svc-assistant .chat-cta-fold{ justify-content:flex-start; }
+.svc-assistant .chat-cta{ margin:0 0 8px; }
+.svc-assistant .chat-inner::before{ display:none; }
 
 .svc-tiles{
   display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
