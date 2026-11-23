@@ -20,6 +20,7 @@
   style.textContent =
     "html.embed, html.embed body { height: 100%; overflow: hidden; background: #000; }" +
     "html.embed .tabs, html.embed section > header, html.embed .stage-bar, html.embed footer { display: none; }" +
+    "html.embed .stage-wrap { position: static; }" +
     "html.embed .stage { position: absolute; left: 50%; margin: 0; min-height: 0;" +
     " top: max(calc(50% - var(--embed-h, 720px) * var(--embed-lift, 0)), calc(100% - var(--embed-h, 720px) / 2));" +
     " width: var(--embed-w, 1280px); height: var(--embed-h, 720px); transform: translate(-50%, -50%); }";
