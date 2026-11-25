@@ -147,11 +147,7 @@
         <blockquote class="pull">Mobile could show you things. It could not help you do anything. That is why the usage line was flat.</blockquote>
 
         <h2>The insight that set the direction</h2>
-        <p>I wrote the seller's day as a sequence of moments rather than a feature list. The same scene kept recurring, and it was not a screen at all. It was a commute.</p>
-        <figure class="fig">
-          <img src="../assets/img/case/mobile-aura-voice/day-in-the-life.jpg" alt="Day in the life notes describing a seller downloading documents and talking to Aura while driving to a client meeting" width="806" height="907" loading="lazy" decoding="async">
-          <figcaption>Day in the life of a seller: <i>&quot;On the way to the meeting, I download all the documents ready to be available offline in case the Wifi connection is poor&quot;</i> · <i>&quot;ask Aura to summarize the meeting details from previous engagements so I can listen to it as I drive.&quot;</i></figcaption>
-        </figure>
+        <p>I wrote the seller's day as a sequence of moments rather than a feature list. The same scene kept recurring, and it was not a screen at all. It was a commute: <i>&quot;On the way to the meeting, I download all the documents ready to be available offline in case the Wifi connection is poor,&quot;</i> then <i>&quot;ask Aura to summarize the meeting details from previous engagements so I can listen to it as I drive.&quot;</i></p>
         <p>Three insights came out of it, and each one killed a design option:</p>
         <ul class="bul">
           <li><b>The highest value minutes are hands free.</b> A seller preparing in the car cannot read. That made voice and audio output a requirement, and it is why podcast generation exists in this product at all.</li>
@@ -165,10 +161,6 @@
 
         <h2>The decision that mattered: where Aura lives</h2>
         <p>The tempting move was a floating assistant button over the existing app: cheap, fast, and what most products did that year. I argued against it: the audit had already shown the real problem was the app's structure, not its lack of a chat window. So I explored navigation from scratch.</p>
-        <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/navigation-explorations.jpg" alt="Navigation explorations showing seven tab bar variants plus side drawer, card grid and strip patterns for the Apps layer" width="1217" height="884" loading="lazy" decoding="async">
-          <figcaption>Navigation explorations. Seven tab bar configurations, then three competing patterns for the Apps layer: side drawer, card grid, and horizontal strip.</figcaption>
-        </figure>
         <p>The tradeoff was real. A <b>five tab bar</b> exposed more of the product but made every label unreadable. A <b>side drawer</b> kept the bar clean while hiding the whole catalogue behind a hamburger, the pattern that had made the old app forgettable. A <b>three tab bar</b> was elegant and overloaded one screen.</p>
         <p>I landed on <b>four tabs: Home, Apps, Search, Aura</b>, with the catalogue promoted into an Apps overlay. Aura became a first class destination with a permanent address, which is what later let it absorb chat, voice, search and history without another navigation rewrite.</p>
         <figure class="fig">
@@ -243,10 +235,6 @@
           <figcaption>Search, chat, voice and history as four states of one surface: the same input, the same thread, the same history.</figcaption>
         </figure>
         <p>Search started on paper and resolved into a conversational flow that ends somewhere a document list never could: a meeting summary with the action items already extracted.</p>
-        <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/aura-search.jpg" alt="Aura search sketches alongside a seven screen flow ending in a meeting summary with action items" width="1032" height="930" loading="lazy" decoding="async">
-          <figcaption>From sketch to flow. The seller asks about an upcoming meeting; Aura returns the engagement, then the summary, then the actions, rather than a list of files to open and read.</figcaption>
-        </figure>
 
         <h3>Voice, because the best minutes are hands free</h3>
         <p>Voice is the direct answer to the commute insight: the seller opens Aura, taps into a full screen listening state, and talks. When the session ends, the conversation is already in the thread as text they can scroll on arrival.</p>
