@@ -192,6 +192,50 @@
 
       <div class="blk" data-rv>
 
+        <h2>The first read: satisfaction before Aura Voice</h2>
+        <p>Before voice and podcast generation shipped, we put a two question CSAT poll inside the redesigned iOS app. Over 90 days, 6,082 sellers saw it and 1,009 rated the app. It was the first measure of the new structure on its own, without the AI features that came next.</p>
+        <div class="score">
+          <div class="score-head"><h3>CSAT on the redesigned app</h3><span>iOS · 90 days to May 2025</span></div>
+          <div class="score-row score-lead">
+            <div class="score-cell"><b>72.6%</b><i>Rated the app 4 or 5 out of 5</i></div>
+            <div class="score-cell"><b>4.06</b><i>Average rating out of 5</i></div>
+            <div class="score-cell"><b>50.6%</b><i>Gave it a perfect 5, the most common answer by far</i></div>
+          </div>
+          <p class="score-band">How 1,009 sellers rated it</p>
+          <div class="score-row">
+            <div class="score-cell" style="flex-basis:110px"><b>511</b><i>Rated 5 · very satisfied</i></div>
+            <div class="score-cell" style="flex-basis:110px"><b>222</b><i>Rated 4</i></div>
+            <div class="score-cell" style="flex-basis:110px"><b>170</b><i>Rated 3</i></div>
+            <div class="score-cell" style="flex-basis:110px"><b>42</b><i>Rated 2</i></div>
+            <div class="score-cell" style="flex-basis:110px"><b>64</b><i>Rated 1 · very dissatisfied</i></div>
+          </div>
+          <p class="score-band">Reach</p>
+          <div class="score-row score-quad">
+            <div class="score-cell" style="flex-basis:110px"><b>34.6K</b><i>Eligible iOS users</i></div>
+            <div class="score-cell" style="flex-basis:110px"><b>6,082</b><i>Saw the poll</i><u>17.6% of eligible</u></div>
+            <div class="score-cell" style="flex-basis:110px"><b>1,009</b><i>Rated the app</i><u>16.6% response rate</u></div>
+            <div class="score-cell" style="flex-basis:110px"><b>82</b><i>Left a written comment</i></div>
+          </div>
+          <p class="score-foot">Source: in-app guide metrics for the iOS CSAT poll, last 90 days as of May 14, 2025. 10.5% rated the app 1 or 2.</p>
+        </div>
+        <p>The written answers said where the rest of the gap was. Coding a sample of 38 comments by theme, very little was about how the app looked. Almost all of it was about finding content and getting to it in the field:</p>
+        <table class="trace">
+          <thead><tr><th>What sellers asked for</th><th>Share of comments</th><th>In their words</th></tr></thead>
+          <tbody>
+            <tr><td>Better search</td><td>26%</td><td><i>&quot;Hard to search… the content that comes up on the web version isn't showing in the app.&quot;</i></td></tr>
+            <tr><td>Filters and clearer organization</td><td>21%</td><td><i>&quot;Easier to filter, ie tech guides vs launch guide.&quot;</i></td></tr>
+            <tr><td>Speed and reliability on a weak signal</td><td>16%</td><td><i>&quot;Far too often it can't connect and load a page when I go to use it with a client.&quot;</i></td></tr>
+            <tr><td>Sharing, downloads and offline use</td><td>16%</td><td><i>&quot;A simple, one button download option for documents.&quot;</i></td></tr>
+            <tr><td>Staying signed in</td><td>11%</td><td><i>&quot;I have to login every time.&quot;</i></td></tr>
+            <tr><td>No change needed</td><td>18%</td><td><i>&quot;It is easy and fast to navigate. It's not cluttered.&quot;</i></td></tr>
+          </tbody>
+        </table>
+        <p>That gave the next phase its brief. The structure was working; what sellers still lacked was a faster way to the right answer when they were away from a desk and a good connection. That is the ground Aura search, voice and offline podcasts were designed to cover.</p>
+
+      </div>
+
+      <div class="blk" data-rv>
+
         <h2>Designing Aura as one surface, not four features</h2>
         <p>Chat, search, voice and history all answer the same question, <i>help me with this account</i>, so I designed them as one destination with four modes, not four entry points competing for the tab bar.</p>
         <figure class="fig wide">
@@ -277,6 +321,11 @@
         </figure>
 
         <h2>What shipped</h2>
+        <p>Search was the loudest ask in the CSAT comments, and by then it was also the second way into the same answers Aura could give. So we merged the two. Search folded into Aura, the tab bar dropped to <b>three tabs: Home, Apps, Aura</b>, and typing, asking and talking all start in one place.</p>
+        <figure class="fig wide">
+          <img src="../assets/img/case/mobile-aura-voice/aura-consolidated-shipped.jpg" alt="Six shipped screens: Home with events and resources, the Apps overlay listing seven areas, Aura chat with the keyboard open, an Aura answer about a meeting's takeaways and next steps, the full screen voice listening state, and the voice transcript returned to the thread with a voice chat ended notice" width="2000" height="596" loading="lazy" decoding="async">
+          <figcaption>As shipped, with search and AI in one tab. Home → Apps overlay → ask Aura by typing → the answer, with takeaways and next steps → switch to voice → <i>&quot;Voice chat ended&quot;</i> drops the spoken exchange into the same thread.</figcaption>
+        </figure>
         <p>The surfaces that came out of the rebuild, as they were presented to customers:</p>
         <figure class="fig wide" style="border:0;background:none;box-shadow:none;overflow:visible">
           <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch">
