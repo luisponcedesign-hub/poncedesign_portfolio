@@ -140,7 +140,7 @@
         <h2>Starting with the gap, not the screen</h2>
         <p>Before touching navigation I audited every job a seller does in the field against what mobile could actually do, and tagged each one <i>available</i> or <i>not available</i>.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/use-cases-audit.jpg" alt="Use case audit board grouping seller jobs into six workstreams, each user story tagged available or not available" width="1200" height="612" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/use-cases-audit.jpg" alt="Use case audit board grouping seller jobs into six workstreams, each user story tagged available or not available" width="1711" height="873" loading="lazy" decoding="async">
           <figcaption>Six workstreams: sales enablement in the field, training &amp; coaching, customer meetings, collaboration and sharing, performance insights, and authentication. Every user story is tagged against what Mobile actually supported.</figcaption>
         </figure>
         <p>The pattern was the finding. The stories marked <i>not available</i> were not edge cases. They were the moments that make the app worth opening: offline training material, customizing content before a meeting, sharing to LiveSocial, engagement analytics, biometric sign in. The ones marked <i>available</i> were mostly passive: view a document, present a deck.</p>
@@ -166,25 +166,25 @@
         <h2>The decision that mattered: where Aura lives</h2>
         <p>The tempting move was a floating assistant button over the existing app: cheap, fast, and what most products did that year. I argued against it: the audit had already shown the real problem was the app's structure, not its lack of a chat window. So I explored navigation from scratch.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/navigation-explorations.jpg" alt="Navigation explorations showing seven tab bar variants plus side drawer, card grid and strip patterns for the Apps layer" width="1200" height="872" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/navigation-explorations.jpg" alt="Navigation explorations showing seven tab bar variants plus side drawer, card grid and strip patterns for the Apps layer" width="1217" height="884" loading="lazy" decoding="async">
           <figcaption>Navigation explorations. Seven tab bar configurations, then three competing patterns for the Apps layer: side drawer, card grid, and horizontal strip.</figcaption>
         </figure>
         <p>The tradeoff was real. A <b>five tab bar</b> exposed more of the product but made every label unreadable. A <b>side drawer</b> kept the bar clean while hiding the whole catalogue behind a hamburger, the pattern that had made the old app forgettable. A <b>three tab bar</b> was elegant and overloaded one screen.</p>
         <p>I landed on <b>four tabs: Home, Apps, Search, Aura</b>, with the catalogue promoted into an Apps overlay. Aura became a first class destination with a permanent address, which is what later let it absorb chat, voice, search and history without another navigation rewrite.</p>
         <figure class="fig">
-          <img src="../assets/img/case/mobile-aura-voice/navigational-stack.jpg" alt="Navigational stack diagram showing the bottom tab bar, Apps overlay with seven stack navigators, and the personal settings, favorites and notifications overlays" width="1200" height="1866" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/navigational-stack.jpg" alt="Navigational stack diagram showing the bottom tab bar, Apps overlay with seven stack navigators, and the personal settings, favorites and notifications overlays" width="1600" height="2488" loading="lazy" decoding="async">
           <figcaption>The navigational stack. Bottom tab bar → Home, Apps, Aura/Search. Apps opens an overlay onto seven stack navigators, each with its own drill down: Channels, DocCenter, WorkSpace, Engagement, Learning, Skills, Programs. Personal settings, favorites and notifications are overlays, so they never trap the user in a stack.</figcaption>
         </figure>
         <p>Writing the stack out this way was the point at which the architecture became a contract with engineering. Every screen in the product now has one defined home, one defined back behavior, and one place to put the next feature.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/navigation-interaction-details.jpg" alt="Annotated navigation interaction details covering home, apps, personal settings, breadcrumb navigation and the offline notification" width="1200" height="496" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/navigation-interaction-details.jpg" alt="Annotated navigation interaction details covering home, apps, personal settings, breadcrumb navigation and the offline notification" width="2560" height="1059" loading="lazy" decoding="async">
           <figcaption>Interaction details specified alongside the structure: how personal settings opens and dismisses, how breadcrumbs collapse on drill down, and where the offline notification appears when the queue is unavailable.</figcaption>
         </figure>
 
         <h2>Removing the friction before the friction</h2>
         <p>The audit flagged authentication as <i>not available</i>, and the day in the life explained why that mattered: a seller with thirty seconds in a lobby will not type a password. I reduced sign in to one step with Face ID, and treated the entry moment as brand as well as plumbing.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/biometric-login.jpg" alt="Biometric login explorations comparing the existing login against a revised one step Face ID flow and several visual variations" width="1200" height="582" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/biometric-login.jpg" alt="Biometric login explorations comparing the existing login against a revised one step Face ID flow and several visual variations" width="1676" height="813" loading="lazy" decoding="async">
           <figcaption>Existing → revised → variations. One of the explorations proposed gradients that track the time of day, <i>&quot;bright in the morning, golden hour, and darker as the day comes to an end&quot;</i>, tying the app's first impression to when the seller actually opens it.</figcaption>
         </figure>
 
@@ -239,7 +239,7 @@
         <h2>Designing Aura as one surface, not four features</h2>
         <p>Chat, search, voice and history all answer the same question, <i>help me with this account</i>, so I designed them as one destination with four modes, not four entry points competing for the tab bar.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/aura-patterns.jpg" alt="Aura patterns showing search, chat, voice and history as consistent states of a single surface" width="1200" height="269" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/aura-patterns.jpg" alt="Aura patterns showing search, chat, voice and history as consistent states of a single surface" width="2560" height="575" loading="lazy" decoding="async">
           <figcaption>Search, chat, voice and history as four states of one surface: the same input, the same thread, the same history.</figcaption>
         </figure>
         <p>Search started on paper and resolved into a conversational flow that ends somewhere a document list never could: a meeting summary with the action items already extracted.</p>
@@ -251,7 +251,7 @@
         <h3>Voice, because the best minutes are hands free</h3>
         <p>Voice is the direct answer to the commute insight: the seller opens Aura, taps into a full screen listening state, and talks. When the session ends, the conversation is already in the thread as text they can scroll on arrival.</p>
         <figure class="fig">
-          <img src="../assets/img/case/mobile-aura-voice/aura-voice.png" alt="Aura Voice flow showing the chat entry point, a full screen listening state, and the transcribed conversation returned to the thread" width="1200" height="1106" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/aura-voice.png" alt="Aura Voice flow showing the chat entry point, a full screen listening state, and the transcribed conversation returned to the thread" width="1600" height="1475" loading="lazy" decoding="async">
           <figcaption>Aura Voice: entry, a deliberately empty listening state, and the return. <i>&quot;Voice chat ended&quot;</i> drops the full exchange into the thread, including the answer the seller actually needed: <i>&quot;They requested a copy of the ROI calculator and a meeting with a customer reference.&quot;</i></figcaption>
         </figure>
         <p>The listening state holds nothing but a waveform and a close control. Anything else is an invitation to look at the phone, and the whole point is that the seller is driving.</p>
@@ -259,7 +259,7 @@
         <h3>Podcast generation, because reading is not always possible</h3>
         <p>Podcast generation turns any page of enablement content into audio: the same insight as voice, pointed at the library instead of the assistant.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/podcast.png" alt="Podcast generation shown across the home screen, generating state, playback controls and a content page" width="1200" height="762" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/podcast.png" alt="Podcast generation shown across the home screen, generating state, playback controls and a content page" width="2560" height="1626" loading="lazy" decoding="async">
           <figcaption>&quot;Turn this page into a podcast, generated by Aura AI.&quot; A ten minute audio overview of a customer case study, generated on demand and playable at variable speed.</figcaption>
         </figure>
         <p>Two details carry most of the design thinking:</p>
@@ -268,11 +268,11 @@
           <li><b>Disappointment has a designed path.</b> Thumbs down opens a structured form covering shallow analysis, monotonous tone, inaccurate, repetitive and poor audio, so a bad generation becomes labelled training signal instead of an uninstall.</li>
         </ul>
         <figure class="fig">
-          <img src="../assets/img/case/mobile-aura-voice/podcast-patterns.png" alt="Podcast component states including idle, generating, playback, download and the structured feedback modal" width="1200" height="1263" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/podcast-patterns.png" alt="Podcast component states including idle, generating, playback, download and the structured feedback modal" width="1600" height="1685" loading="lazy" decoding="async">
           <figcaption>Every state specified: idle, generating with a stop, playback with speed and scrub, download for offline listening, and the feedback modal behind thumbs down. The AI disclaimer sits on every state, not just the first.</figcaption>
         </figure>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/podcast-flow.png" alt="End to end podcast flow from a content page through generation and playback into a saved playlist queue" width="1200" height="341" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/podcast-flow.png" alt="End to end podcast flow from a content page through generation and playback into a saved playlist queue" width="2560" height="727" loading="lazy" decoding="async">
           <figcaption>End to end: content page, generate, play, save. Generated overviews collect into a playlist card with an &quot;up next&quot; queue, so preparation for three meetings becomes one drive's worth of listening.</figcaption>
         </figure>
 
@@ -283,28 +283,28 @@
         <h2>Capturing the meeting, on whatever device is in the room</h2>
         <p>Recording was designed as a loop rather than a button: set up, record, review, and keep the recording attached to the engagement so it's still there next time.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/meeting-recording-flow.png" alt="Meeting recording flow across seven states from prep and present through recording, playback, saving and persistence" width="1200" height="480" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/meeting-recording-flow.png" alt="Meeting recording flow across seven states from prep and present through recording, playback, saving and persistence" width="2560" height="1024" loading="lazy" decoding="async">
           <figcaption>Seven states, specified end to end: prep &amp; present → record option → record controls → recording → play recording → recording saved → recording stays present on the engagement.</figcaption>
         </figure>
         <figure class="fig">
-          <img src="../assets/img/case/mobile-aura-voice/dsr-record.png" alt="Digital sales room on tablet showing the record option alongside the agenda and related learning" width="1200" height="675" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/dsr-record.png" alt="Digital sales room on tablet showing the record option alongside the agenda and related learning" width="1440" height="810" loading="lazy" decoding="async">
           <figcaption>The same flow on tablet, inside the digital sales room. Record sits beside Present, next to the agenda and Aura's recap of what happened last meeting.</figcaption>
         </figure>
 
         <h2>Social: a before and after with a compliance problem attached</h2>
         <p>Social posting existed on mobile but was effectively unusable: a cramped icon rail, and a feed with no way to tell scheduled posts from drafts. The redesign replaced the rail with explicit tabs and gave the feed the screen.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/social-current-vs-solution.png" alt="Social posting before and after, replacing a cramped icon rail with scheduled, recommended, draft and history tabs" width="1200" height="722" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/social-current-vs-solution.png" alt="Social posting before and after, replacing a cramped icon rail with scheduled, recommended, draft and history tabs" width="2404" height="1447" loading="lazy" decoding="async">
           <figcaption>Current vs solution. The icon rail becomes four named tabs, Scheduled, Recommended, Draft and History, and on scroll the header collapses to give the feed the full screen.</figcaption>
         </figure>
         <p>Aura then does the hardest part of social selling, which is starting. It drafts the post from the content being shared, in a selectable style, with insert and replace rather than an irreversible overwrite.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/social-aura-draft.png" alt="Aura drafting a social post from shared content with a selectable style and an insert and replace action" width="1200" height="571" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/social-aura-draft.png" alt="Aura drafting a social post from shared content with a selectable style and an insert and replace action" width="1819" height="865" loading="lazy" decoding="async">
           <figcaption>Draft post with a style selector. The generated copy is offered, never forced. &quot;Insert &amp; replace&quot; is an explicit choice, and the AI disclaimer travels with the draft.</figcaption>
         </figure>
         <p>In regulated industries a seller cannot simply post: content must clear a compliance partner first, and it can fail in several ways, each needing its own designed state rather than a generic error.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/social-compliance-states.png" alt="Compliance states for social posting including precheck approved, in review, not compliant, rejected, system error and success" width="1200" height="1470" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/social-compliance-states.png" alt="Compliance states for social posting including precheck approved, in review, not compliant, rejected, system error and success" width="2560" height="3136" loading="lazy" decoding="async">
           <figcaption>Compliance specified as a state machine: no connection, precheck approved, in review, not compliant, rejected, system error, success, plus a real time check before the seller commits to a post they cannot publish.</figcaption>
         </figure>
         <blockquote class="pull">Telling a seller their post was rejected is easy. Telling them before they write it is the design problem worth solving.</blockquote>
@@ -316,7 +316,7 @@
         <h2>Giving people a reason to come back</h2>
         <p>An app opened once a quarter never builds a habit. Rewards make the seller's own progress visible through streaks, assignments and points, so the loop closes on something other than a manager asking.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/mobile-rewards.jpg" alt="Mobile rewards concept from sketch through to a weekly streak and points screen" width="1200" height="756" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/mobile-rewards.jpg" alt="Mobile rewards concept from sketch through to a weekly streak and points screen" width="1453" height="915" loading="lazy" decoding="async">
           <figcaption>From the sketch, <i>&quot;engage with the app and get rewards&quot;</i>, to weekly streaks and points sitting inside Learning, where the effort actually happens.</figcaption>
         </figure>
 
@@ -326,34 +326,34 @@
           <div class="ba-scroll" tabindex="0" aria-label="Before and after screens, scroll sideways" style="display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;-webkit-overflow-scrolling:touch">
             <div style="flex:0 0 min(420px,86%);scroll-snap-align:start">
               <p style="margin:0 0 10px;font-weight:700;color:var(--ink)">Personalized home</p>
-              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-home.jpg" alt="Old home: a hamburger menu, content type pills and suggested files" width="600" height="1300" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-01.png" alt="New personalized home: search and find all of your content in a single place" width="572" height="1240" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
+              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-home.jpg" alt="Old home: a hamburger menu, content type pills and suggested files" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-01.jpg" alt="New personalized home: search and find all of your content in a single place" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
             </div>
             <div style="flex:0 0 min(420px,86%);scroll-snap-align:start">
               <p style="margin:0 0 10px;font-weight:700;color:var(--ink)">DocCenter</p>
-              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-doccenter.jpg" alt="Old DocCenter: a long curated hub page behind the hamburger menu" width="600" height="1300" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-05.png" alt="New DocCenter: curated content to view, send and more" width="572" height="1240" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
+              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-doccenter.jpg" alt="Old DocCenter: a long curated hub page behind the hamburger menu" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-05.jpg" alt="New DocCenter: curated content to view, send and more" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
             </div>
             <div style="flex:0 0 min(420px,86%);scroll-snap-align:start">
               <p style="margin:0 0 10px;font-weight:700;color:var(--ink)">WorkSpace</p>
-              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-workspace.jpg" alt="Old WorkSpace: a flat file list with tabs that run off the screen" width="600" height="1300" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-04.png" alt="New WorkSpace: organize and manage all your content" width="572" height="1240" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
+              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-workspace.jpg" alt="Old WorkSpace: a flat file list with tabs that run off the screen" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-04.jpg" alt="New WorkSpace: organize and manage all your content" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
             </div>
             <div style="flex:0 0 min(420px,86%);scroll-snap-align:start">
               <p style="margin:0 0 10px;font-weight:700;color:var(--ink)">Learning</p>
-              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-learning.jpg" alt="Old Learning: a single certification card with a progress bar" width="600" height="1300" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-06.png" alt="New Learning: take lessons and build your skills on the go" width="572" height="1240" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
+              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-learning.jpg" alt="Old Learning: a single certification card with a progress bar" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-06.jpg" alt="New Learning: take lessons and build your skills on the go" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
             </div>
             <div style="flex:0 0 min(420px,86%);scroll-snap-align:start">
               <p style="margin:0 0 10px;font-weight:700;color:var(--ink)">Email</p>
-              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-email.jpg" alt="Old email: send email with link, with attached content and link settings" width="600" height="1300" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-07.png" alt="New email: send the latest content to keep buyers engaged" width="572" height="1240" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
+              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag">Before</span><img src="../assets/img/case/mobile-aura-voice/before-email.jpg" alt="Old email: send email with link, with attached content and link settings" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">After</span><img src="../assets/img/case/mobile-aura-voice/feature-07.jpg" alt="New email: send the latest content to keep buyers engaged" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
             </div>
             <div style="flex:0 0 min(420px,86%);scroll-snap-align:start">
               <p style="margin:0 0 10px;font-weight:700;color:var(--ink)">New in the redesign</p>
-              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">New</span><img src="../assets/img/case/mobile-aura-voice/feature-03.png" alt="Aura AI: Aura helps you find, write, learn and summarize" width="572" height="1240" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">New</span><img src="../assets/img/case/mobile-aura-voice/feature-02.png" alt="Podcast: consume content on the go and hands free" width="572" height="1240" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
+              <div style="display:flex;gap:10px"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">New</span><img src="../assets/img/case/mobile-aura-voice/feature-03.jpg" alt="Aura AI: Aura helps you find, write, learn and summarize" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);background:var(--surface)"><span class="ba-tag is-after">New</span><img src="../assets/img/case/mobile-aura-voice/feature-02.jpg" alt="Podcast: consume content on the go and hands free" width="900" height="1951" loading="lazy" decoding="async" style="display:block;width:100%;height:auto"></div></div>
             </div>
           </div>
           <figcaption style="border:1px solid var(--line);border-radius:8px;margin-top:12px">Before → after: Personalized home · DocCenter · WorkSpace · Learning · Email, then the two new surfaces, Aura AI and Podcast. Scroll the row; tap any screen to enlarge.</figcaption>
         </figure>
         <p>Then came one more consolidation. Search was the loudest ask in the CSAT comments, and by then it was also the second way into the same answers Aura could give. So we merged the two. Search folded into Aura, the tab bar dropped to <b>three tabs: Home, Apps, Aura</b>, and typing, asking and talking all start in one place.</p>
         <figure class="fig wide">
-          <img src="../assets/img/case/mobile-aura-voice/aura-consolidated-shipped.jpg" alt="Six shipped screens: Home with events and resources, the Apps overlay listing seven areas, Aura chat with the keyboard open, an Aura answer about a meeting's takeaways and next steps, the full screen voice listening state, and the voice transcript returned to the thread with a voice chat ended notice" width="2000" height="596" loading="lazy" decoding="async">
+          <img src="../assets/img/case/mobile-aura-voice/aura-consolidated-shipped.jpg" alt="Six shipped screens: Home with events and resources, the Apps overlay listing seven areas, Aura chat with the keyboard open, an Aura answer about a meeting's takeaways and next steps, the full screen voice listening state, and the voice transcript returned to the thread with a voice chat ended notice" width="2560" height="763" loading="lazy" decoding="async">
           <figcaption>As shipped, with search and AI in one tab. Home → Apps overlay → ask Aura by typing → the answer, with takeaways and next steps → switch to voice → <i>&quot;Voice chat ended&quot;</i> drops the spoken exchange into the same thread.</figcaption>
         </figure>
         <p class="lead-link" style="margin-top:26px"><a class="linkout" href="https://apps.apple.com/us/app/seismic-software/id639973703" target="_blank" rel="noopener">Seismic Software on the App Store <span aria-hidden="true">↗</span></a></p>
