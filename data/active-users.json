@@ -1,8 +1,8 @@
 {
-  "value": 223,
-  "change": 7.7,
+  "value": 220,
+  "change": 5.3,
   "countries": {
-    "US": 175,
+    "US": 172,
     "GB": 6,
     "IN": 5,
     "NL": 5,
@@ -26,5 +26,5 @@
     "VN": 1
   },
   "period": "last 30 days",
-  "updated": "2026-11-26T21:26Z"
+  "updated": "2026-11-27T08:19Z"
 }
